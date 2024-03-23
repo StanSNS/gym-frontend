@@ -1,0 +1,129 @@
+.footerSection {
+    margin-top: 2rem;
+    padding: 1rem;
+    background-color: #333;
+    color: #fff;
+    display: flex;
+    flex-direction: column;
+}
+
+.footer {
+    padding: 20px;
+    display: flex;
+    justify-content: space-around;
+}
+
+.subFooter {
+    display: flex;
+    justify-content: center;
+    font-weight: bolder;
+}
+
+.footerLogoImage {
+    width: 80px;
+    color: white !important;
+    fill: white !important;
+    filter: brightness(0) invert(1);
+}
+
+.logoLink {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    color: white;
+    text-decoration: none;
+    transition: all 0.3s ease-in-out;
+}
+
+.logoLink:hover {
+    color: orangered;
+    scale: 1.03;
+}
+
+.categoryColumn, .dealsColumn, .followUsColumn, .aboutColumn {
+    width: 180px;
+    display: flex;
+    flex-direction: column;
+}
+
+.footerActionButtons {
+    height: 170px;
+    display: flex;
+    flex-direction: column;
+    justify-content: space-around;
+}
+
+.columnTitle {
+    font-weight: bolder;
+    font-size: 20px;
+    color: white;
+    text-decoration: none;
+}
+
+.columnContent {
+    color: white;
+    text-decoration: none;
+    transition: all 0.3s ease;
+    font-weight: 600;
+    padding-left: 1.6rem;
+}
+
+.columnContent:hover {
+    padding-left: 2rem;
+    color: orangered;
+}
+
+.reportProblemButton {
+    width: 150px;
+    border-radius: 10px;
+    font-weight: bolder;
+    padding: 8px;
+    background-color: #333333;
+    color: orangered;
+    border: 2px solid orangered;
+    transition: all 0.3s ease-in-out;
+}
+
+.reportProblemButton:hover {
+    background-color: orangered;
+    color: white;
+    border: 2px solid orangered;
+    scale: 1.05;
+}
+
+.contactUsButton {
+    width: 150px;
+    border-radius: 10px;
+    font-weight: bolder;
+    padding: 8px;
+    transition: all 0.3s ease-in-out;
+    background-color: #333333;
+    color: deepskyblue;
+    border: 2px solid deepskyblue;
+}
+
+.contactUsButton:hover {
+    background-color: deepskyblue;
+    color: black;
+    border: 2px solid #333;
+    scale: 1.05;
+}
+
+.trackOrderButton {
+    width: 150px;
+    border-radius: 10px;
+    font-weight: bolder;
+    padding: 8px;
+    transition: all 0.3s ease-in-out;
+    background-color: #333333;
+    color: white;
+    border: 2px solid white;
+}
+
+.trackOrderButton:hover {
+    background-color: white;
+    border: 2px solid #333;
+    color: black;
+    scale: 1.05;
+
+}
