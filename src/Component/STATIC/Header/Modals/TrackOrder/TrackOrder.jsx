@@ -1,4 +1,4 @@
-import React, {useState} from 'react';
+import React from 'react';
 import {Button, Modal} from 'react-bootstrap';
 import {FaTimes} from 'react-icons/fa';
 import './TrackOrder.css';
