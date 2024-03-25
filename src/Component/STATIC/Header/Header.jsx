@@ -36,7 +36,7 @@ function Header() {
 
     return (
         <>
-            <Navbar key={'lg'} expand={'lg'} className="  navbarContainer">
+            <Navbar key={'lg'} expand={'lg'} className="navbarContainer">
                 <Container fluid>
                     <Navbar.Brand href="/">
                         <span className="d-flex align-items-center fw-bolder headerLogo">

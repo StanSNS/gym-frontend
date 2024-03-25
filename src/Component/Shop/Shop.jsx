@@ -229,7 +229,7 @@ const Shop = () => {
                     <input
                         maxLength={20}
                         type="text"
-                        className="searchInput ms-3"
+                        className="searchInput"
                         placeholder="Search for product..."
                         value={searchQuery}
                         onChange={handleSearchChange}
@@ -243,7 +243,7 @@ const Shop = () => {
                 </div>
 
                 <div className="dropDownButtons">
-                    <Dropdown className="me-3">
+                    <Dropdown>
                         <Dropdown.Toggle variant="dark" id="dropdown-basic">
                             <FaBolt className="align-baseline"/>
                             <span className="ms-1 fw-bolder align-text-bottom">Flash Deals</span>
@@ -257,7 +257,7 @@ const Shop = () => {
                         </Dropdown.Menu>
                     </Dropdown>
 
-                    <Dropdown className="me-3">
+                    <Dropdown>
                         <Dropdown.Toggle variant="dark" id="dropdown-basic">
                             <FaListAlt className="align-baseline"/>
                             <span className="ms-2 fw-bolder align-text-bottom">Category</span>
@@ -285,9 +285,9 @@ const Shop = () => {
                 </div>
             </div>
 
-            <Row>
+            <Row po>
                 {currentProducts.map(product => (
-                    <Col md={3} key={product.id} className="mb-4">
+                    <Col xl={3} lg={4} md={5} sm={12} key={product.id} className="mb-4">
                         <Card className="h-100 shopCard">
                             <div className="cardImageContainer">
                                 {product.discount && <span className="discountText"><FaBolt className="discountIcon mb-1"/> {product.discount}</span>}

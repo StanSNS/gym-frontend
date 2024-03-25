@@ -63,7 +63,7 @@ const Footer = () => {
             </footer>
 
             <div className="subFooter">
-                <p className="mt-2">© 2024 My future website name. All rights reserved.</p>
+                <span className="subFooterText">© 2024 My future website. All rights reserved.</span>
             </div>
 
             <TrackOrderModal show={showTrackOrderModal} handleClose={handleTrackOrderModalClose}/>
