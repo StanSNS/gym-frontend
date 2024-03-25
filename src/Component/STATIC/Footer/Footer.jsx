@@ -21,7 +21,7 @@ const Footer = () => {
             <footer className="footer">
                 <Link to={"#"} className="logoLink ">
                     <img src={footerHeart} alt="footer Icon" className="footerLogoImage"/>
-                    <h2 className="mt-1">GYM</h2>
+                    <h2 className="mt-1">GymFit</h2>
                 </Link>
 
                 <div className="aboutColumn">

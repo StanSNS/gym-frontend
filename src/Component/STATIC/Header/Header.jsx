@@ -40,7 +40,7 @@ function Header() {
                 <Container fluid>
                     <Navbar.Brand href="/">
                         <span className="d-flex align-items-center fw-bolder headerLogo">
-                            <FaDumbbell className="me-2"/>GYM
+                            <FaDumbbell className="me-2"/>GymFit
                         </span>
                     </Navbar.Brand>
                     <Navbar.Toggle aria-controls={`offcanvasNavbar-expand-lg`} className="custom-toggler"/>
@@ -48,7 +48,7 @@ function Header() {
                                       aria-labelledby={`offcanvasNavbarLabel-expand-lg`} placement="start">
                         <Offcanvas.Header closeButton>
                             <Offcanvas.Title id={`offcanvasNavbarLabel-expand-lg`}>
-                                <span className="d-flex align-items-center">  <FaDumbbell className="me-2"/>GYM</span>
+                                <span className="d-flex align-items-center">  <FaDumbbell className="me-2"/>GymFit</span>
                             </Offcanvas.Title>
                         </Offcanvas.Header>
                         <Offcanvas.Body>
