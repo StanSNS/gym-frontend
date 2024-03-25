@@ -12,9 +12,7 @@ function App() {
                 <Header/>
 
                 <Hero/>
-<div>
-    test123
-</div>
+                
                 <Shop/>
 
                 <Footer/>
