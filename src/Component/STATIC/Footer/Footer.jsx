@@ -1,7 +1,7 @@
 import React, {useState} from 'react';
 import './Footer.css';
 import {Link} from "react-router-dom";
-import footerHeart from "../../Resources/dumbbell.png"
+import footerHeart from "../../../Resources/dumbbell.png"
 import {FaBolt, FaHeart, FaInfoCircle, FaListAlt, FaTruck} from "react-icons/fa";
 import {IoMdMegaphone} from "react-icons/io";
 import {BiSupport} from "react-icons/bi";

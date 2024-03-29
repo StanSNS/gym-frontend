@@ -44,11 +44,29 @@
     height: 100%;
 }
 
-
 .card-body {
+    flex: none !important;
     display: flex;
     justify-content: flex-end;
     flex-direction: column;
+}
+
+.card-title {
+    height: 50px;
+    max-height: 50px;
+    overflow: hidden;
+}
+
+.cardCategory{
+    height: 30px;
+    max-height: 30px;
+    overflow: hidden;
+}
+
+.cardDescription{
+    height: 100px;
+    max-height: 100px;
+    overflow: hidden;
 }
 
 .card-footer {
@@ -56,6 +74,7 @@
     border: none !important;
     display: flex;
     justify-content: center;
+    margin-bottom: 1rem;
 }
 
 .active > .page-link, .page-link.active {
