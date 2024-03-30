@@ -11,8 +11,12 @@ import {Link} from "react-router-dom";
 
 const Shop = () => {
     const [products, setProducts] = useState([]);
+    const [brands, setBrands] = useState([]);
+    const [categories, setCategories] = useState([]);
     const [currentPage, setCurrentPage] = useState(1);
     const [searchQuery, setSearchQuery] = useState('');
+    const [selectedCategory, setSelectedCategory] = useState('');
+    const [selectedBrand, setSelectedBrand] = useState('');
     const productsPerPage = 20;
 
     const [isOpenFlashDeals, setIsOpenFlashDeals] = useState(false);
@@ -24,7 +28,10 @@ const Shop = () => {
         const fetchData = async () => {
             try {
                 const data = await getAllSellableProducts();
-                setProducts(data);
+                console.log(data)
+                setProducts(data.products);
+                setBrands(data.brands);
+                setCategories(data.categories);
             } catch (error) {
                 console.error('Error fetching sellable products:', error);
             }
@@ -45,8 +52,12 @@ const Shop = () => {
 
     const indexOfLastProduct = currentPage * productsPerPage;
     const indexOfFirstProduct = indexOfLastProduct - productsPerPage;
+
+    // Filter products based on search query and selected category
     const filteredProducts = products.filter((product) =>
-        product.name.toLowerCase().includes(searchQuery.toLowerCase())
+        (product.name.toLowerCase() + product.description.toLowerCase()).includes(searchQuery.toLowerCase()) &&
+        (selectedBrand ? product.brandEntity.name === selectedBrand : true) &&
+        (selectedCategory ? product.category === selectedCategory : true)
     );
     const currentProducts = filteredProducts.slice(indexOfFirstProduct, indexOfLastProduct);
 
@@ -71,9 +82,19 @@ const Shop = () => {
         setIsOpenCategory(dropdown === 'category' ? !isOpenCategory : false);
         setIsOpenOrderBy(dropdown === 'orderBy' ? !isOpenOrderBy : false);
         setIsOpenBrand(dropdown === 'brand' ? !isOpenBrand : false);
-        setIsOverlayVisible(!isOverlayVisible)
+        setIsOverlayVisible(!isOverlayVisible);
     };
 
+    // Function to handle category selection
+    const selectCategory = (category) => {
+        setSelectedCategory(category);
+        setCurrentPage(1);
+    };
+
+    const selectBrand = (brand) => {
+        setSelectedBrand(brand);
+        setCurrentPage(1);
+    };
 
     return (
         <Container>
@@ -88,7 +109,7 @@ const Shop = () => {
                     <div className="dropdown" ref={useRef(null)}>
                         <button className="orderButton align-bottom ml-2 dropdown-toggle" type="button"
                                 onClick={() => toggleDropdown('flashDeals')}>
-                            <FaBolt className="me-1"/>Flash Deals
+                            <FaBolt className="me-1"/>Топ Оферти
                         </button>
                         <div className={`dropdown-menu${isOpenFlashDeals ? ' show' : ''} mt-1`}>
                             <Link to={"#"} className="dropdown-item" onClick={() => toggleDropdown('flashDeals')}>
@@ -107,27 +128,42 @@ const Shop = () => {
                     </div>
 
                     <div className="dropdown" ref={useRef(null)}>
+                        {selectedCategory && (
+                            <button className="halfButton" onClick={() => setSelectedCategory('')}>
+                                {selectedCategory.split(" ")[0].split("-")[0]}
+                            </button>
+                        )}
                         <button className="orderButton align-bottom ml-2 dropdown-toggle" type="button"
                                 onClick={() => toggleDropdown('category')}>
-                            <FaListAlt className="me-1"/>Category
+                            <FaListAlt className="me-1"/>Категория
                         </button>
-                        <div className={`dropdown-menu${isOpenCategory ? ' show' : ''} mt-1`}>
-                            <Link to={"#"} className="dropdown-item" onClick={() => toggleDropdown('category')}>
-                                Fat Burners
-                            </Link>
-                            <Link to={"#"} className="dropdown-item" onClick={() => toggleDropdown('category')}>
-                                Proteins
-                            </Link>
-                            <Link to={"#"} className="dropdown-item" onClick={() => toggleDropdown('category')}>
-                                Gym equipment
-                            </Link>
+                        <div className={`dropdown-menu${isOpenCategory ? ' show' : ''} mt-1 myScrollable`} style={{
+                            maxHeight: '500px',
+                            overflowY: 'auto',
+                        }}>
+                            {categories.map((item, index) => {
+                                const category = Object.keys(item)[0];
+                                const quantity = item[category];
+
+                                return (<Link
+                                    key={index}
+                                    to="#"
+                                    className={`dropdown-item fw-bolder${selectedCategory === category ? ' active' : ''}`}
+                                    onClick={() => {
+                                        toggleDropdown('category');
+                                        selectCategory(category);
+                                    }}
+                                >
+                                    <span className="redColorText">{'{'}{quantity}{'}'}</span> {category}
+                                </Link>);
+                            })}
                         </div>
                     </div>
 
                     <div className="dropdown" ref={useRef(null)}>
                         <button className="orderButton align-bottom ml-2 dropdown-toggle" type="button"
                                 onClick={() => toggleDropdown('orderBy')}>
-                            <FaSort className="me-1"/>Order by
+                            <FaSort className="me-1"/>Подреди по
                         </button>
                         <div className={`dropdown-menu${isOpenOrderBy ? ' show' : ''} mt-1`}>
                             <Link to={"#"} className="dropdown-item" onClick={() => toggleDropdown('orderBy')}>
@@ -142,21 +178,36 @@ const Shop = () => {
                         </div>
                     </div>
 
-                    <div className="dropdown" ref={useRef(null)}>
+                    <div className="dropdown myDropDownButton" ref={useRef(null)}>
+                        {selectedBrand && (
+                            <button className="halfButton" onClick={() => setSelectedBrand('')}>
+                                {selectedBrand.split(" ")[0]}
+                            </button>
+                        )}
                         <button className="orderButton align-bottom ml-2 dropdown-toggle" type="button"
                                 onClick={() => toggleDropdown('brand')}>
-                            <FaLayerGroup className="me-1"/>Brand
+                            <FaLayerGroup className="me-1"/>Марка
                         </button>
-                        <div className={`dropdown-menu${isOpenBrand ? ' show' : ''} mt-1`}>
-                            <Link to={"#"} className="dropdown-item" onClick={() => toggleDropdown('brand')}>
-                                Brand 1
-                            </Link>
-                            <Link to={"#"} className="dropdown-item" onClick={() => toggleDropdown('brand')}>
-                                Brand 2
-                            </Link>
-                            <Link to={"#"} className="dropdown-item" onClick={() => toggleDropdown('brand')}>
-                                Brand 3
-                            </Link>
+                        <div className={`dropdown-menu${isOpenBrand ? ' show' : ''} mt-1 myScrollable`} style={{
+                            maxHeight: '500px',
+                            overflowY: 'auto',
+                        }}>
+                            {brands.map((item, index) => {
+                                const brand = Object.keys(item)[0];
+                                const quantity = item[brand];
+
+                                return (<Link
+                                        key={index}
+                                        to={"#"}
+                                        className={`dropdown-item fw-bolder${selectedBrand === brand ? ' active' : ''}`}
+                                        onClick={() => {
+                                            toggleDropdown('brand');
+                                            selectBrand(brand)
+                                        }}>
+                                        <span className="redColorText">{'{'}{quantity}{'}'}</span> {brand}
+                                    </Link>
+                                )
+                            })}
                         </div>
                     </div>
                 </div>
