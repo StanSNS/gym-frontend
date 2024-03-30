@@ -48,7 +48,7 @@ const CardShop = ({product}) => {
                 <Card.Footer className="cardFooter">
                     <Button variant="dark">
                         <FaShoppingCart className="align-baseline me-2"/>
-                        Add to cart
+                        Добави
                     </Button>
                 </Card.Footer>
             </Card>

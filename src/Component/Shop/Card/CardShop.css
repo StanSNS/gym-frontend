@@ -25,9 +25,6 @@
 
 .shopCard.card {
     border: none !important;
-    border-top: 3px #333333 ridge !important;
-    border-bottom: 3px #333333 ridge !important;
-    border-radius: 30px !important;
 }
 
 .shopCard:hover {
