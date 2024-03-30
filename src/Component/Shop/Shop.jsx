@@ -1,7 +1,7 @@
 import React, {useEffect, useRef, useState} from 'react';
-import {Button, Col, Container, Dropdown, Pagination, Row} from 'react-bootstrap';
+import {Col, Container, Pagination, Row} from 'react-bootstrap';
 import "./Shop.css"
-import {FaLayerGroup, FaListAlt, FaSearch, FaSort, FaTimes} from "react-icons/fa";
+import {FaLayerGroup, FaListAlt, FaSort} from "react-icons/fa";
 import {FaBolt} from "react-icons/fa6";
 import {getAllSellableProducts} from "../../Service/ProductService";
 import CardSkeletonLoader from "./SkeletonLoader/CardSkeletonLoader";
@@ -14,8 +14,6 @@ const Shop = () => {
     const [currentPage, setCurrentPage] = useState(1);
     const [searchQuery, setSearchQuery] = useState('');
     const productsPerPage = 20;
-    const dropdownRef = useRef(null);
-    const [isOpen, setIsOpen] = useState(false);
 
     const [isOpenFlashDeals, setIsOpenFlashDeals] = useState(false);
     const [isOpenCategory, setIsOpenCategory] = useState(false);
@@ -45,7 +43,6 @@ const Shop = () => {
         setCurrentPage(1);
     };
 
-    // Pagination logic
     const indexOfLastProduct = currentPage * productsPerPage;
     const indexOfFirstProduct = indexOfLastProduct - productsPerPage;
     const filteredProducts = products.filter((product) =>
@@ -58,7 +55,6 @@ const Shop = () => {
         pageNumbers.push(i);
     }
 
-    // Logic to display 5 boxes of pages with current page in the middle
     const maxPagesToShow = 5;
     const halfMaxPagesToShow = Math.floor(maxPagesToShow / 2);
     let startPage = Math.max(currentPage - halfMaxPagesToShow, 1);
@@ -68,9 +64,7 @@ const Shop = () => {
     }
 
     const paginate = (pageNumber) => setCurrentPage(pageNumber);
-
     const [isOverlayVisible, setIsOverlayVisible] = useState(false);
-
 
     const toggleDropdown = (dropdown) => {
         setIsOpenFlashDeals(dropdown === 'flashDeals' ? !isOpenFlashDeals : false);
@@ -94,7 +88,7 @@ const Shop = () => {
                     <div className="dropdown" ref={useRef(null)}>
                         <button className="orderButton align-bottom ml-2 dropdown-toggle" type="button"
                                 onClick={() => toggleDropdown('flashDeals')}>
-                            <FaBolt className="me-1" />Flash Deals
+                            <FaBolt className="me-1"/>Flash Deals
                         </button>
                         <div className={`dropdown-menu${isOpenFlashDeals ? ' show' : ''} mt-1`}>
                             <Link to={"#"} className="dropdown-item" onClick={() => toggleDropdown('flashDeals')}>
@@ -115,7 +109,7 @@ const Shop = () => {
                     <div className="dropdown" ref={useRef(null)}>
                         <button className="orderButton align-bottom ml-2 dropdown-toggle" type="button"
                                 onClick={() => toggleDropdown('category')}>
-                            <FaListAlt className="me-1" />Category
+                            <FaListAlt className="me-1"/>Category
                         </button>
                         <div className={`dropdown-menu${isOpenCategory ? ' show' : ''} mt-1`}>
                             <Link to={"#"} className="dropdown-item" onClick={() => toggleDropdown('category')}>
@@ -133,7 +127,7 @@ const Shop = () => {
                     <div className="dropdown" ref={useRef(null)}>
                         <button className="orderButton align-bottom ml-2 dropdown-toggle" type="button"
                                 onClick={() => toggleDropdown('orderBy')}>
-                            <FaSort className="me-1" />Order by
+                            <FaSort className="me-1"/>Order by
                         </button>
                         <div className={`dropdown-menu${isOpenOrderBy ? ' show' : ''} mt-1`}>
                             <Link to={"#"} className="dropdown-item" onClick={() => toggleDropdown('orderBy')}>
@@ -151,7 +145,7 @@ const Shop = () => {
                     <div className="dropdown" ref={useRef(null)}>
                         <button className="orderButton align-bottom ml-2 dropdown-toggle" type="button"
                                 onClick={() => toggleDropdown('brand')}>
-                            <FaLayerGroup className="me-1" />Brand
+                            <FaLayerGroup className="me-1"/>Brand
                         </button>
                         <div className={`dropdown-menu${isOpenBrand ? ' show' : ''} mt-1`}>
                             <Link to={"#"} className="dropdown-item" onClick={() => toggleDropdown('brand')}>
