@@ -1,29 +1,30 @@
 import React, {useEffect, useState} from 'react';
-import {Button, Card, Col, Container, Dropdown, Pagination, Row} from 'react-bootstrap';
+import {Button, Col, Container, Dropdown, Pagination, Row} from 'react-bootstrap';
 import "./Shop.css"
-import {FaListAlt, FaSearch, FaShoppingCart, FaSort, FaTimes} from "react-icons/fa";
-import {CgDollar} from "react-icons/cg";
+import {FaListAlt, FaSearch, FaSort, FaTimes} from "react-icons/fa";
 import {FaBolt} from "react-icons/fa6";
-import {BiSolidCategory} from "react-icons/bi";
-import {getAllSellableProducts} from "../../Service/ProductService";
+import {getAllSellableProducts} from "../../../Service/ProductService";
+import CardSkeletonLoader from "../SkeletonLoader/CardSkeletonLoader";
+import CardShop from "../Card/CardShop";
 
 const Shop = () => {
     const [products, setProducts] = useState([]);
-
     const [currentPage, setCurrentPage] = useState(1);
     const [searchQuery, setSearchQuery] = useState('');
-    const productsPerPage = 16;
+    const productsPerPage = 20;
 
-    const indexOfLastProduct = currentPage * productsPerPage;
-    const indexOfFirstProduct = indexOfLastProduct - productsPerPage;
+    useEffect(() => {
+        const fetchData = async () => {
+            try {
+                const data = await getAllSellableProducts();
+                setProducts(data);
+            } catch (error) {
+                console.error('Error fetching sellable products:', error);
+            }
+        };
 
-    const filteredProducts = products.filter(product =>
-        product.name.toLowerCase().includes(searchQuery.toLowerCase())
-    );
-
-    const currentProducts = filteredProducts.slice(indexOfFirstProduct, indexOfLastProduct);
-
-    const paginate = (pageNumber) => setCurrentPage(pageNumber);
+        fetchData();
+    }, []);
 
     const handleSearchChange = (e) => {
         setSearchQuery(e.target.value);
@@ -33,22 +34,31 @@ const Shop = () => {
     const clearSearch = () => {
         setSearchQuery('');
         setCurrentPage(1);
-
     };
 
-    useEffect(() => {
-        const fetchData = async () => {
-            try {
-                const data = await getAllSellableProducts();
-                setProducts(data);
-                console.log(data)
-            } catch (error) {
-                console.error('Error fetching sellable products:', error);
-            }
-        };
+    // Pagination logic
+    const indexOfLastProduct = currentPage * productsPerPage;
+    const indexOfFirstProduct = indexOfLastProduct - productsPerPage;
+    const filteredProducts = products.filter((product) =>
+        product.name.toLowerCase().includes(searchQuery.toLowerCase())
+    );
+    const currentProducts = filteredProducts.slice(indexOfFirstProduct, indexOfLastProduct);
 
-        fetchData();
-    }, []);
+    const pageNumbers = [];
+    for (let i = 1; i <= Math.ceil(filteredProducts.length / productsPerPage); i++) {
+        pageNumbers.push(i);
+    }
+
+    // Logic to display 5 boxes of pages with current page in the middle
+    const maxPagesToShow = 5;
+    const halfMaxPagesToShow = Math.floor(maxPagesToShow / 2);
+    let startPage = Math.max(currentPage - halfMaxPagesToShow, 1);
+    const endPage = Math.min(startPage + maxPagesToShow - 1, pageNumbers.length);
+    if (endPage - startPage < maxPagesToShow - 1) {
+        startPage = Math.max(endPage - maxPagesToShow + 1, 1);
+    }
+
+    const paginate = (pageNumber) => setCurrentPage(pageNumber);
 
     return (
         <Container>
@@ -116,34 +126,13 @@ const Shop = () => {
             </div>
 
             <Row>
-                {currentProducts.map((product, index) => (
-                    <Col xl={3} lg={4} md={5} sm={12} key={index} className="mb-4">
-                        <Card className="h-100 shopCard">
-                            <div className="cardImageContainer">
-                                {product.discount && <span className="discountText"><FaBolt
-                                    className="discountIcon mb-1"/> {product.discount}</span>}
-                                <Card.Img variant="top" src={product.image} className="cardImage"/>
-                            </div>
-                            <Card.Body>
-                                <Card.Title>{product.name}</Card.Title>
-                                <Card.Text className="cardText">
-                                    <span className="fw-bolder mt-2 cardCategory"> <BiSolidCategory
-                                        className="mb-1"/> Category: {product.category}</span>
-                                    <div dangerouslySetInnerHTML={{ __html: product.description }}  className="cardDescription"/>
-                                    {/*<span className="fw-bolder mt-2"><FaStar className="mb-1"/> Rating: {product.rating.toFixed(2)}/5</span>*/}
-                                    <span className="fw-bolder mt-2"> <CgDollar
-                                        className="mb-1"/> Price: ${product.price}</span>
-                                </Card.Text>
-                            </Card.Body>
-                            <Card.Footer>
-                                <Button variant="dark">
-                                    <FaShoppingCart className="align-baseline me-2"/>
-                                    Add to cart
-                                </Button>
-                            </Card.Footer>
-                        </Card>
-                    </Col>
-                ))}
+                {products.length === 0 ? (
+                    <CardSkeletonLoader/>
+                ) : (
+                    currentProducts.map((product, index) => (
+                        <CardShop key={index} product={product}/>
+                    ))
+                )}
             </Row>
 
             {filteredProducts.length === 0 && searchQuery && (
@@ -158,9 +147,10 @@ const Shop = () => {
             <Row>
                 <Col className="d-flex justify-content-center mt-4">
                     <Pagination>
-                        {Array.from({length: Math.ceil(products.length / productsPerPage)}, (_, i) => (
-                            <Pagination.Item key={i + 1} onClick={() => paginate(i + 1)} active={i + 1 === currentPage}>
-                                {i + 1}
+                        {pageNumbers.slice(startPage - 1, endPage).map((number) => (
+                            <Pagination.Item key={number} onClick={() => paginate(number)}
+                                             active={number === currentPage}>
+                                {number}
                             </Pagination.Item>
                         ))}
                     </Pagination>
