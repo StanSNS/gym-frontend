@@ -9,7 +9,7 @@ const SearchInput = ({searchQuery, handleSearchChange, clearSearch}) => {
                 maxLength={20}
                 type="text"
                 className="searchInput"
-                placeholder="Search for product..."
+                placeholder="Потърси продукт..."
                 value={searchQuery}
                 onChange={handleSearchChange}
             />

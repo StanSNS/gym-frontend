@@ -1,5 +1,14 @@
 import React, { useRef } from 'react';
-import { FaBolt, FaSort, FaListAlt, FaLayerGroup, FaPercentage, FaStar, FaCommentDots } from "react-icons/fa";
+import {
+    FaBolt,
+    FaSort,
+    FaListAlt,
+    FaLayerGroup,
+    FaPercentage,
+    FaStar,
+    FaCommentDots,
+    FaWeightHanging
+} from "react-icons/fa";
 import { IoPricetag } from "react-icons/io5";
 import { MdOutlineDoubleArrow } from "react-icons/md";
 import { Link } from "react-router-dom";
@@ -95,6 +104,13 @@ const DropdownButtons = ({
                         selectSort("Процент")
                     }}>
                         <FaPercentage className="mb-1 me-1 redColorText"/>Процент
+                    </Link>
+
+                    <Link to={"#"} className="dropdown-item fw-bolder" onClick={() => {
+                        toggleDropdown('orderBy');
+                        selectSort("Тегло")
+                    }}>
+                        <FaWeightHanging className="mb-1 me-1 redColorText"/>Тегло
                     </Link>
 
                     <Link to={"#"} className="dropdown-item fw-bolder" onClick={() => {

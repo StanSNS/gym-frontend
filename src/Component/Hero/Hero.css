@@ -22,7 +22,6 @@
 
 .sliderImageContainer1 .carouselTitle {
     position: absolute;
-    color: white;
     font-size: 40px;
     font-weight: bolder;
     display: flex;
@@ -34,8 +33,13 @@
     max-height: 576px;
     overflow-wrap: anywhere;
     word-break: break-word;
-    padding-left: 7rem;
-    padding-right: 7rem;
+    padding-left: 2rem;
+    padding-right: 2rem;
+    text-align: center;
+    font-style: italic;
+    color: #ffffff;
+    text-shadow: 0px 14px 20px rgb(164, 164, 164);
+
 }
 
 .sliderImageContainer2 {
@@ -46,11 +50,10 @@
 
 .sliderImageContainer2 .carouselTitle {
     position: absolute;
-    color: white;
     font-size: 40px;
     font-weight: bolder;
     display: flex;
-    justify-content: flex-start;
+    justify-content: center;
     align-items: center;
     width: 100%;
     max-width: 1024px;
@@ -58,8 +61,10 @@
     max-height: 576px;
     overflow-wrap: anywhere;
     word-break: break-word;
-    padding-left: 7rem;
-    padding-right: 7rem;
+    text-align: center;
+    font-style: italic;
+    color: #ffffff;
+    text-shadow: 0px 14px 20px rgb(164, 164, 164);
 }
 
 .sliderImage {

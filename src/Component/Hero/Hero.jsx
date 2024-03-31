@@ -1,64 +1,63 @@
 import React from 'react';
 import Carousel from 'react-bootstrap/Carousel';
 import "./Hero.css";
+
+import left1 from "../../Resources/Hero/left1.jpg";
+import left2 from "../../Resources/Hero/left2.jpg";
+import left3 from "../../Resources/Hero/left3.jpg";
+import left4 from "../../Resources/Hero/left4.jpg";
+import left5 from "../../Resources/Hero/left5.jpg";
+
+import right1 from "../../Resources/Hero/right1.jpg";
+import right2 from "../../Resources/Hero/right2.jpg";
+import right3 from "../../Resources/Hero/right3.jpg";
+import right4 from "../../Resources/Hero/right4.jpg";
+import right5 from "../../Resources/Hero/right5.jpg";
+
 function Hero() {
-    const carousel1Images = [
-        "https://res.cloudinary.com/dejmsrjrx/image/upload/v1711028289/gym-hero/img1_tmr4ki.jpg",
-        "https://res.cloudinary.com/dejmsrjrx/image/upload/v1711028292/gym-hero/img2_x3obia.jpg",
-        "https://res.cloudinary.com/dejmsrjrx/image/upload/v1711028296/gym-hero/img3_beeypv.jpg",
-        "https://res.cloudinary.com/dejmsrjrx/image/upload/v1711028300/gym-hero/img4_k0yke0.jpg",
-        "https://res.cloudinary.com/dejmsrjrx/image/upload/v1711028302/gym-hero/img5_uid7rv.jpg",
-        "https://res.cloudinary.com/dejmsrjrx/image/upload/v1711028306/gym-hero/img6_ulzyvb.jpg",
-        "https://res.cloudinary.com/dejmsrjrx/image/upload/v1711028309/gym-hero/img8_grk8b6.jpg",
-        "https://res.cloudinary.com/dejmsrjrx/image/upload/v1711028312/gym-hero/img9_funzay.jpg",
-        "https://res.cloudinary.com/dejmsrjrx/image/upload/v1711028315/gym-hero/img10_idbwgd.jpg",
-        "https://res.cloudinary.com/dejmsrjrx/image/upload/v1711028319/gym-hero/img12_y2rd5l.jpg",
-        "https://res.cloudinary.com/dejmsrjrx/image/upload/v1711028279/gym-hero/img27_h9zbzo.jpg",
-        "https://res.cloudinary.com/dejmsrjrx/image/upload/v1711028283/gym-hero/img28_yrmaxj.jpg"
+    const carouselData = [
+        {imagePath: left1, text: "Трудът днес е успехът утре."},
+        {imagePath: left2, text: "Тренирай с усмивка за към целта."},
+        {imagePath: left3, text: "Сравнявай се със себе си."},
+        {imagePath: left4, text: "Сила и увереност във всяка тренировка."},
+        {imagePath: left5, text: "Стреми се към напредък, не към перфекционизъм."}
     ];
 
     const carousel2Images = [
-        "https://res.cloudinary.com/dejmsrjrx/image/upload/v1711028322/gym-hero/img13_jsmat6.jpg",
-        "https://res.cloudinary.com/dejmsrjrx/image/upload/v1711028325/gym-hero/img14_svcqne.jpg",
-        "https://res.cloudinary.com/dejmsrjrx/image/upload/v1711028329/gym-hero/img16_kadmp7.jpg",
-        "https://res.cloudinary.com/dejmsrjrx/image/upload/v1711028332/gym-hero/img17_rtvlnr.jpg",
-        "https://res.cloudinary.com/dejmsrjrx/image/upload/v1711028336/gym-hero/img18_cyq0bb.jpg",
-        "https://res.cloudinary.com/dejmsrjrx/image/upload/v1711028339/gym-hero/img19_rytkfy.jpg",
-        "https://res.cloudinary.com/dejmsrjrx/image/upload/v1711028343/gym-hero/img20_acsjo1.jpg",
-        "https://res.cloudinary.com/dejmsrjrx/image/upload/v1711028346/gym-hero/img21_z5hrfp.jpg",
-        "https://res.cloudinary.com/dejmsrjrx/image/upload/v1711028270/gym-hero/img22_nzxunt.jpg",
-        "https://res.cloudinary.com/dejmsrjrx/image/upload/v1711028273/gym-hero/img24_rm8npz.jpg",
-        "https://res.cloudinary.com/dejmsrjrx/image/upload/v1711028276/gym-hero/img26_fmohmj.jpg",
-        "https://res.cloudinary.com/dejmsrjrx/image/upload/v1711028286/gym-hero/img29_aecrsk.jpg"
+        {imagePath: right1, text: "Промяната започва отвътре."},
+        {imagePath: right2, text: "Изкарай максимума от себе си всеки ден."},
+        {imagePath: right3, text: "Болката е твоят мотиватор."},
+        {imagePath: right4, text: "Започни от нулата и не спирай."},
+        {imagePath: right5, text: "Успехът е плод на труда и постоянството."}
     ];
 
     return (
         <div className="carouselContainer">
             <Carousel data-bs-theme="dark" className="carousel" indicators={false} controls={false} fade={true}>
-                {carousel1Images.map((image, index) => (
+                {carouselData.map((data, index) => (
                     <Carousel.Item key={index} interval={3000}>
                         <div className="sliderImageContainer1">
                             <img
                                 className="sliderImage"
-                                src={image}
+                                src={data.imagePath}
                                 alt={`Slide ${index + 1}`}
                             />
-                            <div className="carouselTitle">{carousel1Images[index]}</div>
+                            <div className="carouselTitle">{data.text}</div>
                         </div>
                     </Carousel.Item>
                 ))}
             </Carousel>
 
             <Carousel data-bs-theme="dark" className="carousel" indicators={false} controls={false} fade={true}>
-                {carousel2Images.map((image, index) => (
+                {carousel2Images.map((data, index) => (
                     <Carousel.Item key={index} interval={3000}>
                         <div className="sliderImageContainer2">
                             <img
                                 className="sliderImage"
-                                src={image}
+                                src={data.imagePath}
                                 alt={`Slide ${index + 1}`}
                             />
-                            <div className="carouselTitle">{carousel1Images[index]}</div>
+                            <div className="carouselTitle">{data.text}</div>
                         </div>
                     </Carousel.Item>
                 ))}

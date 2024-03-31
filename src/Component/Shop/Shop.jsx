@@ -116,6 +116,9 @@ const Shop = () => {
             case "Ревюта":
                 sortedProducts.sort((a, b) => b.ratingCount - a.ratingCount);
                 break;
+            case "Тегло":
+                sortedProducts.sort((a, b) => a.weightKg - b.weightKg);
+                break;
             default:
                 break;
         }
