@@ -1,13 +1,15 @@
 import React, {useEffect, useRef, useState} from 'react';
 import {Col, Container, Pagination, Row} from 'react-bootstrap';
 import "./Shop.css"
-import {FaLayerGroup, FaListAlt, FaSort} from "react-icons/fa";
+import {FaCommentDots, FaLayerGroup, FaListAlt, FaPercentage, FaSort, FaStar} from "react-icons/fa";
 import {FaBolt} from "react-icons/fa6";
 import {getAllSellableProducts} from "../../Service/ProductService";
 import CardSkeletonLoader from "./SkeletonLoader/CardSkeletonLoader";
 import CardShop from "./Card/CardShop";
 import SearchInput from "./SearchInput/SearchInput";
 import {Link} from "react-router-dom";
+import {IoPricetag} from "react-icons/io5";
+import {MdOutlineDoubleArrow} from "react-icons/md";
 
 const Shop = () => {
     const [products, setProducts] = useState([]);
@@ -17,6 +19,8 @@ const Shop = () => {
     const [searchQuery, setSearchQuery] = useState('');
     const [selectedCategory, setSelectedCategory] = useState('');
     const [selectedBrand, setSelectedBrand] = useState('');
+    const [selectedOrderBy, setSelectedOrderBy] = useState('')
+    const [selectedDeal, setSelectedDeal] = useState(0)
     const productsPerPage = 20;
 
     const [isOpenFlashDeals, setIsOpenFlashDeals] = useState(false);
@@ -53,11 +57,11 @@ const Shop = () => {
     const indexOfLastProduct = currentPage * productsPerPage;
     const indexOfFirstProduct = indexOfLastProduct - productsPerPage;
 
-    // Filter products based on search query and selected category
     const filteredProducts = products.filter((product) =>
         (product.name.toLowerCase() + product.description.toLowerCase()).includes(searchQuery.toLowerCase()) &&
         (selectedBrand ? product.brandEntity.name === selectedBrand : true) &&
-        (selectedCategory ? product.category === selectedCategory : true)
+        (selectedCategory ? product.category === selectedCategory : true) &&
+        (Math.abs(product.reducedTotalAmountPercentage) >= selectedDeal)
     );
     const currentProducts = filteredProducts.slice(indexOfFirstProduct, indexOfLastProduct);
 
@@ -85,7 +89,6 @@ const Shop = () => {
         setIsOverlayVisible(!isOverlayVisible);
     };
 
-    // Function to handle category selection
     const selectCategory = (category) => {
         setSelectedCategory(category);
         setCurrentPage(1);
@@ -95,6 +98,47 @@ const Shop = () => {
         setSelectedBrand(brand);
         setCurrentPage(1);
     };
+
+    const selectSort = (sort) => {
+        setSelectedOrderBy(sort);
+        setCurrentPage(1);
+        sortProducts(sort);
+    };
+
+    const sortProducts = (sortType) => {
+        let sortedProducts = [...products];
+        switch (sortType) {
+            case "Намалена цена":
+                sortedProducts.sort((a, b) => a.discountedPrice - b.discountedPrice);
+                break;
+            case "Процент":
+                sortedProducts.sort((a, b) => (a.reducedTotalAmountPercentage || 0) - (b.reducedTotalAmountPercentage || 0));
+                break;
+            case "Рейтинг":
+                sortedProducts.sort((a, b) => b.ratingValue - a.ratingValue);
+                break;
+            case "Ревюта":
+                sortedProducts.sort((a, b) => b.ratingCount - a.ratingCount);
+                break;
+            default:
+                break;
+        }
+        setProducts(sortedProducts);
+    };
+
+    const selectFlashDeal = (deal) => {
+        setSelectedDeal(deal);
+        setCurrentPage(1);
+    };
+
+    const clearSortBy = () => {
+        setSelectedOrderBy('');
+
+        let sortedProducts = [...products];
+        sortedProducts.sort((a, b) => (a.discountedPrice - a.enemyPrice) - (b.discountedPrice - b.enemyPrice));
+        setProducts(sortedProducts);
+
+    }
 
     return (
         <Container>
@@ -107,22 +151,82 @@ const Shop = () => {
 
                 <div className="dropDownButtons">
                     <div className="dropdown" ref={useRef(null)}>
+                        {selectedDeal !== 0 && (
+                            <button className="halfButton" onClick={() => setSelectedDeal(0)}>
+                                <span>Над -{selectedDeal}<FaPercentage/></span>
+                            </button>
+                        )}
+
                         <button className="orderButton align-bottom ml-2 dropdown-toggle" type="button"
                                 onClick={() => toggleDropdown('flashDeals')}>
                             <FaBolt className="me-1"/>Топ Оферти
                         </button>
                         <div className={`dropdown-menu${isOpenFlashDeals ? ' show' : ''} mt-1`}>
-                            <Link to={"#"} className="dropdown-item" onClick={() => toggleDropdown('flashDeals')}>
-                                -70% Off
+                            <Link to={"#"} className="dropdown-item fw-bolder" onClick={() => {
+                                toggleDropdown('flashDeals');
+                                selectFlashDeal(70);
+                            }}><MdOutlineDoubleArrow className="redColorText mb-1 rotateIcon"/> Над -70%
                             </Link>
-                            <Link to={"#"} className="dropdown-item" onClick={() => toggleDropdown('flashDeals')}>
-                                -50% Off
+
+                            <Link to={"#"} className="dropdown-item fw-bolder" onClick={() => {
+                                toggleDropdown('flashDeals');
+                                selectFlashDeal(50);
+                            }}><MdOutlineDoubleArrow className="redColorText mb-1 rotateIcon"/> Над -50%
                             </Link>
-                            <Link to={"#"} className="dropdown-item" onClick={() => toggleDropdown('flashDeals')}>
-                                -30% Off
+
+                            <Link to={"#"} className="dropdown-item fw-bolder" onClick={() => {
+                                toggleDropdown('flashDeals');
+                                selectFlashDeal(30);
+                            }}><MdOutlineDoubleArrow className="redColorText mb-1 rotateIcon"/> Над -30%
                             </Link>
-                            <Link to={"#"} className="dropdown-item" onClick={() => toggleDropdown('flashDeals')}>
-                                -15% Off
+
+                            <Link to={"#"} className="dropdown-item fw-bolder" onClick={() => {
+                                toggleDropdown('flashDeals');
+                                selectFlashDeal(15);
+                            }}><MdOutlineDoubleArrow className="redColorText mb-1 rotateIcon"/> Над -15%
+                            </Link>
+                        </div>
+                    </div>
+
+                    <div className="dropdown" ref={useRef(null)}>
+                        {selectedOrderBy && (
+                            <button className="halfButton" onClick={() => clearSortBy()}>
+                                {selectedOrderBy}
+                            </button>
+                        )}
+
+                        <button className="orderButton align-bottom ml-2 dropdown-toggle" type="button"
+                                onClick={() => toggleDropdown('orderBy')}>
+                            <FaSort className="me-1"/>Подреди по
+                        </button>
+
+                        <div className={`dropdown-menu${isOpenOrderBy ? ' show' : ''} mt-1`}>
+                            <Link to={"#"} className="dropdown-item fw-bolder" onClick={() => {
+                                toggleDropdown('orderBy');
+                                selectSort("Намалена цена");
+                            }}>
+                                <IoPricetag className="mb-1 me-1 redColorText"/>Намалена цена
+                            </Link>
+
+                            <Link to={"#"} className="dropdown-item fw-bolder" onClick={() => {
+                                toggleDropdown('orderBy');
+                                selectSort("Процент")
+                            }}>
+                                <FaPercentage className="mb-1 me-1 redColorText"/>Процент
+                            </Link>
+
+                            <Link to={"#"} className="dropdown-item fw-bolder" onClick={() => {
+                                toggleDropdown('orderBy');
+                                selectSort("Рейтинг");
+                            }}>
+                                <FaStar className="mb-1 me-1 redColorText"/>Рейтинг
+                            </Link>
+
+                            <Link to={"#"} className="dropdown-item fw-bolder" onClick={() => {
+                                toggleDropdown('orderBy');
+                                selectSort("Ревюта")
+                            }}>
+                                <FaCommentDots className="mb-1 me-1 redColorText"/>Ревюта
                             </Link>
                         </div>
                     </div>
@@ -160,24 +264,6 @@ const Shop = () => {
                         </div>
                     </div>
 
-                    <div className="dropdown" ref={useRef(null)}>
-                        <button className="orderButton align-bottom ml-2 dropdown-toggle" type="button"
-                                onClick={() => toggleDropdown('orderBy')}>
-                            <FaSort className="me-1"/>Подреди по
-                        </button>
-                        <div className={`dropdown-menu${isOpenOrderBy ? ' show' : ''} mt-1`}>
-                            <Link to={"#"} className="dropdown-item" onClick={() => toggleDropdown('orderBy')}>
-                                Price
-                            </Link>
-                            <Link to={"#"} className="dropdown-item" onClick={() => toggleDropdown('orderBy')}>
-                                Newest
-                            </Link>
-                            <Link to={"#"} className="dropdown-item" onClick={() => toggleDropdown('orderBy')}>
-                                Rating
-                            </Link>
-                        </div>
-                    </div>
-
                     <div className="dropdown myDropDownButton" ref={useRef(null)}>
                         {selectedBrand && (
                             <button className="halfButton" onClick={() => setSelectedBrand('')}>
@@ -212,6 +298,7 @@ const Shop = () => {
                     </div>
                 </div>
 
+
                 <div
                     className={`overlay${isOverlayVisible ? ' visible' : ''}`}
                     onClick={() => {
@@ -231,11 +318,10 @@ const Shop = () => {
                 )}
             </Row>
 
-            {filteredProducts.length === 0 && searchQuery && (
+            {filteredProducts.length === 0 && (
                 <Row>
                     <div className="noResultsMessage">
-                        <span>No products found for:</span>
-                        <span>'{searchQuery}'.</span>
+                        <span>Sorry, no products were found during the search...</span>
                     </div>
                 </Row>
             )}

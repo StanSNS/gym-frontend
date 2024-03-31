@@ -23,6 +23,7 @@
     justify-content: space-evenly;
     margin-top: 2rem;
     width: 90%;
+    margin-bottom: 2rem;
 }
 
 
@@ -94,10 +95,11 @@
     display: flex;
     flex-direction: column;
     align-items: center;
-    justify-content: center;
+    justify-content: flex-start;
     font-weight: bolder;
     font-size: 50px;
     color: orangered;
+    height: 100vh;
 }
 
 .row {
@@ -124,7 +126,10 @@
 .myScrollable::-webkit-scrollbar-track {
     background-color: #333333;
     border-radius: 30px;
+}
 
+.rotateIcon{
+    transform:rotate(90deg);
 }
 
 .myScrollable::-webkit-scrollbar-thumb {

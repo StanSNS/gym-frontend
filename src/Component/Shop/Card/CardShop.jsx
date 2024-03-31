@@ -4,14 +4,15 @@ import {FaBolt, FaShoppingCart, FaStar, FaWeightHanging} from "react-icons/fa";
 import {BiSolidCategory} from "react-icons/bi";
 import {IoIosPricetag} from "react-icons/io";
 import "./CardShop.css"
+import {MdOutlineMoneyOffCsred} from "react-icons/md";
 
 const CardShop = ({product}) => {
     return (
         <Col xl={3} lg={4} md={5} sm={12} className="mb-4">
             <Card className="h-100 shopCard">
                 <div className="cardImageContainer">
-                    {product.discount && <span className="discountText"><FaBolt
-                        className="mb-1"/> {product.discount}</span>}
+                    {product.reducedTotalAmountPercentage && <span className="discountText"><FaBolt
+                        className="mb-1"/> {product.reducedTotalAmountPercentage.toFixed(2)}%</span>}
                     <Card.Img variant="top" src={product.image} className="cardImage"/>
                 </div>
                 <Card.Body className="shopCardBody">
@@ -39,9 +40,14 @@ const CardShop = ({product}) => {
                             )}
 
                             <span className="fw-bolder mt-2">
-                                <span className="keyColorInfo"> <IoIosPricetag className="mb-1"/> Цена: </span>
-                                {product.discountedPrice.toFixed(2)} лв.
-                            </span>
+                                  <span className="keyColorInfo strikeText"> <MdOutlineMoneyOffCsred  className="mb-1"/> Редовна цена: </span>
+                                <span className="strikeText">{product.enemyPrice.toFixed(2)}лв</span>
+                             </span>
+
+                            <span className="fw-bolder mt-2">
+                                  <span className="keyColorInfo"> <IoIosPricetag className="mb-1"/> Намалена цена: </span>
+                                <span>{product.discountedPrice.toFixed(2)}лв</span>
+                             </span>
                         </div>
                     </Card.Text>
                 </Card.Body>
