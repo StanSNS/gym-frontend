@@ -133,11 +133,9 @@ const Shop = () => {
 
     const clearSortBy = () => {
         setSelectedOrderBy('');
-
         let sortedProducts = [...products];
         sortedProducts.sort((a, b) => (a.discountedPrice - a.enemyPrice) - (b.discountedPrice - b.enemyPrice));
         setProducts(sortedProducts);
-
     }
 
     return (
