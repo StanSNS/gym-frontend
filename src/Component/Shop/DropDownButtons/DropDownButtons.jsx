@@ -1,4 +1,4 @@
-import React, { useRef } from 'react';
+import React, {useRef, useState} from 'react';
 import {
     FaBolt,
     FaSort,
@@ -9,10 +9,11 @@ import {
     FaCommentDots,
     FaWeightHanging
 } from "react-icons/fa";
-import { IoPricetag } from "react-icons/io5";
-import { MdOutlineDoubleArrow } from "react-icons/md";
-import { Link } from "react-router-dom";
+import {IoPricetag} from "react-icons/io5";
+import {MdOutlineDoubleArrow} from "react-icons/md";
+import {Link} from "react-router-dom";
 import "./DropDownButtons.css"
+import SearchInput from "../SearchInput/SearchInput";
 
 const DropdownButtons = ({
                              selectedDeal,
@@ -41,6 +42,9 @@ const DropdownButtons = ({
     const categoryRef = useRef(null);
     const brandRef = useRef(null);
     const weightRef = useRef(null);
+
+    const [categorySearchQuery, setCategorySearchQuery] = useState('');
+    const [brandSearchQuery, setBrandSearchQuery] = useState('');
 
     return (
         <div className="dropDownButtons">
@@ -161,7 +165,7 @@ const DropdownButtons = ({
                         >
                             <span className="redColorText">{weight.range} кг</span>
                         </Link>
-                        ))}
+                    ))}
                 </div>
             </div>
 
@@ -180,21 +184,37 @@ const DropdownButtons = ({
                     maxHeight: '500px',
                     overflowY: 'auto',
                 }}>
+
+                    <SearchInput
+                        buttonCustomClass="dropDownButtonSearchClearButton"
+                        customClass="dropDownButtonSearch"
+                        myWidth={'60%'}
+                        placeHolder="Потърси категория..."
+                        searchQuery={categorySearchQuery}
+                        handleSearchChange={(e) => setCategorySearchQuery(e.target.value)}
+                        clearSearch={() => setCategorySearchQuery('')}
+                    />
+
                     {categories.map((item, index) => {
                         const category = Object.keys(item)[0];
                         const quantity = item[category];
 
-                        return (<Link
-                            key={index}
-                            to="#"
-                            className={`dropdown-item fw-bolder${selectedCategory === category ? ' active' : ''}`}
-                            onClick={() => {
-                                toggleDropdown('category');
-                                selectCategory(category);
-                            }}
-                        >
-                            <span className="redColorText">{'{'}{quantity}{'}'}</span> {category}
-                        </Link>);
+                        if (category.toLowerCase().includes(categorySearchQuery.toLowerCase())) {
+                            return (
+                                <Link
+                                    key={index}
+                                    to="#"
+                                    className={`dropdown-item fw-bolder${selectedCategory === category ? ' active' : ''}`}
+                                    onClick={() => {
+                                        toggleDropdown('category');
+                                        selectCategory(category);
+                                    }}
+                                >
+                                    <span className="redColorText">{quantity}</span> {category}
+                                </Link>
+                            );
+                        }
+                        return null;
                     })}
                 </div>
             </div>
@@ -214,21 +234,35 @@ const DropdownButtons = ({
                     maxHeight: '500px',
                     overflowY: 'auto',
                 }}>
+
+                    <SearchInput
+                        buttonCustomClass="dropDownButtonSearchClearButton"
+                        customClass="dropDownButtonSearch"
+                        myWidth={'65%'}
+                        placeHolder="Потърси марка..."
+                        searchQuery={brandSearchQuery}
+                        handleSearchChange={(e) => setBrandSearchQuery(e.target.value)}
+                        clearSearch={() => setBrandSearchQuery('')}
+                    />
+
                     {brands.map((item, index) => {
                         const brand = Object.keys(item)[0];
                         const quantity = item[brand];
 
-                        return (<Link
-                                key={index}
-                                to={"#"}
-                                className={`dropdown-item fw-bolder${selectedBrand === brand ? ' active' : ''}`}
-                                onClick={() => {
-                                    toggleDropdown('brand');
-                                    selectBrand(brand)
-                                }}>
-                                <span className="redColorText">{'{'}{quantity}{'}'}</span> {brand}
-                            </Link>
-                        )
+                        if (brand.toLowerCase().includes(brandSearchQuery.toLowerCase())) {
+                            return (<Link
+                                    key={index}
+                                    to={"#"}
+                                    className={`dropdown-item fw-bolder${selectedBrand === brand ? ' active' : ''}`}
+                                    onClick={() => {
+                                        toggleDropdown('brand');
+                                        selectBrand(brand)
+                                    }}>
+                                    <span className="redColorText">{'{'}{quantity}{'}'}</span> {brand}
+                                </Link>
+                            );
+                        }
+                        return null;
                     })}
                 </div>
             </div>

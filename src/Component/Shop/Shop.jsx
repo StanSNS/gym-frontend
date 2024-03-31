@@ -163,6 +163,8 @@ const Shop = () => {
         <Container>
             <div className="topShopSection">
                 <SearchInput
+                    myWidth={"100%"}
+                    placeHolder="Потърси продукт..."
                     searchQuery={searchQuery}
                     handleSearchChange={handleSearchChange}
                     clearSearch={clearSearch}

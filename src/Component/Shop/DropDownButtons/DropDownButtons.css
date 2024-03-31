@@ -28,7 +28,7 @@
     border: 2px solid #333;
 }
 
-.halfButton:hover{
+.halfButton:hover {
     height: 50px;
     top: -30%;
 }
@@ -77,12 +77,30 @@
     border-radius: 30px;
 }
 
-.rotateIcon{
-    transform:rotate(90deg);
+.rotateIcon {
+    transform: rotate(90deg);
 }
 
 .myScrollable::-webkit-scrollbar-thumb {
     background-color: orangered;
     border-radius: 30px;
     height: 100px;
+}
+
+.dropDownButtonSearch {
+    font-size: 15px !important;
+    border: none !important;
+    border-bottom: 2px solid black !important;
+    border-radius: 0 !important;
+    padding-left: 0 !important;
+    margin-left: 1rem;
+    margin-bottom: 0.5rem;
+}
+
+.dropDownButtonSearch:focus {
+    box-shadow: none !important;
+}
+
+.dropDownButtonSearchClearButton{
+    font-size: 28px !important;
 }
