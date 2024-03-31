@@ -30,12 +30,17 @@ const DropdownButtons = ({
                              selectedCategory,
                              selectedBrand,
                              clearSortBy,
-                             selectedOrderBy
+                             selectedOrderBy,
+                             isOpenWeight,
+                             selectWeight,
+                             selectedWeight,
+                             weightData,
                          }) => {
     const flashDealsRef = useRef(null);
     const orderByRef = useRef(null);
     const categoryRef = useRef(null);
     const brandRef = useRef(null);
+    const weightRef = useRef(null);
 
     return (
         <div className="dropDownButtons">
@@ -126,6 +131,37 @@ const DropdownButtons = ({
                     }}>
                         <FaCommentDots className="mb-1 me-1 redColorText"/>Ревюта
                     </Link>
+                </div>
+            </div>
+
+            {/* Weight */}
+            <div className="dropdown" ref={weightRef}>
+                {selectedWeight !== "0.0-999999.0" && (
+                    <button className="halfButton" onClick={() => selectWeight("0.0-999999.0")}>
+                        {selectedWeight} кг
+                    </button>
+                )}
+                <button className="orderButton align-bottom ml-2 dropdown-toggle" type="button"
+                        onClick={() => toggleDropdown('weight')}>
+                    <FaWeightHanging className="me-1"/>Количество
+                </button>
+                <div className={`dropdown-menu${isOpenWeight ? ' show' : ''} mt-1 myScrollable`} style={{
+                    maxHeight: '500px',
+                    overflowY: 'auto',
+                }}>
+                    {weightData.map((weight, index) => (
+                        <Link
+                            key={index}
+                            to="#"
+                            className={`dropdown-item fw-bolder${selectWeight === weight.range ? ' active' : ''}`}
+                            onClick={() => {
+                                toggleDropdown('weight');
+                                selectWeight(weight.range);
+                            }}
+                        >
+                            <span className="redColorText">{weight.range} кг</span>
+                        </Link>
+                        ))}
                 </div>
             </div>
 

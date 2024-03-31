@@ -17,12 +17,25 @@ const Shop = () => {
     const [selectedBrand, setSelectedBrand] = useState('');
     const [selectedOrderBy, setSelectedOrderBy] = useState('')
     const [selectedDeal, setSelectedDeal] = useState(0)
+    const [selectedWeight, setSelectedWeight] = useState("0.0-999999.0");
+    const [minWeight, maxWeight] = selectedWeight.split('-').map(parseFloat);
     const productsPerPage = 20;
 
     const [isOpenFlashDeals, setIsOpenFlashDeals] = useState(false);
     const [isOpenCategory, setIsOpenCategory] = useState(false);
     const [isOpenOrderBy, setIsOpenOrderBy] = useState(false);
     const [isOpenBrand, setIsOpenBrand] = useState(false);
+    const [isOpenWeight, setIsOpenWeight] = useState(false);
+
+    const weightData = [
+        {id: 1, range: "0-0.300"},
+        {id: 2, range: "0.300-0.500"},
+        {id: 3, range: "0.500-1.000"},
+        {id: 4, range: "1.000-2.000"},
+        {id: 5, range: "2.000-3.500"},
+        {id: 6, range: "3.500-5.000"},
+        {id: 7, range: "5.000-9999999"}
+    ];
 
     useEffect(() => {
         const fetchData = async () => {
@@ -57,7 +70,8 @@ const Shop = () => {
         (product.name.toLowerCase() + product.description.toLowerCase()).includes(searchQuery.toLowerCase()) &&
         (selectedBrand ? product.brandEntity.name === selectedBrand : true) &&
         (selectedCategory ? product.category === selectedCategory : true) &&
-        (Math.abs(product.reducedTotalAmountPercentage) >= selectedDeal)
+        (Math.abs(product.reducedTotalAmountPercentage) >= selectedDeal) &&
+        (product.weightKg >= minWeight && product.weightKg < maxWeight)
     );
     const currentProducts = filteredProducts.slice(indexOfFirstProduct, indexOfLastProduct);
 
@@ -82,6 +96,7 @@ const Shop = () => {
         setIsOpenCategory(dropdown === 'category' ? !isOpenCategory : false);
         setIsOpenOrderBy(dropdown === 'orderBy' ? !isOpenOrderBy : false);
         setIsOpenBrand(dropdown === 'brand' ? !isOpenBrand : false);
+        setIsOpenWeight(dropdown === 'weight' ? !isOpenWeight : false);
         setIsOverlayVisible(!isOverlayVisible);
     };
 
@@ -130,6 +145,13 @@ const Shop = () => {
         setCurrentPage(1);
     };
 
+    const selectWeight = (weight) => {
+        setSelectedWeight(weight);
+        setCurrentPage(1)
+
+        console.log(weight)
+    };
+
     const clearSortBy = () => {
         setSelectedOrderBy('');
         let sortedProducts = [...products];
@@ -149,20 +171,24 @@ const Shop = () => {
                 <DropdownButtons
                     selectedDeal={selectedDeal}
                     isOpenFlashDeals={isOpenFlashDeals}
+                    selectFlashDeal={selectFlashDeal}
                     isOpenOrderBy={isOpenOrderBy}
                     isOpenCategory={isOpenCategory}
-                    isOpenBrand={isOpenBrand}
-                    toggleDropdown={toggleDropdown}
-                    selectFlashDeal={selectFlashDeal}
-                    selectSort={selectSort}
                     selectCategory={selectCategory}
-                    selectBrand={selectBrand}
-                    categories={categories}
-                    brands={brands}
                     selectedCategory={selectedCategory}
+                    isOpenWeight={isOpenWeight}
+                    selectWeight={selectWeight}
+                    selectedWeight={selectedWeight}
+                    isOpenBrand={isOpenBrand}
+                    selectBrand={selectBrand}
                     selectedBrand={selectedBrand}
+                    brands={brands}
+                    toggleDropdown={toggleDropdown}
+                    selectSort={selectSort}
+                    categories={categories}
                     clearSortBy={clearSortBy}
                     selectedOrderBy={selectedOrderBy}
+                    weightData={weightData}
                 />
 
                 <div
