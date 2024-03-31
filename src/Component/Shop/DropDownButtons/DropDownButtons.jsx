@@ -1,0 +1,187 @@
+import React, { useRef } from 'react';
+import { FaBolt, FaSort, FaListAlt, FaLayerGroup, FaPercentage, FaStar, FaCommentDots } from "react-icons/fa";
+import { IoPricetag } from "react-icons/io5";
+import { MdOutlineDoubleArrow } from "react-icons/md";
+import { Link } from "react-router-dom";
+import "./DropDownButtons.css"
+
+const DropdownButtons = ({
+                             selectedDeal,
+                             isOpenFlashDeals,
+                             isOpenOrderBy,
+                             isOpenCategory,
+                             isOpenBrand,
+                             toggleDropdown,
+                             selectFlashDeal,
+                             selectSort,
+                             selectCategory,
+                             selectBrand,
+                             categories,
+                             brands,
+                             selectedCategory,
+                             selectedBrand,
+                             clearSortBy,
+                             selectedOrderBy
+                         }) => {
+    const flashDealsRef = useRef(null);
+    const orderByRef = useRef(null);
+    const categoryRef = useRef(null);
+    const brandRef = useRef(null);
+
+    return (
+        <div className="dropDownButtons">
+            {/* Flash Deals */}
+            <div className="dropdown" ref={flashDealsRef}>
+                {selectedDeal !== 0 && (
+                    <button className="halfButton" onClick={() => selectFlashDeal(0)}>
+                        <span>Над -{selectedDeal}<FaPercentage/></span>
+                    </button>
+                )}
+
+                <button className="orderButton align-bottom ml-2 dropdown-toggle" type="button"
+                        onClick={() => toggleDropdown('flashDeals')}>
+                    <FaBolt className="me-1"/>Топ Оферти
+                </button>
+                <div className={`dropdown-menu${isOpenFlashDeals ? ' show' : ''} mt-1`}>
+                    <Link to={"#"} className="dropdown-item fw-bolder" onClick={() => {
+                        toggleDropdown('flashDeals');
+                        selectFlashDeal(70);
+                    }}><MdOutlineDoubleArrow className="redColorText mb-1 rotateIcon"/> Над -70%
+                    </Link>
+
+                    <Link to={"#"} className="dropdown-item fw-bolder" onClick={() => {
+                        toggleDropdown('flashDeals');
+                        selectFlashDeal(50);
+                    }}><MdOutlineDoubleArrow className="redColorText mb-1 rotateIcon"/> Над -50%
+                    </Link>
+
+                    <Link to={"#"} className="dropdown-item fw-bolder" onClick={() => {
+                        toggleDropdown('flashDeals');
+                        selectFlashDeal(30);
+                    }}><MdOutlineDoubleArrow className="redColorText mb-1 rotateIcon"/> Над -30%
+                    </Link>
+
+                    <Link to={"#"} className="dropdown-item fw-bolder" onClick={() => {
+                        toggleDropdown('flashDeals');
+                        selectFlashDeal(15);
+                    }}><MdOutlineDoubleArrow className="redColorText mb-1 rotateIcon"/> Над -15%
+                    </Link>
+                </div>
+            </div>
+
+            {/* Order By */}
+            <div className="dropdown" ref={orderByRef}>
+                {selectedOrderBy && (
+                    <button className="halfButton" onClick={clearSortBy}>
+                        {selectedOrderBy}
+                    </button>
+                )}
+
+                <button className="orderButton align-bottom ml-2 dropdown-toggle" type="button"
+                        onClick={() => toggleDropdown('orderBy')}>
+                    <FaSort className="me-1"/>Подреди по
+                </button>
+
+                <div className={`dropdown-menu${isOpenOrderBy ? ' show' : ''} mt-1`}>
+                    <Link to={"#"} className="dropdown-item fw-bolder" onClick={() => {
+                        toggleDropdown('orderBy');
+                        selectSort("Намалена цена");
+                    }}>
+                        <IoPricetag className="mb-1 me-1 redColorText"/>Намалена цена
+                    </Link>
+
+                    <Link to={"#"} className="dropdown-item fw-bolder" onClick={() => {
+                        toggleDropdown('orderBy');
+                        selectSort("Процент")
+                    }}>
+                        <FaPercentage className="mb-1 me-1 redColorText"/>Процент
+                    </Link>
+
+                    <Link to={"#"} className="dropdown-item fw-bolder" onClick={() => {
+                        toggleDropdown('orderBy');
+                        selectSort("Рейтинг");
+                    }}>
+                        <FaStar className="mb-1 me-1 redColorText"/>Рейтинг
+                    </Link>
+
+                    <Link to={"#"} className="dropdown-item fw-bolder" onClick={() => {
+                        toggleDropdown('orderBy');
+                        selectSort("Ревюта")
+                    }}>
+                        <FaCommentDots className="mb-1 me-1 redColorText"/>Ревюта
+                    </Link>
+                </div>
+            </div>
+
+            {/* Category */}
+            <div className="dropdown" ref={categoryRef}>
+                {selectedCategory && (
+                    <button className="halfButton" onClick={() => selectCategory('')}>
+                        {selectedCategory.split(" ")[0].split("-")[0]}
+                    </button>
+                )}
+                <button className="orderButton align-bottom ml-2 dropdown-toggle" type="button"
+                        onClick={() => toggleDropdown('category')}>
+                    <FaListAlt className="me-1"/>Категория
+                </button>
+                <div className={`dropdown-menu${isOpenCategory ? ' show' : ''} mt-1 myScrollable`} style={{
+                    maxHeight: '500px',
+                    overflowY: 'auto',
+                }}>
+                    {categories.map((item, index) => {
+                        const category = Object.keys(item)[0];
+                        const quantity = item[category];
+
+                        return (<Link
+                            key={index}
+                            to="#"
+                            className={`dropdown-item fw-bolder${selectedCategory === category ? ' active' : ''}`}
+                            onClick={() => {
+                                toggleDropdown('category');
+                                selectCategory(category);
+                            }}
+                        >
+                            <span className="redColorText">{'{'}{quantity}{'}'}</span> {category}
+                        </Link>);
+                    })}
+                </div>
+            </div>
+
+            {/* Brand */}
+            <div className="dropdown myDropDownButton" ref={brandRef}>
+                {selectedBrand && (
+                    <button className="halfButton" onClick={() => selectBrand('')}>
+                        {selectedBrand.split(" ")[0]}
+                    </button>
+                )}
+                <button className="orderButton align-bottom ml-2 dropdown-toggle" type="button"
+                        onClick={() => toggleDropdown('brand')}>
+                    <FaLayerGroup className="me-1"/>Марка
+                </button>
+                <div className={`dropdown-menu${isOpenBrand ? ' show' : ''} mt-1 myScrollable`} style={{
+                    maxHeight: '500px',
+                    overflowY: 'auto',
+                }}>
+                    {brands.map((item, index) => {
+                        const brand = Object.keys(item)[0];
+                        const quantity = item[brand];
+
+                        return (<Link
+                                key={index}
+                                to={"#"}
+                                className={`dropdown-item fw-bolder${selectedBrand === brand ? ' active' : ''}`}
+                                onClick={() => {
+                                    toggleDropdown('brand');
+                                    selectBrand(brand)
+                                }}>
+                                <span className="redColorText">{'{'}{quantity}{'}'}</span> {brand}
+                            </Link>
+                        )
+                    })}
+                </div>
+            </div>
+        </div>
+    );
+};
+
+export default DropdownButtons;

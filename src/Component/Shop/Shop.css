@@ -10,22 +10,12 @@
     font-weight: bold;
 }
 
-
 .topShopSection {
     padding-bottom: 2rem;
     display: flex;
     flex-direction: column;
     align-items: center;
 }
-
-.dropDownButtons {
-    display: flex;
-    justify-content: space-evenly;
-    margin-top: 2rem;
-    width: 90%;
-    margin-bottom: 2rem;
-}
-
 
 .overlay {
     position: fixed;
@@ -42,55 +32,6 @@
     display: block;
 }
 
-.orderButton {
-    width: 140%;
-    position: relative;
-    background-color: #212529;
-    color: white;
-    padding: 0.6rem;
-    border-radius: 14px;
-    font-size: 16px;
-    font-weight: bolder;
-    transition: background-color 0.3s ease;
-    display: flex;
-    align-items: center;
-    justify-content: center;
-    z-index: 2;
-    outline: none;
-    border: none !important;
-}
-
-.halfButton {
-    width: 139%;
-    position: absolute;
-    top: -16%;
-    left: 70%;
-    transform: translate(-50%, -50%);
-    max-width: 200px;
-    height: 40px;
-    max-height: 80px;
-    z-index: 1;
-    background-color: orangered;
-    cursor: pointer;
-    font-size: 15px;
-    font-weight: bolder;
-    padding-bottom: 0.8rem;
-    border-top-left-radius: 10px;
-    border-top-right-radius: 10px;
-    color: white;
-    transition: all 0.3s ease;
-    border: 2px solid #333;
-}
-
-.halfButton:hover{
-    height: 50px;
-    top: -30%;
-}
-
-.orderButton:hover {
-    background-color: #373b3e;
-}
-
 .noResultsMessage {
     display: flex;
     flex-direction: column;
@@ -104,36 +45,4 @@
 
 .row {
     justify-content: center;
-}
-
-.redColorText {
-    color: orangered;
-}
-
-.dropdown-item:active .redColorText {
-    color: white !important;
-}
-
-.dropdown-item.active .redColorText {
-    color: white !important;
-}
-
-.myScrollable::-webkit-scrollbar {
-    width: 12px;
-    border-radius: 30px;
-}
-
-.myScrollable::-webkit-scrollbar-track {
-    background-color: #333333;
-    border-radius: 30px;
-}
-
-.rotateIcon{
-    transform:rotate(90deg);
-}
-
-.myScrollable::-webkit-scrollbar-thumb {
-    background-color: orangered;
-    border-radius: 30px;
-    height: 100px;
 }
