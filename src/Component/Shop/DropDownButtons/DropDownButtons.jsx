@@ -7,7 +7,7 @@ import {
     FaPercentage,
     FaStar,
     FaCommentDots,
-    FaWeightHanging
+    FaWeightHanging, FaTimes, FaBalanceScaleRight
 } from "react-icons/fa";
 import {IoPricetag} from "react-icons/io5";
 import {MdOutlineDoubleArrow} from "react-icons/md";
@@ -53,6 +53,7 @@ const DropdownButtons = ({
                 {selectedDeal !== 0 && (
                     <button className="halfButton" onClick={() => selectFlashDeal(0)}>
                         <span>Над -{selectedDeal}<FaPercentage/></span>
+                        <FaTimes className="deleteIcon"/>
                     </button>
                 )}
 
@@ -92,6 +93,7 @@ const DropdownButtons = ({
                 {selectedOrderBy && (
                     <button className="halfButton" onClick={clearSortBy}>
                         {selectedOrderBy}
+                        <FaTimes className="deleteIcon"/>
                     </button>
                 )}
 
@@ -143,6 +145,7 @@ const DropdownButtons = ({
                 {selectedWeight !== "0.0-999999.0" && (
                     <button className="halfButton" onClick={() => selectWeight("0.0-999999.0")}>
                         {selectedWeight} кг
+                        <FaTimes className="deleteIcon"/>
                     </button>
                 )}
                 <button className="orderButton align-bottom ml-2 dropdown-toggle" type="button"
@@ -163,7 +166,7 @@ const DropdownButtons = ({
                                 selectWeight(weight.range);
                             }}
                         >
-                            <span className="redColorText">{weight.range} кг</span>
+                            <span> <FaBalanceScaleRight className="mb-1 redColorText"/> {weight.range} кг</span>
                         </Link>
                     ))}
                 </div>
@@ -174,6 +177,7 @@ const DropdownButtons = ({
                 {selectedCategory && (
                     <button className="halfButton" onClick={() => selectCategory('')}>
                         {selectedCategory.split(" ")[0].split("-")[0]}
+                        <FaTimes className="deleteIcon"/>
                     </button>
                 )}
                 <button className="orderButton align-bottom ml-2 dropdown-toggle" type="button"
@@ -224,6 +228,7 @@ const DropdownButtons = ({
                 {selectedBrand && (
                     <button className="halfButton" onClick={() => selectBrand('')}>
                         {selectedBrand.split(" ")[0]}
+                        <FaTimes className="deleteIcon"/>
                     </button>
                 )}
                 <button className="orderButton align-bottom ml-2 dropdown-toggle" type="button"
