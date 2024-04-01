@@ -6,6 +6,8 @@ import Hero from "./Component/Hero/Hero";
 import Footer from "./Component/STATIC/Footer/Footer";
 import {SkeletonTheme} from "react-loading-skeleton";
 
+
+
 function App() {
     return (
         <>
