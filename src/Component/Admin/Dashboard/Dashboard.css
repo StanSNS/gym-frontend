@@ -1,0 +1,53 @@
+.miniBoxes {
+    display: flex;
+    justify-content: space-between;
+    padding: 2rem;
+}
+
+.miniBox{
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    color: white;
+}
+
+.miniBoxHeader {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    width: 250px;
+    max-width: 250px;
+    height: 80px;
+    max-height: 80px;
+    border-radius: 20px;
+    padding-top: 0.8rem;
+}
+
+.miniBoxHeader h4 {
+    font-weight: bolder;
+}
+
+.miniBoxHeader p {
+    font-weight: bolder;
+}
+
+.miniBox:nth-child(1) .miniBoxHeader {
+    background-color: rgb(75, 192, 192);
+}
+
+.miniBox:nth-child(2) .miniBoxHeader{
+    background-color: rgb(54, 162, 235);
+}
+
+.miniBox:nth-child(3) .miniBoxHeader{
+    background-color: rgb(73, 203, 95);
+}
+
+.miniBox:nth-child(4) .miniBoxHeader{
+    background-color: rgb(255, 99, 132);
+}
+
+.miniBoxContent{
+    margin-top: 2rem;
+}
