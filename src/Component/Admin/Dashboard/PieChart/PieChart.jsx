@@ -20,7 +20,7 @@ const PieChart = ({ data }) => {
                     datasets: [{
                         data: data.values,
                         backgroundColor: data.colors,
-                        borderColor: ['#333'],
+                        borderColor: ['#fff'],
                         borderWidth: 2
                     }]
                 },
