@@ -11,8 +11,9 @@ const Sidebar = () => {
 
             <div>
                 <button><Link to="/admin">Dashboard</Link></button>
+                <button><Link to="/admin/products">Products</Link></button>
                 <button><Link to="/admin/users">Users</Link></button>
-                <button><Link to="/admin/settings">Settings</Link></button>
+                <button><Link to="/admin/orders">Orders</Link></button>
             </div>
 
         </div>
