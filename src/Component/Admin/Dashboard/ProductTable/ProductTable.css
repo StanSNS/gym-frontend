@@ -7,34 +7,38 @@
     outline: none;
 }
 
-.tableWrapper {
+.tableWrapper{
     height: 480px;
     overflow: auto;
     border-radius: 30px;
 }
 
-.tableWrapper::-webkit-scrollbar {
+.tableWrapper::-webkit-scrollbar{
     width: 0;
 }
 
-.tableWrapper .table {
+.tableWrapper .table{
     text-align: center;
     font-weight: bolder;
     outline: none;
 }
 
-.tableTopSection {
+.imageTable img{
+    height: 25px;
+}
+
+.imageTable{
+    justify-content: center;
     display: flex;
-    align-items: center;
-    justify-content: space-evenly;
-    margin-bottom: 1rem;
-    margin-top: 0.7rem;
 }
 
-.tableSearchInputContainer {
-    width: 50%;
+.table-container .buttonCustomClass{
+    color: white;
+    transition: color 0.4s ease-in-out;
 }
 
-
+.table-container .buttonCustomClass:hover{
+    color: orangered;
+}
 
 
