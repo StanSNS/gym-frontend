@@ -198,21 +198,18 @@ function UserTable() {
                     </thead>
                     <tbody>
                     {filteredUsers.map((user, index) => (
-                        <tr
-                            className={index % 2 === 0 ? "even" : "odd"}
-                            key={user.id}
-                        >
-                            <td>{user.id}</td>
-                            <td>{user.firstName}</td>
-                            <td>{user.lastName}</td>
-                            <td>{user.email}</td>
-                            <td>{user.revenue}</td>
-                            <td>{user.firstLogin}</td>
-                            <td>{user.lastLogin}</td>
-                            <td>
+                        <tr className={index % 2 === 0 ? "even" : "odd"} key={user.id}>
+                            <td className="align-content-center">{user.id}</td>
+                            <td className="align-content-center">{user.firstName}</td>
+                            <td className="align-content-center">{user.lastName}</td>
+                            <td className="align-content-center">{user.email}</td>
+                            <td className="align-content-center">{user.revenue}</td>
+                            <td className="align-content-center">{user.firstLogin}</td>
+                            <td className="align-content-center">{user.lastLogin}</td>
+                            <td className="align-content-center">
                                 <Button variant="dark">View</Button>
                             </td>
-                            <td>
+                            <td className="align-content-center">
                                 <Button variant="danger">Ban</Button>
                             </td>
                         </tr>

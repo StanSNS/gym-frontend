@@ -234,17 +234,17 @@ function OrderTable() {
                     <tbody>
                     {filteredOrders.map((order, index) => (
                         <tr className={index % 2 === 0 ? "even" : "odd"} key={order.id}>
-                            <td>{order.id}</td>
-                            <td>{order.dateIssued}</td>
-                            <td>{order.userEmail}</td>
-                            <td>{order.amount}</td>
-                            <td>{order.productsQty}</td>
-                            <td>
+                            <td className="align-content-center">{order.id}</td>
+                            <td className="align-content-center">{order.dateIssued}</td>
+                            <td className="align-content-center">{order.userEmail}</td>
+                            <td className="align-content-center">{order.amount}</td>
+                            <td className="align-content-center">{order.productsQty}</td>
+                            <td className="align-content-center">
                                 <span style={{color: getStatusColor(order.status)}}>
                                      {order.status}
                                  </span>
                             </td>
-                            <td><Button variant="dark">View</Button></td>
+                            <td className="align-content-center"> <Button variant="dark">View</Button></td>
                         </tr>
                     ))}
                     </tbody>

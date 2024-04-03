@@ -193,12 +193,12 @@ function ProductTable() {
                     <tbody>
                     {filteredProducts.map((product, index) => (
                         <tr className={index % 2 === 0 ? 'even' : 'odd'}>
-                            <td>{product.id}</td>
-                            <td className="imageTable"><img className="me-2" src={product.image}
+                            <td className="align-content-center">{product.id}</td>
+                            <td className="imageTable align-content-center"><img className="me-2" src={product.image}
                                                             alt={product.id}/> {product.productName}</td>
-                            <td>{product.category}</td>
-                            <td>{product.brand}</td>
-                            <td>{product.bought}</td>
+                            <td className="align-content-center">{product.category}</td>
+                            <td className="align-content-center">{product.brand}</td>
+                            <td className="align-content-center">{product.bought}</td>
                         </tr>
                     ))}
                     </tbody>
