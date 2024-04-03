@@ -8,7 +8,7 @@ import {MdOutlineMoneyOffCsred} from "react-icons/md";
 
 const CardShop = ({product}) => {
     return (
-        <Col xl={3} lg={4} md={5} sm={12} className="mb-4">
+        <Col xl={3} lg={4} md={5} sm={12} className="mb-5">
             <Card className="h-100 shopCard">
                 <div className="cardImageContainer">
                     {product.reducedTotalAmountPercentage && <span className="discountText"><FaBolt
