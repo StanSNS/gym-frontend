@@ -29,10 +29,12 @@
     justify-content: space-evenly;
     margin-bottom: 1rem;
     margin-top: 0.7rem;
+    color: white;
+    font-style: italic;
 }
 
 .tableSearchInputContainer {
-    width: 50%;
+    width: 40%;
 }
 
 

@@ -122,7 +122,6 @@ function UserTable() {
     };
 
     const handleSortByChange = (sortType) => {
-        console.log(sortType)
         let sortedData = [...filteredUsers];
         switch (sortType) {
             case "id":
@@ -146,6 +145,7 @@ function UserTable() {
     return (
         <div className="table-container">
             <div className="tableTopSection">
+                <h2>Users</h2>
 
                 <div className="tableSearchInputContainer">
                     <SearchInput

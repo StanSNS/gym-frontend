@@ -131,7 +131,6 @@ function ProductTable() {
     };
 
     const handleSortByChange = (sortType) => {
-        console.log(sortType)
         let sortedData = [...filteredProducts];
         switch (sortType) {
             case "id":
@@ -149,13 +148,14 @@ function ProductTable() {
     return (
         <div className="table-container">
             <div className="tableTopSection">
+                <h2>Products</h2>
 
                 <div className="tableSearchInputContainer">
                     <SearchInput
                         searchQuery={searchQuery}
                         handleSearchChange={handleSearchChange}
                         clearSearch={clearSearch}
-                        placeHolder="Search by email"
+                        placeHolder="Search by name"
                         myWidth={"100%"}
                         customClass="searchInputCustomClass"
                         buttonCustomClass="buttonCustomClass"
@@ -194,7 +194,8 @@ function ProductTable() {
                     {filteredProducts.map((product, index) => (
                         <tr className={index % 2 === 0 ? 'even' : 'odd'}>
                             <td>{product.id}</td>
-                            <td className="imageTable"><img className="me-2" src={product.image} alt={product.id}/> {product.productName}</td>
+                            <td className="imageTable"><img className="me-2" src={product.image}
+                                                            alt={product.id}/> {product.productName}</td>
                             <td>{product.category}</td>
                             <td>{product.brand}</td>
                             <td>{product.bought}</td>
