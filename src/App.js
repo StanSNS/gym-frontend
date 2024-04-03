@@ -15,8 +15,6 @@ function App() {
                     <Header />
                     <Routes>
                         <Route path="/" element={<><Hero /><Shop /></>} />
-
-
                         <Route path="/admin/*" element={<Admin />} />
                     </Routes>
                     <Footer />
