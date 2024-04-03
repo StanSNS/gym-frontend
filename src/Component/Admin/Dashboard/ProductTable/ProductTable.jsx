@@ -1,5 +1,7 @@
-import React from "react";
+import React, {useState} from "react";
 import "./ProductTable.css"
+import SearchInput from "../../../Shop/SearchInput/SearchInput";
+import {Dropdown} from "react-bootstrap";
 
 function ProductTable() {
     const ProductData = [
@@ -58,7 +60,7 @@ function ProductTable() {
             status: "delivered",
         },
         {
-            id: 2,
+            id: 7,
             image: "https://distro.silabg.com/uf/product/16356_pm_gel13.jpg",
             productName: "Protein Chocolate Bar / 50g",
             category: "Барове и колбаси",
@@ -67,7 +69,7 @@ function ProductTable() {
             status: "shipped",
         },
         {
-            id: 3,
+            id: 8,
             image: "https://distro.silabg.com/uf/product/16356_pm_gel13.jpg",
             productName: "BCAA Drink / 500ml",
             category: "Напитки",
@@ -76,34 +78,7 @@ function ProductTable() {
             status: "delivered",
         },
         {
-            id: 4,
-            image: "https://distro.silabg.com/uf/product/16356_pm_gel13.jpg",
-            productName: "Whey Protein / 1kg",
-            category: "Протеини",
-            brand: "Optimum Nutrition",
-            bought: 501,
-            status: "pending",
-        },
-        {
-            id: 5,
-            image: "https://distro.silabg.com/uf/product/16356_pm_gel13.jpg",
-            productName: "Creatine Monohydrate / 300g",
-            category: "Креатини",
-            brand: "MuscleTech",
-            bought: 104,
-            status: "shipped",
-        },
-        {
-            id: 6,
-            image: "https://distro.silabg.com/uf/product/16356_pm_gel13.jpg",
-            productName: "Pre-Workout Booster / 300g",
-            category: "Предтренировъчни комплекси",
-            brand: "BSN",
-            bought: 227,
-            status: "delivered",
-        },
-        {
-            id: 2,
+            id: 9,
             image: "https://distro.silabg.com/uf/product/16356_pm_gel13.jpg",
             productName: "Protein Chocolate Bar / 50g",
             category: "Барове и колбаси",
@@ -112,7 +87,7 @@ function ProductTable() {
             status: "shipped",
         },
         {
-            id: 3,
+            id: 10,
             image: "https://distro.silabg.com/uf/product/16356_pm_gel13.jpg",
             productName: "BCAA Drink / 500ml",
             category: "Напитки",
@@ -121,39 +96,92 @@ function ProductTable() {
             status: "delivered",
         },
         {
-            id: 4,
+            id: 11,
             image: "https://distro.silabg.com/uf/product/16356_pm_gel13.jpg",
-            productName: "Whey Protein / 1kg",
-            category: "Протеини",
-            brand: "Optimum Nutrition",
-            bought: 501,
-            status: "pending",
-        },
-        {
-            id: 5,
-            image: "https://distro.silabg.com/uf/product/16356_pm_gel13.jpg",
-            productName: "Creatine Monohydrate / 300g",
-            category: "Креатини",
-            brand: "MuscleTech",
-            bought: 104,
+            productName: "Protein Chocolate Bar / 50g",
+            category: "Барове и колбаси",
+            brand: "Nutrend",
+            bought: 183,
             status: "shipped",
         },
         {
-            id: 6,
+            id: 12,
             image: "https://distro.silabg.com/uf/product/16356_pm_gel13.jpg",
-            productName: "Pre-Workout Booster / 300g",
-            category: "Предтренировъчни комплекси",
-            brand: "BSN",
-            bought: 227,
+            productName: "BCAA Drink / 500ml",
+            category: "Напитки",
+            brand: "Scitec Nutrition",
+            bought: 315,
             status: "delivered",
         },
     ];
 
+    const [searchQuery, setSearchQuery] = useState('');
+    const [filteredProducts, setFilteredProducts] = useState(ProductData);
+
+    const handleSearchChange = (e) => {
+        const value = e.target.value;
+        setSearchQuery(value);
+        const filteredData = ProductData.filter(product => product.productName.toLowerCase().includes(value.toLowerCase()));
+        setFilteredProducts(filteredData);
+    };
+
+    const clearSearch = () => {
+        setSearchQuery('');
+        setFilteredProducts(ProductData);
+    };
+
+    const handleSortByChange = (sortType) => {
+        console.log(sortType)
+        let sortedData = [...filteredProducts];
+        switch (sortType) {
+            case "id":
+                sortedData.sort((a, b) => a.id - b.id);
+                break;
+            case "bought":
+                sortedData.sort((a, b) => b.bought - a.bought);
+                break;
+            default:
+                break;
+        }
+        setFilteredProducts(sortedData);
+    };
+
     return (
         <div className="table-container">
+            <div className="tableTopSection">
+
+                <div className="tableSearchInputContainer">
+                    <SearchInput
+                        searchQuery={searchQuery}
+                        handleSearchChange={handleSearchChange}
+                        clearSearch={clearSearch}
+                        placeHolder="Search by email"
+                        myWidth={"100%"}
+                        customClass="searchInputCustomClass"
+                        buttonCustomClass="buttonCustomClass"
+                    />
+                </div>
+
+                <Dropdown>
+                    <Dropdown.Toggle variant="dark" id="dropdown-basic">
+                        Sort By
+                    </Dropdown.Toggle>
+
+                    <Dropdown.Menu>
+                        <Dropdown.Item onClick={() => handleSortByChange("id")}>
+                            ID
+                        </Dropdown.Item>
+                        <Dropdown.Item onClick={() => handleSortByChange("bought")}>
+                            Bought
+                        </Dropdown.Item>
+                    </Dropdown.Menu>
+                </Dropdown>
+            </div>
+
+
             <div className="tableWrapper">
                 <table className="table table-striped">
-                    <thead className="table-dark sticky-top">
+                    <thead className="table-dark">
                     <tr>
                         <th>#</th>
                         <th>Product</th>
@@ -163,7 +191,7 @@ function ProductTable() {
                     </tr>
                     </thead>
                     <tbody>
-                    {ProductData.map((product, index) => (
+                    {filteredProducts.map((product, index) => (
                         <tr className={index % 2 === 0 ? 'even' : 'odd'}>
                             <td>{product.id}</td>
                             <td className="imageTable"><img className="me-2" src={product.image} alt={product.id}/> {product.productName}</td>
