@@ -1,0 +1,24 @@
+
+
+
+
+
+
+.leftSection{
+    display: flex;
+}
+
+.productText{
+    width: 100%;
+}
+
+.tastes{
+    display: flex;
+    align-items: center;
+    width: 100%;
+}
+
+.barChart{
+    width: 50%;
+    height: 50%;
+}

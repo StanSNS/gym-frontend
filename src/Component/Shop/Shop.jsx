@@ -41,10 +41,10 @@ const Shop = () => {
         const fetchData = async () => {
             try {
                 const data = await getAllSellableProducts();
-                console.log(data)
                 setProducts(data.products);
                 setBrands(data.brands);
                 setCategories(data.categories);
+                console.log(data)
             } catch (error) {
                 console.error('Error fetching sellable products:', error);
             }
@@ -148,8 +148,6 @@ const Shop = () => {
     const selectWeight = (weight) => {
         setSelectedWeight(weight);
         setCurrentPage(1)
-
-        console.log(weight)
     };
 
     const clearSortBy = () => {

@@ -12,3 +12,15 @@ export const getAllSellableProducts = () => {
         throw error;
     });
 };
+
+export const getProductBySkuAndModelId = (sku, modelId) => {
+    return axios.get(BACKEND_BASE_URL + `/product?sku=${sku}&modelId=${modelId}`).then((response) => {
+        if (response.status === 202) {
+            return response.data;
+        } else {
+            throw new Error('Failed to get current product.');
+        }
+    }).catch((error) => {
+        throw error;
+    });
+};

@@ -1,3 +1,7 @@
+.linkUnderline{
+    text-decoration: none;
+}
+
 .shopCardBody {
     flex: none !important;
     display: flex;
