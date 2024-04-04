@@ -1,5 +1,7 @@
 .adminAppContainer {
     display: flex;
+    flex-direction: column;
+    padding: 1rem;
 }
 
 .adminAppContent {
@@ -84,4 +86,10 @@
 .textAndSwitch {
     display: flex;
     justify-content: space-between;
+}
+.adminTables{
+    margin-top: 4rem;
+    display: grid;
+    grid-template-columns: repeat(2, 1fr);
+    grid-gap: 20px;
 }

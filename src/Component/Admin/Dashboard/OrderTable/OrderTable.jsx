@@ -89,7 +89,6 @@ function OrderTable() {
 
     const [searchQuery, setSearchQuery] = useState('');
     const [filteredOrders, setFilteredOrders] = useState(OrderData);
-    const [selectedStatus, setSelectedStatus] = useState('All'); // State to keep track of selected status
 
 
     const handleSearchChange = (e) => {
@@ -145,7 +144,6 @@ function OrderTable() {
     };
 
     const handleStatusChange = (status) => {
-        setSelectedStatus(status);
         if (status === 'All') {
             setFilteredOrders(OrderData);
         } else {
@@ -159,7 +157,7 @@ function OrderTable() {
             <div className="tableTopSection">
                 <h2>Orders</h2>
 
-                <div className="tableSearchInputContainer">
+                <div className="tableSearchInputContainer ms-2">
                     <SearchInput
                         searchQuery={searchQuery}
                         handleSearchChange={handleSearchChange}
@@ -197,25 +195,25 @@ function OrderTable() {
                     </Dropdown.Menu>
                 </Dropdown>
 
-                <div className="radio-input">
-                    <label>
-                        <input value="value-1" name="value-radio" id="value-1" type="radio" onChange={() => handleStatusChange("All")}  checked={selectedStatus === 'All'}/>
-                        <span>All</span>
-                    </label>
-                    <label>
-                        <input value="value-2" name="value-radio" id="value-2" type="radio" onChange={() => handleStatusChange("Completed")}  checked={selectedStatus === 'Completed'} />
-                        <span>Completed</span>
-                    </label>
-                    <label>
-                        <input value="value-3" name="value-radio" id="value-3" type="radio" onChange={() => handleStatusChange("Pending")}  checked={selectedStatus === 'Pending'} />
-                        <span>Pending</span>
-                    </label>
-                    <label>
-                        <input value="value-3" name="value-radio" id="value-3" type="radio" onChange={() => handleStatusChange("Cancelled")}  checked={selectedStatus === 'Cancelled'} />
-                        <span>Canceled</span>
-                    </label>
-                    <span className="selection"></span>
-                </div>
+                <Dropdown>
+                    <Dropdown.Toggle variant="dark" id="dropdown-basic">
+                        Status
+                    </Dropdown.Toggle>
+                    <Dropdown.Menu>
+                        <Dropdown.Item onClick={() =>  handleStatusChange("All")}>
+                            All
+                        </Dropdown.Item>
+                        <Dropdown.Item onClick={() =>  handleStatusChange("Completed")}>
+                            Completed
+                        </Dropdown.Item>
+                        <Dropdown.Item onClick={() =>  handleStatusChange("Pending")}>
+                            Pending
+                        </Dropdown.Item>
+                        <Dropdown.Item onClick={() =>  handleStatusChange("Cancelled")}>
+                            Canceled
+                        </Dropdown.Item>
+                    </Dropdown.Menu>
+                </Dropdown>
             </div>
 
             <div className="tableWrapper">
