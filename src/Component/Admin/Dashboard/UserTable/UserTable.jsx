@@ -186,12 +186,12 @@ function UserTable() {
                     <thead className="table-dark">
                     <tr>
                         <th>#</th>
-                        <th>First Name</th>
-                        <th>Last Name</th>
+                        <th>First</th>
+                        <th>Last</th>
                         <th>Email</th>
                         <th>Revenue</th>
-                        <th>First Login</th>
-                        <th>Last Login</th>
+                        <th>F-Login</th>
+                        <th>L-Login</th>
                         <th>Orders</th>
                         <th>Actions</th>
                     </tr>

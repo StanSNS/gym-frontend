@@ -181,7 +181,7 @@ function OrderTable() {
                             Date issued
                         </Dropdown.Item>
                         <Dropdown.Item onClick={() => handleSortByChange("email")}>
-                            User email
+                            Email
                         </Dropdown.Item>
                         <Dropdown.Item onClick={() => handleSortByChange("amount")}>
                             Amount
@@ -222,9 +222,9 @@ function OrderTable() {
                     <tr>
                         <th>#</th>
                         <th>Date issued</th>
-                        <th>User email</th>
+                        <th>Email</th>
                         <th>Amount</th>
-                        <th>Products qty</th>
+                        <th>Quantity</th>
                         <th>Status</th>
                         <th>Action</th>
                     </tr>
