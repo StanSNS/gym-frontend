@@ -1,14 +1,15 @@
 import React, {useState} from "react";
-import "./Dashboard.css"
+import "./Gauges.css"
 import PieChart from "./PieChart/PieChart";
 import ProductTable from "../ProductTable/ProductTable";
 import UserTable from "../UserTable/UserTable";
 import RevenueTable from "../RevenueTable/RevenueTble";
 import OrderTable from "../OrderTable/OrderTable";
 import Actions from "../Actions/Actions";
+import TasteTable from "../TasteTable/TasteTable";
 
 
-function Dashboard() {
+function Gauges() {
     const Products = {
         labels: ['Not Available', 'Available', "Too expensive"],
         values: [4500, 1108, 1400],
@@ -133,9 +134,11 @@ function Dashboard() {
             </div>
 
             <Actions/>
+
+            <TasteTable/>
         </>
 
     );
 }
 
-export default Dashboard;
+export default Gauges;

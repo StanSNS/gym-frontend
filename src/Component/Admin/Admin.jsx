@@ -1,11 +1,11 @@
 import React from "react";
 import "./Admin.css"
-import Dashboard from "./Dashboard/Dashboard/Dashboard";
+import Gauges from "./Dashboard/Gauges/Gauges";
 
 function Admin() {
     return (
         <div className="adminAppContainer">
-            <Dashboard/>
+            <Gauges/>
         </div>
     );
 }
