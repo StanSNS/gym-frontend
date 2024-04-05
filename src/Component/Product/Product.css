@@ -1,24 +1,114 @@
-
-
-
-
-
-
-.leftSection{
+.productContainer {
     display: flex;
+    flex-direction: row;
+    align-items: center;
 }
 
-.productText{
+.leftSection {
+    width: 65%;
+    padding: 2rem;
+    padding-right: 1rem;
+}
+
+.productCard {
+    display: flex;
+    width: 100%;
+    box-shadow: 0px 10px 20px rgb(51, 51, 51);
+    border-radius: 30px;
+    height: auto;
+    max-height: 640px;
+    align-items: center;
+    padding: 3rem;
+}
+
+.rightSection {
+    width: 35%;
+    padding: 2rem;
+    padding-left: 1rem;
+}
+
+.productDescription {
+    width: 100%;
+    height: auto;
+    max-height: 640px;
+    padding: 1.5rem;
+    overflow-y: auto;
+    box-shadow: 0px 10px 20px rgb(51, 51, 51);
+    border-radius: 30px;
+    border-top-right-radius: 10px;
+    border-bottom-right-radius: 10px;
+
+}
+
+.productDescription img{
+    max-width: 100%;
+    object-fit: contain;
+}
+
+.productDescription::-webkit-scrollbar {
+    width: 12px;
+    border-radius: 30px;
+    padding-right: 2rem;
+    margin-right: 2rem;
+}
+
+.productDescription::-webkit-scrollbar-track {
+    background-color: #333333;
+    border-radius: 30px;
+}
+
+.productDescription::-webkit-scrollbar-thumb {
+    background-color: orangered;
+    border-radius: 30px;
+    height: 100px;
+}
+
+.productText {
     width: 100%;
 }
 
-.tastes{
+.tastes, .sizes {
     display: flex;
     align-items: center;
     width: 100%;
+    margin-top: 1rem;
 }
 
-.barChart{
-    width: 50%;
-    height: 50%;
+.barChart {
+    width: 400px;
+    height: 200px;
+    display: flex;
+    flex-direction: row;
+    margin-top: 1rem;
+}
+
+.chartStars {
+    display: flex;
+    flex-direction: column;
+    justify-content: space-around;
+    padding-top: 10px;
+    padding-bottom: 30px;
+}
+
+.oneStar, .twoStar, .threeStars, .fourStars, .fiveStars {
+    display: flex;
+    height: 27px;
+    align-items: center;
+    font-size: 25px;
+}
+
+.yellowStar {
+    color: #FFC107FF;
+}
+
+.blackStar {
+    color: #333;
+}
+
+.addButton {
+    width: 100%;
+}
+
+.addButtonContainer {
+    margin-top: 1.5rem;
 }

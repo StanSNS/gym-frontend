@@ -20,16 +20,32 @@ const BarChart = ({ data }) => {
                     datasets: [{
                         data: data.values,
                         backgroundColor: data.colors,
-                        borderColor: ['#fff'],
-                        borderWidth: 2
                     }]
                 },
                 options: {
                     responsive: true,
+                    indexAxis: 'y',
+                    elements: {
+                        bar: {
+                            borderWidth: 0,
+                        }
+                    },
                     maintainAspectRatio: false,
                     plugins: {
                         legend: {
                             display: false
+                        }
+                    },
+                    scales: {
+                        y: {
+                            grid: {
+                                display: false
+                            }
+                        },
+                        x: {
+                            grid: {
+                                display: false
+                            }
                         }
                     }
                 }
