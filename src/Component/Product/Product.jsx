@@ -4,9 +4,11 @@ import './Product.css'
 import {Dropdown} from "react-bootstrap";
 import BarChart from "./BarChart/BarChart";
 import {FaStar} from "react-icons/fa";
+import DoughnutChart from "./DoughnutChart/DoughnutChart";
 
 function Product() {
     const [product, setProduct] = useState();
+    const [tasteData, setTasteData] = useState(null);
 
     useEffect(() => {
         const fetchData = async () => {
@@ -31,6 +33,12 @@ function Product() {
         colors: ['#FFC107FF', '#333'],
     };
 
+    const doughnutData = {
+        labels: tasteData?.colorNames.split(',').filter(name => name.trim() !== ''),
+        values: new Array(tasteData?.colorNames.split(',').filter(name => name.trim() !== '').length).fill(100),
+        colors: tasteData?.colors.split(',').filter(color => color.trim() !== ''),
+    };
+
     return (
         <div className="productContainer">
             {product ? (
@@ -38,6 +46,12 @@ function Product() {
                     <div className="leftSection">
                         <div className="productCard">
                             <div className="imageContainer me-4">
+                                {tasteData && (
+                                    <div className="doughnutChartContainer">
+                                        <DoughnutChart data={doughnutData}/>
+                                        <p className="doughnutText">{tasteData.name}</p>
+                                    </div>
+                                )}
                                 <img src={product.image} alt={product.name}/>
                             </div>
 
@@ -49,14 +63,14 @@ function Product() {
                                 <h5>Цена: {product.discountedPrice.toFixed(2)} лв.</h5>
 
                                 <div className="tastes">
-                                    <h5>Вкусове:</h5>
+                                    <h4 className="me-3">Вкусове: </h4>
                                     <Dropdown>
                                         <Dropdown.Toggle variant="dark" id="dropdown-basic">
                                             Вкусове
                                         </Dropdown.Toggle>
                                         <Dropdown.Menu>
                                             {product.taste.map((taste, index) => (
-                                                <Dropdown.Item key={index}>
+                                                <Dropdown.Item key={index} onClick={() => setTasteData(taste)}>
                                                     {taste.name}
                                                 </Dropdown.Item>
                                             ))}
@@ -66,7 +80,6 @@ function Product() {
 
                                 <div className="sizes">
                                     <h5>Размери:</h5>
-
                                     <Dropdown>
                                         <Dropdown.Toggle variant="dark" id="dropdown-basic">
                                             Размери
@@ -126,12 +139,12 @@ function Product() {
                     </div>
 
                     <div className="rightSection">
-                            <div dangerouslySetInnerHTML={{
-                                __html: product.description.indexOf('СИЛА БГ Тийм') !== -1
-                                    ? product.description.substring(0, product.description.indexOf('СИЛА БГ Тийм'))
-                                    : product.description
-                            }}
-                                 className="productDescription" style={null}/>
+                        <div dangerouslySetInnerHTML={{
+                            __html: product.description.indexOf('СИЛА БГ Тийм') !== -1
+                                ? product.description.substring(0, product.description.indexOf('СИЛА БГ Тийм'))
+                                : product.description
+                        }}
+                             className="productDescription" style={null}/>
                     </div>
 
                 </>
