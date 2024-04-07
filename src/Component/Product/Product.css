@@ -55,7 +55,7 @@
     position: relative;
 }
 
-.imageContainer img{
+.imageContainer img {
     max-width: 300px;
 }
 
@@ -116,19 +116,22 @@
 
 .productText {
     width: 100%;
+    display: flex;
+    flex-direction: column;
+    font-size: 20px;
 }
 
 .tastes, .sizes {
     display: flex;
-    align-items: center;
+    height: 100%;
     width: 100%;
+    align-items: baseline;
 }
 
-.dropDownButton{
+.dropDownButton {
     width: 6.5em;
-    height: 2.4em;
+    height: 100%;
     background: black;
-    margin-bottom: 1.5rem;
     color: white;
     border: none;
     border-radius: 0.625em;
@@ -140,7 +143,7 @@
     overflow: hidden;
 }
 
-.dropDownButton:hover{
+.dropDownButton:hover {
     color: black !important;
 }
 
@@ -209,7 +212,7 @@
     transition: all 0.3s;
     cursor: pointer;
     background: white;
-    font-size: 1.5em;
+    font-size: 20px;
     font-weight: 550;
     font-family: "Montserrat", sans-serif;
 }
@@ -217,5 +220,12 @@
 .addButtonContainer button:hover {
     background: #343a40;
     color: white;
-    font-size: 1.8em;
+    font-size: 24px;
+}
+
+.productNotSelectedError {
+    display: flex;
+    justify-content: center;
+    height: 100vh;
+    width: 100%;
 }

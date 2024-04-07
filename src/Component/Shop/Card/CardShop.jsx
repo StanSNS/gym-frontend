@@ -38,7 +38,7 @@ const CardShop = ({product}) => {
                                  <span className="keyColorInfo">
                                      <FaStar className="mb-1"/>Рейтинг:
                                  </span>
-                                 {product.ratingValue}/5 ({product.ratingCount})
+                                 {product?.ratingValue.toFixed(1)}/5 ({product?.ratingCount})
                              </span>
 
                                 {product.weightKg !== "0.000" && (
@@ -54,7 +54,7 @@ const CardShop = ({product}) => {
                                         Редовна цена:
                                     </span>
                                     <span className="strikeText">
-                                        {product.enemyPrice.toFixed(2)}лв
+                                        {product.regularPrice.toFixed(2)}лв
                                     </span>
                                 </span>
 
