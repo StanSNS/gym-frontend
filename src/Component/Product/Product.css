@@ -2,6 +2,7 @@
     display: flex;
     flex-direction: row;
     align-items: center;
+    padding: 3rem;
 }
 
 .leftSection {
@@ -15,7 +16,9 @@
     width: 100%;
     box-shadow: 0px 10px 20px rgb(51, 51, 51);
     border-radius: 30px;
+    border-top-left-radius: 40px;
     height: auto;
+    min-height: 640px;
     max-height: 640px;
     align-items: center;
     padding: 3rem;
@@ -24,10 +27,10 @@
 .doughnutChartContainer {
     position: absolute;
     z-index: 1;
-    height: 70px;
-    left: 10px;
-    top: -40px;
-    max-width: 70px;
+    height: 60px;
+    left: -50px;
+    top: -144px;
+    max-width: 60px;
     display: flex;
     background-color: #333333;
     align-items: center;
@@ -40,7 +43,7 @@
     margin-bottom: 0 !important;
     color: white;
     font-weight: bolder;
-    font-size: 18px;
+    font-size: 16px;
     display: flex;
     align-items: center !important;
     justify-content: flex-start;
@@ -52,10 +55,14 @@
     position: relative;
 }
 
+.imageContainer img{
+    max-width: 300px;
+}
+
 .doughnutText {
-    min-width: 350px;
+    min-width: 280px;
     background-color: #333333;
-    min-height: 70px;
+    min-height: 60px;
     color: white;
     border-top-right-radius: 40px;
     border-bottom-right-radius: 40px;
@@ -77,13 +84,16 @@
     border-radius: 30px;
     border-top-right-radius: 10px;
     border-bottom-right-radius: 10px;
-    font-size: 20px;
-
+    font-size: 18px;
 }
 
 .productDescription img {
     max-width: 100%;
     object-fit: contain;
+}
+
+.productDescription iframe {
+    max-width: 486px;
 }
 
 .productDescription::-webkit-scrollbar {
@@ -112,7 +122,45 @@
     display: flex;
     align-items: center;
     width: 100%;
-    margin-top: 1rem;
+}
+
+.dropDownButton{
+    width: 6.5em;
+    height: 2.4em;
+    background: black;
+    margin-bottom: 1.5rem;
+    color: white;
+    border: none;
+    border-radius: 0.625em;
+    font-size: 30px;
+    font-weight: bold;
+    cursor: pointer;
+    position: relative;
+    z-index: 1;
+    overflow: hidden;
+}
+
+.dropDownButton:hover{
+    color: black !important;
+}
+
+.dropDownButton:after {
+    content: "";
+    background: white;
+    position: absolute;
+    z-index: -1;
+    left: -20%;
+    right: -20%;
+    top: -20%;
+    bottom: 0;
+    transform: skewX(-45deg) scale(0, 1);
+    transition: all 0.5s;
+}
+
+.dropDownButton:hover:after {
+    transform: skewX(-45deg) scale(1, 1);
+    -webkit-transition: all 0.5s;
+    transition: all 0.5s;
 }
 
 .barChart {
@@ -120,7 +168,6 @@
     height: 200px;
     display: flex;
     flex-direction: row;
-    margin-top: 1rem;
 }
 
 .chartStars {
@@ -154,4 +201,21 @@
     margin-top: 1.5rem;
 }
 
+.addButtonContainer button {
+    width: 100%;
+    height: 60px;
+    border: 3px solid #333;
+    border-radius: 50px;
+    transition: all 0.3s;
+    cursor: pointer;
+    background: white;
+    font-size: 1.5em;
+    font-weight: 550;
+    font-family: "Montserrat", sans-serif;
+}
 
+.addButtonContainer button:hover {
+    background: #343a40;
+    color: white;
+    font-size: 1.8em;
+}

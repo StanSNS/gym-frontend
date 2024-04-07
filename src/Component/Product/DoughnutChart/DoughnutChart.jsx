@@ -19,6 +19,7 @@ const DoughnutChart = ({ data }) => {
                     labels: data.labels,
                     datasets: [{
                         data: data.values,
+                        borderColor: '#fff',
                         backgroundColor: data.colors,
                     }]
                 },

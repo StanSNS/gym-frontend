@@ -29,7 +29,7 @@ function Product() {
 
     const starData = {
         labels: ['', '', "", "", ""],
-        values: [100, 40, 30, 11, 85],
+        values: [product?.oneStarRatingCount, product?.twoStarRatingCount, product?.threeStarRatingCount, product?.fourStarRatingCount, product?.fiveStarRatingCount],
         colors: ['#FFC107FF', '#333'],
     };
 
@@ -56,44 +56,47 @@ function Product() {
                             </div>
 
                             <div className="productText">
-                                <h2>{product.name} - {product.brandEntity.name}</h2>
+                                <h3>{product.name} - {product.brandEntity.name}</h3>
                                 <h5>Категория: {product.category}</h5>
                                 <h5>Тегло: {product.weightKg} кг.</h5>
-                                <h5>Рейтинг: {product.ratingValue}/5</h5>
                                 <h5>Цена: {product.discountedPrice.toFixed(2)} лв.</h5>
 
-                                <div className="tastes">
-                                    <h4 className="me-3">Вкусове: </h4>
-                                    <Dropdown>
-                                        <Dropdown.Toggle variant="dark" id="dropdown-basic">
-                                            Вкусове
-                                        </Dropdown.Toggle>
-                                        <Dropdown.Menu>
-                                            {product.taste.map((taste, index) => (
-                                                <Dropdown.Item key={index} onClick={() => setTasteData(taste)}>
-                                                    {taste.name}
-                                                </Dropdown.Item>
-                                            ))}
-                                        </Dropdown.Menu>
-                                    </Dropdown>
-                                </div>
+                                {product.taste.length > 0 && (
+                                    <div className="tastes">
+                                        <Dropdown>
+                                            <Dropdown.Toggle variant={"dark"} id="dropdown-basic" className="dropDownButton">
+                                                Вкусове
+                                            </Dropdown.Toggle>
+                                            <Dropdown.Menu>
+                                                {product.taste.map((taste, index) => (
+                                                    <Dropdown.Item key={index} onClick={() => setTasteData(taste)}>
+                                                        {taste.name}
+                                                    </Dropdown.Item>
+                                                ))}
+                                            </Dropdown.Menu>
+                                        </Dropdown>
+                                    </div>
+                                )}
 
-                                <div className="sizes">
-                                    <h5>Размери:</h5>
-                                    <Dropdown>
-                                        <Dropdown.Toggle variant="dark" id="dropdown-basic">
-                                            Размери
-                                        </Dropdown.Toggle>
-                                        <Dropdown.Menu>
-                                            {product.size.map((size, index) => (
-                                                <Dropdown.Item key={index}>
-                                                    {size.name}
-                                                </Dropdown.Item>
-                                            ))}
-                                        </Dropdown.Menu>
-                                    </Dropdown>
-                                </div>
+                                {product.size.length > 0 && (
+                                    <div className="sizes">
+                                        <h5>Размери:</h5>
+                                        <Dropdown>
+                                            <Dropdown.Toggle variant="dark" id="dropdown-basic">
+                                                Размери
+                                            </Dropdown.Toggle>
+                                            <Dropdown.Menu>
+                                                {product.size.map((size, index) => (
+                                                    <Dropdown.Item key={index}>
+                                                        {size.name}
+                                                    </Dropdown.Item>
+                                                ))}
+                                            </Dropdown.Menu>
+                                        </Dropdown>
+                                    </div>
+                                )}
 
+                                <h4>Рейтинг: {product.ratingValue}/5 ({product.ratingCount})</h4>
                                 <div className="barChart">
                                     <div className="chartStars">
                                         <div className="oneStar yellowStar">
@@ -131,7 +134,7 @@ function Product() {
                                 </div>
 
                                 <div className="addButtonContainer">
-                                    <button className="addButton">Добави</button>
+                                    <button>Добави</button>
                                 </div>
                             </div>
                         </div>
