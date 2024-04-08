@@ -1,0 +1,70 @@
+.cardProductCart {
+    display: flex;
+    flex-direction: row !important;
+    margin-bottom: 3rem;
+}
+
+.imageAndQuantityControlContainer{
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    padding: 1rem;
+    padding-top: 0.5rem;
+}
+
+.quantityControls{
+    width: 100%;
+    display: flex;
+    align-items: center;
+    justify-content: space-evenly;
+}
+
+.quantityControl{
+    font-size: 30px;
+    border: 3px solid #333;
+    border-radius: 50%;
+    fill: #333;
+}
+
+.quantityText{
+    font-weight: bold;
+    font-size: 24px;
+}
+
+.cardProductCart .card-img {
+    max-height: 140px;
+    max-width: 140px;
+
+
+    object-fit: contain;
+}
+
+.cardProductCart .card-title{
+    font-style: italic;
+    font-size: 22px;
+}
+
+.cardProductCart .card-body{
+    display: flex;
+    flex-direction: column;
+    justify-content: space-around;
+}
+
+.cardProductCart .cardBody{
+    display: flex !important;
+    flex-direction: column !important;
+}
+
+.cardFooterCart{
+display: flex;
+    justify-content: space-around;
+}
+
+
+
+
+
+
+
+

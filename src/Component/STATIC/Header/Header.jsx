@@ -35,8 +35,6 @@ function Header() {
 
         const handleClickOutsideCart = (event) => {
             if (!event.target.closest('.cart')) {
-                console.log("Click")
-
                 refreshCartItems();
             }
         };
@@ -123,9 +121,12 @@ function Header() {
                                         <span className="ms-1">Track Order</span>
                                     </span>
                                 </Nav.Link>
-                                <Nav.Link onClick={() => setShowCartModal(true)}>
+                                <Nav.Link onClick={() => {
+                                    setShowCartModal(true);
+                                    console.log(cartItems)
+                                }}>
                                     <span className="navLinkContent">
-                                        <FaShoppingCart /> <span className="ms-1">Cart</span>
+                                        <FaShoppingCart/> <span className="ms-1">Cart</span>
                                         {productCount > 0 &&
                                             <span className="cartItemCount">{productCount}</span>
                                         }
@@ -143,7 +144,7 @@ function Header() {
 
                 <LoginModal show={showLoginModal} handleClose={handleLoginModalClose}/>
                 <TrackOrderModal show={showTrackOrderModal} handleClose={handleTrackOrderModalClose}/>
-                <CartModal show={showCartModal} handleClose={() => setShowCartModal(false)} cartItems={cartItems} />
+                <CartModal show={showCartModal} handleClose={() => setShowCartModal(false)} cartItems={cartItems}/>
             </Navbar>
         </>
     );

@@ -21,19 +21,18 @@ function Product() {
     const [showTasteModal, setShowTasteModal] = useState(false);
     const [showSuccessModal, setShowSuccessModal] = useState(false);
 
-
     useEffect(() => {
         const fetchData = async () => {
             try {
                 const modelId = localStorage.getItem("modelId");
                 const sku = localStorage.getItem("sku");
-                if (modelId && sku && !product) {
+                if (modelId && sku) {
                     const data = await getProductBySkuAndModelId(sku, modelId);
                     setProduct(data);
                     localStorage.setItem('selectedProduct', JSON.stringify(data));
+                    localStorage.removeItem("modelId");
+                    localStorage.removeItem("sku");
                 }
-                localStorage.removeItem("modelId");
-                localStorage.removeItem("sku");
             } catch (error) {
                 console.error('Error fetching current product:', error);
             }
