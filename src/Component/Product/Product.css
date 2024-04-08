@@ -223,6 +223,10 @@
     font-size: 24px;
 }
 
+.addButtonContainer button:focus {
+    color: #333333;
+}
+
 .productNotSelectedError {
     display: flex;
     justify-content: center;

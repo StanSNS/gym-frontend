@@ -25,6 +25,14 @@ export const getProductBySkuAndModelId = (sku, modelId) => {
     });
 };
 
+export const checkIfProductExists = (brandId, modelId, tasteId) => {
+    return axios.patch(BACKEND_BASE_URL + `/product?brandId=${brandId}&modelId=${modelId}&tasteId=${tasteId}`).then((response) => {
+        return response;
+    }).catch((error) => {
+        throw error;
+    });
+};
+
 const CART_KEY = 'cart';
 
 export const getCartFromStorage = () => {
@@ -33,7 +41,7 @@ export const getCartFromStorage = () => {
 
 export const addToCart = (product, selectedTaste, quantity = 1) => {
     const cart = getCartFromStorage();
-    const { brandEntity, discountedPrice, image, modelId, name, regularPrice, weightKg } = product;
+    const {brandEntity, discountedPrice, image, modelId, name, regularPrice, weightKg} = product;
 
     // Check if the product already exists in the cart
     const existingProductIndex = cart.findIndex(item => item.modelId === modelId && item.selectedTaste.silaTasteID === selectedTaste.silaTasteID);

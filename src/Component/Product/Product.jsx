@@ -1,5 +1,5 @@
 import React, {useEffect, useState} from "react";
-import {addToCart, getProductBySkuAndModelId} from "../../Service/ProductService";
+import {addToCart, checkIfProductExists, getProductBySkuAndModelId} from "../../Service/ProductService";
 import './Product.css'
 import {Button, Dropdown, Modal} from "react-bootstrap";
 import BarChart from "./BarChart/BarChart";
@@ -11,10 +11,15 @@ import {IoIosPricetag} from "react-icons/io";
 import {GiWrappedSweet} from "react-icons/gi";
 
 function Product() {
-    const [product, setProduct] = useState();
+    const [product, setProduct] = useState(() => {
+        const savedProduct = localStorage.getItem('selectedProduct');
+        return savedProduct ? JSON.parse(savedProduct) : null;
+    });
     const [tasteData, setTasteData] = useState(null);
     const [selectedTaste, setSelectedTaste] = useState(null);
-    const [showModal, setShowModal] = useState(false); // State for modal visibilityz
+    const [showModal, setShowModal] = useState(false);
+    const [showTasteModal, setShowTasteModal] = useState(false);
+    const [showSuccessModal, setShowSuccessModal] = useState(false);
 
     useEffect(() => {
         const fetchData = async () => {
@@ -24,9 +29,10 @@ function Product() {
                 if (modelId && sku && !product) {
                     const data = await getProductBySkuAndModelId(sku, modelId);
                     setProduct(data);
-                    localStorage.removeItem("modelId")
-                    localStorage.removeItem("sku")
+                    localStorage.setItem('selectedProduct', JSON.stringify(data));
                 }
+                localStorage.removeItem("modelId");
+                localStorage.removeItem("sku");
             } catch (error) {
                 console.error('Error fetching current product:', error);
             }
@@ -46,13 +52,18 @@ function Product() {
         colors: tasteData?.colors.split(',').filter(color => color.trim() !== ''),
     };
 
-    const handleAddProductToCart = (product) => {
+    const handleAddProductToCart = async (product) => {
         if (!selectedTaste) {
             setShowModal(true);
         } else {
-            addToCart(product, selectedTaste);
+            const data = await checkIfProductExists(product.brandEntity.brandID, product.modelId, selectedTaste?.silaTasteID);
+            if (data.status === 204) {
+                setShowTasteModal(true);
+            } else if (data.status === 200) {
+                setShowSuccessModal(true);
+                addToCart(product, selectedTaste);
+            }
         }
-
     }
 
     return (
@@ -207,6 +218,29 @@ function Product() {
                 <Modal.Body>Please select a taste for your product.</Modal.Body>
                 <Modal.Footer>
                     <Button variant="secondary" onClick={() => setShowModal(false)}>
+                        Close
+                    </Button>
+                </Modal.Footer>
+            </Modal>
+            <Modal show={showTasteModal} onHide={() => setShowTasteModal(false)}>
+                <Modal.Header closeButton>
+                    <Modal.Title>Error</Modal.Title>
+                </Modal.Header>
+                <Modal.Body>The selected taste is not available right now. Please choose another one.</Modal.Body>
+                <Modal.Footer>
+                    <Button variant="secondary" onClick={() => setShowTasteModal(false)}>
+                        Close
+                    </Button>
+                </Modal.Footer>
+            </Modal>
+            {/* Modal for successful addition to cart */}
+            <Modal show={showSuccessModal} onHide={() => setShowSuccessModal(false)}>
+                <Modal.Header closeButton>
+                    <Modal.Title>Success</Modal.Title>
+                </Modal.Header>
+                <Modal.Body>The product has been added to the cart successfully.</Modal.Body>
+                <Modal.Footer>
+                    <Button variant="secondary" onClick={() => setShowSuccessModal(false)}>
                         Close
                     </Button>
                 </Modal.Footer>
