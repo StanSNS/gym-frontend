@@ -1,5 +1,5 @@
 import React, {useEffect, useState} from "react";
-import {Button, Dropdown} from "react-bootstrap";
+import {Dropdown} from "react-bootstrap";
 import SearchInput from "../../../Shop/SearchInput/SearchInput";
 import {getAllTastes} from "../../../../Service/AdminService";
 

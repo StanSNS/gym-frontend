@@ -14,6 +14,7 @@ import {MdOutlineDoubleArrow} from "react-icons/md";
 import {Link} from "react-router-dom";
 import "./DropDownButtons.css"
 import SearchInput from "../SearchInput/SearchInput";
+import {BiSolidCategory} from "react-icons/bi";
 
 const DropdownButtons = ({
                              selectedDeal,
@@ -182,7 +183,7 @@ const DropdownButtons = ({
                 )}
                 <button className="orderButton align-bottom ml-2 dropdown-toggle" type="button"
                         onClick={() => toggleDropdown('category')}>
-                    <FaListAlt className="me-1"/>Категория
+                    <BiSolidCategory className="me-1"/>Категория
                 </button>
                 <div className={`dropdown-menu${isOpenCategory ? ' show' : ''} mt-1 myScrollable`} style={{
                     maxHeight: '500px',

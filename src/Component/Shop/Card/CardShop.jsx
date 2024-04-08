@@ -1,6 +1,6 @@
 import React from 'react';
 import {Card, Button, Col} from 'react-bootstrap';
-import {FaBolt, FaShoppingCart, FaStar, FaWeightHanging} from "react-icons/fa";
+import {FaBolt, FaLayerGroup, FaShoppingCart, FaStar, FaWeightHanging} from "react-icons/fa";
 import {BiSolidCategory} from "react-icons/bi";
 import {IoIosPricetag} from "react-icons/io";
 import "./CardShop.css"
@@ -8,7 +8,7 @@ import {MdOutlineMoneyOffCsred} from "react-icons/md";
 import {Link} from "react-router-dom";
 
 const CardShop = ({product}) => {
-    const handleCardClick = (sku,modelId) => {
+    const handleCardClick = (sku, modelId) => {
         localStorage.setItem('sku', product.sku);
         localStorage.setItem('modelId', product.modelId);
     };
@@ -25,46 +25,53 @@ const CardShop = ({product}) => {
                     <Card.Body className="shopCardBody">
                         <Card.Title className="cardTitle">{product.name}</Card.Title>
                         <div className="cardText">
-                        <span className="fw-bolder mt-2 cardCategory">
-                            <span className="keyColorInfo"> <BiSolidCategory className="mb-1"/> Категория: </span>
-                            {product.category}
-                        </span>
 
-                            <div dangerouslySetInnerHTML={{__html: product.description.replace(/<br\s*\/?>/gi, '')}} className="cardDescription" style={null}/>
+                            <span className="fw-bolder cardCategory">
+                                <span className="keyColorInfo me-2"> <FaLayerGroup className="mb-1 me-1"/>Марка:</span>
+                                {product.brandEntity.name}
+                            </span>
+
+                            <span className="fw-bolder cardCategory">
+                                <span className="keyColorInfo me-2"> <BiSolidCategory className="mb-1 me-1"/>Категория:</span>
+                                {product.category}
+                            </span>
+
+                            <div
+                                dangerouslySetInnerHTML={{__html: product.description.replace(/<br\s*\/?>/gi, '')}}
+                                className="cardDescription"
+                                style={null}
+                            />
 
                             <div className="baseInfo">
-
-                             <span className="fw-bolder mt-2">
-                                 <span className="keyColorInfo">
-                                     <FaStar className="mb-1"/>Рейтинг:
-                                 </span>
-                                 {product?.ratingValue.toFixed(1)}/5 ({product?.ratingCount})
-                             </span>
+                                <span className="fw-bolder mt-2">
+                                     <span className="keyColorInfo me-2"><FaStar className="mb-1 me-1"/>Рейтинг:</span>
+                                     {product?.ratingValue.toFixed(1)}/5 ({product?.ratingCount})
+                                </span>
 
                                 {product.weightKg !== "0.000" && (
                                     <span className="fw-bolder mt-2">
-                                        <span className="keyColorInfo"> <FaWeightHanging className="mb-1"/>
-                                            Тегло:
+                                        <span className="keyColorInfo me-2">
+                                            <FaWeightHanging className="mb-1 me-1"/>Тегло:
                                         </span>
                                         {product.weightKg} кг.
                                     </span>)}
 
                                 <span className="fw-bolder mt-2">
-                                    <span className="keyColorInfo strikeText"> <MdOutlineMoneyOffCsred className="mb-1"/>
+                                    <span className="keyColorInfo strikeText me-2"> <MdOutlineMoneyOffCsred
+                                        className="mb-1 me-1"/>
                                         Редовна цена:
                                     </span>
                                     <span className="strikeText">
-                                        {product.regularPrice.toFixed(2)}лв
+                                        {product.regularPrice.toFixed(2)} лв
                                     </span>
                                 </span>
 
                                 <span className="fw-bolder mt-2">
-                                    <span className="keyColorInfo">
+                                    <span className="keyColorInfo me-2">
                                         <IoIosPricetag className="mb-1"/> Намалена цена:
                                     </span>
-
                                     <span>
-                                        {product.discountedPrice.toFixed(2)}лв
+                                        {product.discountedPrice.toFixed(2)} лв
                                     </span>
                                 </span>
                             </div>

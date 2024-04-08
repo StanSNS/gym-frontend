@@ -23,6 +23,7 @@ function Product() {
                     const data = await getProductBySkuAndModelId(sku, modelId);
                     console.log(data)
                     setProduct(data);
+                    localStorage.clear()
                 }
             } catch (error) {
                 console.error('Error fetching current product:', error);
