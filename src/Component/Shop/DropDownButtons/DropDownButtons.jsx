@@ -1,13 +1,14 @@
 import React, {useRef, useState} from 'react';
 import {
+    FaBalanceScaleRight,
     FaBolt,
-    FaSort,
-    FaListAlt,
+    FaCommentDots,
     FaLayerGroup,
     FaPercentage,
+    FaSort,
     FaStar,
-    FaCommentDots,
-    FaWeightHanging, FaTimes, FaBalanceScaleRight
+    FaTimes,
+    FaWeightHanging
 } from "react-icons/fa";
 import {IoPricetag} from "react-icons/io5";
 import {MdOutlineDoubleArrow} from "react-icons/md";

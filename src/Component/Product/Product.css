@@ -121,7 +121,7 @@
     font-size: 20px;
 }
 
-.tastes, .sizes {
+.tastes {
     display: flex;
     height: 100%;
     width: 100%;

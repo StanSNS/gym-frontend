@@ -24,3 +24,46 @@ export const getProductBySkuAndModelId = (sku, modelId) => {
         throw error;
     });
 };
+
+const CART_KEY = 'cart';
+
+export const getCartFromStorage = () => {
+    return JSON.parse(localStorage.getItem(CART_KEY)) || [];
+};
+
+export const addToCart = (product, selectedTaste, quantity = 1) => {
+    const cart = getCartFromStorage();
+    const { brandEntity, discountedPrice, image, modelId, name, regularPrice, weightKg } = product;
+
+    // Check if the product already exists in the cart
+    const existingProductIndex = cart.findIndex(item => item.modelId === modelId && item.selectedTaste.silaTasteID === selectedTaste.silaTasteID);
+
+    if (existingProductIndex !== -1) {
+        // If the product already exists, update its quantity
+        cart[existingProductIndex].quantity += quantity;
+    } else {
+        // If the product doesn't exist, add it to the cart
+        cart.push({
+            brandEntity,
+            discountedPrice,
+            image,
+            modelId,
+            name,
+            regularPrice,
+            selectedTaste,
+            weightKg,
+            quantity
+        });
+    }
+
+    localStorage.setItem(CART_KEY, JSON.stringify(cart));
+    return cart;
+};
+
+
+// export const removeFromCart = (productId) => {
+//     const cart = getCartFromStorage();
+//     const updatedCart = cart.filter((product) => product.id !== productId);
+//     localStorage.setItem(CART_KEY, JSON.stringify(updatedCart));
+//     return updatedCart;
+// };

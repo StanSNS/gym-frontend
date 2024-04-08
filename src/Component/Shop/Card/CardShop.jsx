@@ -1,14 +1,14 @@
 import React from 'react';
-import {Card, Button, Col} from 'react-bootstrap';
-import {FaBolt, FaLayerGroup, FaShoppingCart, FaStar, FaWeightHanging} from "react-icons/fa";
-import {BiSolidCategory} from "react-icons/bi";
+import {Button, Card, Col} from 'react-bootstrap';
+import {FaBolt, FaLayerGroup, FaStar, FaWeightHanging} from "react-icons/fa";
+import {BiSolidCategory, BiSolidDetail} from "react-icons/bi";
 import {IoIosPricetag} from "react-icons/io";
 import "./CardShop.css"
 import {MdOutlineMoneyOffCsred} from "react-icons/md";
 import {Link} from "react-router-dom";
 
 const CardShop = ({product}) => {
-    const handleCardClick = (sku, modelId) => {
+    const handleCardClick = () => {
         localStorage.setItem('sku', product.sku);
         localStorage.setItem('modelId', product.modelId);
     };
@@ -16,7 +16,7 @@ const CardShop = ({product}) => {
     return (
         <Col xl={3} lg={4} md={5} sm={12} className="mb-5">
             <Link to={"/product"} className="linkUnderline">
-                <Card className="h-100 shopCard" onClick={() => handleCardClick(product.sku, product.modelId)}>
+                <Card className="h-100 shopCard" onClick={() => handleCardClick()}>
                     <div className="cardImageContainer">
                         {product.reducedTotalAmountPercentage && <span className="discountText"><FaBolt
                             className="mb-1"/> {product.reducedTotalAmountPercentage.toFixed(2)}%</span>}
@@ -45,7 +45,7 @@ const CardShop = ({product}) => {
                             <div className="baseInfo">
                                 <span className="fw-bolder mt-2">
                                      <span className="keyColorInfo me-2"><FaStar className="mb-1 me-1"/>Рейтинг:</span>
-                                     {product?.ratingValue.toFixed(1)}/5 ({product?.ratingCount})
+                                    {product?.ratingValue.toFixed(1)}/5 ({product?.ratingCount})
                                 </span>
 
                                 {product.weightKg !== "0.000" && (
@@ -78,9 +78,8 @@ const CardShop = ({product}) => {
                         </div>
                     </Card.Body>
                     <Card.Footer className="cardFooter">
-                        <Button variant="dark">
-                            <FaShoppingCart className="align-baseline me-2"/>
-                            Добави
+                        <Button variant="dark" className="detailsButton">
+                            <BiSolidDetail className="align-baseline me-2 "/>Детайли
                         </Button>
                     </Card.Footer>
                 </Card>

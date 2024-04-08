@@ -100,5 +100,17 @@
     text-decoration-color: black;
 }
 
+.detailsButton{
+    display: flex !important;
+    align-items: center !important;
+    transition: color 0.4s ease;
+    font-weight: bold !important;
+}
+
+.detailsButton:hover{
+    color: #333 !important;
+    background-color: white !important;
+    border-color: #333333 !important;
+}
 
 

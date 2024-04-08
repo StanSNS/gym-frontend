@@ -6,7 +6,6 @@ import UserTable from "../UserTable/UserTable";
 import RevenueTable from "../RevenueTable/RevenueTble";
 import OrderTable from "../OrderTable/OrderTable";
 import Actions from "../Actions/Actions";
-import TasteTable from "../TasteTable/TasteTable";
 
 
 function Gauges() {
@@ -134,8 +133,6 @@ function Gauges() {
             </div>
 
             <Actions/>
-
-            <TasteTable/>
         </>
 
     );

@@ -1,9 +1,9 @@
 import React, {useEffect, useState} from "react";
-import {getProductBySkuAndModelId} from "../../Service/ProductService";
+import {addToCart, getProductBySkuAndModelId} from "../../Service/ProductService";
 import './Product.css'
-import {Dropdown} from "react-bootstrap";
+import {Button, Dropdown, Modal} from "react-bootstrap";
 import BarChart from "./BarChart/BarChart";
-import {FaCartPlus, FaRulerCombined, FaRulerHorizontal, FaStar, FaWeightHanging} from "react-icons/fa";
+import {FaCartPlus, FaStar, FaWeightHanging} from "react-icons/fa";
 import DoughnutChart from "./DoughnutChart/DoughnutChart";
 import {BiSolidCategory} from "react-icons/bi";
 import {MdOutlineMoneyOffCsred} from "react-icons/md";
@@ -13,6 +13,8 @@ import {GiWrappedSweet} from "react-icons/gi";
 function Product() {
     const [product, setProduct] = useState();
     const [tasteData, setTasteData] = useState(null);
+    const [selectedTaste, setSelectedTaste] = useState(null);
+    const [showModal, setShowModal] = useState(false); // State for modal visibilityz
 
     useEffect(() => {
         const fetchData = async () => {
@@ -21,9 +23,9 @@ function Product() {
                 const sku = localStorage.getItem("sku");
                 if (modelId && sku && !product) {
                     const data = await getProductBySkuAndModelId(sku, modelId);
-                    console.log(data)
                     setProduct(data);
-                    localStorage.clear()
+                    localStorage.removeItem("modelId")
+                    localStorage.removeItem("sku")
                 }
             } catch (error) {
                 console.error('Error fetching current product:', error);
@@ -44,6 +46,15 @@ function Product() {
         colors: tasteData?.colors.split(',').filter(color => color.trim() !== ''),
     };
 
+    const handleAddProductToCart = (product) => {
+        if (!selectedTaste) {
+            setShowModal(true);
+        } else {
+            addToCart(product, selectedTaste);
+        }
+
+    }
+
     return (
         <div className="productContainer">
             {product ? (
@@ -51,10 +62,10 @@ function Product() {
                     <div className="leftSection">
                         <div className="productCard">
                             <div className="imageContainer me-4">
-                                {tasteData && (
+                                {selectedTaste && (
                                     <div className="doughnutChartContainer">
                                         <DoughnutChart data={doughnutData}/>
-                                        <p className="doughnutText">{tasteData.name}</p>
+                                        <p className="doughnutText">{selectedTaste.name}</p>
                                     </div>
                                 )}
                                 <img src={product.image} alt={product.name}/>
@@ -110,31 +121,12 @@ function Product() {
                                             </Dropdown.Toggle>
                                             <Dropdown.Menu>
                                                 {product.taste.map((taste, index) => (
-                                                    <Dropdown.Item key={index} onClick={() => setTasteData(taste)}>
+                                                    <Dropdown.Item key={index} onClick={() => {
+                                                        setTasteData(taste);
+                                                        setSelectedTaste(taste);
+                                                    }}>
                                                         <GiWrappedSweet
                                                             className="redColorText mb-1 me-1"/> {taste.name}
-                                                    </Dropdown.Item>
-                                                ))}
-                                            </Dropdown.Menu>
-                                        </Dropdown>
-                                    </div>
-                                )}
-
-                                {product.size.length > 0 && (
-                                    <div className="sizes">
-                                        <span className="fw-bolder mt-2">
-                                              <span className="keyColorInfo me-2"><FaRulerCombined className="mb-1"/> Размери: </span>
-                                        </span>
-                                        <Dropdown>
-                                            <Dropdown.Toggle variant="dark" id="dropdown-basic"
-                                                             className="dropDownButton">
-                                                Избери
-                                            </Dropdown.Toggle>
-                                            <Dropdown.Menu>
-                                                {product.size.map((size, index) => (
-                                                    <Dropdown.Item key={index}>
-                                                        <FaRulerHorizontal
-                                                            className="redColorText mb-1 me-1"/> {size.name}
                                                     </Dropdown.Item>
                                                 ))}
                                             </Dropdown.Menu>
@@ -183,7 +175,9 @@ function Product() {
                                 </div>
 
                                 <div className="addButtonContainer">
-                                    <button><FaCartPlus className="mb-1 me-2"/>Добави</button>
+                                    <button onClick={() => handleAddProductToCart(product)}><FaCartPlus
+                                        className="mb-1 me-2"/>Добави
+                                    </button>
                                 </div>
                             </div>
                         </div>
@@ -205,6 +199,18 @@ function Product() {
                     <h1 className="redColorText">Моля изберете продукт...</h1>
                 </div>
             )}
+
+            <Modal show={showModal} onHide={() => setShowModal(false)}>
+                <Modal.Header closeButton>
+                    <Modal.Title>Error</Modal.Title>
+                </Modal.Header>
+                <Modal.Body>Please select a taste for your product.</Modal.Body>
+                <Modal.Footer>
+                    <Button variant="secondary" onClick={() => setShowModal(false)}>
+                        Close
+                    </Button>
+                </Modal.Footer>
+            </Modal>
         </div>
     );
 }

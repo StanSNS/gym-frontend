@@ -21,6 +21,7 @@ import {GiCellarBarrels, GiWeightLiftingUp} from "react-icons/gi";
 import {ImExit} from "react-icons/im";
 import LoginModal from "./Modals/Login/LoginModal";
 import TrackOrderModal from "./Modals/TrackOrder/TrackOrder";
+import {getCartFromStorage} from "../../../Service/ProductService";
 
 function Header() {
     const [showLoginModal, setShowLoginModal] = useState(false);
@@ -94,7 +95,7 @@ function Header() {
                                         <span className="ms-1">Track Order</span>
                                     </span>
                                 </Nav.Link>
-                                <Nav.Link href="#action2">
+                                <Nav.Link href="#action2" onClick={() => console.log(getCartFromStorage())}>
                                     <span className="navLinkContent">
                                         <FaShoppingCart/>
                                         <span className="ms-1">Cart</span>
