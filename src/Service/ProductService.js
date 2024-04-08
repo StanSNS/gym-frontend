@@ -41,7 +41,7 @@ export const getCartFromStorage = () => {
 
 export const addToCart = (product, selectedTaste, quantity = 1) => {
     const cart = getCartFromStorage();
-    const {brandEntity, discountedPrice, image, modelId, name, regularPrice, weightKg} = product;
+    const { brandEntity, discountedPrice, image, modelId, name, regularPrice, weightKg } = product;
 
     // Check if the product already exists in the cart
     const existingProductIndex = cart.findIndex(item => item.modelId === modelId && item.selectedTaste.silaTasteID === selectedTaste.silaTasteID);

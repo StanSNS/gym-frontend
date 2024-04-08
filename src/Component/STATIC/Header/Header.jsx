@@ -1,5 +1,5 @@
 import * as React from 'react';
-import {useState} from 'react';
+import {useEffect, useState} from 'react';
 import Container from 'react-bootstrap/Container';
 import Nav from 'react-bootstrap/Nav';
 import Navbar from 'react-bootstrap/Navbar';
@@ -22,10 +22,37 @@ import {ImExit} from "react-icons/im";
 import LoginModal from "./Modals/Login/LoginModal";
 import TrackOrderModal from "./Modals/TrackOrder/TrackOrder";
 import {getCartFromStorage} from "../../../Service/ProductService";
+import CartModal from "./Modals/CartModa/CartModal";
 
 function Header() {
     const [showLoginModal, setShowLoginModal] = useState(false);
     const [showTrackOrderModal, setShowTrackOrderModal] = useState(false);
+    const [cartItems, setCartItems] = useState([]);
+    const [showCartModal, setShowCartModal] = useState(false);
+
+    useEffect(() => {
+        refreshCartItems();
+
+        const handleClickOutsideCart = (event) => {
+            if (!event.target.closest('.cart')) {
+                console.log("Click")
+
+                refreshCartItems();
+            }
+        };
+
+        document.addEventListener('click', handleClickOutsideCart);
+        return () => {
+            document.removeEventListener('click', handleClickOutsideCart);
+        };
+    }, []);
+
+    const refreshCartItems = () => {
+        const updatedCartItems = getCartFromStorage();
+        setCartItems(updatedCartItems);
+    };
+
+    const productCount = cartItems.reduce((acc, item) => acc + item.quantity, 0);
 
     const handleLoginModalClose = () => {
         setShowLoginModal(false);
@@ -49,7 +76,8 @@ function Header() {
                                       aria-labelledby={`offcanvasNavbarLabel-expand-lg`} placement="start">
                         <Offcanvas.Header closeButton>
                             <Offcanvas.Title id={`offcanvasNavbarLabel-expand-lg`}>
-                                <span className="d-flex align-items-center">  <FaDumbbell className="me-2"/>GymFit</span>
+                                <span className="d-flex align-items-center">  <FaDumbbell
+                                    className="me-2"/>GymFit</span>
                             </Offcanvas.Title>
                         </Offcanvas.Header>
                         <Offcanvas.Body>
@@ -95,10 +123,12 @@ function Header() {
                                         <span className="ms-1">Track Order</span>
                                     </span>
                                 </Nav.Link>
-                                <Nav.Link href="#action2" onClick={() => console.log(getCartFromStorage())}>
+                                <Nav.Link onClick={() => setShowCartModal(true)}>
                                     <span className="navLinkContent">
-                                        <FaShoppingCart/>
-                                        <span className="ms-1">Cart</span>
+                                        <FaShoppingCart /> <span className="ms-1">Cart</span>
+                                        {productCount > 0 &&
+                                            <span className="cartItemCount">{productCount}</span>
+                                        }
                                     </span>
                                 </Nav.Link>
                                 <Nav.Link href="#action2">
@@ -113,7 +143,7 @@ function Header() {
 
                 <LoginModal show={showLoginModal} handleClose={handleLoginModalClose}/>
                 <TrackOrderModal show={showTrackOrderModal} handleClose={handleTrackOrderModalClose}/>
-
+                <CartModal show={showCartModal} handleClose={() => setShowCartModal(false)} cartItems={cartItems} />
             </Navbar>
         </>
     );

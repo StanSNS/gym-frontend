@@ -21,6 +21,7 @@ function Product() {
     const [showTasteModal, setShowTasteModal] = useState(false);
     const [showSuccessModal, setShowSuccessModal] = useState(false);
 
+
     useEffect(() => {
         const fetchData = async () => {
             try {
@@ -65,6 +66,7 @@ function Product() {
             }
         }
     }
+
 
     return (
         <div className="productContainer">

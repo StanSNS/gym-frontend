@@ -30,6 +30,17 @@
     color: orangered;
 }
 
+.cartItemCount {
+    background-color: orangered;
+    color: white;
+    border-radius: 50%;
+
+    padding: 5px 10px;
+    font-size: 0.8rem;
+    margin-left: 0.5rem;
+}
+
+
 .navDropDownTitle {
     font-weight: bolder;
     transition: color 0.2s ease-in-out;
