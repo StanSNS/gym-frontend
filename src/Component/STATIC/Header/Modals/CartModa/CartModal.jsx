@@ -21,6 +21,7 @@ function CartModal({show, handleClose}) {
     const productCount = myCartItems.reduce((acc, item) => acc + item.quantity, 0);
     const [totalAmount, setTotalAmount] = useState(0);
     const [totalSaving, setTotalSaving] = useState(0);
+    const [showAddressModal, setShowAddressModal] = useState(false)
 
     useEffect(() => {
         refreshCartItems();
@@ -59,11 +60,16 @@ function CartModal({show, handleClose}) {
         refreshCartItems();
     };
 
-    return (
-        <Modal show={show} onHide={handleClose} className="modal-lg  customModal">
-            <Modal.Header className="sticky-header d-flex flex-column">
+    const handleCloseAddressModal = () => {
+        setShowAddressModal(false);
+    };
 
-                <div className="buttonContainer mb-4">
+    return (
+        <>
+            <Modal show={show} onHide={handleClose} className="modal-lg customModal">
+                <Modal.Header className="sticky-header d-flex flex-column">
+
+                    <div className="buttonContainer mb-4">
                       <span className="fw-bolder fs-3">
                          <span className="keyColorInfo me-2">
                              <FaShoppingCart className="mb-2 me-2"/>Количка:
@@ -71,10 +77,10 @@ function CartModal({show, handleClose}) {
                          ({productCount})
                      </span>
 
-                    <button className="closingModalButton" onClick={() => handleClose()}><FaTimes/></button>
-                </div>
+                        <button className="closingModalButton" onClick={() => handleClose()}><FaTimes/></button>
+                    </div>
 
-                <div className="cartProductTotal">
+                    <div className="cartProductTotal">
                     <span className="fw-bolder fs-4">
                         <span className="keyColorInfo me-2">
                             <FaWallet className="mb-2 me-2"/>Общо:
@@ -82,52 +88,52 @@ function CartModal({show, handleClose}) {
                         {totalAmount.toFixed(2)} лв
                     </span>
 
-                    <span className="fw-bolder fs-4">
+                        <span className="fw-bolder fs-4">
                         <span className="keyColorInfo me-2">
                             <FaPiggyBank className="mb-2 me-2"/>Спестявате:
                         </span>
-                        {totalSaving.toFixed(2)} лв
+                            {totalSaving.toFixed(2)} лв
                     </span>
-                </div>
+                    </div>
 
-                {myCartItems.length !== 0 && (
-                    <button className="orderButtonCart mt-3 mb-3">
-                        <FaPlusCircle className="mb-1 me-1"/>
-                        Адрес
-                    </button>
-                )}
-            </Modal.Header>
-            <Modal.Body>
-                {myCartItems.length === 0 ? (
-                    <h3 className="emptyCartMessage redColorText">
-                        <FaTimesCircle className="me-2"/>
-                        Няма продукти в количката
-                    </h3>
-                ) : (
-                    myCartItems.map((product, index) => (
-                        <Card key={index} className="cardProductCart">
-                            <div className="imageAndQuantityControlContainer">
-                                <Card.Img src={product.image} alt={product.name}/>
-                                <div className="quantityControls">
-                                    <button
-                                        onClick={() => handleDecreaseQuantity(product, product?.selectedTaste, product.quantity)}
-                                        className="quantityControl">
-                                        <PiMinusCircleFill/>
-                                    </button>
-
-                                    <span className="quantityText mt-1">{product.quantity}</span>
-
-                                    <button onClick={() => handleIncreaseQuantity(product, product?.selectedTaste)}
+                    {myCartItems.length !== 0 && (
+                        <button className="orderButtonCart mt-3 mb-3" onClick={() => setShowAddressModal(true)}>
+                            <FaPlusCircle className="mb-1 me-1"/>
+                            Адрес
+                        </button>
+                    )}
+                </Modal.Header>
+                <Modal.Body>
+                    {myCartItems.length === 0 ? (
+                        <h3 className="emptyCartMessage redColorText">
+                            <FaTimesCircle className="me-2"/>
+                            Няма продукти в количката
+                        </h3>
+                    ) : (
+                        myCartItems.map((product, index) => (
+                            <Card key={index} className="cardProductCart">
+                                <div className="imageAndQuantityControlContainer">
+                                    <Card.Img src={product.image} alt={product.name}/>
+                                    <div className="quantityControls">
+                                        <button
+                                            onClick={() => handleDecreaseQuantity(product, product?.selectedTaste, product.quantity)}
                                             className="quantityControl">
-                                        <PiPlusCircleFill/>
-                                    </button>
-                                </div>
-                            </div>
+                                            <PiMinusCircleFill/>
+                                        </button>
 
-                            <Card.Body>
-                                <div>
-                                    <Card.Title>{product.name} - {product.brandEntity.name}</Card.Title>
-                                    <div className="cardBody">
+                                        <span className="quantityText mt-1">{product.quantity}</span>
+
+                                        <button onClick={() => handleIncreaseQuantity(product, product?.selectedTaste)}
+                                                className="quantityControl">
+                                            <PiPlusCircleFill/>
+                                        </button>
+                                    </div>
+                                </div>
+
+                                <Card.Body>
+                                    <div>
+                                        <Card.Title>{product.name} - {product.brandEntity.name}</Card.Title>
+                                        <div className="cardBody">
                                         <span className="fw-bolder ">
                                             <span className="keyColorInfo me-2">
                                                 <FaWeightHanging className="mb-1 me-1"/>
@@ -136,17 +142,17 @@ function CartModal({show, handleClose}) {
                                             {product.weightKg} кг.
                                         </span>
 
-                                        {product.selectedTaste && (
-                                            <span className="fw-bolder">
+                                            {product.selectedTaste && (
+                                                <span className="fw-bolder">
                                                 <span className="keyColorInfo me-2">
                                                     <GiWrappedSweet className="mb-1 me-1"/>
                                                     Вкус:
                                                 </span>
-                                                {product?.selectedTaste.name}
+                                                    {product?.selectedTaste.name}
                                             </span>
-                                        )}
+                                            )}
 
-                                        <span className="fw-bolder">
+                                            <span className="fw-bolder">
                                             <span className="keyColorInfo me-2">
                                                 <IoIosPricetag className="mb-1 me-1"/>
                                                 Намалена цена:
@@ -155,10 +161,10 @@ function CartModal({show, handleClose}) {
                                                 {product.discountedPrice.toFixed(2)}лв
                                             </span>
                                         </span>
+                                        </div>
                                     </div>
-                                </div>
 
-                                <div className="cardFooterCart">
+                                    <div className="cardFooterCart">
 
                                     <span className="fw-bolder mt-2 fs-5">
                                         <span className="keyColorInfo me-2">
@@ -170,7 +176,7 @@ function CartModal({show, handleClose}) {
                                         </span>
                                     </span>
 
-                                    <span className="fw-bolder mt-2 fs-5">
+                                        <span className="fw-bolder mt-2 fs-5">
                                         <span className="keyColorInfo me-2">
                                             <GiBank className="mb-1 me-1"/>
                                             Намаление:
@@ -182,15 +188,30 @@ function CartModal({show, handleClose}) {
                                                 product.quantity).toFixed(2)}лв
                                         </span>
                                     </span>
-                                </div>
-                            </Card.Body>
-                        </Card>
-                    ))
-                )}
-            </Modal.Body>
+                                    </div>
+                                </Card.Body>
+                            </Card>
+                        ))
+                    )}
+                </Modal.Body>
 
+                {/* Address Modal */}
+                <Modal show={showAddressModal} onHide={handleCloseAddressModal} className="modal-xl modal-dialog-centered">
+                    <Modal.Header className="sticky-header d-flex flex-row">
+                        <h3>Address Modal</h3>
+                        <button className="closingModalButton" onClick={handleCloseAddressModal}>
+                            <FaTimes />
+                        </button>
+                    </Modal.Header>
+                    <Modal.Body>
+                        {/* Address modal content */}
+                        <p>This is the address modal content.</p>
+                    </Modal.Body>
+                </Modal>
+            </Modal>
 
-        </Modal>
+        </>
+
     );
 }
 

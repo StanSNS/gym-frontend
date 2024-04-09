@@ -71,8 +71,7 @@
     justify-content: space-around;
 }
 
-.customModal {
-    max-height: 80% !important;
+.modal.show .modal-dialog{
 }
 
 .sticky-header {
@@ -81,6 +80,8 @@
     z-index: 1;
     background-color: #333;
     color: white;
+    border-top-left-radius: 0 !important;
+    border-top-right-radius: 0 !important;
 }
 
 .closingModalButton {
