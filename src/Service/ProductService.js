@@ -68,10 +68,24 @@ export const addToCart = (product, selectedTaste, quantity = 1) => {
     return cart;
 };
 
+export const reduceQuantityInCart = (product, selectedTaste, quantity = 1) => {
+    const cart = getCartFromStorage();
+    const indexToReduce = cart.findIndex(item => item.modelId === product.modelId && item.selectedTaste.silaTasteID === selectedTaste.silaTasteID);
 
-// export const removeFromCart = (productId) => {
-//     const cart = getCartFromStorage();
-//     const updatedCart = cart.filter((product) => product.id !== productId);
-//     localStorage.setItem(CART_KEY, JSON.stringify(updatedCart));
-//     return updatedCart;
-// };
+    if (indexToReduce !== -1) {
+        // Reduce the quantity of the product in the cart
+        if (cart[indexToReduce].quantity > quantity) {
+            cart[indexToReduce].quantity -= quantity;
+        } else {
+            // If the requested quantity to reduce is greater than or equal to the current quantity, remove the product from the cart
+            cart.splice(indexToReduce, 1);
+        }
+
+        localStorage.setItem(CART_KEY, JSON.stringify(cart));
+    }
+
+    return cart;
+};
+
+
+

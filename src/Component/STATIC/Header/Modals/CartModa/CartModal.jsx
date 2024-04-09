@@ -1,4 +1,4 @@
-import React from 'react';
+import React, {useEffect, useState} from 'react';
 import Modal from 'react-bootstrap/Modal';
 import Card from 'react-bootstrap/Card';
 import './CartModal.css';
@@ -6,22 +6,57 @@ import {PiMinusCircleFill, PiPlusCircleFill} from "react-icons/pi";
 import {FaWallet, FaWeightHanging} from "react-icons/fa";
 import {GiBank, GiWrappedSweet} from "react-icons/gi";
 import {IoIosPricetag} from "react-icons/io";
+import {addToCart, getCartFromStorage, reduceQuantityInCart} from "../../../../../Service/ProductService";
 
 function CartModal({show, handleClose, cartItems}) {
+    const [myCartItems, setMyCartItems] = useState([]);
+
+    useEffect(() => {
+        refreshCartItems();
+
+        const handleClickOutsideCart = (event) => {
+            if (!event.target.closest('.cart')) {
+                refreshCartItems();
+            }
+        };
+
+        document.addEventListener('click', handleClickOutsideCart);
+        return () => {
+            document.removeEventListener('click', handleClickOutsideCart);
+        };
+    }, []);
+
+    const refreshCartItems = () => {
+        const updatedCartItems = getCartFromStorage();
+        setMyCartItems(updatedCartItems);
+    };
+
+    const handleIncreaseQuantity = (product, selectedTaste) => {
+        addToCart(product, selectedTaste);
+        refreshCartItems();
+    };
+
+    const handleDecreaseQuantity = (product, selectedTaste) => {
+        reduceQuantityInCart(product, selectedTaste);
+        refreshCartItems();
+    };
+
     return (
         <Modal show={show} onHide={handleClose} className="modal-lg">
             <Modal.Header closeButton>
                 <Modal.Title>Cart</Modal.Title>
             </Modal.Header>
             <Modal.Body>
-                {cartItems.map((product, index) => (
+                {myCartItems.map((product, index) => (
                     <Card key={index} className="cardProductCart">
                         <div className="imageAndQuantityControlContainer">
                             <Card.Img src={product.image} alt={product.name}/>
                             <div className="quantityControls">
-                                <PiMinusCircleFill className="quantityControl"/> <span
-                                className="quantityText">{product.quantity}</span> <PiPlusCircleFill
-                                className="quantityControl"/>
+                                <PiMinusCircleFill className="quantityControl"
+                                                   onClick={() => handleDecreaseQuantity(product, product.selectedTaste, product.quantity)}/>
+                                <span className="quantityText">{product.quantity}</span>
+                                <PiPlusCircleFill className="quantityControl"
+                                                  onClick={() => handleIncreaseQuantity(product, product.selectedTaste)}/>
                             </div>
                         </div>
 

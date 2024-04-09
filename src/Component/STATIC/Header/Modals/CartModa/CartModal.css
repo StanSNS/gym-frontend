@@ -4,7 +4,7 @@
     margin-bottom: 3rem;
 }
 
-.imageAndQuantityControlContainer{
+.imageAndQuantityControlContainer {
     display: flex;
     flex-direction: column;
     justify-content: center;
@@ -13,21 +13,21 @@
     padding-top: 0.5rem;
 }
 
-.quantityControls{
+.quantityControls {
     width: 100%;
     display: flex;
     align-items: center;
     justify-content: space-evenly;
 }
 
-.quantityControl{
+.quantityControl {
     font-size: 30px;
     border: 3px solid #333;
     border-radius: 50%;
     fill: #333;
 }
 
-.quantityText{
+.quantityText {
     font-weight: bold;
     font-size: 24px;
 }
@@ -40,24 +40,24 @@
     object-fit: contain;
 }
 
-.cardProductCart .card-title{
+.cardProductCart .card-title {
     font-style: italic;
     font-size: 22px;
 }
 
-.cardProductCart .card-body{
+.cardProductCart .card-body {
     display: flex;
     flex-direction: column;
     justify-content: space-around;
 }
 
-.cardProductCart .cardBody{
+.cardProductCart .cardBody {
     display: flex !important;
     flex-direction: column !important;
 }
 
-.cardFooterCart{
-display: flex;
+.cardFooterCart {
+    display: flex;
     justify-content: space-around;
 }
 
