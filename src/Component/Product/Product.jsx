@@ -53,19 +53,26 @@ function Product() {
     };
 
     const handleAddProductToCart = async (product) => {
-        if (!selectedTaste) {
-            setShowModal(true);
+        if (product.taste.length === 0) {
+            checkProductAvailability(product)
         } else {
-            const data = await checkIfProductExists(product.brandEntity.brandID, product.modelId, selectedTaste?.silaTasteID);
-            if (data.status === 204) {
-                setShowTasteModal(true);
-            } else if (data.status === 200) {
-                setShowSuccessModal(true);
-                addToCart(product, selectedTaste);
+            if (!selectedTaste) {
+                setShowModal(true);
+            } else {
+                checkProductAvailability(product)
             }
         }
     }
 
+    const checkProductAvailability = async (product) => {
+        const data = await checkIfProductExists(product.brandEntity.brandID, product.modelId, selectedTaste?.silaTasteID);
+        if (data.status === 204) {
+            setShowTasteModal(true);
+        } else if (data.status === 200) {
+            setShowSuccessModal(true);
+            addToCart(product, selectedTaste);
+        }
+    }
 
     return (
         <div className="productContainer">

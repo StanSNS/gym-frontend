@@ -22,9 +22,19 @@
 
 .quantityControl {
     font-size: 30px;
-    border: 3px solid #333;
-    border-radius: 50%;
-    fill: #333;
+    border: none;
+    background-color: transparent;
+    margin-bottom: 0.3rem;
+    transition: color 0.5s ease;
+
+}
+
+.quantityControl:hover {
+    color: orangered;
+}
+
+.quantityControl:focus {
+    color: orangered !important;
 }
 
 .quantityText {
@@ -61,10 +71,88 @@
     justify-content: space-around;
 }
 
+.customModal {
+    max-height: 80% !important;
+}
 
+.sticky-header {
+    position: sticky;
+    top: 0;
+    z-index: 1;
+    background-color: #333;
+    color: white;
+}
 
+.closingModalButton {
+    border: 4px solid white;
+    border-radius: 6px;
+    background-color: #333333;
+    color: white;
+    display: flex;
+    padding: 7px;
+    transition: all 0.4s ease;
+}
 
+.closingModalButton:hover {
+    border: 4px solid #e8e8e8;
+    background-color: #333333;
+    color: #e8e8e8;
+}
 
+.buttonContainer {
+    width: 100%;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+}
 
+.cartProductTotal {
+    display: flex;
+    width: 100%;
+    justify-content: space-evenly;
+}
 
+.orderButtonCart {
+    padding: 15px 25px;
+    border: unset;
+    border-radius: 15px;
+    color: #e8e8e8;
+    z-index: 1;
+    background: #333333;
+    position: relative;
+    font-weight: 1000;
+    font-size: 17px;
+    -webkit-box-shadow: 4px 8px 19px -3px #e8e8e8;
+    box-shadow: 0px 1px 20px 4px #e8e8e8;
+    transition: all 250ms;
+    overflow: hidden;
+}
 
+.orderButtonCart::before {
+    content: "";
+    position: absolute;
+    top: 0;
+    left: 0;
+    height: 100%;
+    width: 0;
+    border-radius: 15px;
+    background-color: #e8e8e8;
+    z-index: -1;
+    -webkit-box-shadow: 4px 8px 19px -3px rgba(255, 255, 255, 0.27);
+    box-shadow: 4px 8px 19px -3px rgba(255, 255, 255, 0.27);
+    transition: all 250ms
+}
+
+.orderButtonCart:hover {
+    color: #212121;
+}
+
+.orderButtonCart:hover::before {
+    width: 100%;
+}
+
+.emptyCartMessage{
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}

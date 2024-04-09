@@ -126,7 +126,7 @@ function Header() {
                                     console.log(cartItems)
                                 }}>
                                     <span className="navLinkContent">
-                                        <FaShoppingCart/> <span className="ms-1">Cart</span>
+                                        <FaShoppingCart/> <span className="ms-1">Количка</span>
                                         {productCount > 0 &&
                                             <span className="cartItemCount">{productCount}</span>
                                         }

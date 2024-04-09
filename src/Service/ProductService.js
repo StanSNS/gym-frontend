@@ -43,14 +43,17 @@ export const addToCart = (product, selectedTaste, quantity = 1) => {
     const cart = getCartFromStorage();
     const { brandEntity, discountedPrice, image, modelId, name, regularPrice, weightKg } = product;
 
-    // Check if the product already exists in the cart
-    const existingProductIndex = cart.findIndex(item => item.modelId === modelId && item.selectedTaste.silaTasteID === selectedTaste.silaTasteID);
+    let existingProductIndex;
+
+    if(selectedTaste) {
+        existingProductIndex = cart.findIndex(item => item.modelId === modelId && item.selectedTaste?.silaTasteID === selectedTaste?.silaTasteID);
+    } else {
+        existingProductIndex = cart.findIndex(item => item.modelId === modelId && !item.selectedTaste);
+    }
 
     if (existingProductIndex !== -1) {
-        // If the product already exists, update its quantity
         cart[existingProductIndex].quantity += quantity;
     } else {
-        // If the product doesn't exist, add it to the cart
         cart.push({
             brandEntity,
             discountedPrice,
@@ -70,14 +73,18 @@ export const addToCart = (product, selectedTaste, quantity = 1) => {
 
 export const reduceQuantityInCart = (product, selectedTaste, quantity = 1) => {
     const cart = getCartFromStorage();
-    const indexToReduce = cart.findIndex(item => item.modelId === product.modelId && item.selectedTaste.silaTasteID === selectedTaste.silaTasteID);
+    let indexToReduce;
+
+    if(selectedTaste) {
+        indexToReduce = cart.findIndex(item => item.modelId === product.modelId && item.selectedTaste?.silaTasteID === selectedTaste?.silaTasteID);
+    } else {
+        indexToReduce = cart.findIndex(item => item.modelId === product.modelId && !item.selectedTaste);
+    }
 
     if (indexToReduce !== -1) {
-        // Reduce the quantity of the product in the cart
         if (cart[indexToReduce].quantity > quantity) {
             cart[indexToReduce].quantity -= quantity;
         } else {
-            // If the requested quantity to reduce is greater than or equal to the current quantity, remove the product from the cart
             cart.splice(indexToReduce, 1);
         }
 
@@ -86,6 +93,7 @@ export const reduceQuantityInCart = (product, selectedTaste, quantity = 1) => {
 
     return cart;
 };
+
 
 
 
