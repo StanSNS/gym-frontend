@@ -85,7 +85,7 @@
 }
 
 .closingModalButton {
-    border: 4px solid white;
+    border: 2px solid white;
     border-radius: 6px;
     background-color: #333333;
     color: white;
@@ -95,9 +95,9 @@
 }
 
 .closingModalButton:hover {
-    border: 4px solid #e8e8e8;
+    border-color: orangered;
     background-color: #333333;
-    color: #e8e8e8;
+    color: orangered;
 }
 
 .buttonContainer {

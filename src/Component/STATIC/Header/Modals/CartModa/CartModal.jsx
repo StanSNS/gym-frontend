@@ -15,6 +15,7 @@ import {
 import {GiBank, GiWrappedSweet} from "react-icons/gi";
 import {IoIosPricetag} from "react-icons/io";
 import {addToCart, getCartFromStorage, reduceQuantityInCart} from "../../../../../Service/ProductService";
+import AddressModal from "./AddressModal/AddressModal";
 
 function CartModal({show, handleClose}) {
     const [myCartItems, setMyCartItems] = useState([]);
@@ -194,22 +195,10 @@ function CartModal({show, handleClose}) {
                         ))
                     )}
                 </Modal.Body>
-
-                {/* Address Modal */}
-                <Modal show={showAddressModal} onHide={handleCloseAddressModal} className="modal-xl modal-dialog-centered">
-                    <Modal.Header className="sticky-header d-flex flex-row">
-                        <h3>Address Modal</h3>
-                        <button className="closingModalButton" onClick={handleCloseAddressModal}>
-                            <FaTimes />
-                        </button>
-                    </Modal.Header>
-                    <Modal.Body>
-                        {/* Address modal content */}
-                        <p>This is the address modal content.</p>
-                    </Modal.Body>
-                </Modal>
             </Modal>
 
+            {/* Address Modal */}
+            <AddressModal show={showAddressModal} handleClose={handleCloseAddressModal} cartItems={myCartItems}/>
         </>
 
     );
