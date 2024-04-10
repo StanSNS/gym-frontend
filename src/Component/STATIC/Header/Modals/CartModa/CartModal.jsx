@@ -22,6 +22,8 @@ function CartModal({show, handleClose}) {
     const productCount = myCartItems.reduce((acc, item) => acc + item.quantity, 0);
     const [totalAmount, setTotalAmount] = useState(0);
     const [totalSaving, setTotalSaving] = useState(0);
+    const [totalWeight, setTotalWeight] = useState(0);
+
     const [showAddressModal, setShowAddressModal] = useState(false)
 
     useEffect(() => {
@@ -40,10 +42,12 @@ function CartModal({show, handleClose}) {
     }, []);
 
     useEffect(() => {
-        const amount = myCartItems.reduce((acc, item) => acc + (item.discountedPrice * item.quantity), 0);
+        const amount = myCartItems.reduce((acc, item) => acc + (item.regularPrice * item.quantity), 0);
         const saving = myCartItems.reduce((acc, item) => acc + ((item.regularPrice - item.discountedPrice) * item.quantity), 0);
+        const weight = myCartItems.reduce((acc, item) => acc + (item.weightKg * item.quantity), 0);
         setTotalAmount(amount);
         setTotalSaving(saving);
+        setTotalWeight(weight)
     }, [myCartItems]);
 
     const refreshCartItems = () => {
@@ -86,7 +90,7 @@ function CartModal({show, handleClose}) {
                         <span className="keyColorInfo me-2">
                             <FaWallet className="mb-2 me-2"/>Общо:
                         </span>
-                        {totalAmount.toFixed(2)} лв
+                        {(totalAmount-totalSaving).toFixed(2)} лв
                     </span>
 
                         <span className="fw-bolder fs-4">
@@ -135,13 +139,13 @@ function CartModal({show, handleClose}) {
                                     <div>
                                         <Card.Title>{product.name} - {product.brandEntity.name}</Card.Title>
                                         <div className="cardBody">
-                                        <span className="fw-bolder ">
-                                            <span className="keyColorInfo me-2">
-                                                <FaWeightHanging className="mb-1 me-1"/>
-                                                Тегло:
+                                            <span className="fw-bolder ">
+                                                <span className="keyColorInfo me-2">
+                                                    <FaWeightHanging className="mb-1 me-1"/>
+                                                    Тегло:
+                                                </span>
+                                                {product.weightKg} кг.
                                             </span>
-                                            {product.weightKg} кг.
-                                        </span>
 
                                             {product.selectedTaste && (
                                                 <span className="fw-bolder">
@@ -198,7 +202,15 @@ function CartModal({show, handleClose}) {
             </Modal>
 
             {/* Address Modal */}
-            <AddressModal show={showAddressModal} handleClose={handleCloseAddressModal} cartItems={myCartItems}/>
+            <AddressModal
+                show={showAddressModal}
+                handleClose={handleCloseAddressModal}
+                cartItems={myCartItems}
+                totalWeight={totalWeight}
+                productCount={productCount}
+                totalAmount={totalAmount}
+                totalSaving={totalSaving}
+            />
         </>
 
     );

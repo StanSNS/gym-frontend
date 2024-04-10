@@ -1,13 +1,19 @@
 import React from 'react';
 import Modal from 'react-bootstrap/Modal';
-import {FaCartPlus, FaTimes} from "react-icons/fa";
+import {FaTimes, FaWeightHanging} from "react-icons/fa";
 import "./AddressModal.css"
 import {MdEmail} from "react-icons/md";
 
-function AddressModal({show, handleClose, cartItems}) {
+import speedy from '../../../../../../Resources/AddressModal/speedy.jpg'
+import econt from '../../../../../../Resources/AddressModal/econt.png'
+import sameday from '../../../../../../Resources/AddressModal/sameday.png'
+
+function AddressModal({show, handleClose, cartItems, totalWeight, productCount, totalAmount, totalSaving}) {
     const handleCloseAddressModal = () => {
         handleClose();
     };
+
+    const deliveryPrice = 7.34
 
     return (
         <Modal show={show} onHide={handleCloseAddressModal} className="modal-xl modal-dialog-centered">
@@ -61,29 +67,130 @@ function AddressModal({show, handleClose, cartItems}) {
                     </div>
                 </div>
 
-                <div className="detailedAddressData">
-                    <div className="radio-button-container">
-                        <div className="radio-button">
-                            <input type="radio" className="radio-button__input" id="radio1" name="radio-group"/>
-                                <label className="radio-button__label" htmlFor="radio1">
-                                    <span className="radio-button__custom"></span>
-                                    Адрес
-                                </label>
-                        </div>
-                        <div className="radio-button">
-                            <input type="radio" className="radio-button__input" id="radio2" name="radio-group"/>
-                                <label className="radio-button__label" htmlFor="radio2">
-                                    <span className="radio-button__custom"></span>
-                                    Еконт
-                                </label>
-                        </div>
-                        <div className="radio-button">
-                            <input type="radio" className="radio-button__input" id="radio3" name="radio-group"/>
-                                <label className="radio-button__label" htmlFor="radio3">
-                                    <span className="radio-button__custom"></span>
-                                    Спиди
-                                </label>
-                        </div>
+                <div className="radio-inputs">
+                    <label>
+                        <input className="radio-input" type="radio" name="engine"/>
+                        <span className="radio-tile">
+                          <img src={speedy} alt="Speedy" className="courierLogoImage"/>
+                        </span>
+                    </label>
+
+                    <label>
+                        <input className="radio-input" type="radio" name="engine"/>
+                        <span className="radio-tile">
+                          <img src={econt} alt="Econt" className="courierLogoImage p-2"/>
+                        </span>
+                    </label>
+
+                    <label>
+                        <input className="radio-input" type="radio" name="engine"/>
+                        <span className="radio-tile">
+                          <img src={sameday} alt="Sameday" className="courierLogoImage p-1"/>
+                        </span>
+                    </label>
+                </div>
+
+                <div className="deliveryType">
+                    <label className="radio-button">
+                        <input type="radio" name="example-radio" value="option1"/>
+                        <span className="radio"></span>
+                        Доставка до адрес
+                    </label>
+
+                    <label className="radio-button">
+                        <input type="radio" name="example-radio" value="option2"/>
+                        <span className="radio"></span>
+                        Доставка до офис
+                    </label>
+                </div>
+
+                <div className="detailedAddress">
+                    <div className="addressContainer">
+                        <label className="input_label">Адрес</label>
+                        <MdEmail className="icon"/>
+                        <input placeholder="Въведете първо име" type="text" className="input_field"/>
+                    </div>
+                    <div className="addressContainer">
+                        <label className="input_label">Допълнителна инфоррмация за адреса</label>
+                        <MdEmail className="icon"/>
+                        <input placeholder="Въведете първо име" type="text" className="input_field"/>
+                    </div>
+                </div>
+
+                <div className="orderDetails">
+                    <div className="orderDetailsText">
+                        <span className="fw-bolder ">
+                            <span className="keyColorInfo me-2">
+                                <FaWeightHanging className="mb-1 me-1"/>
+                                    Брой продукти в количката:
+                                </span>
+                            {productCount} бр.
+                        </span>
+
+                        <span className="fw-bolder ">
+                            <span className="keyColorInfo me-2">
+                                <FaWeightHanging className="mb-1 me-1"/>
+                                    Сума без намаление:
+                                </span>
+                            {totalAmount.toFixed(2)} лв.
+                        </span>
+
+                        <span className="fw-bolder ">
+                            <span className="keyColorInfo me-2">
+                                <FaWeightHanging className="mb-1 me-1"/>
+                                    Сума с намаление:
+                                </span>
+                            {(totalAmount - totalSaving).toFixed(2)} лв.
+                        </span>
+
+                        <span className="fw-bolder ">
+                            <span className="keyColorInfo me-2">
+                                <FaWeightHanging className="mb-1 me-1"/>
+                                    Спестявате:
+                                </span>
+                            {totalSaving.toFixed(2)} лв.
+                        </span>
+
+                        <span className="fw-bolder ">
+                            <span className="keyColorInfo me-2">
+                                <FaWeightHanging className="mb-1 me-1"/>
+                                    Доставка:
+                                </span>
+                            {deliveryPrice} лв.
+                        </span>
+
+                        <span className="fw-bolder ">
+                            <span className="keyColorInfo me-2">
+                                <FaWeightHanging className="mb-1 me-1"/>
+                                    Тегло:
+                                </span>
+                            {totalWeight} кг.
+                        </span>
+
+                        <span className="fw-bolder">
+                            <span className="keyColorInfo me-2">
+                                <FaWeightHanging className="mb-1 me-1"/>
+                                    Дължима сума при доставка:
+                                </span>
+                            {totalAmount - totalSaving + deliveryPrice} лв.
+                        </span>
+                    </div>
+
+                    <div className="buttonBox">
+                        <button className="animated-button">
+                            <svg viewBox="0 0 24 24" className="arr-2" xmlns="http://www.w3.org/2000/svg">
+                                <path
+                                    d="M16.1716 10.9999L10.8076 5.63589L12.2218 4.22168L20 11.9999L12.2218 19.778L10.8076 18.3638L16.1716 12.9999H4V10.9999H16.1716Z"
+                                ></path>
+                            </svg>
+                            <span className="text">Направи поръчка</span>
+                            <span className="circle"></span>
+                            <svg viewBox="0 0 24 24" className="arr-1" xmlns="http://www.w3.org/2000/svg">
+                                <path
+                                    d="M16.1716 10.9999L10.8076 5.63589L12.2218 4.22168L20 11.9999L12.2218 19.778L10.8076 18.3638L16.1716 12.9999H4V10.9999H16.1716Z"
+                                ></path>
+                            </svg>
+                        </button>
                     </div>
                 </div>
 
