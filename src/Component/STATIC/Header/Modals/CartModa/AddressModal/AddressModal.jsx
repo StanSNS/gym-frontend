@@ -1,12 +1,16 @@
 import React from 'react';
 import Modal from 'react-bootstrap/Modal';
-import {FaTimes, FaWeightHanging} from "react-icons/fa";
+import {FaGlobeAmericas, FaShoppingCart, FaTimes, FaTruckLoading, FaUser, FaWeightHanging} from "react-icons/fa";
 import "./AddressModal.css"
-import {MdEmail} from "react-icons/md";
+import {MdEmail, MdLocationPin} from "react-icons/md";
 
 import speedy from '../../../../../../Resources/AddressModal/speedy.jpg'
 import econt from '../../../../../../Resources/AddressModal/econt.png'
 import sameday from '../../../../../../Resources/AddressModal/sameday.png'
+import {FaMapLocationDot, FaPhoneVolume} from "react-icons/fa6";
+import {IoPricetag, IoPricetags} from "react-icons/io5";
+import {GiPiggyBank} from "react-icons/gi";
+import {RiHandCoinFill} from "react-icons/ri";
 
 function AddressModal({show, handleClose, cartItems, totalWeight, productCount, totalAmount, totalSaving}) {
     const handleCloseAddressModal = () => {
@@ -16,7 +20,7 @@ function AddressModal({show, handleClose, cartItems, totalWeight, productCount, 
     const deliveryPrice = 7.34
 
     return (
-        <Modal show={show} onHide={handleCloseAddressModal} className="modal-xl modal-dialog-centered">
+        <Modal show={show} onHide={handleCloseAddressModal} className="modal-xl">
             <Modal.Header className="sticky-header d-flex flex-row">
                 <h3>Address Modal</h3>
                 <button className="closingModalButton" onClick={handleCloseAddressModal}>
@@ -27,27 +31,30 @@ function AddressModal({show, handleClose, cartItems, totalWeight, productCount, 
                 <div className="personalData">
                     <div className="namesContainer">
                         <div className="input_container">
-                            <label className="input_label">Име</label>
-                            <MdEmail className="icon"/>
+                            <label className="input_label"><span className="redColorText fs-6 me-1">*</span>Име</label>
+                            <FaUser className="icon"/>
                             <input placeholder="Въведете първо име" type="text" className="input_field"/>
                         </div>
                         <div className="input_container">
-                            <label className="input_label">Фамилия</label>
-                            <MdEmail className="icon"/>
-                            <input placeholder="Въведете първо име" type="text" className="input_field"/>
+                            <label className="input_label"><span
+                                className="redColorText fs-6 me-1">*</span>Фамилия</label>
+                            <FaUser className="icon"/>
+                            <input placeholder="Въведете фамилия" type="text" className="input_field"/>
                         </div>
                     </div>
 
                     <div className="emailAndPhoneContainer">
                         <div className="input_container">
-                            <label className="input_label">Емайл</label>
+                            <label className="input_label"><span
+                                className="redColorText fs-6 me-1">*</span>Имейл</label>
                             <MdEmail className="icon"/>
-                            <input placeholder="Въведете първо име" type="text" className="input_field"/>
+                            <input placeholder="Въведете имейл" type="text" className="input_field"/>
                         </div>
                         <div className="input_container">
-                            <label className="input_label">Телефон</label>
-                            <MdEmail className="icon"/>
-                            <input placeholder="Въведете първо име" type="text" className="input_field"/>
+                            <label className="input_label"><span
+                                className="redColorText fs-6 me-1">*</span>Телефон</label>
+                            <FaPhoneVolume className="icon"/>
+                            <input placeholder="Въведете телефонен номер" type="text" className="input_field"/>
                         </div>
                     </div>
                 </div>
@@ -55,14 +62,16 @@ function AddressModal({show, handleClose, cartItems, totalWeight, productCount, 
                 <div className="addressData">
                     <div className="countryAndTown">
                         <div className="countryInputContainer">
-                            <label className="input_label">Държава</label>
-                            <MdEmail className="icon"/>
-                            <input placeholder="Въведете първо име" type="text" className="input_field"/>
+                            <label className="input_label"><span
+                                className="redColorText fs-6 me-1">*</span>Държава</label>
+                            <FaGlobeAmericas className="icon"/>
+                            <input placeholder="Въведете държава" type="text" className="input_field"/>
                         </div>
                         <div className="townInputContainer">
-                            <label className="input_label">Населено място</label>
-                            <MdEmail className="icon"/>
-                            <input placeholder="Въведете първо име" type="text" className="input_field"/>
+                            <label className="input_label"><span className="redColorText fs-6 me-1">*</span>Населено
+                                място</label>
+                            <FaMapLocationDot className="icon"/>
+                            <input placeholder="Въведете град" type="text" className="input_field"/>
                         </div>
                     </div>
                 </div>
@@ -106,14 +115,16 @@ function AddressModal({show, handleClose, cartItems, totalWeight, productCount, 
 
                 <div className="detailedAddress">
                     <div className="addressContainer">
-                        <label className="input_label">Адрес</label>
-                        <MdEmail className="icon"/>
-                        <input placeholder="Въведете първо име" type="text" className="input_field"/>
+                        <label className="input_label"><span className="redColorText fs-6 me-1">*</span>Адрес</label>
+                        <MdLocationPin className="icon"/>
+                        <input placeholder="Въведете адреса за доставка" type="text" className="input_field"/>
                     </div>
                     <div className="addressContainer">
-                        <label className="input_label">Допълнителна инфоррмация за адреса</label>
-                        <MdEmail className="icon"/>
-                        <input placeholder="Въведете първо име" type="text" className="input_field"/>
+                        <label className="input_label"><span className="redColorText fs-6 me-1">*</span>Допълнителна
+                            инфоррмация за адреса</label>
+                        <MdLocationPin className="icon"/>
+                        <input placeholder="Въведете допълнителна инфоррмация за адреса" type="text"
+                               className="input_field"/>
                     </div>
                 </div>
 
@@ -121,7 +132,7 @@ function AddressModal({show, handleClose, cartItems, totalWeight, productCount, 
                     <div className="orderDetailsText">
                         <span className="fw-bolder ">
                             <span className="keyColorInfo me-2">
-                                <FaWeightHanging className="mb-1 me-1"/>
+                                <FaShoppingCart className="mb-1 me-1"/>
                                     Брой продукти в количката:
                                 </span>
                             {productCount} бр.
@@ -129,7 +140,7 @@ function AddressModal({show, handleClose, cartItems, totalWeight, productCount, 
 
                         <span className="fw-bolder ">
                             <span className="keyColorInfo me-2">
-                                <FaWeightHanging className="mb-1 me-1"/>
+                                <IoPricetags className="mb-1 me-1"/>
                                     Сума без намаление:
                                 </span>
                             {totalAmount.toFixed(2)} лв.
@@ -137,7 +148,7 @@ function AddressModal({show, handleClose, cartItems, totalWeight, productCount, 
 
                         <span className="fw-bolder ">
                             <span className="keyColorInfo me-2">
-                                <FaWeightHanging className="mb-1 me-1"/>
+                                <IoPricetag className="mb-1 me-1"/>
                                     Сума с намаление:
                                 </span>
                             {(totalAmount - totalSaving).toFixed(2)} лв.
@@ -145,7 +156,7 @@ function AddressModal({show, handleClose, cartItems, totalWeight, productCount, 
 
                         <span className="fw-bolder ">
                             <span className="keyColorInfo me-2">
-                                <FaWeightHanging className="mb-1 me-1"/>
+                                <GiPiggyBank className="mb-1 me-1"/>
                                     Спестявате:
                                 </span>
                             {totalSaving.toFixed(2)} лв.
@@ -153,10 +164,10 @@ function AddressModal({show, handleClose, cartItems, totalWeight, productCount, 
 
                         <span className="fw-bolder ">
                             <span className="keyColorInfo me-2">
-                                <FaWeightHanging className="mb-1 me-1"/>
+                                <FaTruckLoading className="mb-1 me-1"/>
                                     Доставка:
                                 </span>
-                            {deliveryPrice} лв.
+                            {deliveryPrice.toFixed(2)} лв.
                         </span>
 
                         <span className="fw-bolder ">
@@ -164,15 +175,15 @@ function AddressModal({show, handleClose, cartItems, totalWeight, productCount, 
                                 <FaWeightHanging className="mb-1 me-1"/>
                                     Тегло:
                                 </span>
-                            {totalWeight} кг.
+                            {totalWeight.toFixed(3)} кг.
                         </span>
 
                         <span className="fw-bolder">
                             <span className="keyColorInfo me-2">
-                                <FaWeightHanging className="mb-1 me-1"/>
+                                <RiHandCoinFill className="mb-1 me-1"/>
                                     Дължима сума при доставка:
                                 </span>
-                            {totalAmount - totalSaving + deliveryPrice} лв.
+                            {(totalAmount - totalSaving + deliveryPrice).toFixed(2)} лв.
                         </span>
                     </div>
 
