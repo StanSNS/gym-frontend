@@ -368,38 +368,23 @@
     flex-direction: column;
 }
 
-.buttonBox{
+.buttonBox {
     display: flex;
     justify-content: flex-end;
     align-items: center;
     width: 30%;
 }
 
+.customModalPosition {
+    background-color: rgba(0, 0, 0, 0.3);
+}
 
+.successColor{
+    color: #28ec28;
+}
 
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-.miniCardProducts{
-
+.errorColor{
+    color: orangered;
 }
 
 

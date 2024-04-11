@@ -1,6 +1,15 @@
 import React, {useState} from 'react';
 import Modal from 'react-bootstrap/Modal';
-import {FaGlobeAmericas, FaShoppingCart, FaTimes, FaTruckLoading, FaUser, FaWeightHanging} from "react-icons/fa";
+import {
+    FaCheckCircle,
+    FaGlobeAmericas,
+    FaShoppingCart,
+    FaTimes,
+    FaTimesCircle,
+    FaTruckLoading,
+    FaUser,
+    FaWeightHanging
+} from "react-icons/fa";
 import "./AddressModal.css"
 import {MdEmail, MdLocationPin} from "react-icons/md";
 
@@ -78,7 +87,7 @@ function AddressModal({show, handleClose, cartItems, totalWeight, productCount, 
 
     return (
         <>
-            <Modal show={show} onHide={handleCloseAddressModal} className="modal-xl">
+            <Modal show={show} onHide={handleCloseAddressModal} className="modal-xl customModalPosition">
                 <Modal.Header className="sticky-header d-flex flex-row">
                     <h3>Address Modal</h3>
                     <button className="closingModalButton" onClick={handleCloseAddressModal}>
@@ -352,19 +361,34 @@ function AddressModal({show, handleClose, cartItems, totalWeight, productCount, 
                 </Modal.Body>
             </Modal>
 
-            <Modal show={showSuccessOrderModal} onHide={() => setShowSuccessOrderModal(false)}>
+            <Modal show={showSuccessOrderModal} onHide={() => setShowSuccessOrderModal(false)}
+                   className="modal-dialog-centered customModalPosition">
                 <Modal.Header closeButton>
-                    <Modal.Title>Yesssssssss</Modal.Title>
+                    <Modal.Title><FaCheckCircle className="successColor mb-1 me-2"/>Успешна поръчка</Modal.Title>
                 </Modal.Header>
                 <Modal.Body>
+                    <div className="d-flex flex-column  text-center">
+                        <h4>Благодарим за направената от вас поръчка, очаквайте доставка от 3-5 работни дни. </h4>
+                        <br/>
+                        <h4>Номер за просляване на пратка.</h4>
+                        <h5>№ - 21341237861282397</h5>
+                    </div>
                 </Modal.Body>
             </Modal>
 
             <Modal show={showErrorOrderModal} onHide={() => setShowErrorOrderModal(false)}>
                 <Modal.Header closeButton>
-                    <Modal.Title>Nooooooooooooooooo</Modal.Title>
+                    <Modal.Title><FaTimesCircle className="errorColor mb-1 me-2"/>Поръчката не беше
+                        успешна</Modal.Title>
                 </Modal.Header>
                 <Modal.Body>
+                    <div className="d-flex flex-column  text-center">
+                        <h4>Поръчката която се опитахте да направите не беше изпълнена успешно.</h4>
+                        <br/>
+                        <h4>Молим ви да се свържете с нас за допълнитекно информация</h4>
+
+                        <button>Свържи се с нас</button>
+                    </div>
                 </Modal.Body>
             </Modal>
 
