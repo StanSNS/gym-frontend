@@ -387,9 +387,20 @@
     color: orangered;
 }
 
+.input_field::-webkit-scrollbar {
+    width: 12px;
+    border-radius: 30px;
+    padding-right: 2rem;
+    margin-right: 2rem;
+}
 
+.input_field::-webkit-scrollbar-track {
+    background-color: #333333;
+    border-radius: 30px;
+}
 
-
-
-
-
+.input_field::-webkit-scrollbar-thumb {
+    background-color: orangered;
+    border-radius: 30px;
+    height: 100px;
+}

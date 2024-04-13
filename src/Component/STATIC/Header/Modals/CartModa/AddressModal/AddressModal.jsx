@@ -32,13 +32,15 @@ function AddressModal({show, handleClose, cartItems, totalWeight, productCount, 
     const [town, setTown] = useState('');
     const [address, setAddress] = useState('');
     const [additionalAddress, setAdditionalAddress] = useState('');
-    const [delivery, setDelivery] = useState('');
+    const [delivery, setDelivery] = useState('ADDRESS');
     const [courier, setCourier] = useState('');
     const [unavailableProductName, setUnavailableProductName] = useState('');
     const [unavailableProductTaste, setUnavailableProductTaste] = useState('');
     const [showUnavailableModal, setShowUnavailableModal] = useState(false);
     const [showSuccessOrderModal, setShowSuccessOrderModal] = useState(false);
     const [showErrorOrderModal, setShowErrorOrderModal] = useState(false);
+    const [showDropdown, setShowDropdown] = useState(false);
+
 
     const deliveryPrice = 7.34;
 
@@ -82,6 +84,10 @@ function AddressModal({show, handleClose, cartItems, totalWeight, productCount, 
 
     const handleCloseAddressModal = () => {
         handleClose();
+    };
+
+    const toggleDropdown = () => {
+        setShowDropdown(!showDropdown);
     };
 
 
@@ -224,6 +230,7 @@ function AddressModal({show, handleClose, cartItems, totalWeight, productCount, 
                                 type="radio"
                                 name="example-radio"
                                 value="option1"
+                                defaultChecked
                             />
                             <span className="radio"></span>
                             Доставка до адрес
@@ -242,34 +249,61 @@ function AddressModal({show, handleClose, cartItems, totalWeight, productCount, 
                     </div>
 
                     <div className="detailedAddress">
-                        <div className="addressContainer">
-                            <label className="input_label">
-                                <span className="redColorText fs-6 me-1">*</span>
-                                Адрес
-                            </label>
-                            <MdLocationPin className="icon"/>
-                            <input
-                                value={address}
-                                onChange={(e) => setAddress(e.target.value)}
-                                placeholder="Въведете адреса за доставка"
-                                type="text"
-                                className="input_field"
-                            />
-                        </div>
-                        <div className="addressContainer">
-                            <label className="input_label">
-                                <span className="redColorText fs-6 me-1">*</span>
-                                Допълнителна инфоррмация за адреса
-                            </label>
-                            <MdLocationPin className="icon"/>
-                            <input
-                                value={additionalAddress}
-                                onChange={(e) => setAdditionalAddress(e.target.value)}
-                                placeholder="Въведете допълнителна инфоррмация за адреса"
-                                type="text"
-                                className="input_field"
-                            />
-                        </div>
+
+                        {delivery === 'ADDRESS' && (
+                            <div className="addressContainer">
+                                <label className="input_label">
+                                    <span className="redColorText fs-6 me-1">*</span>
+                                    Адрес
+                                </label>
+                                <MdLocationPin className="icon"/>
+                                <input
+                                    value={address}
+                                    onChange={(e) => setAddress(e.target.value)}
+                                    placeholder="Въведете адреса за доставка"
+                                    type="text"
+                                    className="input_field"
+                                />
+                            </div>
+                        )}
+
+                        {delivery === 'OFFICE' && (
+                            <div className="addressContainer">
+                                <label className="input_label">
+                                    <span className="redColorText fs-6 me-1">*</span>
+                                    Избери офис
+                                </label>
+                                <MdLocationPin className="icon"/>
+                                <select
+                                    value={address}
+                                    onChange={(e) => setAddress(e.target.value)}
+                                    className="input_field">
+                                    <option value="">Изберете офис</option>
+                                    <option value="office1">Офис 1</option>
+                                    <option value="office2">Офис 2</option>
+                                    <option value="office2">Офис 3</option>
+                                    <option value="office2">Офис 4</option>
+                                </select>
+                            </div>
+                        )}
+
+                        {delivery === 'ADDRESS' && (
+                            <div className="addressContainer">
+                                <label className="input_label">
+                                    <span className="redColorText fs-6 me-1">*</span>
+                                    Допълнителна инфоррмация за адреса
+                                </label>
+                                <MdLocationPin className="icon"/>
+                                <input
+                                    value={additionalAddress}
+                                    onChange={(e) => setAdditionalAddress(e.target.value)}
+                                    placeholder="Въведете допълнителна инфоррмация за адреса"
+                                    type="text"
+                                    className="input_field"
+                                />
+                            </div>
+                        )}
+
                     </div>
 
                     <div className="orderDetails">
