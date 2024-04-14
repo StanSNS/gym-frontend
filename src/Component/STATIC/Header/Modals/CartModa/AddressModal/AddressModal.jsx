@@ -76,6 +76,7 @@ function AddressModal({show, handleClose, cartItems, totalWeight, productCount, 
         const sendOrderData = await sendOrder(deliveryData);
 
         if (sendOrderData.status === 200) {
+            console.log(deliveryData)
             setShowSuccessOrderModal(true)
         } else {
             setShowErrorOrderModal(true)

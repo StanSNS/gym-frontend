@@ -1,11 +1,13 @@
 import React from "react";
 import "./Admin.css"
-import Gauges from "./Dashboard/Gauges/Gauges";
+import OrderTable from "./OrderTable/OrderTable";
+import Actions from "./Actions/Actions";
 
 function Admin() {
     return (
         <div className="adminAppContainer">
-            <Gauges/>
+            <Actions/>
+            <OrderTable/>
         </div>
     );
 }
