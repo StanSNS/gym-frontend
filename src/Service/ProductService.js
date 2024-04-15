@@ -33,7 +33,7 @@ export const checkIfProductExists = (brandId, modelId, tasteId) => {
     });
 };
 
-const CART_KEY = 'cart';
+export const CART_KEY = 'cart';
 
 export const getCartFromStorage = () => {
     return JSON.parse(localStorage.getItem(CART_KEY)) || [];

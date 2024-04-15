@@ -107,7 +107,7 @@ function CurrentOrderProductTable({order}) {
                                     src={product.adminProductDTO.image}
                                     alt={index}
                                 />
-                                {product.adminProductDTO.name}
+                                {product.adminProductDTO.name.substring(0,30)}
                             </td>
 
                             <td className="align-content-center">{product.adminProductDTO.weightKg} kg</td>

@@ -2,6 +2,7 @@ import React, {useState} from 'react';
 import Modal from 'react-bootstrap/Modal';
 import {
     FaCheckCircle,
+    FaClipboardList,
     FaGlobeAmericas,
     FaShoppingCart,
     FaTimes,
@@ -20,8 +21,10 @@ import {FaMapLocationDot, FaPhoneVolume} from "react-icons/fa6";
 import {IoPricetag, IoPricetags} from "react-icons/io5";
 import {GiPiggyBank} from "react-icons/gi";
 import {RiHandCoinFill} from "react-icons/ri";
+import {CART_KEY, checkIfProductExists} from "../../../../../../Service/ProductService";
+import {Button} from "react-bootstrap";
 import {sendOrder} from "../../../../../../Service/OrderService";
-import {checkIfProductExists} from "../../../../../../Service/ProductService";
+import {redirect} from "react-router-dom";
 
 function AddressModal({show, handleClose, cartItems, totalWeight, productCount, totalAmount, totalSaving}) {
     const [firstName, setFirstName] = useState('');
@@ -34,13 +37,12 @@ function AddressModal({show, handleClose, cartItems, totalWeight, productCount, 
     const [additionalAddress, setAdditionalAddress] = useState('');
     const [delivery, setDelivery] = useState('ADDRESS');
     const [courier, setCourier] = useState('');
+    const [randomOrderNumber, setRandomOrderNumber] = useState('');
     const [unavailableProductName, setUnavailableProductName] = useState('');
     const [unavailableProductTaste, setUnavailableProductTaste] = useState('');
     const [showUnavailableModal, setShowUnavailableModal] = useState(false);
     const [showSuccessOrderModal, setShowSuccessOrderModal] = useState(false);
     const [showErrorOrderModal, setShowErrorOrderModal] = useState(false);
-    const [showDropdown, setShowDropdown] = useState(false);
-
 
     const deliveryPrice = 7.34;
 
@@ -76,7 +78,7 @@ function AddressModal({show, handleClose, cartItems, totalWeight, productCount, 
         const sendOrderData = await sendOrder(deliveryData);
 
         if (sendOrderData.status === 200) {
-            console.log(deliveryData)
+            setRandomOrderNumber(sendOrderData.data)
             setShowSuccessOrderModal(true)
         } else {
             setShowErrorOrderModal(true)
@@ -87,10 +89,20 @@ function AddressModal({show, handleClose, cartItems, totalWeight, productCount, 
         handleClose();
     };
 
-    const toggleDropdown = () => {
-        setShowDropdown(!showDropdown);
+    const handleCloseSuccessModal = () => {
+        localStorage.removeItem(CART_KEY);
+        window.location.href = '/';
     };
 
+    const handleCopyToClipboard = () => {
+        navigator.clipboard.writeText(randomOrderNumber)
+            .then(() => {
+                console.log('Text copied to clipboard:', randomOrderNumber);
+            })
+            .catch(err => {
+                console.error('Error copying text to clipboard:', err);
+            });
+    };
 
     return (
         <>
@@ -304,7 +316,6 @@ function AddressModal({show, handleClose, cartItems, totalWeight, productCount, 
                                 />
                             </div>
                         )}
-
                     </div>
 
                     <div className="orderDetails">
@@ -389,44 +400,59 @@ function AddressModal({show, handleClose, cartItems, totalWeight, productCount, 
 
             <Modal show={showUnavailableModal} onHide={() => setShowUnavailableModal(false)}>
                 <Modal.Header closeButton>
-                    <Modal.Title>Product Unavailable</Modal.Title>
+                    <Modal.Title>Продукта не е наличен.</Modal.Title>
                 </Modal.Header>
                 <Modal.Body>
+                    <h3>Моля премахнете следния продукт от количката си.</h3>
                     {unavailableProductName} - {unavailableProductTaste}
                 </Modal.Body>
             </Modal>
 
-            <Modal show={showSuccessOrderModal} onHide={() => setShowSuccessOrderModal(false)}
+            <Modal show={showSuccessOrderModal} onHide={() => handleCloseSuccessModal()}
                    className="modal-dialog-centered customModalPosition">
                 <Modal.Header closeButton>
                     <Modal.Title><FaCheckCircle className="successColor mb-1 me-2"/>Успешна поръчка</Modal.Title>
                 </Modal.Header>
                 <Modal.Body>
-                    <div className="d-flex flex-column  text-center">
-                        <h4>Благодарим за направената от вас поръчка, очаквайте доставка от 3-5 работни дни. </h4>
-                        <br/>
-                        <h4>Номер за просляване на пратка.</h4>
-                        <h5>№ - 21341237861282397</h5>
+                    <div className="d-flex flex-column text-center">
+
+                        <div className="successColor"><FaCheckCircle className="modalIcon"/></div>
+                        <h2>Поръчката е завършена</h2>
+                        <h6>Наш служител ще се свърже с вас за потвърждение на поръчката.</h6>
+                        <div className="orderNumberBox">
+                            <h5 className="mt-1">
+                                Проследяване на доставка
+                            </h5>
+                            <h5 className="mt-1 mb-0">
+                                № - {randomOrderNumber}
+                                <Button className="clipboardButton" onClick={handleCopyToClipboard}>
+                                    <FaClipboardList className="fs-5 mb-2"/>
+                                </Button>
+                            </h5>
+                        </div>
+                        <p className="disclaimer">Ако имате въпроси или нужда от допълнителна помощ, не се колебайте да
+                            се свържете с нас.</p>
+                        <h4>Благодарим за вашата поръчка.</h4>
+                        <h4>С поздрав, <span className="errorColor">GymFit</span></h4>
                     </div>
                 </Modal.Body>
+
             </Modal>
 
-            <Modal show={showErrorOrderModal} onHide={() => setShowErrorOrderModal(false)}>
+            <Modal show={showErrorOrderModal} onHide={() => setShowErrorOrderModal(false)}
+                   className="customModalPosition">
                 <Modal.Header closeButton>
                     <Modal.Title><FaTimesCircle className="errorColor mb-1 me-2"/>Поръчката не беше
                         успешна</Modal.Title>
                 </Modal.Header>
                 <Modal.Body>
-                    <div className="d-flex flex-column  text-center">
-                        <h4>Поръчката която се опитахте да направите не беше изпълнена успешно.</h4>
-                        <br/>
-                        <h4>Молим ви да се свържете с нас за допълнитекно информация</h4>
-
-                        <button>Свържи се с нас</button>
+                    <div className="d-flex flex-column text-center">
+                        <div className="errorColor"><FaTimesCircle className="modalIcon"/></div>
+                        <h2>Поръчката не е завършена</h2>
+                        <h5>Моля свържете се с нас за допълнително информация</h5>
                     </div>
                 </Modal.Body>
             </Modal>
-
         </>
 
     );
