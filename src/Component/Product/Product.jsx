@@ -1,7 +1,7 @@
 import React, {useEffect, useState} from "react";
 import {addToCart, checkIfProductExists, getProductBySkuAndModelId} from "../../Service/ProductService";
 import './Product.css'
-import {Button, Dropdown, Modal} from "react-bootstrap";
+import {Dropdown, Modal} from "react-bootstrap";
 import BarChart from "./BarChart/BarChart";
 import {FaCartPlus, FaCheckCircle, FaStar, FaTimesCircle, FaWeightHanging} from "react-icons/fa";
 import DoughnutChart from "./DoughnutChart/DoughnutChart";
