@@ -103,8 +103,7 @@ function CartModal({show, handleClose}) {
 
                     {myCartItems.length !== 0 && (
                         <button className="orderButtonCart mt-3 mb-3" onClick={() => setShowAddressModal(true)}>
-                            <FaPlusCircle className="mb-1 me-1"/>
-                            Адрес
+                            <span><FaPlusCircle className="mb-1 me-2"/>Адрес</span>
                         </button>
                     )}
                 </Modal.Header>
@@ -201,7 +200,6 @@ function CartModal({show, handleClose}) {
                 </Modal.Body>
             </Modal>
 
-            {/* Address Modal */}
             <AddressModal
                 show={showAddressModal}
                 handleClose={handleCloseAddressModal}
