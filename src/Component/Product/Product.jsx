@@ -3,7 +3,7 @@ import {addToCart, checkIfProductExists, getProductBySkuAndModelId} from "../../
 import './Product.css'
 import {Button, Dropdown, Modal} from "react-bootstrap";
 import BarChart from "./BarChart/BarChart";
-import {FaCartPlus, FaStar, FaWeightHanging} from "react-icons/fa";
+import {FaCartPlus, FaCheckCircle, FaStar, FaTimesCircle, FaWeightHanging} from "react-icons/fa";
 import DoughnutChart from "./DoughnutChart/DoughnutChart";
 import {BiSolidCategory} from "react-icons/bi";
 import {MdOutlineMoneyOffCsred} from "react-icons/md";
@@ -221,37 +221,43 @@ function Product() {
 
             <Modal show={showModal} onHide={() => setShowModal(false)}>
                 <Modal.Header closeButton>
-                    <Modal.Title>Error</Modal.Title>
+                    <Modal.Title><FaTimesCircle className="mb-1 me-2 redColorText"/>Грешка</Modal.Title>
                 </Modal.Header>
-                <Modal.Body>Please select a taste for your product.</Modal.Body>
-                <Modal.Footer>
-                    <Button variant="secondary" onClick={() => setShowModal(false)}>
-                        Close
-                    </Button>
-                </Modal.Footer>
+                <Modal.Body>
+                    <div className="d-flex text-center">
+                        <h4>
+                            Моля преди да добавите продукта в кошницата си,
+                            <span className="redColorText"> изберете вкус </span>
+                            за него.
+                        </h4>
+                    </div>
+                </Modal.Body>
             </Modal>
             <Modal show={showTasteModal} onHide={() => setShowTasteModal(false)}>
                 <Modal.Header closeButton>
-                    <Modal.Title>Error</Modal.Title>
+                    <Modal.Title><FaTimesCircle className="mb-1 me-2 redColorText"/>Грешка</Modal.Title>
                 </Modal.Header>
-                <Modal.Body>The selected taste is not available right now. Please choose another one.</Modal.Body>
-                <Modal.Footer>
-                    <Button variant="secondary" onClick={() => setShowTasteModal(false)}>
-                        Close
-                    </Button>
-                </Modal.Footer>
+                <Modal.Body>
+                    <div className="d-flex text-center">
+                        <h4>
+                            Избраният от вас вкус не е наличен в момента, молим ви да
+                            <span className="redColorText"> изберете друг.</span>
+                        </h4>
+                    </div>
+                </Modal.Body>
             </Modal>
-            {/* Modal for successful addition to cart */}
+
             <Modal show={showSuccessModal} onHide={() => setShowSuccessModal(false)}>
                 <Modal.Header closeButton>
-                    <Modal.Title>Success</Modal.Title>
+                    <Modal.Title><FaCheckCircle className="mb-1 me-2 successColor"/>Продукта беше добавен</Modal.Title>
                 </Modal.Header>
-                <Modal.Body>The product has been added to the cart successfully.</Modal.Body>
-                <Modal.Footer>
-                    <Button variant="secondary" onClick={() => setShowSuccessModal(false)}>
-                        Close
-                    </Button>
-                </Modal.Footer>
+                <Modal.Body>
+                    <div className="d-flex text-center">
+                        <h4>
+                            Избраният от вас продукт беше добавен успшно в кошницата.
+                        </h4>
+                    </div>
+                </Modal.Body>
             </Modal>
         </div>
     );

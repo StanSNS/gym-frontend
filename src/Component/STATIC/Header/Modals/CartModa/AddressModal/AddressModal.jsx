@@ -18,13 +18,13 @@ import speedy from '../../../../../../Resources/AddressModal/speedy.jpg'
 import econt from '../../../../../../Resources/AddressModal/econt.png'
 import sameday from '../../../../../../Resources/AddressModal/sameday.png'
 import {FaMapLocationDot, FaPhoneVolume} from "react-icons/fa6";
-import {IoPricetag, IoPricetags} from "react-icons/io5";
+import {IoBag, IoPricetag, IoPricetags} from "react-icons/io5";
 import {GiPiggyBank} from "react-icons/gi";
 import {RiHandCoinFill} from "react-icons/ri";
 import {CART_KEY, checkIfProductExists} from "../../../../../../Service/ProductService";
 import {Button} from "react-bootstrap";
 import {sendOrder} from "../../../../../../Service/OrderService";
-import {redirect} from "react-router-dom";
+import {LuCandy} from "react-icons/lu";
 
 function AddressModal({show, handleClose, cartItems, totalWeight, productCount, totalAmount, totalSaving}) {
     const [firstName, setFirstName] = useState('');
@@ -400,11 +400,16 @@ function AddressModal({show, handleClose, cartItems, totalWeight, productCount, 
 
             <Modal show={showUnavailableModal} onHide={() => setShowUnavailableModal(false)}>
                 <Modal.Header closeButton>
-                    <Modal.Title>Продукта не е наличен.</Modal.Title>
+                    <Modal.Title><FaTimesCircle className="errorColor mb-1 me-2"/>Продукта не е наличен.</Modal.Title>
                 </Modal.Header>
                 <Modal.Body>
-                    <h3>Моля премахнете следния продукт от количката си.</h3>
-                    {unavailableProductName} - {unavailableProductTaste}
+                    <div className="d-flex flex-column text-center">
+                        <h2>Моля премахнете следните продукти от количката си.</h2>
+                        <h5>
+                            <IoBag className="mb-2 me-1 errorColor"/>{unavailableProductName} -
+                            <LuCandy className="mb-1 ms-1 me-1 errorColor"/>{unavailableProductTaste}
+                        </h5>
+                    </div>
                 </Modal.Body>
             </Modal>
 
@@ -415,7 +420,6 @@ function AddressModal({show, handleClose, cartItems, totalWeight, productCount, 
                 </Modal.Header>
                 <Modal.Body>
                     <div className="d-flex flex-column text-center">
-
                         <div className="successColor"><FaCheckCircle className="modalIcon"/></div>
                         <h2>Поръчката е завършена</h2>
                         <h6>Наш служител ще се свърже с вас за потвърждение на поръчката.</h6>
