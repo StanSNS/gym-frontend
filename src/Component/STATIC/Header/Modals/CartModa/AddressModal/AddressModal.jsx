@@ -108,7 +108,7 @@ function AddressModal({show, handleClose, cartItems, totalWeight, productCount, 
         <>
             <Modal show={show} onHide={handleCloseAddressModal} className="modal-xl customModalPosition">
                 <Modal.Header className="sticky-header d-flex flex-row">
-                    <h3>Address Modal</h3>
+                    <h3>Моля добавете вашият адрес тук</h3>
                     <button className="closingModalButton" onClick={handleCloseAddressModal}>
                         <FaTimes/>
                     </button>
@@ -213,7 +213,7 @@ function AddressModal({show, handleClose, cartItems, totalWeight, productCount, 
                     <div className="radio-inputs">
                         <label>
                             <input className="radio-input" type="radio" name="engine"
-                                   onClick={() => setCourier('SPEEDY')}/>
+                                   onClick={() => setCourier('SPEEDY')} defaultChecked/>
                             <span className="radio-tile">
                           <img src={speedy} alt="Speedy" className="courierLogoImage"/>
                         </span>
@@ -246,7 +246,7 @@ function AddressModal({show, handleClose, cartItems, totalWeight, productCount, 
                                 defaultChecked
                             />
                             <span className="radio"></span>
-                            Доставка до адрес
+                            <span className="fw-bolder">Доставка до адрес</span>
                         </label>
 
                         <label className="radio-button">
@@ -257,7 +257,7 @@ function AddressModal({show, handleClose, cartItems, totalWeight, productCount, 
                                 value="option2"
                             />
                             <span className="radio"></span>
-                            Доставка до офис
+                            <span className="fw-bolder">Доставка до офис</span>
                         </label>
                     </div>
 
@@ -378,23 +378,14 @@ function AddressModal({show, handleClose, cartItems, totalWeight, productCount, 
                         </div>
 
                         <div className="buttonBox">
-                            <button className="animated-button" onClick={() => handleSendOrder()}>
-                                <svg viewBox="0 0 24 24" className="arr-2" xmlns="http://www.w3.org/2000/svg">
-                                    <path
-                                        d="M16.1716 10.9999L10.8076 5.63589L12.2218 4.22168L20 11.9999L12.2218 19.778L10.8076 18.3638L16.1716 12.9999H4V10.9999H16.1716Z"
-                                    ></path>
-                                </svg>
-                                <span className="text">Направи поръчка</span>
-                                <span className="circle"></span>
-                                <svg viewBox="0 0 24 24" className="arr-1" xmlns="http://www.w3.org/2000/svg">
-                                    <path
-                                        d="M16.1716 10.9999L10.8076 5.63589L12.2218 4.22168L20 11.9999L12.2218 19.778L10.8076 18.3638L16.1716 12.9999H4V10.9999H16.1716Z"
-                                    ></path>
-                                </svg>
+                            <button className="learn-more" onClick={() => handleSendOrder()}>
+                                <span className="circle" aria-hidden="true">
+                                    <span className="icon arrow"></span>
+                                </span>
+                                <span className="button-text">Поръчай сега</span>
                             </button>
                         </div>
                     </div>
-
                 </Modal.Body>
             </Modal>
 
