@@ -16,9 +16,11 @@ import {GiBank, GiWrappedSweet} from "react-icons/gi";
 import {IoIosPricetag} from "react-icons/io";
 import {addToCart, getCartFromStorage, reduceQuantityInCart} from "../../../../../Service/ProductService";
 import AddressModal from "./AddressModal/AddressModal";
+import {getAllAddresses} from "../../../../../Service/OrderService";
 
 function CartModal({show, handleClose}) {
     const [myCartItems, setMyCartItems] = useState([]);
+    const [addresses, setAddresses] = useState([]);
     const productCount = myCartItems.reduce((acc, item) => acc + item.quantity, 0);
     const [totalAmount, setTotalAmount] = useState(0);
     const [totalSaving, setTotalSaving] = useState(0);
@@ -53,6 +55,13 @@ function CartModal({show, handleClose}) {
     const refreshCartItems = () => {
         const updatedCartItems = getCartFromStorage();
         setMyCartItems(updatedCartItems);
+    };
+
+    const handleOpenAddressModalAndLoadAddresses = async () => {
+        setShowAddressModal(true);
+        const data = await getAllAddresses()
+        console.log(data)
+        setAddresses(data);
     };
 
     const handleIncreaseQuantity = (product, selectedTaste) => {
@@ -90,7 +99,7 @@ function CartModal({show, handleClose}) {
                         <span className="keyColorInfo me-2">
                             <FaWallet className="mb-2 me-2"/>Общо:
                         </span>
-                        {(totalAmount-totalSaving).toFixed(2)} лв
+                        {(totalAmount - totalSaving).toFixed(2)} лв
                     </span>
 
                         <span className="fw-bolder fs-4">
@@ -102,7 +111,8 @@ function CartModal({show, handleClose}) {
                     </div>
 
                     {myCartItems.length !== 0 && (
-                        <button className="orderButtonCart mt-3 mb-3" onClick={() => setShowAddressModal(true)}>
+                        <button className="orderButtonCart mt-3 mb-3"
+                                onClick={() => handleOpenAddressModalAndLoadAddresses()}>
                             <span><FaPlusCircle className="mb-1 me-2"/>Адрес</span>
                         </button>
                     )}
@@ -207,6 +217,7 @@ function CartModal({show, handleClose}) {
                 totalWeight={totalWeight}
                 productCount={productCount}
                 totalAmount={totalAmount}
+                addresses={addresses}
                 totalSaving={totalSaving}
             />
         </>

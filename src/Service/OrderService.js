@@ -8,3 +8,15 @@ export const sendOrder = (orderDto) => {
         throw error;
     });
 };
+
+export const getAllAddresses = () => {
+    return axios.get(BACKEND_BASE_URL + "/order/addresses").then((response) => {
+        if (response.status === 200) {
+            return response.data;
+        } else {
+            throw new Error('Failed to get all addresses.');
+        }
+    }).catch((error) => {
+        throw error;
+    });
+};

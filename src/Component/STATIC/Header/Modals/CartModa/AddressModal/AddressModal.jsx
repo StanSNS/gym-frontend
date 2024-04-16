@@ -4,6 +4,7 @@ import {
     FaCheckCircle,
     FaClipboardList,
     FaGlobeAmericas,
+    FaMap,
     FaShoppingCart,
     FaTimes,
     FaTimesCircle,
@@ -20,23 +21,25 @@ import sameday from '../../../../../../Resources/AddressModal/sameday.png'
 import {FaMapLocationDot, FaPhoneVolume} from "react-icons/fa6";
 import {IoBag, IoPricetag, IoPricetags} from "react-icons/io5";
 import {GiPiggyBank} from "react-icons/gi";
-import {RiHandCoinFill} from "react-icons/ri";
+import {RiHandCoinFill, RiRoadMapFill} from "react-icons/ri";
 import {CART_KEY, checkIfProductExists} from "../../../../../../Service/ProductService";
 import {Button} from "react-bootstrap";
 import {sendOrder} from "../../../../../../Service/OrderService";
 import {LuCandy} from "react-icons/lu";
 
-function AddressModal({show, handleClose, cartItems, totalWeight, productCount, totalAmount, totalSaving}) {
+function AddressModal({show, handleClose, cartItems, totalWeight, productCount, totalAmount, totalSaving, addresses}) {
     const [firstName, setFirstName] = useState('');
     const [lastName, setLastName] = useState('');
     const [email, setEmail] = useState('');
     const [phone, setPhone] = useState('');
     const [country, setCountry] = useState('');
     const [town, setTown] = useState('');
+    const [region, setRegion] = useState('');
     const [address, setAddress] = useState('');
+    const [postCode, setPostCode] = useState('');
     const [additionalAddress, setAdditionalAddress] = useState('');
     const [delivery, setDelivery] = useState('ADDRESS');
-    const [courier, setCourier] = useState('');
+    const [courier, setCourier] = useState('SPEEDY');
     const [randomOrderNumber, setRandomOrderNumber] = useState('');
     const [unavailableProductName, setUnavailableProductName] = useState('');
     const [unavailableProductTaste, setUnavailableProductTaste] = useState('');
@@ -54,6 +57,8 @@ function AddressModal({show, handleClose, cartItems, totalWeight, productCount, 
             phone,
             country,
             town,
+            region,
+            postCode,
             address,
             additionalAddress,
             delivery,
@@ -177,23 +182,45 @@ function AddressModal({show, handleClose, cartItems, totalWeight, productCount, 
                         </div>
                     </div>
 
-                    <div className="addressData">
-                        <div className="countryAndTown">
-                            <div className="countryInputContainer">
+                    <div className="personalData mt-3">
+                        <div className="namesContainer">
+                            <div className="input_container">
                                 <label className="input_label">
                                     <span className="redColorText fs-6 me-1">*</span>
                                     Държава
                                 </label>
                                 <FaGlobeAmericas className="icon"/>
-                                <input
-                                    value={country}
+                                <select
+                                    value={address}
                                     onChange={(e) => setCountry(e.target.value)}
-                                    placeholder="Въведете държава"
-                                    type="text"
-                                    className="input_field"
-                                />
+                                    className="input_field">
+                                    <option value="office2">България</option>
+                                </select>
                             </div>
-                            <div className="townInputContainer">
+                        </div>
+                    </div>
+
+                    <div className="addressData">
+                        <div className="countryAndTown">
+                            <div className="countryInputContainer">
+                                <label className="input_label">
+                                    <span className="redColorText fs-6 me-1">*</span>
+                                    Област
+                                </label>
+                                <FaMap className="icon"/>
+                                <select
+                                    value={address}
+                                    onChange={(e) => setRegion(e.target.value)}
+                                    className="input_field">
+                                    <option value="">Изберете област</option>
+                                    <option className="pt-3" value="office1">ОБЛАСТ 1</option>
+                                    <option value="office2">ОБЛАСТ 2</option>
+                                    <option value="office2">ОБЛАСТ 3</option>
+                                    <option value="office2">ОБЛАСТ 4</option>
+                                </select>
+                            </div>
+
+                            <div className="countryInputContainer">
                                 <label className="input_label">
                                     <span className="redColorText fs-6 me-1">*</span>
                                     Населено място
@@ -202,7 +229,22 @@ function AddressModal({show, handleClose, cartItems, totalWeight, productCount, 
                                 <input
                                     value={town}
                                     onChange={(e) => setTown(e.target.value)}
-                                    placeholder="Въведете град"
+                                    placeholder="Въведете град/село"
+                                    type="text"
+                                    className="input_field"
+                                />
+                            </div>
+
+                            <div className="countryInputContainer">
+                                <label className="input_label">
+                                    <span className="redColorText fs-6 me-1">*</span>
+                                    Пощенски код
+                                </label>
+                                <RiRoadMapFill className="icon"/>
+                                <input
+                                    value={postCode}
+                                    onChange={(e) => setPostCode(e.target.value)}
+                                    placeholder="1000"
                                     type="text"
                                     className="input_field"
                                 />
@@ -262,22 +304,38 @@ function AddressModal({show, handleClose, cartItems, totalWeight, productCount, 
                     </div>
 
                     <div className="detailedAddress">
-
                         {delivery === 'ADDRESS' && (
-                            <div className="addressContainer">
-                                <label className="input_label">
-                                    <span className="redColorText fs-6 me-1">*</span>
-                                    Адрес
-                                </label>
-                                <MdLocationPin className="icon"/>
-                                <input
-                                    value={address}
-                                    onChange={(e) => setAddress(e.target.value)}
-                                    placeholder="Въведете адреса за доставка"
-                                    type="text"
-                                    className="input_field"
-                                />
-                            </div>
+                            <>
+                                <div className="addressContainer">
+                                    <label className="input_label">
+                                        <span className="redColorText fs-6 me-1">*</span>
+                                        Адрес
+                                    </label>
+                                    <MdLocationPin className="icon"/>
+                                    <input
+                                        value={address}
+                                        onChange={(e) => setAddress(e.target.value)}
+                                        placeholder="Въведете адреса за доставка"
+                                        type="text"
+                                        className="input_field"
+                                    />
+                                </div>
+
+                                <div className="addressContainer">
+                                    <label className="input_label">
+                                        <span className="redColorText fs-6 me-1">*</span>
+                                        Допълнителна инфоррмация за адреса
+                                    </label>
+                                    <MdLocationPin className="icon"/>
+                                    <input
+                                        value={additionalAddress}
+                                        onChange={(e) => setAdditionalAddress(e.target.value)}
+                                        placeholder="Въведете допълнителна инфоррмация за адреса"
+                                        type="text"
+                                        className="input_field"
+                                    />
+                                </div>
+                            </>
                         )}
 
                         {delivery === 'OFFICE' && (
@@ -297,23 +355,6 @@ function AddressModal({show, handleClose, cartItems, totalWeight, productCount, 
                                     <option value="office2">Офис 3</option>
                                     <option value="office2">Офис 4</option>
                                 </select>
-                            </div>
-                        )}
-
-                        {delivery === 'ADDRESS' && (
-                            <div className="addressContainer">
-                                <label className="input_label">
-                                    <span className="redColorText fs-6 me-1">*</span>
-                                    Допълнителна инфоррмация за адреса
-                                </label>
-                                <MdLocationPin className="icon"/>
-                                <input
-                                    value={additionalAddress}
-                                    onChange={(e) => setAdditionalAddress(e.target.value)}
-                                    placeholder="Въведете допълнителна инфоррмация за адреса"
-                                    type="text"
-                                    className="input_field"
-                                />
                             </div>
                         )}
                     </div>
