@@ -12,3 +12,11 @@ export const getAllOrderData = () => {
         throw error;
     });
 };
+
+export const modifyOrderStatus = (status, randomNumber) => {
+    return axios.put(BACKEND_BASE_URL + `/admin?status=${status}&randomNumber=${randomNumber}`).then((response) => {
+        return response;
+    }).catch((error) => {
+        throw error;
+    });
+};
