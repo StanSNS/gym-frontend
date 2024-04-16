@@ -1,4 +1,4 @@
-import React, {useState} from 'react';
+import React, {useEffect, useState} from 'react';
 import Modal from 'react-bootstrap/Modal';
 import {
     FaCheckCircle,
@@ -20,10 +20,10 @@ import econt from '../../../../../../Resources/AddressModal/econt.png'
 import sameday from '../../../../../../Resources/AddressModal/sameday.png'
 import {FaMapLocationDot, FaPhoneVolume} from "react-icons/fa6";
 import {IoBag, IoPricetag, IoPricetags} from "react-icons/io5";
-import {GiPiggyBank} from "react-icons/gi";
+import {GiPiggyBank, GiWrappedSweet} from "react-icons/gi";
 import {RiHandCoinFill, RiRoadMapFill} from "react-icons/ri";
 import {CART_KEY, checkIfProductExists} from "../../../../../../Service/ProductService";
-import {Button} from "react-bootstrap";
+import {Button, Dropdown} from "react-bootstrap";
 import {sendOrder} from "../../../../../../Service/OrderService";
 import {LuCandy} from "react-icons/lu";
 
@@ -32,11 +32,11 @@ function AddressModal({show, handleClose, cartItems, totalWeight, productCount, 
     const [lastName, setLastName] = useState('');
     const [email, setEmail] = useState('');
     const [phone, setPhone] = useState('');
-    const [country, setCountry] = useState('');
+    const [country, setCountry] = useState('България');
     const [town, setTown] = useState('');
-    const [region, setRegion] = useState('');
     const [address, setAddress] = useState('');
     const [postCode, setPostCode] = useState('');
+    const [officeAddress, setOfficeAddress] = useState('');
     const [additionalAddress, setAdditionalAddress] = useState('');
     const [delivery, setDelivery] = useState('ADDRESS');
     const [courier, setCourier] = useState('SPEEDY');
@@ -46,6 +46,34 @@ function AddressModal({show, handleClose, cartItems, totalWeight, productCount, 
     const [showUnavailableModal, setShowUnavailableModal] = useState(false);
     const [showSuccessOrderModal, setShowSuccessOrderModal] = useState(false);
     const [showErrorOrderModal, setShowErrorOrderModal] = useState(false);
+    const [towns, setTowns] = useState([]);
+    const [offices, setOffices] = useState([]);
+
+
+    useEffect(() => {
+        const extractUniqueTowns = () => {
+            const uniqueTowns = [...new Set(addresses.map(address => address.siteNameBg))];
+            const sortedTowns = uniqueTowns.sort((a, b) => a.localeCompare(b));
+            setTowns(sortedTowns);
+        };
+
+        extractUniqueTowns();
+    }, [addresses]);
+
+    useEffect(() => {
+        const selectedTown = addresses.find(item => item.siteNameBg === town);
+        if (selectedTown) {
+            setPostCode(selectedTown.postCode);
+        } else {
+            setPostCode(''); // Reset post code if town is not found
+        }
+    }, [town, addresses]);
+
+    useEffect(() => {
+        // Filter offices based on selected town
+        const selectedOffices = addresses.filter(item => item.siteNameBg === town);
+        setOffices(selectedOffices);
+    }, [town, addresses]);
 
     const deliveryPrice = 7.34;
 
@@ -57,8 +85,8 @@ function AddressModal({show, handleClose, cartItems, totalWeight, productCount, 
             phone,
             country,
             town,
-            region,
             postCode,
+            officeAddress,
             address,
             additionalAddress,
             delivery,
@@ -182,26 +210,22 @@ function AddressModal({show, handleClose, cartItems, totalWeight, productCount, 
                         </div>
                     </div>
 
-                    <div className="personalData mt-3">
-                        <div className="namesContainer">
-                            <div className="input_container">
+                    <div className="addressData">
+                        <div className="countryAndTown">
+                            <div className="countryInputContainer">
                                 <label className="input_label">
                                     <span className="redColorText fs-6 me-1">*</span>
                                     Държава
                                 </label>
                                 <FaGlobeAmericas className="icon"/>
-                                <select
-                                    value={address}
+                                <input
+                                    disabled
+                                    value={country}
                                     onChange={(e) => setCountry(e.target.value)}
-                                    className="input_field">
-                                    <option value="office2">България</option>
-                                </select>
+                                    className="input_field"
+                                />
                             </div>
-                        </div>
-                    </div>
 
-                    <div className="addressData">
-                        <div className="countryAndTown">
                             <div className="countryInputContainer">
                                 <label className="input_label">
                                     <span className="redColorText fs-6 me-1">*</span>
@@ -209,30 +233,14 @@ function AddressModal({show, handleClose, cartItems, totalWeight, productCount, 
                                 </label>
                                 <FaMap className="icon"/>
                                 <select
-                                    value={address}
-                                    onChange={(e) => setRegion(e.target.value)}
-                                    className="input_field">
-                                    <option value="">Изберете област</option>
-                                    <option className="pt-3" value="office1">ОБЛАСТ 1</option>
-                                    <option value="office2">ОБЛАСТ 2</option>
-                                    <option value="office2">ОБЛАСТ 3</option>
-                                    <option value="office2">ОБЛАСТ 4</option>
-                                </select>
-                            </div>
-
-                            <div className="countryInputContainer">
-                                <label className="input_label">
-                                    <span className="redColorText fs-6 me-1">*</span>
-                                    Населено място
-                                </label>
-                                <FaMapLocationDot className="icon"/>
-                                <input
                                     value={town}
                                     onChange={(e) => setTown(e.target.value)}
-                                    placeholder="Въведете град/село"
-                                    type="text"
-                                    className="input_field"
-                                />
+                                    className="input_field">
+                                    <option value="">Изберете град/село</option>
+                                    {towns.map((townName, index) => (
+                                        <option key={index} value={townName}>{townName}</option>
+                                    ))}
+                                </select>
                             </div>
 
                             <div className="countryInputContainer">
@@ -244,7 +252,7 @@ function AddressModal({show, handleClose, cartItems, totalWeight, productCount, 
                                 <input
                                     value={postCode}
                                     onChange={(e) => setPostCode(e.target.value)}
-                                    placeholder="1000"
+                                    placeholder="Въведе пощенски код"
                                     type="text"
                                     className="input_field"
                                 />
@@ -344,16 +352,16 @@ function AddressModal({show, handleClose, cartItems, totalWeight, productCount, 
                                     <span className="redColorText fs-6 me-1">*</span>
                                     Избери офис
                                 </label>
-                                <MdLocationPin className="icon"/>
+                                <MdLocationPin className="icon" />
                                 <select
-                                    value={address}
-                                    onChange={(e) => setAddress(e.target.value)}
-                                    className="input_field">
+                                    value={officeAddress}
+                                    onChange={(e) => setOfficeAddress(e.target.value)}
+                                    className="input_field"
+                                >
                                     <option value="">Изберете офис</option>
-                                    <option value="office1">Офис 1</option>
-                                    <option value="office2">Офис 2</option>
-                                    <option value="office2">Офис 3</option>
-                                    <option value="office2">Офис 4</option>
+                                    {offices.map((office, index) => (
+                                        <option key={index} value={office.addressBG}>{office.addressBG}</option>
+                                    ))}
                                 </select>
                             </div>
                         )}
