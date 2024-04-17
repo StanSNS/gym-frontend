@@ -2,10 +2,11 @@ import React, {useEffect, useState} from 'react';
 import {Col, Container, Pagination, Row} from 'react-bootstrap';
 import "./Shop.css"
 import {getAllSellableProducts} from "../../Service/ProductService";
-import CardSkeletonLoader from "./SkeletonLoader/CardSkeletonLoader";
 import CardShop from "./Card/CardShop";
 import SearchInput from "./SearchInput/SearchInput";
 import DropdownButtons from "./DropDownButtons/DropDownButtons";
+import Loader from "../STATIC/Loader/Loader";
+import Hero from "../Hero/Hero";
 
 const Shop = () => {
     const [products, setProducts] = useState([]);
@@ -20,12 +21,13 @@ const Shop = () => {
     const [selectedWeight, setSelectedWeight] = useState("0.0-999999.0");
     const [minWeight, maxWeight] = selectedWeight.split('-').map(parseFloat);
     const productsPerPage = 20;
-
     const [isOpenFlashDeals, setIsOpenFlashDeals] = useState(false);
     const [isOpenCategory, setIsOpenCategory] = useState(false);
     const [isOpenOrderBy, setIsOpenOrderBy] = useState(false);
     const [isOpenBrand, setIsOpenBrand] = useState(false);
     const [isOpenWeight, setIsOpenWeight] = useState(false);
+    const [isDataLoading, setIsDataLoading] = useState(false);
+
 
     const weightData = [
         {id: 1, range: "0-0.300"},
@@ -39,14 +41,17 @@ const Shop = () => {
 
     useEffect(() => {
         const fetchData = async () => {
+            setIsDataLoading(true);
             try {
                 const data = await getAllSellableProducts();
                 setProducts(data.products);
                 setBrands(data.brands);
                 setCategories(data.categories);
-                console.log(data)
+                console.log(data);
             } catch (error) {
                 console.error('Error fetching sellable products:', error);
+            } finally {
+                setIsDataLoading(false);
             }
         };
 
@@ -92,7 +97,7 @@ const Shop = () => {
         setCurrentPage(pageNumber);
         const heroSectionHeight = document.querySelector('.carouselContainer').offsetHeight;
         window.scrollTo({
-            top: heroSectionHeight -50,
+            top: heroSectionHeight - 50,
             behavior: "smooth"
         });
     };
@@ -166,78 +171,83 @@ const Shop = () => {
     }
 
     return (
-        <Container>
-            <div className="topShopSection">
-                <SearchInput
-                    myWidth={"100%"}
-                    placeHolder="Потърси продукт..."
-                    searchQuery={searchQuery}
-                    handleSearchChange={handleSearchChange}
-                    clearSearch={clearSearch}
-                />
+        <>
 
-                <DropdownButtons
-                    selectedDeal={selectedDeal}
-                    isOpenFlashDeals={isOpenFlashDeals}
-                    selectFlashDeal={selectFlashDeal}
-                    isOpenOrderBy={isOpenOrderBy}
-                    isOpenCategory={isOpenCategory}
-                    selectCategory={selectCategory}
-                    selectedCategory={selectedCategory}
-                    isOpenWeight={isOpenWeight}
-                    selectWeight={selectWeight}
-                    selectedWeight={selectedWeight}
-                    isOpenBrand={isOpenBrand}
-                    selectBrand={selectBrand}
-                    selectedBrand={selectedBrand}
-                    brands={brands}
-                    toggleDropdown={toggleDropdown}
-                    selectSort={selectSort}
-                    categories={categories}
-                    clearSortBy={clearSortBy}
-                    selectedOrderBy={selectedOrderBy}
-                    weightData={weightData}
-                />
+            {isDataLoading && <Loader/>}
 
-                <div
-                    className={`overlay${isOverlayVisible ? ' visible' : ''}`}
-                    onClick={() => {
-                        toggleDropdown()
-                        setIsOverlayVisible(false)
-                    }}>
-                </div>
-            </div>
-            <Row>
-                {products.length === 0 ? (
-                    <CardSkeletonLoader/>
-                ) : (
-                    currentProducts.map((product, index) => (
-                        <CardShop key={index} product={product}/>
-                    ))
-                )}
-            </Row>
+            <Hero/>
 
-            {filteredProducts.length === 0 && (
-                <Row>
-                    <div className="noResultsMessage">
-                        <span>Sorry, no products were found during the search...</span>
+            <Container>
+                <div className="topShopSection">
+                    <SearchInput
+                        myWidth={"100%"}
+                        placeHolder="Потърси продукт..."
+                        searchQuery={searchQuery}
+                        handleSearchChange={handleSearchChange}
+                        clearSearch={clearSearch}
+                    />
+
+                    <DropdownButtons
+                        selectedDeal={selectedDeal}
+                        isOpenFlashDeals={isOpenFlashDeals}
+                        selectFlashDeal={selectFlashDeal}
+                        isOpenOrderBy={isOpenOrderBy}
+                        isOpenCategory={isOpenCategory}
+                        selectCategory={selectCategory}
+                        selectedCategory={selectedCategory}
+                        isOpenWeight={isOpenWeight}
+                        selectWeight={selectWeight}
+                        selectedWeight={selectedWeight}
+                        isOpenBrand={isOpenBrand}
+                        selectBrand={selectBrand}
+                        selectedBrand={selectedBrand}
+                        brands={brands}
+                        toggleDropdown={toggleDropdown}
+                        selectSort={selectSort}
+                        categories={categories}
+                        clearSortBy={clearSortBy}
+                        selectedOrderBy={selectedOrderBy}
+                        weightData={weightData}
+                    />
+
+                    <div
+                        className={`overlay${isOverlayVisible ? ' visible' : ''}`}
+                        onClick={() => {
+                            toggleDropdown()
+                            setIsOverlayVisible(false)
+                        }}>
                     </div>
+                </div>
+                <Row>
+                    {currentProducts.map((product, index) => (
+                        <CardShop key={index} product={product}/>
+                    ))}
                 </Row>
-            )}
 
-            <Row>
-                <Col className="d-flex justify-content-center mt-2 mb-5">
-                    <Pagination>
-                        {pageNumbers.slice(startPage - 1, endPage).map((number) => (
-                            <Pagination.Item key={number} onClick={() => paginate(number)}
-                                             active={number === currentPage}>
-                                {number}
-                            </Pagination.Item>
-                        ))}
-                    </Pagination>
-                </Col>
-            </Row>
-        </Container>
+                {filteredProducts.length === 0 && (
+                    <Row>
+                        <div className="noResultsMessage">
+                            <span>Sorry, no products were found during the search...</span>
+                        </div>
+                    </Row>
+                )}
+
+                <Row>
+                    <Col className="d-flex justify-content-center mt-2 mb-5">
+                        <Pagination>
+                            {pageNumbers.slice(startPage - 1, endPage).map((number) => (
+                                <Pagination.Item key={number} onClick={() => paginate(number)}
+                                                 active={number === currentPage}>
+                                    {number}
+                                </Pagination.Item>
+                            ))}
+                        </Pagination>
+                    </Col>
+                </Row>
+            </Container>
+
+        </>
+
     );
 };
 
