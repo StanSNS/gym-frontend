@@ -3,16 +3,22 @@ import './Actions.css'
 import Loader from "../../STATIC/Loader/Loader";
 import {
     allExecute,
-    brandTasteExecution, productDataDetailsExecute, productDataDetailsSheetExecute, productDataDetailsWebExecute,
+    brandTasteExecution,
+    productDataDetailsExecute,
+    productDataDetailsSheetExecute,
+    productDataDetailsWebExecute,
     productDataExecute,
     speedyOfficesExecute,
     tasteColorExecution
 } from "../../../Service/AdminService";
+import Modal from "react-bootstrap/Modal";
+import {FaCheckCircle, FaTimesCircle} from "react-icons/fa";
 
 
 function Actions() {
     const [isLoading, setIsLoading] = useState(false);
-    const [modalContent, setModalContent] = useState('');
+    const [successModalVisible, setSuccessModalVisible] = useState(false);
+    const [failModalVisible, setFailModalVisible] = useState(false);
 
     const executeAction = async (actionFunction) => {
         setIsLoading(true);
@@ -20,20 +26,25 @@ function Actions() {
             const response = await actionFunction();
             setIsLoading(false);
             if (response.status === 200) {
-                setModalContent('Success!'); // Show success modal
+                setSuccessModalVisible(true);
             } else {
-                setModalContent('Error: ' + response.statusText); // Show error modal
+                setFailModalVisible(true);
             }
         } catch (error) {
             setIsLoading(false);
-            setModalContent('Error: ' + error.message); // Show error modal
+            setFailModalVisible(true);
         }
     };
 
+    const closeModal = () => {
+        setSuccessModalVisible(false);
+        setFailModalVisible(false);
+    };
 
     return (
         <>
             {isLoading && <Loader/>}
+
             <div className="actionsContainer">
                 <h1>Database Scripts executioners</h1>
 
@@ -103,6 +114,21 @@ function Actions() {
                     </button>
                 </div>
             </div>
+
+            <Modal show={successModalVisible} onHide={closeModal}>
+                <Modal.Header closeButton>
+                    <Modal.Title><FaCheckCircle className="mb-1 me-2 successColor"/>Success!</Modal.Title>
+                </Modal.Header>
+                <Modal.Body className="text-center fw-bolder fs-4">Action executed successfully.</Modal.Body>
+            </Modal>
+
+            <Modal show={failModalVisible} onHide={closeModal}>
+                <Modal.Header closeButton>
+                    <Modal.Title><FaTimesCircle className="mb-1 me-2 errorColor"/>Error!</Modal.Title>
+
+                </Modal.Header>
+                <Modal.Body className="text-center fw-bolder fs-4">Action failed. See logs.</Modal.Body>
+            </Modal>
         </>
     );
 }
