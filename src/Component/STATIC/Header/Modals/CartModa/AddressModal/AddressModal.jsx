@@ -18,12 +18,13 @@ import {MdEmail, MdLocationPin} from "react-icons/md";
 import speedy from '../../../../../../Resources/AddressModal/speedy.jpg'
 import econt from '../../../../../../Resources/AddressModal/econt.png'
 import sameday from '../../../../../../Resources/AddressModal/sameday.png'
-import {FaMapLocationDot, FaPhoneVolume} from "react-icons/fa6";
+
+import {FaPhoneVolume} from "react-icons/fa6";
 import {IoBag, IoPricetag, IoPricetags} from "react-icons/io5";
-import {GiPiggyBank, GiWrappedSweet} from "react-icons/gi";
+import {GiPiggyBank} from "react-icons/gi";
 import {RiHandCoinFill, RiRoadMapFill} from "react-icons/ri";
 import {CART_KEY, checkIfProductExists} from "../../../../../../Service/ProductService";
-import {Button, Dropdown} from "react-bootstrap";
+import {Button} from "react-bootstrap";
 import {sendOrder} from "../../../../../../Service/OrderService";
 import {LuCandy} from "react-icons/lu";
 
@@ -46,36 +47,21 @@ function AddressModal({show, handleClose, cartItems, totalWeight, productCount, 
     const [showUnavailableModal, setShowUnavailableModal] = useState(false);
     const [showSuccessOrderModal, setShowSuccessOrderModal] = useState(false);
     const [showErrorOrderModal, setShowErrorOrderModal] = useState(false);
-    const [towns, setTowns] = useState([]);
-    const [offices, setOffices] = useState([]);
+    const [selectedTownData, setSelectedTownData] = useState({postCode: '', addresses: []});
 
-
-    useEffect(() => {
-        const extractUniqueTowns = () => {
-            const uniqueTowns = [...new Set(addresses.map(address => address.siteNameBg))];
-            const sortedTowns = uniqueTowns.sort((a, b) => a.localeCompare(b));
-            setTowns(sortedTowns);
-        };
-
-        extractUniqueTowns();
-    }, [addresses]);
-
-    useEffect(() => {
-        const selectedTown = addresses.find(item => item.siteNameBg === town);
-        if (selectedTown) {
-            setPostCode(selectedTown.postCode);
-        } else {
-            setPostCode(''); // Reset post code if town is not found
-        }
-    }, [town, addresses]);
-
-    useEffect(() => {
-        // Filter offices based on selected town
-        const selectedOffices = addresses.filter(item => item.siteNameBg === town);
-        setOffices(selectedOffices);
-    }, [town, addresses]);
 
     const deliveryPrice = 7.34;
+
+    useEffect(() => {
+        if (town) {
+            const selectedTown = addresses.find(address => address.cityName === town);
+            if (selectedTown) {
+                setPostCode(selectedTown.postCode);
+                setOfficeAddress('');
+                setSelectedTownData(selectedTown);
+            }
+        }
+    }, [town, addresses]);
 
     const handleSendOrder = async () => {
         const deliveryData = {
@@ -229,7 +215,7 @@ function AddressModal({show, handleClose, cartItems, totalWeight, productCount, 
                             <div className="countryInputContainer">
                                 <label className="input_label">
                                     <span className="redColorText fs-6 me-1">*</span>
-                                    Област
+                                    Град/Село
                                 </label>
                                 <FaMap className="icon"/>
                                 <select
@@ -237,8 +223,8 @@ function AddressModal({show, handleClose, cartItems, totalWeight, productCount, 
                                     onChange={(e) => setTown(e.target.value)}
                                     className="input_field">
                                     <option value="">Изберете град/село</option>
-                                    {towns.map((townName, index) => (
-                                        <option key={index} value={townName}>{townName}</option>
+                                    {addresses.map((address, index) => (
+                                        <option key={index} value={address.cityName}>{address.cityName}</option>
                                     ))}
                                 </select>
                             </div>
@@ -250,9 +236,10 @@ function AddressModal({show, handleClose, cartItems, totalWeight, productCount, 
                                 </label>
                                 <RiRoadMapFill className="icon"/>
                                 <input
+                                    disabled
                                     value={postCode}
                                     onChange={(e) => setPostCode(e.target.value)}
-                                    placeholder="Въведе пощенски код"
+                                    placeholder="Моля изберете град/село"
                                     type="text"
                                     className="input_field"
                                 />
@@ -352,15 +339,15 @@ function AddressModal({show, handleClose, cartItems, totalWeight, productCount, 
                                     <span className="redColorText fs-6 me-1">*</span>
                                     Избери офис
                                 </label>
-                                <MdLocationPin className="icon" />
+                                <MdLocationPin className="icon"/>
                                 <select
                                     value={officeAddress}
                                     onChange={(e) => setOfficeAddress(e.target.value)}
                                     className="input_field"
                                 >
                                     <option value="">Изберете офис</option>
-                                    {offices.map((office, index) => (
-                                        <option key={index} value={office.addressBG}>{office.addressBG}</option>
+                                    {selectedTownData.addresses.map((office, index) => (
+                                        <option key={index} value={office.fullAddress}>{office.fullAddress}</option>
                                     ))}
                                 </select>
                             </div>
