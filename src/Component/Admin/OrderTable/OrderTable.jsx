@@ -6,6 +6,7 @@ import {getAllOrderData} from "../../../Service/AdminService";
 import {FaUserAlt} from "react-icons/fa";
 import CurrentOrderModal from "./CurrentOrderModal/CurrentOrderModal";
 import StatusModal from "./StatusModal/StatusModa";
+import Loader from "../../STATIC/Loader/Loader";
 
 function OrderTable() {
     const [orderData, setOrderData] = useState([]);
@@ -13,17 +14,17 @@ function OrderTable() {
     const [filteredOrders, setFilteredOrders] = useState(orderData);
     const [showUserInfoModal, setShowUserInfoModal] = useState(false);
     const [showStatusModal, setShowStatusModal] = useState(false);
-
-
     const [selectedOrder, setSelectedOrder] = useState(null);
+    const [isDataLoading, setIsDataLoading] = useState(false);
 
     useEffect(() => {
         const fetchData = async () => {
             const data = await getAllOrderData();
-            console.log(data)
             setOrderData(data)
             setFilteredOrders(data);
+            setIsDataLoading(false)
         };
+        setIsDataLoading(true)
         fetchData();
     }, []);
 
@@ -62,8 +63,6 @@ function OrderTable() {
             case "profit":
                 sortedData.sort((a, b) => b.companyProfit - a.companyProfit);
                 break;
-
-
             default:
                 break;
         }
@@ -126,6 +125,8 @@ function OrderTable() {
 
     return (
         <>
+            {isDataLoading && <Loader/>}
+
             <CurrentOrderModal
                 show={showUserInfoModal}
                 onHide={() => setShowUserInfoModal(false)}

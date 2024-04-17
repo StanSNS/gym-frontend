@@ -9,6 +9,7 @@ import {BiSolidCategory} from "react-icons/bi";
 import {MdOutlineMoneyOffCsred} from "react-icons/md";
 import {IoIosPricetag} from "react-icons/io";
 import {GiWrappedSweet} from "react-icons/gi";
+import Loader from "../STATIC/Loader/Loader";
 
 function Product() {
     const [product, setProduct] = useState(() => {
@@ -20,6 +21,8 @@ function Product() {
     const [showModal, setShowModal] = useState(false);
     const [showTasteModal, setShowTasteModal] = useState(false);
     const [showSuccessModal, setShowSuccessModal] = useState(false);
+    const [isDataLoading, setIsDataLoading] = useState(false);
+    const [isProductCheckIsLoading, setIsProductCheckIsLoading] = useState(false);
 
     useEffect(() => {
         const fetchData = async () => {
@@ -35,8 +38,11 @@ function Product() {
                 }
             } catch (error) {
                 console.error('Error fetching current product:', error);
+            } finally {
+                setIsDataLoading(false)
             }
         };
+        setIsDataLoading(true)
         fetchData();
     }, [product]);
 
@@ -52,7 +58,7 @@ function Product() {
         colors: tasteData?.colors.split(',').filter(color => color.trim() !== ''),
     };
 
-    const handleAddProductToCart = async (product) => {
+    const handleAddProductToCart = (product) => {
         if (product.taste.length === 0) {
             checkProductAvailability(product)
         } else {
@@ -65,6 +71,7 @@ function Product() {
     }
 
     const checkProductAvailability = async (product) => {
+        setIsProductCheckIsLoading(true)
         const data = await checkIfProductExists(product.brandEntity.brandID, product.modelId, selectedTaste?.silaTasteID);
         if (data.status === 204) {
             setShowTasteModal(true);
@@ -72,44 +79,54 @@ function Product() {
             setShowSuccessModal(true);
             addToCart(product, selectedTaste);
         }
+        setIsProductCheckIsLoading(false)
     }
 
     return (
-        <div className="productContainer">
-            {product ? (
-                <>
-                    <div className="leftSection">
-                        <div className="productCard">
-                            <div className="imageContainer me-4">
-                                {selectedTaste && (
-                                    <div className="doughnutChartContainer">
-                                        <DoughnutChart data={doughnutData}/>
-                                        <p className="doughnutText">{selectedTaste.name}</p>
+        <>
+            {isDataLoading ? (
+                    <div className="vh-100">
+                        <Loader/>
+                    </div>
+                ) :
+                <div className="productContainer">
+                    {product ? (
+                        <>
+                            {isProductCheckIsLoading && (
+                                <Loader/>
+                            )}
+                            <div className="leftSection">
+                                <div className="productCard">
+                                    <div className="imageContainer me-4">
+                                        {selectedTaste && (
+                                            <div className="doughnutChartContainer">
+                                                <DoughnutChart data={doughnutData}/>
+                                                <p className="doughnutText">{selectedTaste.name}</p>
+                                            </div>
+                                        )}
+                                        <img src={product.image} alt={product.name}/>
                                     </div>
-                                )}
-                                <img src={product.image} alt={product.name}/>
-                            </div>
 
-                            <div className="productText">
-                                <h3 className="text-center">{product.name} - {product.brandEntity.name}</h3>
+                                    <div className="productText">
+                                        <h3 className="text-center">{product.name} - {product.brandEntity.name}</h3>
 
-                                <span className="fw-bolder mt-2 cardCategory">
+                                        <span className="fw-bolder mt-2 cardCategory">
                                    <span className="keyColorInfo me-2">
                                        <BiSolidCategory className="mb-1"/> Категория:
                                    </span>
-                                    {product.category}
+                                            {product.category}
                                 </span>
 
-                                {product.weightKg !== "0.000" && (
-                                    <span className="fw-bolder mt-2">
+                                        {product.weightKg !== "0.000" && (
+                                            <span className="fw-bolder mt-2">
                                         <span className="keyColorInfo me-2">
                                             <FaWeightHanging className="mb-1"/> Тегло:
                                         </span>
-                                        {product.weightKg} кг.
+                                                {product.weightKg} кг.
                                     </span>
-                                )}
+                                        )}
 
-                                <span className="fw-bolder mt-2">
+                                        <span className="fw-bolder mt-2">
                                     <span className="keyColorInfo strikeText me-2">
                                         <MdOutlineMoneyOffCsred className="mb-1"/> Редовна цена:
                                     </span>
@@ -118,7 +135,7 @@ function Product() {
                                     </span>
                                 </span>
 
-                                <span className="fw-bolder mt-2">
+                                        <span className="fw-bolder mt-2">
                                     <span className="keyColorInfo me-2">
                                         <IoIosPricetag className="mb-1"/> Намалена цена:
                                     </span>
@@ -127,139 +144,144 @@ function Product() {
                                     </span>
                                 </span>
 
-                                {product.taste.length > 0 && (
-                                    <div className="tastes">
+                                        {product.taste.length > 0 && (
+                                            <div className="tastes">
                                         <span className="fw-bolder mt-2">
                                               <span className="keyColorInfo me-2"><GiWrappedSweet className="mb-1"/> Вкусове: </span>
                                         </span>
 
-                                        <Dropdown>
-                                            <Dropdown.Toggle variant={"dark"} id="dropdown-basic"
-                                                             className="dropDownButton">
-                                                Избери
-                                            </Dropdown.Toggle>
-                                            <Dropdown.Menu>
-                                                {product.taste.map((taste, index) => (
-                                                    <Dropdown.Item key={index} onClick={() => {
-                                                        setTasteData(taste);
-                                                        setSelectedTaste(taste);
-                                                    }}>
-                                                        <GiWrappedSweet
-                                                            className="redColorText mb-1 me-1"/> {taste.name}
-                                                    </Dropdown.Item>
-                                                ))}
-                                            </Dropdown.Menu>
-                                        </Dropdown>
-                                    </div>
-                                )}
+                                                <Dropdown>
+                                                    <Dropdown.Toggle variant={"dark"} id="dropdown-basic"
+                                                                     className="dropDownButton">
+                                                        Избери
+                                                    </Dropdown.Toggle>
+                                                    <Dropdown.Menu>
+                                                        {product.taste.map((taste, index) => (
+                                                            <Dropdown.Item key={index} onClick={() => {
+                                                                setTasteData(taste);
+                                                                setSelectedTaste(taste);
+                                                            }}>
+                                                                <GiWrappedSweet
+                                                                    className="redColorText mb-1 me-1"/> {taste.name}
+                                                            </Dropdown.Item>
+                                                        ))}
+                                                    </Dropdown.Menu>
+                                                </Dropdown>
+                                            </div>
+                                        )}
 
-                                <span className="fw-bolder">
+                                        <span className="fw-bolder">
                                      <span className="keyColorInfo me-2"><FaStar className="mb-1 me-1"/>Рейтинг:</span>
-                                    {product?.ratingValue.toFixed(1)}/5 ({product?.ratingCount})
+                                            {product?.ratingValue.toFixed(1)}/5 ({product?.ratingCount})
                                 </span>
-                                <div className="barChart">
-                                    <div className="chartStars">
-                                        <div className="oneStar yellowStar">
-                                            <FaStar/>
+                                        <div className="barChart">
+                                            <div className="chartStars">
+                                                <div className="oneStar yellowStar">
+                                                    <FaStar/>
+                                                </div>
+
+                                                <div className="twoStar blackStar">
+                                                    <FaStar/>
+                                                    <FaStar/>
+                                                </div>
+
+                                                <div className="threeStars yellowStar">
+                                                    <FaStar/>
+                                                    <FaStar/>
+                                                    <FaStar/>
+                                                </div>
+
+                                                <div className="fourStars blackStar">
+                                                    <FaStar/>
+                                                    <FaStar/>
+                                                    <FaStar/>
+                                                    <FaStar/>
+                                                </div>
+
+                                                <div className="fiveStars yellowStar">
+                                                    <FaStar/>
+                                                    <FaStar/>
+                                                    <FaStar/>
+                                                    <FaStar/>
+                                                    <FaStar/>
+                                                </div>
+                                            </div>
+
+                                            <BarChart data={starData}/>
                                         </div>
 
-                                        <div className="twoStar blackStar">
-                                            <FaStar/>
-                                            <FaStar/>
-                                        </div>
-
-                                        <div className="threeStars yellowStar">
-                                            <FaStar/>
-                                            <FaStar/>
-                                            <FaStar/>
-                                        </div>
-
-                                        <div className="fourStars blackStar">
-                                            <FaStar/>
-                                            <FaStar/>
-                                            <FaStar/>
-                                            <FaStar/>
-                                        </div>
-
-                                        <div className="fiveStars yellowStar">
-                                            <FaStar/>
-                                            <FaStar/>
-                                            <FaStar/>
-                                            <FaStar/>
-                                            <FaStar/>
+                                        <div className="addButtonContainer">
+                                            <button onClick={() => handleAddProductToCart(product)}><FaCartPlus
+                                                className="mb-1 me-2"/>Добави
+                                            </button>
                                         </div>
                                     </div>
-
-                                    <BarChart data={starData}/>
                                 </div>
 
-                                <div className="addButtonContainer">
-                                    <button onClick={() => handleAddProductToCart(product)}><FaCartPlus
-                                        className="mb-1 me-2"/>Добави
-                                    </button>
-                                </div>
                             </div>
+
+                            <div className="rightSection">
+                                <div dangerouslySetInnerHTML={{
+                                    __html: product.description.indexOf('СИЛА БГ Тийм') !== -1
+                                        ? product.description.substring(0, product.description.indexOf('СИЛА БГ Тийм'))
+                                        : product.description
+                                }}
+                                     className="productDescription" style={null}/>
+                            </div>
+
+                        </>
+                    ) : (
+                        <div className="productNotSelectedError">
+                            <h1 className="redColorText">Моля изберете продукт...</h1>
                         </div>
+                    )}
 
-                    </div>
+                    <Modal show={showModal} onHide={() => setShowModal(false)}>
+                        <Modal.Header closeButton>
+                            <Modal.Title><FaTimesCircle className="mb-1 me-2 redColorText"/>Грешка</Modal.Title>
+                        </Modal.Header>
+                        <Modal.Body>
+                            <div className="d-flex text-center">
+                                <h4>
+                                    Моля преди да добавите продукта в кошницата си,
+                                    <span className="redColorText"> изберете вкус </span>
+                                    за него.
+                                </h4>
+                            </div>
+                        </Modal.Body>
+                    </Modal>
+                    <Modal show={showTasteModal} onHide={() => setShowTasteModal(false)}>
+                        <Modal.Header closeButton>
+                            <Modal.Title><FaTimesCircle className="mb-1 me-2 redColorText"/>Грешка</Modal.Title>
+                        </Modal.Header>
+                        <Modal.Body>
+                            <div className="d-flex text-center">
+                                <h4>
+                                    Избраният от вас вкус не е наличен в момента, молим ви да
+                                    <span className="redColorText"> изберете друг.</span>
+                                </h4>
+                            </div>
+                        </Modal.Body>
+                    </Modal>
 
-                    <div className="rightSection">
-                        <div dangerouslySetInnerHTML={{
-                            __html: product.description.indexOf('СИЛА БГ Тийм') !== -1
-                                ? product.description.substring(0, product.description.indexOf('СИЛА БГ Тийм'))
-                                : product.description
-                        }}
-                             className="productDescription" style={null}/>
-                    </div>
-
-                </>
-            ) : (
-                <div className="productNotSelectedError">
-                    <h1 className="redColorText">Моля изберете продукт...</h1>
+                    <Modal show={showSuccessModal} onHide={() => setShowSuccessModal(false)}>
+                        <Modal.Header closeButton>
+                            <Modal.Title><FaCheckCircle className="mb-1 me-2 successColor"/>Продукта беше
+                                добавен</Modal.Title>
+                        </Modal.Header>
+                        <Modal.Body>
+                            <div className="d-flex text-center">
+                                <h4>
+                                    Избраният от вас продукт беше добавен успшно в кошницата.
+                                </h4>
+                            </div>
+                        </Modal.Body>
+                    </Modal>
                 </div>
-            )}
 
-            <Modal show={showModal} onHide={() => setShowModal(false)}>
-                <Modal.Header closeButton>
-                    <Modal.Title><FaTimesCircle className="mb-1 me-2 redColorText"/>Грешка</Modal.Title>
-                </Modal.Header>
-                <Modal.Body>
-                    <div className="d-flex text-center">
-                        <h4>
-                            Моля преди да добавите продукта в кошницата си,
-                            <span className="redColorText"> изберете вкус </span>
-                            за него.
-                        </h4>
-                    </div>
-                </Modal.Body>
-            </Modal>
-            <Modal show={showTasteModal} onHide={() => setShowTasteModal(false)}>
-                <Modal.Header closeButton>
-                    <Modal.Title><FaTimesCircle className="mb-1 me-2 redColorText"/>Грешка</Modal.Title>
-                </Modal.Header>
-                <Modal.Body>
-                    <div className="d-flex text-center">
-                        <h4>
-                            Избраният от вас вкус не е наличен в момента, молим ви да
-                            <span className="redColorText"> изберете друг.</span>
-                        </h4>
-                    </div>
-                </Modal.Body>
-            </Modal>
+            }
+        </>
 
-            <Modal show={showSuccessModal} onHide={() => setShowSuccessModal(false)}>
-                <Modal.Header closeButton>
-                    <Modal.Title><FaCheckCircle className="mb-1 me-2 successColor"/>Продукта беше добавен</Modal.Title>
-                </Modal.Header>
-                <Modal.Body>
-                    <div className="d-flex text-center">
-                        <h4>
-                            Избраният от вас продукт беше добавен успшно в кошницата.
-                        </h4>
-                    </div>
-                </Modal.Body>
-            </Modal>
-        </div>
     );
 }
 

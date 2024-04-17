@@ -224,7 +224,7 @@ const Shop = () => {
                     ))}
                 </Row>
 
-                {filteredProducts.length === 0 && (
+                {!isDataLoading && filteredProducts.length === 0 && (
                     <Row>
                         <div className="noResultsMessage">
                             <span>Sorry, no products were found during the search...</span>
