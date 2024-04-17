@@ -88,7 +88,15 @@ const Shop = () => {
         startPage = Math.max(endPage - maxPagesToShow + 1, 1);
     }
 
-    const paginate = (pageNumber) => setCurrentPage(pageNumber);
+    const paginate = (pageNumber) => {
+        setCurrentPage(pageNumber);
+        const heroSectionHeight = document.querySelector('.carouselContainer').offsetHeight;
+        window.scrollTo({
+            top: heroSectionHeight -50,
+            behavior: "smooth"
+        });
+    };
+
     const [isOverlayVisible, setIsOverlayVisible] = useState(false);
 
     const toggleDropdown = (dropdown) => {
@@ -218,7 +226,7 @@ const Shop = () => {
             )}
 
             <Row>
-                <Col className="d-flex justify-content-center mt-4">
+                <Col className="d-flex justify-content-center mt-2 mb-5">
                     <Pagination>
                         {pageNumbers.slice(startPage - 1, endPage).map((number) => (
                             <Pagination.Item key={number} onClick={() => paginate(number)}
