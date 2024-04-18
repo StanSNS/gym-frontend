@@ -17,6 +17,7 @@ import {IoIosPricetag} from "react-icons/io";
 import {addToCart, getCartFromStorage, reduceQuantityInCart} from "../../../../../Service/ProductService";
 import AddressModal from "./AddressModal/AddressModal";
 import {getAllAddresses} from "../../../../../Service/OrderService";
+import Loader from "../../../Loader/Loader";
 
 function CartModal({show, handleClose}) {
     const [myCartItems, setMyCartItems] = useState([]);
@@ -25,8 +26,9 @@ function CartModal({show, handleClose}) {
     const [totalAmount, setTotalAmount] = useState(0);
     const [totalSaving, setTotalSaving] = useState(0);
     const [totalWeight, setTotalWeight] = useState(0);
-
     const [showAddressModal, setShowAddressModal] = useState(false)
+    const [isLoading, setIsLoading] = useState(false);
+
 
     useEffect(() => {
         refreshCartItems();
@@ -58,10 +60,11 @@ function CartModal({show, handleClose}) {
     };
 
     const handleOpenAddressModalAndLoadAddresses = async () => {
-        setShowAddressModal(true);
+        setIsLoading(true)
         const data = await getAllAddresses()
-        console.log(data)
+        setShowAddressModal(true);
         setAddresses(data);
+        setIsLoading(false)
     };
 
     const handleIncreaseQuantity = (product, selectedTaste) => {
@@ -80,7 +83,10 @@ function CartModal({show, handleClose}) {
 
     return (
         <>
+
             <Modal show={show} onHide={handleClose} className="modal-lg customModal">
+                {isLoading && <Loader/>}
+
                 <Modal.Header className="sticky-header d-flex flex-column">
 
                     <div className="buttonContainer mb-4">
@@ -220,6 +226,8 @@ function CartModal({show, handleClose}) {
                 addresses={addresses}
                 totalSaving={totalSaving}
             />
+
+
         </>
 
     );

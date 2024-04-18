@@ -27,6 +27,7 @@ import {CART_KEY, checkIfProductExists} from "../../../../../../Service/ProductS
 import {Button} from "react-bootstrap";
 import {sendOrder} from "../../../../../../Service/OrderService";
 import {LuCandy} from "react-icons/lu";
+import Loader from "../../../../Loader/Loader";
 
 function AddressModal({show, handleClose, cartItems, totalWeight, productCount, totalAmount, totalSaving, addresses}) {
     const [firstName, setFirstName] = useState('');
@@ -48,6 +49,7 @@ function AddressModal({show, handleClose, cartItems, totalWeight, productCount, 
     const [showSuccessOrderModal, setShowSuccessOrderModal] = useState(false);
     const [showErrorOrderModal, setShowErrorOrderModal] = useState(false);
     const [selectedTownData, setSelectedTownData] = useState({postCode: '', addresses: []});
+    const [isLoading, setIsLoading] = useState(false);
 
 
     const deliveryPrice = 7.34;
@@ -94,7 +96,9 @@ function AddressModal({show, handleClose, cartItems, totalWeight, productCount, 
             }
         }
 
+        setIsLoading(true)
         const sendOrderData = await sendOrder(deliveryData);
+        setIsLoading(false)
 
         if (sendOrderData.status === 200) {
             setRandomOrderNumber(sendOrderData.data)
@@ -125,7 +129,10 @@ function AddressModal({show, handleClose, cartItems, totalWeight, productCount, 
 
     return (
         <>
+
+
             <Modal show={show} onHide={handleCloseAddressModal} className="modal-xl customModalPosition">
+                {isLoading && <Loader/>}
                 <Modal.Header className="sticky-header d-flex flex-row">
                     <h3>Моля добавете вашият адрес тук</h3>
                     <button className="closingModalButton" onClick={handleCloseAddressModal}>
