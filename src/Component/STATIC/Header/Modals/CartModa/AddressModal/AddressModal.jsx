@@ -129,8 +129,6 @@ function AddressModal({show, handleClose, cartItems, totalWeight, productCount, 
 
     return (
         <>
-
-
             <Modal show={show} onHide={handleCloseAddressModal} className="modal-xl customModalPosition">
                 {isLoading && <Loader/>}
                 <Modal.Header className="sticky-header d-flex flex-row">
