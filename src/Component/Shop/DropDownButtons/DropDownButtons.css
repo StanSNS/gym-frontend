@@ -1,8 +1,8 @@
 .dropDownButtons {
     display: flex;
     justify-content: space-evenly;
-    margin-top: 3rem;
-    width: 90%;
+    margin-top: 2rem;
+    width: 100%;
     margin-bottom: 2rem;
 }
 
@@ -47,7 +47,7 @@
 }
 
 .orderButton {
-    width: 140%;
+    width: 220px;
     position: relative;
     background-color: #212529;
     color: white;

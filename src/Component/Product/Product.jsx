@@ -331,7 +331,7 @@ function Product() {
                                                       <BiSolidCategory className="mb-1"/> Категория:
                                                    </span>
                                                 {product.category}
-                                               </span>
+                                            </span>
 
                                             {product.weightKg !== "0.000" && (
                                                 <span className="fw-bolder mt-2">
