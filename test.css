@@ -157,6 +157,7 @@ h1 {
     grid-template-columns: repeat(3, 1fr);
     gap: 20px;
     justify-items: center;
+    box-shadow: 0 0 20px rgb(0, 0, 0);
 }
 
 .button {
