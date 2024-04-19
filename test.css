@@ -159,14 +159,6 @@ h1 {
     justify-items: center;
 }
 
-
-
-
-
-
-
-
-
 .button {
     font-family: inherit;
     background: #2CA0D9;
@@ -185,12 +177,13 @@ h1 {
     padding-left: 2.8em;
     padding-right: 0.92em;
     cursor: pointer;
+    width: 100%;
 }
 
 .button .icon {
     background: #fff;
-    height: 2em;
-    width: 2em;
+    height: 36px;
+    width: 34px;
     border-radius: 2em;
     position: absolute;
     display: flex;
@@ -201,7 +194,6 @@ h1 {
 }
 
 .icon svg {
-    margin-left: 0.1em;
     transition: all 0.5s;
     color: #2CA0D9;
     width: 1.2rem;
@@ -215,4 +207,61 @@ h1 {
 .button:hover .icon {
     width: calc(100% - 0.85rem);
     border-radius: 0.5em;
+}
+
+.faceBookColorBG {
+    background: -webkit-linear-gradient(45deg, #3b5998 50%, #ffffff 100%);
+    background: -moz-linear-gradient(45deg, #3b5998 50%, #ffffff 100%);
+    background: linear-gradient(45deg, #3b5998 50%, #ffffff 100%);
+}
+
+.faceBookColor {
+    fill: #3b5998;
+}
+
+.instaColorBG {
+    background: #f09433;
+    background: -moz-linear-gradient(45deg, #f09433 0%, #e6683c 25%, #dc2743 50%, #cc2366 75%, #bc1888 100%);
+    background: -webkit-linear-gradient(45deg, #f09433 0%, #e6683c 25%, #dc2743 50%, #cc2366 75%, #bc1888 100%);
+    background: linear-gradient(45deg, #f09433 0%, #e6683c 25%, #dc2743 50%, #cc2366 75%, #bc1888 100%);
+}
+
+.instaColor {
+    fill: #DC2743FF;
+}
+
+.tiktokColorBG {
+    background: -webkit-linear-gradient(45deg, #ff0050 0%, #00f2ea 100%);
+    background: -moz-linear-gradient(45deg, #ff0050 0%, #00f2ea 100%);
+    background: linear-gradient(45deg, #ff0050 0%, #00f2ea 100%);
+}
+
+.tiktokColor {
+    fill: #FF0050FF;
+}
+
+.twitterXBG {
+    background: -webkit-linear-gradient(45deg, #333333 0%, #9b9a9a 50%, #333333 100%);
+}
+
+.twitterXColor {
+    fill: #333333;
+}
+
+.gmailColorBG {
+    background: -webkit-linear-gradient(45deg, #d44638 33%, #d3d3d3 100%);
+}
+
+.gmailColor {
+    fill: #d44638;
+}
+
+.myColorBG {
+    background: -webkit-linear-gradient(45deg, #333333 40%, #ff1e00 100%);
+    background: -moz-linear-gradient(45deg, #333333 40%, #ff1e00 100%);
+    background: linear-gradient(45deg, #333333 40%, #ff1e00 100%);
+}
+
+.myColor {
+    fill: #ff1e00;
 }
