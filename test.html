@@ -1,12 +1,279 @@
-<!doctype html>
-<html lang="en">
 <head>
     <meta charset="UTF-8">
     <meta name="viewport"
           content="width=device-width, user-scalable=no, initial-scale=1.0, maximum-scale=1.0, minimum-scale=1.0">
     <meta http-equiv="X-UA-Compatible" content="ie=edge">
-    <link rel="stylesheet" href="./test.css">
-    <title>Document</title>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            margin: 0;
+            padding: 0;
+            background-color: #f4f4f4;
+        }
+
+        .container {
+            max-width: 600px;
+            margin: 0 auto;
+            background-color: #fff;
+            padding-top: 20px;
+            border-radius: 10px;
+            box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+            margin-bottom: 1rem;
+            margin-top: 1rem;
+        }
+
+        .globalSideMargin {
+            margin-left: 20px;
+            margin-right: 20px;
+        }
+
+        h1 {
+            color: #333;
+            text-align: center;
+        }
+
+        .check {
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            font-size: 70px;
+            color: #47ea47;
+        }
+
+        .orderNumberContainer {
+            background-color: #333333;
+            color: white;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            padding: 1rem;
+            border-radius: 30px;
+            box-shadow: 0 0 20px rgb(0, 0, 0, 0.4);
+        }
+
+        .orderNumber {
+            background-color: orangered;
+            border-radius: 30px;
+            padding: 0.4rem 0.5rem;
+            box-shadow: 0 0 20px rgb(0, 0, 0, 0.4);
+        }
+
+        .orderNumber h4 {
+            letter-spacing: 2px;
+        }
+
+        .reduceMargin {
+            margin: 0.6rem !important;
+        }
+
+        .topSectionText, .bottomSectionText {
+            text-align: center;
+            font-style: italic;
+        }
+
+        .productCards {
+            display: flex;
+            flex-direction: column;
+        }
+
+        .productCard {
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            border-radius: 30px;
+            box-shadow: 0 0 20px rgb(0, 0, 0, 0.4);
+            padding: 1rem;
+            margin-top: 1.5rem;
+            margin-bottom: 1rem;
+        }
+
+        .productImage {
+            width: 20%;
+        }
+
+        .productText {
+            display: flex;
+            flex-direction: column;
+            align-items: flex-start;
+            padding: 1rem;
+            position: relative;
+        }
+
+        .quantityContainer {
+            position: absolute;
+            top: 94px;
+            right: 4px;
+            padding: 0.5rem;
+            color: orangered;
+        }
+
+        .productTitle {
+            font-weight: bold;
+            font-size: 16px;
+        }
+
+        .orderDetailsText {
+            background-color: #333333;
+            color: white;
+            border-radius: 30px;
+            padding: 1rem;
+            box-shadow: 0 0 20px rgb(0, 0, 0, 0.4);
+            margin-bottom: 2rem;
+            margin-top: 1rem;
+        }
+
+        .orderAmountDetails, .userDetails {
+            display: flex;
+            flex-direction: column;
+            padding: 1rem;
+        }
+
+        .orderAmountDetails {
+            margin-top: 0;
+            padding-top: 0;
+        }
+
+        .orderAmountDetails h3, .userDetails h3 {
+            text-align: center;
+        }
+
+        .orangeColor {
+            color: orangered;
+        }
+
+        .boldText {
+            font-weight: bold;
+        }
+
+        .alignText {
+            margin-top: 10px !important;
+        }
+
+        .margin-top {
+            margin-top: 0.3rem !important;
+        }
+
+        .footerSection {
+            background-color: #333333;
+            color: white;
+            border-bottom-left-radius: inherit;
+            border-bottom-right-radius: inherit;
+            padding: 1.5rem;
+            display: grid;
+            grid-template-columns: repeat(3, 1fr);
+            gap: 20px;
+            justify-items: center;
+            box-shadow: 0 0 20px rgb(0, 0, 0);
+        }
+
+        .button {
+            font-family: inherit;
+            background: #2CA0D9;
+            color: white;
+            padding: 0.35em 0;
+            font-size: 17px;
+            border: none;
+            border-radius: 0.7em;
+            letter-spacing: 0.08em;
+            position: relative;
+            display: flex;
+            align-content: center;
+            align-items: center;
+            overflow: hidden;
+            height: 2.5em;
+            padding-left: 2.8em;
+            padding-right: 0.92em;
+            cursor: pointer;
+            width: 100%;
+        }
+
+        .button .icon {
+            background: #fff;
+            height: 36px;
+            width: 34px;
+            border-radius: 2em;
+            position: absolute;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            left: 0.4em;
+            transition: all 0.5s;
+        }
+
+        .icon svg {
+            transition: all 0.5s;
+            color: #2CA0D9;
+            width: 1.2rem;
+            height: 1.2rem;
+        }
+
+        .button:hover .icon svg {
+            transform: rotate(360deg);
+        }
+
+        .button:hover .icon {
+            width: calc(100% - 0.85rem);
+            border-radius: 0.5em;
+        }
+
+        .faceBookColorBG {
+            background: -webkit-linear-gradient(45deg, #3b5998 50%, #ffffff 100%);
+            background: -moz-linear-gradient(45deg, #3b5998 50%, #ffffff 100%);
+            background: linear-gradient(45deg, #3b5998 50%, #ffffff 100%);
+        }
+
+        .faceBookColor {
+            fill: #3b5998;
+        }
+
+        .instaColorBG {
+            background: #f09433;
+            background: -moz-linear-gradient(45deg, #f09433 0%, #e6683c 25%, #dc2743 50%, #cc2366 75%, #bc1888 100%);
+            background: -webkit-linear-gradient(45deg, #f09433 0%, #e6683c 25%, #dc2743 50%, #cc2366 75%, #bc1888 100%);
+            background: linear-gradient(45deg, #f09433 0%, #e6683c 25%, #dc2743 50%, #cc2366 75%, #bc1888 100%);
+        }
+
+        .instaColor {
+            fill: #DC2743FF;
+        }
+
+        .tiktokColorBG {
+            background: -webkit-linear-gradient(45deg, #ff0050 0%, #00f2ea 100%);
+            background: -moz-linear-gradient(45deg, #ff0050 0%, #00f2ea 100%);
+            background: linear-gradient(45deg, #ff0050 0%, #00f2ea 100%);
+        }
+
+        .tiktokColor {
+            fill: #FF0050FF;
+        }
+
+        .twitterXBG {
+            background: -webkit-linear-gradient(45deg, #333333 0%, #9b9a9a 50%, #333333 100%);
+        }
+
+        .twitterXColor {
+            fill: #333333;
+        }
+
+        .gmailColorBG {
+            background: -webkit-linear-gradient(45deg, #d44638 33%, #d3d3d3 100%);
+        }
+
+        .gmailColor {
+            fill: #d44638;
+        }
+
+        .myColorBG {
+            background: -webkit-linear-gradient(45deg, #333333 40%, #ff1e00 100%);
+            background: -moz-linear-gradient(45deg, #333333 40%, #ff1e00 100%);
+            background: linear-gradient(45deg, #333333 40%, #ff1e00 100%);
+        }
+
+        .myColor {
+            fill: #ff1e00;
+        }
+
+    </style>
 </head>
 <body>
 <div class="container">
@@ -453,4 +720,3 @@
     </div>
 </div>
 </body>
-</html>
