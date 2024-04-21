@@ -13,8 +13,8 @@ export const getAllSellableProducts = () => {
     });
 };
 
-export const getProductBySkuAndModelId = (sku, modelId) => {
-    return axios.get(BACKEND_BASE_URL + `/product?sku=${sku}&modelId=${modelId}`).then((response) => {
+export const getProductByModelId = (modelId) => {
+    return axios.get(BACKEND_BASE_URL + `/product?&modelId=${modelId}`).then((response) => {
         if (response.status === 202) {
             return response.data;
         } else {

@@ -123,7 +123,6 @@ function Header() {
                                 </Nav.Link>
                                 <Nav.Link onClick={() => {
                                     setShowCartModal(true);
-                                    console.log(cartItems)
                                 }}>
                                     <span className="navLinkContent">
                                         <FaShoppingCart/> <span className="ms-1">Количка</span>

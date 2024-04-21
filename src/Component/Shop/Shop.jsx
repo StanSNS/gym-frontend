@@ -47,7 +47,6 @@ const Shop = () => {
                 setProducts(data.products);
                 setBrands(data.brands);
                 setCategories(data.categories);
-                console.log(data);
             } catch (error) {
                 console.error('Error fetching sellable products:', error);
             } finally {

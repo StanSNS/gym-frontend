@@ -1,5 +1,5 @@
 import React, {useEffect, useState} from "react";
-import {addToCart, checkIfProductExists, getProductBySkuAndModelId} from "../../Service/ProductService";
+import {addToCart, checkIfProductExists, getProductByModelId} from "../../Service/ProductService";
 import './Product.css'
 import {Dropdown, Modal} from "react-bootstrap";
 import BarChart from "./BarChart/BarChart";
@@ -36,15 +36,12 @@ function Product() {
     const fetchSingleProduct = async () => {
         try {
             const modelId = localStorage.getItem("modelId");
-            const sku = localStorage.getItem("sku");
-            if (modelId && sku) {
+            if (modelId) {
                 setIsDataLoading(true)
-                const data = await getProductBySkuAndModelId(sku, modelId);
-                console.log(data)
+                const data = await getProductByModelId(modelId);
                 setProduct(data);
                 localStorage.setItem('selectedProduct', JSON.stringify(data));
                 localStorage.removeItem("modelId");
-                localStorage.removeItem("sku");
             }
         } catch (error) {
             console.error('Error fetching current product:', error);
@@ -90,7 +87,7 @@ function Product() {
 
     const checkProductAvailability = async (product) => {
         setIsProductCheckIsLoading(true)
-        const data = await checkIfProductExists(product.brandEntity.brandID, product.modelId, selectedTaste?.silaTasteID);
+        const data = await checkIfProductExists(product?.brandEntity.brandID, product.modelId, selectedTaste?.silaTasteID);
         if (data.status === 204) {
             setShowTasteModal(true);
         } else if (data.status === 200) {
@@ -128,7 +125,7 @@ function Product() {
                                         </div>
 
                                         <div className="productText">
-                                            <h3 className="text-center">{product.name} - {product.brandEntity.name}</h3>
+                                            <h3 className="text-center">{product?.name} - {product?.brandEntity.name}</h3>
 
                                             <span className="fw-bolder mt-2 cardCategory">
                                    <span className="keyColorInfo me-2">
@@ -176,7 +173,7 @@ function Product() {
                                                             Избери
                                                         </Dropdown.Toggle>
                                                         <Dropdown.Menu>
-                                                            {product.taste.map((taste, index) => (
+                                                            {product?.taste.map((taste, index) => (
                                                                 <Dropdown.Item key={index} onClick={() => {
                                                                     setTasteData(taste);
                                                                     setSelectedTaste(taste);
@@ -300,7 +297,7 @@ function Product() {
 
                     <div className="singleProductSwiper">
 
-                        <h1 className="text-center">Още <span className="redColorText">ТОП</span> продукти от марка <span className="redColorText">{product.brandEntity.name}</span></h1>
+                        <h1 className="text-center">Още <span className="redColorText">ТОП</span> продукти от марка <span className="redColorText">{product?.brandEntity.name}</span></h1>
 
                         <Swiper
                             effect={'coverflow'}
@@ -319,7 +316,7 @@ function Product() {
                             className="mySwiper"
                             initialSlide={1}
                         >
-                            {product.singleProducts.map((product, index) => (
+                            {product?.singleProducts.map((product, index) => (
                                 <SwiperSlide key={index}>
                                     <div className="swiperCard">
                                         <img src={product.image} alt={product.name}/>
@@ -369,7 +366,6 @@ function Product() {
                                     </div>
                                 </SwiperSlide>
                             ))}
-
                         </Swiper>
                     </div>
                 </>

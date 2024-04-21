@@ -30,13 +30,13 @@ import {LuCandy} from "react-icons/lu";
 import Loader from "../../../../Loader/Loader";
 
 function AddressModal({show, handleClose, cartItems, totalWeight, productCount, totalAmount, totalSaving, addresses}) {
-    const [firstName, setFirstName] = useState('');
-    const [lastName, setLastName] = useState('');
-    const [email, setEmail] = useState('');
-    const [phone, setPhone] = useState('');
-    const [country, setCountry] = useState('България');
-    const [town, setTown] = useState('');
-    const [address, setAddress] = useState('');
+    const [firstName, setFirstName] = useState('Станимир'); //FIXME
+    const [lastName, setLastName] = useState('Сергев'); //FIXME
+    const [email, setEmail] = useState('stanimirsergev159@gmail.com'); //FIXME
+    const [phone, setPhone] = useState('0895225759'); //FIXME
+    const [country, setCountry] = useState('България'); //FIXME
+    const [town, setTown] = useState('Русе'); //FIXME
+    const [address, setAddress] = useState(''); //FIXME
     const [postCode, setPostCode] = useState('');
     const [officeAddress, setOfficeAddress] = useState('');
     const [additionalAddress, setAdditionalAddress] = useState('');
@@ -50,7 +50,6 @@ function AddressModal({show, handleClose, cartItems, totalWeight, productCount, 
     const [showErrorOrderModal, setShowErrorOrderModal] = useState(false);
     const [selectedTownData, setSelectedTownData] = useState({postCode: '', addresses: []});
     const [isLoading, setIsLoading] = useState(false);
-
 
     const deliveryPrice = 7.34;
 
@@ -82,6 +81,9 @@ function AddressModal({show, handleClose, cartItems, totalWeight, productCount, 
             cartItems,
             totalWeight,
             totalAmount,
+            productCount,
+            deliveryPrice,
+            totalSaving
         };
 
         deliveryData.totalAmount = (totalAmount - totalSaving + deliveryPrice)

@@ -9,7 +9,6 @@ import {Link} from "react-router-dom";
 
 const CardShop = ({product}) => {
     const handleCardClick = () => {
-        localStorage.setItem('sku', product.sku);
         localStorage.setItem('modelId', product.modelId);
     };
 
