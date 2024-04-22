@@ -32,11 +32,11 @@ import Loader from "../../../../Loader/Loader";
 function AddressModal({show, handleClose, cartItems, totalWeight, productCount, totalAmount, totalSaving, addresses}) {
     const [firstName, setFirstName] = useState('Станимир'); //FIXME
     const [lastName, setLastName] = useState('Сергев'); //FIXME
-    const [email, setEmail] = useState('stanimirsergev159@gmail.com'); //FIXME
+    const [email, setEmail] = useState('stanimirsergevsns@gmail.com'); //FIXME
     const [phone, setPhone] = useState('0895225759'); //FIXME
     const [country, setCountry] = useState('България'); //FIXME
     const [town, setTown] = useState('Русе'); //FIXME
-    const [address, setAddress] = useState(''); //FIXME
+    const [address, setAddress] = useState('');
     const [postCode, setPostCode] = useState('');
     const [officeAddress, setOfficeAddress] = useState('');
     const [additionalAddress, setAdditionalAddress] = useState('');

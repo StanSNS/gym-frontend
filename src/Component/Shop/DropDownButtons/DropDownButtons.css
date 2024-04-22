@@ -1,7 +1,7 @@
 .dropDownButtons {
     display: flex;
     justify-content: space-evenly;
-    margin-top: 2rem;
+    margin-top: 3rem;
     width: 100%;
     margin-bottom: 2rem;
 }
@@ -10,7 +10,7 @@
     width: 139%;
     position: absolute;
     top: -16%;
-    left: 70%;
+    left: 50%;
     transform: translate(-50%, -50%);
     max-width: 200px;
     height: 40px;

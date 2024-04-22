@@ -226,7 +226,7 @@ const Shop = () => {
                 {!isDataLoading && filteredProducts.length === 0 && (
                     <Row>
                         <div className="noResultsMessage">
-                            <span>Sorry, no products were found during the search...</span>
+                            <span>Съжаляваме, но не бяха намерени продукти по време на търсенето...</span>
                         </div>
                     </Row>
                 )}

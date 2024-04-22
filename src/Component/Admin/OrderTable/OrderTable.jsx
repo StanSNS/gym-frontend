@@ -81,6 +81,8 @@ function OrderTable() {
                 return "completed";
             case "CANCELED":
                 return "canceled";
+            case "RETURNED":
+                return "returned";
             default:
                 return "";
         }

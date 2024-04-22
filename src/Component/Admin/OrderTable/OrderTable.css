@@ -6,36 +6,36 @@
     outline: none;
 }
 
-.tableWrapper{
+.tableWrapper {
     height: 480px;
     overflow: auto;
     border-radius: 30px;
 }
 
-.tableWrapper::-webkit-scrollbar{
+.tableWrapper::-webkit-scrollbar {
     width: 0;
 }
 
-.tableWrapper .table{
+.tableWrapper .table {
     text-align: center;
     font-weight: bolder;
     outline: none;
 }
 
-.imageTable img{
+.imageTable img {
     height: 25px;
 }
 
-.imageTable{
+.imageTable {
     display: flex;
 }
 
-.table-container .buttonCustomClass{
+.table-container .buttonCustomClass {
     color: white;
     transition: color 0.4s ease-in-out;
 }
 
-.table-container .buttonCustomClass:hover{
+.table-container .buttonCustomClass:hover {
     color: orangered;
 }
 
@@ -83,7 +83,7 @@
     width: 40%;
 }
 
-.orderInfo{
+.orderInfo {
     display: flex;
     justify-content: space-evenly;
 }
@@ -91,6 +91,10 @@
 .orderInfo .orderUserInfo, .orderAddressInfo {
     display: flex;
     flex-direction: column;
+}
+
+.statusButton {
+    width: 140px;
 }
 
 .pending {
@@ -111,4 +115,8 @@
 
 .canceled {
     color: #FF6347 !important;
+}
+
+.returned {
+    color: orange !important;
 }

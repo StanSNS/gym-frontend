@@ -311,7 +311,7 @@ function Product() {
                                 modifier: 1,
                                 slideShadows: false,
                             }}
-                            pagination={false}
+                            pagination={true}
                             modules={[EffectCoverflow, Pagination]}
                             className="mySwiper"
                             initialSlide={1}
