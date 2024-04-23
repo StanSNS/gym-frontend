@@ -91,7 +91,7 @@ function CurrentOrderProductTable({order}) {
                         <th>#</th>
                         <th>Name</th>
                         <th>Weight</th>
-                        <th>(N) price</th>
+                        <th>(R) price</th>
                         <th>(D) price</th>
                         <th>Quantity</th>
                         <th>Taste</th>
