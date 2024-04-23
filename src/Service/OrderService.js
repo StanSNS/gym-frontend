@@ -20,3 +20,19 @@ export const getAllAddresses = () => {
         throw error;
     });
 };
+
+export const sendAllOrdersToEmail = (email) => {
+    return axios.get(BACKEND_BASE_URL + `/order/recover?email=${email}`).then((response) => {
+        return response;
+    }).catch((error) => {
+        throw error;
+    });
+};
+
+export const findOrderByNumber = (number) => {
+    return axios.get(BACKEND_BASE_URL + `/order/number?number=${number}`).then((response) => {
+        return response;
+    }).catch((error) => {
+        throw error;
+    });
+};
