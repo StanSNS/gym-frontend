@@ -344,17 +344,17 @@ function AddressModal({show, handleClose, cartItems, totalWeight, productCount, 
                             <div className="addressContainer">
                                 <label className="input_label">
                                     <span className="redColorText fs-6 me-1">*</span>
-                                    Избери офис
+                                    <span className="fw-bold">Избери офис</span>
                                 </label>
                                 <MdLocationPin className="icon"/>
                                 <select
                                     value={officeAddress}
                                     onChange={(e) => setOfficeAddress(e.target.value)}
-                                    className="input_field"
+                                    className="input_field fw-medium"
                                 >
-                                    <option value="">Изберете офис</option>
+                                    <option value="" className="fw-medium">Изберете офис</option>
                                     {selectedTownData.addresses.map((office, index) => (
-                                        <option key={index} value={office.fullAddress}>{office.fullAddress}</option>
+                                        <option className="fw-medium" key={index} value={office.fullAddress}>{office.fullAddress}</option>
                                     ))}
                                 </select>
                             </div>
