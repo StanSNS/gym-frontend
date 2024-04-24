@@ -16,6 +16,16 @@
     color: orangered;
 }
 
+.headerImage{
+    width: 5%;
+    margin-right: 6px;
+    transition: all 0.4s ease-in-out;
+}
+
+.headerLogo:hover .headerImage{
+    margin-right: 10px;
+}
+
 .navLinkContent {
     display: flex;
     align-items: center;

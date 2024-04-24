@@ -1,7 +1,7 @@
 import React, {useState} from 'react';
 import './Footer.css';
 import {Link} from "react-router-dom";
-import footerHeart from "../../../Resources/dumbbell.png"
+import footerImage from "../../../Resources/logoImage.png"
 import {FaBolt, FaHeart, FaInfoCircle, FaListAlt, FaTruck} from "react-icons/fa";
 import {IoMdMegaphone} from "react-icons/io";
 import {BiSupport} from "react-icons/bi";
@@ -20,7 +20,7 @@ const Footer = () => {
 
             <footer className="footer">
                 <Link to={"#"} className="logoLink ">
-                    <img src={footerHeart} alt="footer Icon" className="footerLogoImage"/>
+                    <img src={footerImage} alt="footer Icon" className="footerLogoImage"/>
                     <h2 className="mt-1">GymFit</h2>
                 </Link>
 

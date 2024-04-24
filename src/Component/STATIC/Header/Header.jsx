@@ -23,6 +23,8 @@ import LoginModal from "./Modals/Login/LoginModal";
 import TrackOrderModal from "./Modals/TrackOrder/TrackOrder";
 import {getCartFromStorage} from "../../../Service/ProductService";
 import CartModal from "./Modals/CartModa/CartModal";
+import headerImage from "../../../Resources/logoImage.png"
+
 
 function Header() {
     const [showLoginModal, setShowLoginModal] = useState(false);
@@ -66,7 +68,8 @@ function Header() {
                 <Container fluid>
                     <Navbar.Brand href="/">
                         <span className="d-flex align-items-center fw-bolder headerLogo">
-                            <FaDumbbell className="me-2"/>GymFit
+                            <img src={headerImage} alt="headerImage" className="headerImage"/>
+                            GymFit
                         </span>
                     </Navbar.Brand>
                     <Navbar.Toggle aria-controls={`offcanvasNavbar-expand-lg`} className="custom-toggler"/>
