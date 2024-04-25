@@ -4,8 +4,8 @@ import {Button, Dropdown} from "react-bootstrap";
 import SearchInput from "../../Shop/SearchInput/SearchInput";
 import {getAllOrderData} from "../../../Service/AdminService";
 import {FaUserAlt} from "react-icons/fa";
-import CurrentOrderModal from "./CurrentOrderModal/CurrentOrderModal";
-import StatusModal from "./StatusModal/StatusModa";
+import CurrentOrderModal from "../../Modals/Admin/CurrentOrderModal/CurrentOrderModal";
+import StatusModal from "../../Modals/Admin/StatusModal/StatusModa";
 import Loader from "../../STATIC/Loader/Loader";
 
 function OrderTable() {

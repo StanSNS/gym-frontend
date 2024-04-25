@@ -19,10 +19,10 @@ import "./Header.css"
 import {IoLogIn} from "react-icons/io5";
 import {GiCellarBarrels, GiWeightLiftingUp} from "react-icons/gi";
 import {ImExit} from "react-icons/im";
-import LoginModal from "./Modals/Login/LoginModal";
-import TrackOrderModal from "./Modals/TrackOrder/TrackOrder";
+import LoginModal from "../../Modals/User/Login/LoginModal";
+import TrackOrderModal from "../../Modals/User/TrackOrder/TrackOrder";
 import {getCartFromStorage} from "../../../Service/ProductService";
-import CartModal from "./Modals/CartModa/CartModal";
+import CartModal from "../../Modals/User/CartModa/CartModal";
 import headerImage from "../../../Resources/logoImage.png"
 
 
@@ -121,7 +121,7 @@ function Header() {
                                 </Nav.Link>
                                 <Nav.Link onClick={() => setShowTrackOrderModal(true)}>
                                     <span className="navLinkContent"><FaTruck/>
-                                        <span className="ms-1">Track Order</span>
+                                        <span className="ms-1">Проследяване</span>
                                     </span>
                                 </Nav.Link>
                                 <Nav.Link onClick={() => {

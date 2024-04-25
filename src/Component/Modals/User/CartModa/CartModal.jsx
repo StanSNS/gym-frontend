@@ -14,10 +14,10 @@ import {
 } from "react-icons/fa";
 import {GiBank, GiWrappedSweet} from "react-icons/gi";
 import {IoIosPricetag} from "react-icons/io";
-import {addToCart, getCartFromStorage, reduceQuantityInCart} from "../../../../../Service/ProductService";
-import AddressModal from "./AddressModal/AddressModal";
-import {getAllAddresses} from "../../../../../Service/OrderService";
-import Loader from "../../../Loader/Loader";
+import {addToCart, getCartFromStorage, reduceQuantityInCart} from "../../../../Service/ProductService";
+import AddressModal from "../AddressModal/AddressModal";
+import {getAllAddresses} from "../../../../Service/OrderService";
+import Loader from "../../../STATIC/Loader/Loader";
 
 function CartModal({show, handleClose}) {
     const [myCartItems, setMyCartItems] = useState([]);

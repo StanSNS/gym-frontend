@@ -18,7 +18,6 @@
 
 .loginModalClose:active {
     border: 2px solid white;
-
 }
 
 .emailLoginContainer, .passwordLoginContainer {

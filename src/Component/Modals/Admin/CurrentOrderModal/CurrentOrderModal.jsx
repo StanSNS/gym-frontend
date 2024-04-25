@@ -1,6 +1,6 @@
 import React, {useEffect} from "react";
 import {Modal} from "react-bootstrap";
-import CurrentOrderProductTable from "./CurrentOrderProductModal/CurrentOrderProductTable";
+import CurrentOrderProductTable from "../CurrentOrderProductModal/CurrentOrderProductTable";
 import {FaBuilding, FaCity, FaEnvelope, FaGlobeAmericas, FaUser} from "react-icons/fa";
 import {FaPhoneVolume} from "react-icons/fa6";
 import {IoIosPin} from "react-icons/io";

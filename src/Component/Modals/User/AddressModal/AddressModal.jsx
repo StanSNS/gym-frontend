@@ -15,19 +15,19 @@ import {
 import "./AddressModal.css"
 import {MdEmail, MdLocationPin} from "react-icons/md";
 
-import speedy from '../../../../../../Resources/AddressModal/speedy.jpg'
-import econt from '../../../../../../Resources/AddressModal/econt.png'
-import sameday from '../../../../../../Resources/AddressModal/sameday.png'
+import speedy from '../../../../Resources/AddressModal/speedy.jpg'
+import econt from '../../../../Resources/AddressModal/econt.png'
+import sameday from '../../../../Resources/AddressModal/sameday.png'
 
 import {FaPhoneVolume} from "react-icons/fa6";
 import {IoBag, IoPricetag, IoPricetags} from "react-icons/io5";
 import {GiPiggyBank} from "react-icons/gi";
 import {RiHandCoinFill, RiRoadMapFill} from "react-icons/ri";
-import {CART_KEY, checkIfProductExists} from "../../../../../../Service/ProductService";
+import {CART_KEY, checkIfProductExists} from "../../../../Service/ProductService";
 import {Button} from "react-bootstrap";
-import {sendOrder} from "../../../../../../Service/OrderService";
+import {sendOrder} from "../../../../Service/OrderService";
 import {LuCandy} from "react-icons/lu";
-import Loader from "../../../../Loader/Loader";
+import Loader from "../../../STATIC/Loader/Loader";
 
 function AddressModal({show, handleClose, cartItems, totalWeight, productCount, totalAmount, totalSaving, addresses}) {
     const [firstName, setFirstName] = useState('Станимир'); //FIXME

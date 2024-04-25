@@ -1,5 +1,5 @@
 import React, {useState} from "react";
-import SearchInput from "../../../../Shop/SearchInput/SearchInput";
+import SearchInput from "../../../Shop/SearchInput/SearchInput";
 import {Dropdown} from "react-bootstrap";
 
 function CurrentOrderProductTable({order}) {

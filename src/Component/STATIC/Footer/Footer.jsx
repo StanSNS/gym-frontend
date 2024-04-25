@@ -3,16 +3,21 @@ import './Footer.css';
 import {Link} from "react-router-dom";
 import footerImage from "../../../Resources/logoImage.png"
 import {FaBolt, FaHeart, FaInfoCircle, FaListAlt, FaTruck} from "react-icons/fa";
-import {IoMdMegaphone} from "react-icons/io";
 import {BiSupport} from "react-icons/bi";
-import TrackOrderModal from "../Header/Modals/TrackOrder/TrackOrder";
+import TrackOrderModal from "../../Modals/User/TrackOrder/TrackOrder";
+import ContactUsModal from "../../Modals/User/ContactUsModal/ContactUsModal";
 
 
 const Footer = () => {
     const [showTrackOrderModal, setShowTrackOrderModal] = useState(false);
+    const [showContactUsModal, setShowContactUsModal] = useState(false); // State for Contact Us modal
 
     const handleTrackOrderModalClose = () => {
         setShowTrackOrderModal(false);
+    };
+
+    const handleContactUsModalClose = () => {
+        setShowContactUsModal(false);
     };
 
     return (
@@ -56,9 +61,12 @@ const Footer = () => {
                 </div>
 
                 <div className="footerActionButtons">
-                    <button className="reportProblemButton"><IoMdMegaphone className="mb-1"/> Report</button>
-                    <button className="contactUsButton"><BiSupport className="mb-1"/> Contact us</button>
-                    <button className="trackOrderButton" onClick={() => setShowTrackOrderModal(true)}><FaTruck className="mb-1"/> Track order</button>
+                    <button className="contactUsButton" onClick={() => setShowContactUsModal(true)}>
+                        <BiSupport className="mb-1 me-1" /> Свържи се с нас
+                    </button>
+                    <button className="trackOrderButton" onClick={() => setShowTrackOrderModal(true)}>
+                        <FaTruck className="mb-1 me-1" /> Проследяване
+                    </button>
                 </div>
             </footer>
 
@@ -67,6 +75,7 @@ const Footer = () => {
             </div>
 
             <TrackOrderModal show={showTrackOrderModal} handleClose={handleTrackOrderModalClose}/>
+            <ContactUsModal show={showContactUsModal} handleClose={handleContactUsModalClose} />
         </div>
     );
 }
