@@ -32,7 +32,7 @@ function TrackOrderModal({show, handleClose}) {
         if (data.status === 200) {
             setRecoveryStatus(true)
             setRecoverModalShow(true);
-        } else if (data.status === 204) {
+        } else {
             setRecoveryStatus(false)
             setRecoverModalShow(true);
         }
