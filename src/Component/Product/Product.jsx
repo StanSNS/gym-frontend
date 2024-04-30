@@ -23,11 +23,12 @@ function Product() {
     });
     const [tasteData, setTasteData] = useState(null);
     const [selectedTaste, setSelectedTaste] = useState(null);
-    const [showModal, setShowModal] = useState(false);
-    const [showTasteModal, setShowTasteModal] = useState(false);
+    const [selectTasteErrorModal, setSelectTasteErrorModal] = useState(false);
+    const [showErrorModal, setShowErrorModal] = useState(false);
     const [showSuccessModal, setShowSuccessModal] = useState(false);
     const [isDataLoading, setIsDataLoading] = useState(false);
     const [isProductCheckIsLoading, setIsProductCheckIsLoading] = useState(false);
+    const [unavailableTastes] = useState(new Set());
 
     useEffect(() => {
         fetchSingleProduct();
@@ -42,6 +43,7 @@ function Product() {
                 setProduct(data);
                 localStorage.setItem('selectedProduct', JSON.stringify(data));
                 localStorage.removeItem("modelId");
+                unavailableTastes.clear()
             }
         } catch (error) {
             console.error('Error fetching current product:', error);
@@ -60,7 +62,6 @@ function Product() {
         fetchSingleProduct()
     };
 
-
     const starData = {
         labels: ['', '', "", "", ""],
         values: [product?.oneStarRatingCount, product?.twoStarRatingCount, product?.threeStarRatingCount, product?.fourStarRatingCount, product?.fiveStarRatingCount],
@@ -78,7 +79,7 @@ function Product() {
             checkProductAvailability(product)
         } else {
             if (!selectedTaste) {
-                setShowModal(true);
+                setSelectTasteErrorModal(true);
             } else {
                 checkProductAvailability(product)
             }
@@ -89,7 +90,8 @@ function Product() {
         setIsProductCheckIsLoading(true)
         const data = await checkIfProductExists(product?.brandEntity.brandID, product.modelId, selectedTaste?.silaTasteID);
         if (data.status === 204) {
-            setShowTasteModal(true);
+            setShowErrorModal(true);
+            unavailableTastes.add(selectedTaste.name)
         } else if (data.status === 200) {
             setShowSuccessModal(true);
             addToCart(product, selectedTaste);
@@ -174,7 +176,7 @@ function Product() {
                                                         </Dropdown.Toggle>
                                                         <Dropdown.Menu>
                                                             {product?.taste.map((taste, index) => (
-                                                                <Dropdown.Item key={index} onClick={() => {
+                                                                <Dropdown.Item disabled={unavailableTastes.has(taste.name)} key={index} onClick={() => {
                                                                     setTasteData(taste);
                                                                     setSelectedTaste(taste);
                                                                 }}>
@@ -252,7 +254,7 @@ function Product() {
                             </div>
                         )}
 
-                        <Modal show={showModal} onHide={() => setShowModal(false)}>
+                        <Modal show={selectTasteErrorModal} onHide={() => setSelectTasteErrorModal(false)}>
                             <Modal.Header closeButton>
                                 <Modal.Title><FaTimesCircle className="mb-1 me-2 redColorText"/>Грешка</Modal.Title>
                             </Modal.Header>
@@ -266,7 +268,7 @@ function Product() {
                                 </div>
                             </Modal.Body>
                         </Modal>
-                        <Modal show={showTasteModal} onHide={() => setShowTasteModal(false)}>
+                        <Modal show={showErrorModal} onHide={() => setShowErrorModal(false)}>
                             <Modal.Header closeButton>
                                 <Modal.Title><FaTimesCircle className="mb-1 me-2 redColorText"/>Грешка</Modal.Title>
                             </Modal.Header>
@@ -297,7 +299,8 @@ function Product() {
 
                     <div className="singleProductSwiper">
 
-                        <h1 className="text-center">Още <span className="redColorText">ТОП</span> продукти от марка <span className="redColorText">{product?.brandEntity.name}</span></h1>
+                        <h1 className="text-center">Още <span className="redColorText">ТОП</span> продукти от
+                            марка <span className="redColorText">{product?.brandEntity.name}</span></h1>
 
                         <Swiper
                             effect={'coverflow'}
