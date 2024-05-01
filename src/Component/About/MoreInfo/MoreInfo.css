@@ -1,0 +1,28 @@
+.moreDetails {
+    display: flex;
+    justify-content: center;
+    width: 100%;
+    margin-bottom: 3rem;
+    margin-top: 1.5rem;
+}
+
+.contactInfo {
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    width: 35%;
+}
+
+.companyInfo {
+    width: 35%;
+}
+
+.contactButton {
+    color: #333333 !important;
+    border-color: #333333 !important;
+}
+
+.contactButton:hover {
+    border-color: #0fffa4 !important;
+}

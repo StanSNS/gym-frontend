@@ -10,7 +10,7 @@ import ContactUsModal from "../../Modals/User/ContactUsModal/ContactUsModal";
 
 const Footer = () => {
     const [showTrackOrderModal, setShowTrackOrderModal] = useState(false);
-    const [showContactUsModal, setShowContactUsModal] = useState(false); // State for Contact Us modal
+    const [showContactUsModal, setShowContactUsModal] = useState(false);
 
     const handleTrackOrderModalClose = () => {
         setShowTrackOrderModal(false);
