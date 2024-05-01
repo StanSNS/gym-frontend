@@ -7,42 +7,37 @@ function WhyUs() {
     return (
         <div className="whyContainer">
             <div className="title">
-                <h1 className="p-4 pb-0">Защо нас</h1>
+                <h1>Защо нас</h1>
                 <div className="textLine"></div>
             </div>
 
             <div className="whyContentContainer">
-
                 <div className="whyContent">
                     <FaDumbbell className="whyIcon rotateIcon"/>
-                    <h5>Сила</h5>
-                    <p className="fw-medium">Lorem ipsum dolor sit amet, consectetur adipisicing elit. Consequatur
-                        deserunt
-                        repudiandae tenetur.</p>
+                    <h4 className="myGreenBlueColor">Сила</h4>
+                    <span className="whyText">От ключово значение за постигането на вашите цели. Нашите добавки ви
+                        помагат да изградите силата, която ви е необходима.</span>
                 </div>
 
                 <div className="whyContent">
-                    <IoFitness  className="whyIcon "/>
-                    <h5>Здраве</h5>
-                    <p className="fw-medium">Lorem ipsum dolor sit amet, consectetur adipisicing elit. Consequatur
-                        deserunt
-                        repudiandae tenetur.</p>
+                    <IoFitness className="whyIcon"/>
+                    <h4 className="myGreenBlueColor">Здраве</h4>
+                    <span className="whyText">Вашата най-голяма ценност. Нашите продукти се грижат за вашия здравословен
+                        начин на живот.</span>
                 </div>
 
                 <div className="whyContent">
-                    <IoShieldCheckmark  className="whyIcon "/>
-                    <h5>Качество</h5>
-                    <p className="fw-medium">Lorem ipsum dolor sit amet, consectetur adipisicing elit. Consequatur
-                        deserunt
-                        repudiandae tenetur.</p>
+                    <IoShieldCheckmark className="whyIcon"/>
+                    <h4 className="myGreenBlueColor">Качество</h4>
+                    <span className="whyText">Ние поставяме високи стандарти за качество, за да ви предложим само
+                        най-доброто за вашето благополучие.</span>
                 </div>
 
                 <div className="whyContent">
-                    <FaShippingFast  className="whyIcon "/>
-                    <h5>Бърза доставка</h5>
-                    <p className="fw-medium">Lorem ipsum dolor sit amet, consectetur adipisicing elit. Consequatur
-                        deserunt
-                        repudiandae tenetur.</p>
+                    <FaShippingFast className="whyIcon"/>
+                    <h4 className="myGreenBlueColor">Бърза доставка</h4>
+                    <span className="whyText">Вашето удобство е наш приоритет. Доставяме вашите продукти бързо и
+                        надеждно, за да ви осигурим комфорт и увереност.</span>
                 </div>
             </div>
         </div>

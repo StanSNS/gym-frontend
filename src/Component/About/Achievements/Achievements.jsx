@@ -16,7 +16,7 @@ function Achievements() {
             <div className="achContainer">
                 <div className="leftSide">
                     <span className="fs-1 fw-bolder  mb-2">
-                        <FaChartLine className="mb-1 me-2"/>
+                        <FaChartLine className="mb-1 me-2 myGreenBlueColor"/>
                         Статистики</span>
 
                     <button onClick={() => handleSelectIndex(1)} className="sliderButton">

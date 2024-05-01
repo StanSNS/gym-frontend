@@ -6,7 +6,7 @@ import MoreInfo from "./MoreInfo/MoreInfo";
 
 function About() {
     return (
-        <div>
+        <div className="aboutSection">
             <WhyUs/>
 
             <Achievements/>

@@ -1,9 +1,9 @@
 .moreDetails {
     display: flex;
-    justify-content: center;
+    justify-content: space-around;
     width: 100%;
-    margin-bottom: 3rem;
-    margin-top: 1.5rem;
+    padding: 2rem;
+    color: var(--myWhite);
 }
 
 .contactInfo {
@@ -11,18 +11,11 @@
     flex-direction: column;
     justify-content: center;
     align-items: center;
-    width: 35%;
+    width: 40%;
 }
 
 .companyInfo {
-    width: 35%;
-}
-
-.contactButton {
-    color: #333333 !important;
-    border-color: #333333 !important;
-}
-
-.contactButton:hover {
-    border-color: #0fffa4 !important;
+    font-size: 20px;
+    font-weight: 700;
+    width: 60%;
 }

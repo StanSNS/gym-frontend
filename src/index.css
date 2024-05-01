@@ -1,0 +1,17 @@
+:root {
+    --myGreenBlue: #0fffa4;
+    --myBlack: #333333;
+    --myWhite: #ffffff
+}
+
+.myGreenBlueColor {
+    color: var(--myGreenBlue);
+}
+
+.myBlackColor {
+    color: var(--myBlack);
+}
+
+.myWhiteColor {
+    color: var(--myWhite);
+}

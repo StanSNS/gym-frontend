@@ -3,20 +3,20 @@
     display: flex;
     justify-content: space-evenly;
     margin-bottom: 5rem;
-    padding-left: 3rem;
-    padding-right: 3rem;
+    padding-left: 5rem;
+    padding-right: 5rem;
+    color: var(--myWhite);
 }
 
 .achContainer .leftSide {
-    width: 48%;
+    width: 38%;
     display: flex;
     flex-direction: column;
     justify-content: space-around;
 }
 
 .achContainer .rightSide {
-    border: 1px solid red;
-    width: 48%;
+    width: 58%;
     height: 360px;
     margin-top: 2.5rem;
 }
@@ -29,9 +29,10 @@
 }
 
 .sliderButton .circleContent {
-    background-color: red;
+    background-color: var(--myGreenBlue);
     border-radius: 50%;
     padding: 1rem;
+    color: var(--myBlack);
 }
 
 .sliderButton .contentText {
@@ -42,21 +43,13 @@
 }
 
 .contentText .number {
-    color: orangered;
+    color: var(--myGreenBlue);
     font-size: 22px;
     font-weight: bold;
 }
 
 .contentText .text {
-    color: #333333;
     font-size: 24px;
     font-weight: bold;
+    color: var(--myWhite) !important;
 }
-
-
-
-
-
-
-
-
