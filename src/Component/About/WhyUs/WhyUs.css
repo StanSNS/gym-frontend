@@ -13,8 +13,8 @@
 
 .textLine {
     width: 5%;
-    border: 4px solid var(--myGreenBlue);
-    border-radius: 16px;
+    border: 2px solid var(--myGreenBlue);
+    border-radius: 20px;
 }
 
 .whyContentContainer {
