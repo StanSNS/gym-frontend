@@ -25,14 +25,14 @@ const CardShop = ({product}) => {
                         <Card.Title className="cardTitle">{product.name}</Card.Title>
                         <div className="cardText">
 
-                            <span className="fw-bolder cardCategory">
-                                <span className="keyColorInfo me-2"> <FaLayerGroup className="mb-1 me-1"/>Марка:</span>
-                                {product.brandEntity.name}
+                            <span className="fw-medium cardCategory">
+                                <span className="keyColorInfo me-2"> <FaLayerGroup className="mb-1"/>Марка</span>
+                                <span className="fw-bolder">{product.brandEntity.name}</span>
                             </span>
 
-                            <span className="fw-bolder cardCategory">
-                                <span className="keyColorInfo me-2"> <BiSolidCategory className="mb-1 me-1"/>Категория:</span>
-                                {product.category}
+                            <span className="fw-medium cardCategory mt-1 mb-2">
+                                <span className="keyColorInfo me-2"> <BiSolidCategory className="mb-1"/>Категория</span>
+                                <span className="fw-bolder">{product.category.substring(0, 15)}</span>
                             </span>
 
                             <div
@@ -42,35 +42,40 @@ const CardShop = ({product}) => {
                             />
 
                             <div className="baseInfo">
-                                <span className="fw-bolder mt-2">
-                                     <span className="keyColorInfo me-2"><FaStar className="mb-1 me-1"/>Рейтинг:</span>
-                                    {product?.ratingValue.toFixed(1)}/5 ({product?.ratingCount})
+                                <span className="fw-medium mt-1">
+                                     <span className="keyColorInfo me-2"><FaStar className="mb-1 me-1"/>Рейтинг</span>
+
+                                      <span className="fw-bolder">
+                                         {product?.ratingValue.toFixed(1)}/5 ({product?.ratingCount})
+                                      </span>
                                 </span>
 
                                 {product.weightKg !== "0.000" && (
-                                    <span className="fw-bolder mt-2">
+                                    <span className="fw-medium mt-1">
                                         <span className="keyColorInfo me-2">
-                                            <FaWeightHanging className="mb-1 me-1"/>Тегло:
+                                            <FaWeightHanging className="mb-1 me-1"/>Тегло
                                         </span>
-                                        {product.weightKg} кг.
+                                        <span className="fw-bolder">
+                                            {product.weightKg} кг.
+                                        </span>
                                     </span>)}
 
-                                <span className="fw-bolder mt-2">
-                                    <span className="keyColorInfo strikeText me-2"> <MdOutlineMoneyOffCsred
+                                <span className="fw-medium mt-1">
+                                    <span className="keyColorInfo me-2"><MdOutlineMoneyOffCsred
                                         className="mb-1 me-1"/>
-                                        Редовна цена:
+                                        Редовна цена
                                     </span>
-                                    <span className="strikeText">
-                                        {product.regularPrice.toFixed(2)} лв
+                                    <span className="strikeText fw-bolder">
+                                        {product.regularPrice.toFixed(2)} лв.
                                     </span>
                                 </span>
 
-                                <span className="fw-bolder mt-2">
+                                <span className="fw-medium mt-1">
                                     <span className="keyColorInfo me-2">
-                                        <IoIosPricetag className="mb-1"/> Намалена цена:
+                                        <IoIosPricetag className="mb-1"/> Намалена цена
                                     </span>
-                                    <span>
-                                        {product.discountedPrice.toFixed(2)} лв
+                                    <span className="fw-bolder">
+                                        {product.discountedPrice.toFixed(2)} лв.
                                     </span>
                                 </span>
                             </div>
@@ -78,7 +83,7 @@ const CardShop = ({product}) => {
                     </Card.Body>
                     <Card.Footer className="cardFooter">
                         <Button variant="dark" className="detailsButton">
-                            <BiSolidDetail className="align-baseline me-2 "/>Детайли
+                            <BiSolidDetail className="me-2"/>Детайли
                         </Button>
                     </Card.Footer>
                 </Card>

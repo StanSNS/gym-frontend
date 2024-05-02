@@ -1,4 +1,4 @@
-.linkUnderline{
+.linkUnderline {
     text-decoration: none;
 }
 
@@ -7,6 +7,7 @@
     display: flex;
     justify-content: flex-end;
     flex-direction: column;
+    padding-bottom: 0.5rem !important;
 }
 
 .cardTitle {
@@ -51,7 +52,7 @@
     padding: 7px;
     font-style: italic;
     font-weight: bolder;
-    color: orangered;
+    color: var(--myGreenBlue);
     font-size: 20px;
     background-color: #333;
     border-radius: 15px;
@@ -75,42 +76,57 @@
 }
 
 .keyColorInfo {
-    color: orangered;
+    color: var(--myWhite);
+    background-color: var(--myBlack);
+    border-radius: 16px;
+    font-size: 17px;
+    padding: 1px 10px 3px 1px;
+
+}
+
+.keyColorInfo svg {
+    color: var(--myGreenBlue);
+    font-size: 24px;
+    padding: 4px;
+    border-radius: 50%;
+    outline: none;
+    border: 1px solid #333;
+    background: var(--myBlack);
 }
 
 .cardDescription {
     height: 94px;
     max-height: 100px;
     overflow: hidden;
-    color: black !important;
+    color: var(--myBlack) !important;
     font-size: 15px !important;
-    background-color: white !important;
+    background-color: var(--myWhite) !important;
 }
 
 .baseInfo {
     display: flex;
     flex-direction: column;
     justify-content: flex-end;
-    height: 130px;
+    height: 138px;
 }
 
-.strikeText{
+.strikeText {
     text-decoration: line-through;
     text-decoration-thickness: 2px;
-    text-decoration-color: black;
+    text-decoration-color: var(--myBlack);
 }
 
-.detailsButton{
+.detailsButton {
     display: flex !important;
     align-items: center !important;
     transition: color 0.4s ease;
     font-weight: bold !important;
 }
 
-.detailsButton:hover{
-    color: #333 !important;
-    background-color: white !important;
-    border-color: #333333 !important;
+.detailsButton:hover {
+    color: var(--myBlack) !important;
+    background-color: var(--myWhite) !important;
+    border-color: var(--myBlack) !important;
 }
 
 
