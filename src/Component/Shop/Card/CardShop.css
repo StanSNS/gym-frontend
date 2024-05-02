@@ -54,7 +54,7 @@
     font-weight: bolder;
     color: var(--myGreenBlue);
     font-size: 20px;
-    background-color: #333;
+    background-color: var(--myBlack);
     border-radius: 15px;
 }
 
@@ -121,6 +121,8 @@
     align-items: center !important;
     transition: color 0.4s ease;
     font-weight: bold !important;
+    border-radius: 26px !important;
+    background-color: var(--myBlack) !important;
 }
 
 .detailsButton:hover {

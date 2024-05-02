@@ -1,7 +1,7 @@
 import React, {useEffect, useState} from "react";
 import {addToCart, checkIfProductExists, getProductByModelId} from "../../Service/ProductService";
 import './Product.css'
-import {Dropdown, Modal} from "react-bootstrap";
+import {Button, Dropdown, Modal} from "react-bootstrap";
 import BarChart from "./BarChart/BarChart";
 import {FaCartPlus, FaCheckCircle, FaStar, FaTimesCircle, FaWeightHanging} from "react-icons/fa";
 import DoughnutChart from "./DoughnutChart/DoughnutChart";
@@ -15,6 +15,8 @@ import {EffectCoverflow, Pagination} from "swiper/modules";
 import 'swiper/css';
 import 'swiper/css/effect-coverflow';
 import 'swiper/css/pagination';
+import button from "bootstrap/js/src/button";
+import {IoColorFilter} from "react-icons/io5";
 
 function Product() {
     const [product, setProduct] = useState(() => {
@@ -146,11 +148,11 @@ function Product() {
                                             )}
 
                                             <span className="fw-bolder mt-2">
-                                    <span className="keyColorInfo strikeText me-2">
+                                    <span className="keyColorInfo me-2">
                                         <MdOutlineMoneyOffCsred className="mb-1"/> Редовна цена:
                                     </span>
                                     <span className="strikeText">
-                                        {product.regularPrice.toFixed(2)}лв
+                                        {product.regularPrice.toFixed(2)} лв.
                                     </span>
                                 </span>
 
@@ -159,24 +161,26 @@ function Product() {
                                         <IoIosPricetag className="mb-1"/> Намалена цена:
                                     </span>
                                     <span>
-                                        {product.discountedPrice.toFixed(2)}лв
+                                        {product.discountedPrice.toFixed(2)} лв.
                                     </span>
                                 </span>
-
                                             {product.taste.length > 0 && (
                                                 <div className="tastes">
-                                        <span className="fw-bolder mt-2">
-                                              <span className="keyColorInfo me-2"><GiWrappedSweet className="mb-1"/> Вкусове: </span>
-                                        </span>
+                                                    <span className="fw-bolder mt-2">
+                                                          <span className="keyColorInfo me-2"><GiWrappedSweet
+                                                              className="mb-1"/> Вкусове: </span>
+                                                    </span>
 
                                                     <Dropdown>
-                                                        <Dropdown.Toggle variant={"dark"} id="dropdown-basic"
-                                                                         className="dropDownButton">
-                                                            Избери
+                                                        <Dropdown.Toggle id="dropdown-basic"
+                                                                         className="tasteButtonSelector">
+                                                            <IoColorFilter className="mb-1 me-2"/>Избери вкус
                                                         </Dropdown.Toggle>
                                                         <Dropdown.Menu>
                                                             {product?.taste.map((taste, index) => (
-                                                                <Dropdown.Item disabled={unavailableTastes.has(taste.name)} key={index} onClick={() => {
+                                                                <Dropdown.Item
+                                                                    disabled={unavailableTastes.has(taste.name)}
+                                                                    key={index} onClick={() => {
                                                                     setTasteData(taste);
                                                                     setSelectedTaste(taste);
                                                                 }}>
@@ -188,7 +192,6 @@ function Product() {
                                                     </Dropdown>
                                                 </div>
                                             )}
-
                                             <span className="fw-bolder">
                                      <span className="keyColorInfo me-2"><FaStar className="mb-1 me-1"/>Рейтинг:</span>
                                                 {product?.ratingValue.toFixed(1)}/5 ({product?.ratingCount})
@@ -299,8 +302,8 @@ function Product() {
 
                     <div className="singleProductSwiper">
 
-                        <h1 className="text-center">Още <span className="redColorText">ТОП</span> продукти от
-                            марка <span className="redColorText">{product?.brandEntity.name}</span></h1>
+                        <h1 className="text-center">Още <span className="myGreenBlueColor">ТОП</span> продукти от
+                            марка <span className="myGreenBlueColor">{product?.brandEntity.name}</span></h1>
 
                         <Swiper
                             effect={'coverflow'}
@@ -343,7 +346,7 @@ function Product() {
                                             )}
 
                                             <span className="fw-bolder mt-2">
-                                    <span className="keyColorInfo strikeText me-2">
+                                    <span className="keyColorInfo me-2">
                                         <MdOutlineMoneyOffCsred className="mb-1"/> Редовна цена:
                                     </span>
                                     <span className="strikeText">
@@ -363,17 +366,15 @@ function Product() {
                                     </div>
 
                                     <div className="loadSingleProductButtonContainer">
-                                        <button className="newProductButton" onClick={() => loadNewProduct(product)}>
-                                            <span> <BiSolidDetail className="mb-1 me-2 "/>Детайли</span>
-                                        </button>
+                                        <Button className="detailsButton" onClick={() => loadNewProduct(product)}>
+                                            <BiSolidDetail className="me-2 myGreenBlueColor"/>Виж детайли
+                                        </Button>
                                     </div>
                                 </SwiperSlide>
                             ))}
                         </Swiper>
                     </div>
                 </>
-
-
             }
         </>
 

@@ -82,8 +82,8 @@ const CardShop = ({product}) => {
                         </div>
                     </Card.Body>
                     <Card.Footer className="cardFooter">
-                        <Button variant="dark" className="detailsButton">
-                            <BiSolidDetail className="me-2"/>Детайли
+                        <Button className="detailsButton">
+                            <BiSolidDetail className="me-2 myGreenBlueColor"/>Виж детайли
                         </Button>
                     </Card.Footer>
                 </Card>

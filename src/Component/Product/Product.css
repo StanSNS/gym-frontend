@@ -129,42 +129,8 @@
     align-items: baseline;
 }
 
-.dropDownButton {
-    width: 6.5em;
-    height: 100%;
-    background: black;
-    color: white;
-    border: none;
-    border-radius: 0.625em;
-    font-size: 30px;
-    font-weight: bold;
-    cursor: pointer;
-    position: relative;
-    z-index: 1;
-    overflow: hidden;
-}
+.tasteButtonSelector{
 
-.dropDownButton:hover {
-    color: black !important;
-}
-
-.dropDownButton:after {
-    content: "";
-    background: white;
-    position: absolute;
-    z-index: -1;
-    left: -20%;
-    right: -20%;
-    top: -20%;
-    bottom: 0;
-    transform: skewX(-45deg) scale(0, 1);
-    transition: all 0.5s;
-}
-
-.dropDownButton:hover:after {
-    transform: skewX(-45deg) scale(1, 1);
-    -webkit-transition: all 0.5s;
-    transition: all 0.5s;
 }
 
 .barChart {
@@ -275,59 +241,9 @@
 }
 
 .loadSingleProductButtonContainer {
-    text-align: center;
+    display: flex;
+    justify-content: center;
     margin-bottom: 1rem;
-}
-
-.newProductButton {
-    position: relative;
-    display: inline-block;
-    padding: 10px 20px;
-    /*border: none;*/
-    background-color: orangered;
-    color: #fff;
-    border: 2px solid orangered;
-    font-size: 16px;
-    text-transform: uppercase;
-    font-weight: 600;
-    cursor: pointer;
-    border-radius: 8px;
-    overflow: hidden;
-    transition: all 0.8s cubic-bezier(0.23, 1, 0.320, 1);
-}
-
-.newProductButton:before {
-    content: "";
-    position: absolute;
-    top: 50%;
-    left: 50%;
-    transform: translate(-50%, -50%);
-    width: 120%;
-    height: 120%;
-    background-color: #fff;
-    opacity: 0;
-    transition: all 0.8s cubic-bezier(0.23, 1, 0.320, 1);
-}
-
-.newProductButton span {
-    position: relative;
-    z-index: 1;
-}
-
-.newProductButton:hover {
-    color: orangered;
-    background-color: #fff;
-    box-shadow: 0 0 20px hsla(263, 77%, 31%, 0);
-}
-
-.newProductButton:active {
-    scale: 0.9;
-    color: orangered !important;
-}
-
-.newProductButton:hover:before {
-    transform: translate(-50%, -50%) rotate(45deg);
-    opacity: 1;
 }
 
 .swiper-pagination-bullet{
@@ -340,4 +256,3 @@
     background-color: orangered !important;
     opacity: 1 !important;
 }
-
