@@ -85,6 +85,7 @@ function FAQ() {
                                 <span className="mb-1 fw-bolder fs-5"> {faqData.title}</span>
                             </Accordion.Header>
                             <Accordion.Body>
+                                <div className="accBodyBorder"></div>
                                 {faqData.description}
                             </Accordion.Body>
                         </Accordion.Item>

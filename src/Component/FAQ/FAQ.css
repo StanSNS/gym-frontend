@@ -8,7 +8,7 @@
 
 .faqSortingButtons {
     margin-top: 2rem;
-    margin-bottom: 3rem;
+    margin-bottom: 2.5rem;
 }
 
 .faqIconWrapper {
@@ -61,10 +61,13 @@
     margin-left: 1rem;
     margin-right: 1rem;
     border-radius: 20px;
+    box-shadow: 0px 4px 30px 0px var(--myWhite);
+    transition: all 0.4s ease-in-out;
 }
 
+
 .selectedFaqButton {
-    background-color: #9c9c9c;
+    background-color: var(--myBlack);
     color: var(--myWhite);
     font-size: 16px;
     padding: 6px 24px;
@@ -72,6 +75,8 @@
     margin-left: 1rem;
     margin-right: 1rem;
     border-radius: 20px;
+    transition: all 0.4s ease-in-out;
+    box-shadow: 0px 2px 20px orangered;
 }
 
 
@@ -81,7 +86,7 @@
 }
 
 .faqSection .accordion-item {
-    border: 5px solid var(--myBlack) !important;
+    border: 4px solid var(--myBlack) !important;
     border-radius: 18px !important;
 }
 
@@ -100,8 +105,18 @@
     --bs-accordion-border-color: none;
 }
 
-.faqSection .accordion-body{
+.faqSection .accordion-body {
+    font-weight: 700;
+    padding-left: 2rem;
+    padding-right: 2rem;
+    padding-bottom: 1.5rem;
+}
 
+.accBodyBorder {
+    border: 1px solid var(--myBlack);
+    opacity: 0.2;
+    width: 100%;
+    margin-bottom: 1rem;
 }
 
 
