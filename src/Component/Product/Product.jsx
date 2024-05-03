@@ -67,7 +67,7 @@ function Product() {
     const starData = {
         labels: ['', '', "", "", ""],
         values: [product?.oneStarRatingCount, product?.twoStarRatingCount, product?.threeStarRatingCount, product?.fourStarRatingCount, product?.fiveStarRatingCount],
-        colors: ['#FFC107FF', '#333'],
+        colors: ['#0fffa4', '#333'],
     };
 
     const doughnutData = {
@@ -172,9 +172,10 @@ function Product() {
                                                     </span>
 
                                                     <Dropdown>
-                                                        <Dropdown.Toggle id="dropdown-basic"
-                                                                         className="tasteButtonSelector">
-                                                            <IoColorFilter className="mb-1 me-2"/>Избери вкус
+                                                        <Dropdown.Toggle variant={"dark"} id="dropdown-basic"
+                                                                         className="dropDownButton">
+                                                            <IoColorFilter className="mb-1 me-2 myGreenBlueColor"/>Избери
+                                                            вкус
                                                         </Dropdown.Toggle>
                                                         <Dropdown.Menu>
                                                             {product?.taste.map((taste, index) => (
@@ -198,29 +199,29 @@ function Product() {
                                 </span>
                                             <div className="barChart">
                                                 <div className="chartStars">
-                                                    <div className="oneStar yellowStar">
+                                                    <div className="oneStar myGreenBlueColor">
                                                         <FaStar/>
                                                     </div>
 
-                                                    <div className="twoStar blackStar">
-                                                        <FaStar/>
-                                                        <FaStar/>
-                                                    </div>
-
-                                                    <div className="threeStars yellowStar">
-                                                        <FaStar/>
+                                                    <div className="twoStar myBlackColor">
                                                         <FaStar/>
                                                         <FaStar/>
                                                     </div>
 
-                                                    <div className="fourStars blackStar">
-                                                        <FaStar/>
+                                                    <div className="threeStars myGreenBlueColor">
                                                         <FaStar/>
                                                         <FaStar/>
                                                         <FaStar/>
                                                     </div>
 
-                                                    <div className="fiveStars yellowStar">
+                                                    <div className="fourStars myBlackColor">
+                                                        <FaStar/>
+                                                        <FaStar/>
+                                                        <FaStar/>
+                                                        <FaStar/>
+                                                    </div>
+
+                                                    <div className="fiveStars myGreenBlueColor">
                                                         <FaStar/>
                                                         <FaStar/>
                                                         <FaStar/>

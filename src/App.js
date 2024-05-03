@@ -7,6 +7,7 @@ import {SkeletonTheme} from "react-loading-skeleton";
 import Admin from "./Component/Admin/Admin";
 import Product from "./Component/Product/Product";
 import About from "./Component/About/About";
+import FAQ from "./Component/FAQ/FAQ";
 
 function App() {
     return (
@@ -17,6 +18,7 @@ function App() {
                     <Routes>
                         <Route path="/" element={<><Shop/></>}/>
                         <Route path="/product" element={<Product/>}/>
+                        <Route path="/faq" element={<FAQ/>}/>
                         <Route path="/about" element={<About/>}/>
                         <Route path="/admin" element={<Admin/>}/>
                     </Routes>
