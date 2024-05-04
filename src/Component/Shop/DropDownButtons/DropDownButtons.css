@@ -16,14 +16,14 @@
     height: 40px;
     max-height: 80px;
     z-index: 1;
-    background-color: orangered;
+    background-color: var(--myGreenBlue);
     cursor: pointer;
     font-size: 15px;
     font-weight: bolder;
     padding-bottom: 0.8rem;
     border-top-left-radius: 10px;
     border-top-right-radius: 10px;
-    color: white;
+    color: var(--myBlack);
     transition: all 0.3s ease;
     border: none;
     display: flex;
@@ -31,15 +31,21 @@
     align-items: center;
 }
 
+.halfButton span {
+    padding-top: 0.20rem;
+}
+
 .deleteIcon {
+    font-size: 17px;
     opacity: 0;
     transition: opacity 0.3s ease-in-out;
 }
 
 .halfButton:hover {
-    height: 50px;
+    height: 60px;
     top: -30%;
-    background-color: #e03e01;
+    background-color: orangered;
+    color: var(--myWhite);
 }
 
 .halfButton:hover .deleteIcon {
@@ -49,8 +55,8 @@
 .orderButton {
     width: 220px;
     position: relative;
-    background-color: #212529;
-    color: white;
+    background-color: var(--myBlack);
+    color: var(--myWhite);
     padding: 0.6rem;
     border-radius: 14px;
     font-size: 16px;
@@ -69,15 +75,32 @@
 }
 
 .redColorText {
-    color: orangered;
+    color: var(--myGreenBlue);
 }
 
-.dropdown-item:active .redColorText {
-    color: white !important;
+.dropdown-menu {
+    background-color: var(--myBlack) !important;
 }
 
-.dropdown-item.active .redColorText {
-    color: white !important;
+.dropdown-item {
+    color: var(--myWhite) !important;
+}
+
+.dropdown-item:hover {
+    background-color: var(--myGreenBlue) !important;
+    color: var(--myBlack) !important;
+}
+
+.dropdown-item svg {
+    color: var(--myGreenBlue) !important;
+}
+
+.dropdown-item:hover svg {
+    color: var(--myBlack) !important;
+}
+
+.dropdown-menu {
+    --bs-dropdown-link-active-bg: var(--myGreenBlue) !important;;
 }
 
 .myScrollable::-webkit-scrollbar {
@@ -95,15 +118,17 @@
 }
 
 .myScrollable::-webkit-scrollbar-thumb {
-    background-color: orangered;
+    background-color: var(--myGreenBlue);
     border-radius: 30px;
     height: 100px;
 }
 
 .dropDownButtonSearch {
+    background-color: var(--myBlack) !important;
+    color: var(--myGreenBlue) !important;
     font-size: 15px !important;
     border: none !important;
-    border-bottom: 2px solid black !important;
+    border-bottom: 2px solid var(--myGreenBlue) !important;
     border-radius: 0 !important;
     padding-left: 0 !important;
     margin-left: 1rem;
@@ -114,6 +139,24 @@
     box-shadow: none !important;
 }
 
-.dropDownButtonSearchClearButton {
-    font-size: 28px !important;
+.dropDownButtonSearch::placeholder{
+    color: var(--myGreenBlue);
+}
+
+.dropDownButtonSearchClearButton{
+    color: var(--myGreenBlue);
+    font-size: 30px !important;
+    transition: color 0.2s ease-in-out;
+}
+
+.dropDownButtonSearchClearButton:hover{
+    color: orangered;
+}
+
+.productAmount{
+    color: var(--myGreenBlue);
+}
+
+.dropdown-item:hover .productAmount {
+    color: var(--myBlack) !important;
 }

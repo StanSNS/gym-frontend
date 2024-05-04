@@ -2,6 +2,7 @@
     display: flex;
     align-items: center;
     width: 90%;
+    justify-content: space-between;
 }
 
 .searchInput {
@@ -33,9 +34,10 @@
 
 .deleteSearchIcon{
     font-size: 50px;
+
 }
 
-.inputClearButton:hover{
+.inputClearButton:hover .deleteSearchIcon {
     color: orangered;
     scale: 1.05;
 }

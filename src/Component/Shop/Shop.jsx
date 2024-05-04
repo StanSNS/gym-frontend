@@ -32,13 +32,13 @@ const Shop = () => {
 
 
     const weightData = [
-        {id: 1, range: "0-0.300"},
-        {id: 2, range: "0.300-0.500"},
-        {id: 3, range: "0.500-1.000"},
-        {id: 4, range: "1.000-2.000"},
-        {id: 5, range: "2.000-3.500"},
-        {id: 6, range: "3.500-5.000"},
-        {id: 7, range: "5.000-9999999"}
+        {id: 1, range: "0 - 0.300"},
+        {id: 2, range: "0.300 - 0.500"},
+        {id: 3, range: "0.500 - 1.000"},
+        {id: 4, range: "1.000 - 2.000"},
+        {id: 5, range: "2.000 - 3.500"},
+        {id: 6, range: "3.500 - 5.000"},
+        {id: 7, range: "5.000 - 20.000"}
     ];
 
     useEffect(() => {
@@ -133,20 +133,35 @@ const Shop = () => {
     const sortProducts = (sortType) => {
         let sortedProducts = [...products];
         switch (sortType) {
-            case "Намалена цена":
+            case "Цена най-евтино":
                 sortedProducts.sort((a, b) => a.discountedPrice - b.discountedPrice);
                 break;
-            case "Процент":
+            case "Цена най-скъпо":
+                sortedProducts.sort((a, b) => b.discountedPrice - a.discountedPrice);
+                break;
+            case "Процент най-нисък":
+                sortedProducts.sort((a, b) => (b.reducedTotalAmountPercentage || 0) - (a.reducedTotalAmountPercentage || 0));
+                break;
+            case "Процент най-висок":
                 sortedProducts.sort((a, b) => (a.reducedTotalAmountPercentage || 0) - (b.reducedTotalAmountPercentage || 0));
                 break;
-            case "Рейтинг":
+            case "Тегло най-леко":
+                sortedProducts.sort((a, b) => a.weightKg - b.weightKg);
+                break;
+            case "Тегло най-тежко":
+                sortedProducts.sort((a, b) => b.weightKg - a.weightKg);
+                break;
+            case "Рейтинг най-нисък":
+                sortedProducts.sort((a, b) => a.ratingValue - b.ratingValue);
+                break;
+            case "Рейтинг най-висок":
                 sortedProducts.sort((a, b) => b.ratingValue - a.ratingValue);
                 break;
-            case "Ревюта":
-                sortedProducts.sort((a, b) => b.ratingCount - a.ratingCount);
+            case "Ревюта най-малко":
+                sortedProducts.sort((a, b) => a.ratingCount - b.ratingCount);
                 break;
-            case "Тегло":
-                sortedProducts.sort((a, b) => a.weightKg - b.weightKg);
+            case "Ревюта най-много":
+                sortedProducts.sort((a, b) => b.ratingCount - a.ratingCount);
                 break;
             default:
                 break;

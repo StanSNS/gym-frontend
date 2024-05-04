@@ -3,7 +3,7 @@ import {
     FaBalanceScaleRight,
     FaBolt,
     FaCommentDots,
-    FaLayerGroup,
+    FaLayerGroup, FaLongArrowAltDown, FaLongArrowAltUp,
     FaPercentage,
     FaSort,
     FaStar,
@@ -16,6 +16,8 @@ import {Link} from "react-router-dom";
 import "./DropDownButtons.css"
 import SearchInput from "../SearchInput/SearchInput";
 import {BiSolidCategory} from "react-icons/bi";
+import {TbSort09, TbSort90} from "react-icons/tb";
+import {GiWeight} from "react-icons/gi";
 
 const DropdownButtons = ({
                              selectedDeal,
@@ -44,7 +46,6 @@ const DropdownButtons = ({
     const categoryRef = useRef(null);
     const brandRef = useRef(null);
     const weightRef = useRef(null);
-
     const [categorySearchQuery, setCategorySearchQuery] = useState('');
     const [brandSearchQuery, setBrandSearchQuery] = useState('');
 
@@ -54,38 +55,38 @@ const DropdownButtons = ({
             <div className="dropdown" ref={flashDealsRef}>
                 {selectedDeal !== 0 && (
                     <button className="halfButton" onClick={() => selectFlashDeal(0)}>
-                        <span>Над -{selectedDeal}<FaPercentage/></span>
+                        <span>Над -{selectedDeal}<FaPercentage className="mb-1 ms-1"/></span>
                         <FaTimes className="deleteIcon"/>
                     </button>
                 )}
 
                 <button className="orderButton align-bottom ml-2 dropdown-toggle" type="button"
                         onClick={() => toggleDropdown('flashDeals')}>
-                    <FaBolt className="me-1"/>Топ Оферти
+                    <FaBolt className="me-1 fs-5 myGreenBlueColor"/>Топ Оферти
                 </button>
                 <div className={`dropdown-menu${isOpenFlashDeals ? ' show' : ''} mt-1`}>
                     <Link to={"#"} className="dropdown-item fw-bolder" onClick={() => {
                         toggleDropdown('flashDeals');
                         selectFlashDeal(70);
-                    }}><MdOutlineDoubleArrow className="redColorText mb-1 rotateIcon"/> Над -70%
+                    }}><MdOutlineDoubleArrow className="mb-1 rotateIcon me-2"/>Над -70%
                     </Link>
 
                     <Link to={"#"} className="dropdown-item fw-bolder" onClick={() => {
                         toggleDropdown('flashDeals');
                         selectFlashDeal(50);
-                    }}><MdOutlineDoubleArrow className="redColorText mb-1 rotateIcon"/> Над -50%
+                    }}><MdOutlineDoubleArrow className="mb-1 rotateIcon me-2"/>Над -50%
                     </Link>
 
                     <Link to={"#"} className="dropdown-item fw-bolder" onClick={() => {
                         toggleDropdown('flashDeals');
                         selectFlashDeal(30);
-                    }}><MdOutlineDoubleArrow className="redColorText mb-1 rotateIcon"/> Над -30%
+                    }}><MdOutlineDoubleArrow className="mb-1 rotateIcon me-2"/>Над -30%
                     </Link>
 
                     <Link to={"#"} className="dropdown-item fw-bolder" onClick={() => {
                         toggleDropdown('flashDeals');
                         selectFlashDeal(15);
-                    }}><MdOutlineDoubleArrow className="redColorText mb-1 rotateIcon"/> Над -15%
+                    }}><MdOutlineDoubleArrow className="mb-1 rotateIcon me-2"/>Над -15%
                     </Link>
                 </div>
             </div>
@@ -101,43 +102,107 @@ const DropdownButtons = ({
 
                 <button className="orderButton align-bottom ml-2 dropdown-toggle" type="button"
                         onClick={() => toggleDropdown('orderBy')}>
-                    <FaSort className="me-1"/>Подреди по
+                    <FaSort className="me-1 fs-5 myGreenBlueColor"/>Подреди по
                 </button>
 
                 <div className={`dropdown-menu${isOpenOrderBy ? ' show' : ''} mt-1`}>
                     <Link to={"#"} className="dropdown-item fw-bolder" onClick={() => {
                         toggleDropdown('orderBy');
-                        selectSort("Намалена цена");
+                        selectSort("Цена най-евтино");
                     }}>
-                        <IoPricetag className="mb-1 me-1 redColorText"/>Намалена цена
+                        <IoPricetag className="mb-1 me-2"/>
+                        Цена
+                        <TbSort09 className="ms-1 fs-3 mb-1"/>
+                        <FaLongArrowAltUp className="mb-1" />
                     </Link>
 
                     <Link to={"#"} className="dropdown-item fw-bolder" onClick={() => {
                         toggleDropdown('orderBy');
-                        selectSort("Процент")
+                        selectSort("Цена най-скъпо");
                     }}>
-                        <FaPercentage className="mb-1 me-1 redColorText"/>Процент
+                        <IoPricetag className="mb-1 me-2"/>
+                        Цена
+                        <TbSort90 className="ms-1 fs-3 mb-1"/>
+                        <FaLongArrowAltDown className="mb-1" />
                     </Link>
 
                     <Link to={"#"} className="dropdown-item fw-bolder" onClick={() => {
                         toggleDropdown('orderBy');
-                        selectSort("Тегло")
+                        selectSort("Процент най-нисък")
                     }}>
-                        <FaWeightHanging className="mb-1 me-1 redColorText"/>Тегло
+                        <FaPercentage className="mb-1 me-2"/>
+                        Процент
+                        <TbSort09 className="ms-1 fs-3 mb-1"/>
+                        <FaLongArrowAltUp className="mb-1" />
                     </Link>
 
                     <Link to={"#"} className="dropdown-item fw-bolder" onClick={() => {
                         toggleDropdown('orderBy');
-                        selectSort("Рейтинг");
+                        selectSort("Процент най-висок")
                     }}>
-                        <FaStar className="mb-1 me-1 redColorText"/>Рейтинг
+                        <FaPercentage className="mb-1 me-2"/>
+                        Процент
+                        <TbSort90 className="ms-1 fs-3 mb-1"/>
+                        <FaLongArrowAltDown className="mb-1" />
                     </Link>
 
                     <Link to={"#"} className="dropdown-item fw-bolder" onClick={() => {
                         toggleDropdown('orderBy');
-                        selectSort("Ревюта")
+                        selectSort("Тегло най-леко")
                     }}>
-                        <FaCommentDots className="mb-1 me-1 redColorText"/>Ревюта
+                        <FaWeightHanging className="mb-1 me-2"/>
+                        Тегло
+                        <TbSort09 className="ms-1 fs-3 mb-1"/>
+                        <FaLongArrowAltUp className="mb-1" />
+                    </Link>
+
+                    <Link to={"#"} className="dropdown-item fw-bolder" onClick={() => {
+                        toggleDropdown('orderBy');
+                        selectSort("Тегло най-тежко")
+                    }}>
+                        <FaWeightHanging className="mb-1 me-2"/>
+                        Тегло
+                        <TbSort90 className="ms-1 fs-3 mb-1"/>
+                        <FaLongArrowAltDown className="mb-1" />
+                    </Link>
+
+                    <Link to={"#"} className="dropdown-item fw-bolder" onClick={() => {
+                        toggleDropdown('orderBy');
+                        selectSort("Рейтинг най-нисък");
+                    }}>
+                        <FaStar className="mb-1 me-2"/>
+                        Рейтинг
+                        <TbSort09 className="ms-1 fs-3 mb-1"/>
+                        <FaLongArrowAltUp className="mb-1" />
+                    </Link>
+
+                    <Link to={"#"} className="dropdown-item fw-bolder" onClick={() => {
+                        toggleDropdown('orderBy');
+                        selectSort("Рейтинг най-висок");
+                    }}>
+                        <FaStar className="mb-1 me-2"/>
+                        Рейтинг
+                        <TbSort90 className="ms-1 fs-3 mb-1"/>
+                        <FaLongArrowAltDown className="mb-1" />
+                    </Link>
+
+                    <Link to={"#"} className="dropdown-item fw-bolder" onClick={() => {
+                        toggleDropdown('orderBy');
+                        selectSort("Ревюта най-малко")
+                    }}>
+                        <FaCommentDots className="mb-1 me-2"/>
+                        Ревюта
+                        <TbSort09 className="ms-1 fs-3 mb-1"/>
+                        <FaLongArrowAltUp className="mb-1" />
+                    </Link>
+                    <Link to={"#"} className="dropdown-item fw-bolder" onClick={() => {
+                        toggleDropdown('orderBy');
+                        selectSort("Ревюта най-много")
+                    }}>
+                        <FaCommentDots className="mb-1 me-2"/>
+                        Ревюта
+                        <TbSort90 className="ms-1 fs-3 mb-1"/>
+                        <FaLongArrowAltDown className="mb-1" />
                     </Link>
                 </div>
             </div>
@@ -152,7 +217,7 @@ const DropdownButtons = ({
                 )}
                 <button className="orderButton align-bottom ml-2 dropdown-toggle" type="button"
                         onClick={() => toggleDropdown('weight')}>
-                    <FaWeightHanging className="me-1"/>Количество
+                    <GiWeight  className="me-1 fs-4 myGreenBlueColor"/>Количество
                 </button>
                 <div className={`dropdown-menu${isOpenWeight ? ' show' : ''} mt-1 myScrollable`} style={{
                     maxHeight: '500px',
@@ -168,7 +233,7 @@ const DropdownButtons = ({
                                 selectWeight(weight.range);
                             }}
                         >
-                            <span> <FaBalanceScaleRight className="mb-1 redColorText"/> {weight.range} кг</span>
+                            <span> <FaBalanceScaleRight className="mb-1 me-2"/> {weight.range} кг.</span>
                         </Link>
                     ))}
                 </div>
@@ -184,7 +249,7 @@ const DropdownButtons = ({
                 )}
                 <button className="orderButton align-bottom ml-2 dropdown-toggle" type="button"
                         onClick={() => toggleDropdown('category')}>
-                    <BiSolidCategory className="me-1"/>Категория
+                    <BiSolidCategory className="me-1 fs-5 myGreenBlueColor"/>Категория
                 </button>
                 <div className={`dropdown-menu${isOpenCategory ? ' show' : ''} mt-1 myScrollable`} style={{
                     maxHeight: '500px',
@@ -216,7 +281,7 @@ const DropdownButtons = ({
                                         selectCategory(category);
                                     }}
                                 >
-                                    <span className="redColorText">{quantity}</span> {category}
+                                    <span className="productAmount">({quantity})</span> {category}
                                 </Link>
                             );
                         }
@@ -235,7 +300,7 @@ const DropdownButtons = ({
                 )}
                 <button className="orderButton align-bottom ml-2 dropdown-toggle" type="button"
                         onClick={() => toggleDropdown('brand')}>
-                    <FaLayerGroup className="me-1"/>Марка
+                    <FaLayerGroup className="me-2 fs-5 myGreenBlueColor"/>Марка
                 </button>
                 <div className={`dropdown-menu${isOpenBrand ? ' show' : ''} mt-1 myScrollable`} style={{
                     maxHeight: '500px',
@@ -265,7 +330,7 @@ const DropdownButtons = ({
                                         toggleDropdown('brand');
                                         selectBrand(brand)
                                     }}>
-                                    <span className="redColorText">{'{'}{quantity}{'}'}</span> {brand}
+                                    <span className="productAmount">({quantity})</span> {brand}
                                 </Link>
                             );
                         }
