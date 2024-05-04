@@ -1,4 +1,4 @@
-import {BrowserRouter, Route, Routes} from 'react-router-dom'
+import {BrowserRouter, Navigate, Route, Routes} from 'react-router-dom'
 import React from 'react'
 import Shop from "./Component/Shop/Shop";
 import Header from "./Component/STATIC/Header/Header";
@@ -8,6 +8,9 @@ import Admin from "./Component/Admin/Admin";
 import Product from "./Component/Product/Product";
 import About from "./Component/About/About";
 import FAQ from "./Component/FAQ/FAQ";
+import TermsAndConditions from "./Component/TermsAndConditions/TermsAndConditions";
+import Page404 from "./Component/Errors/Page404/Page404";
+import Page500 from "./Component/Errors/Page500/Page500";
 
 function App() {
     return (
@@ -21,6 +24,10 @@ function App() {
                         <Route path="/faq" element={<FAQ/>}/>
                         <Route path="/about" element={<About/>}/>
                         <Route path="/admin" element={<Admin/>}/>
+                        <Route path="/terms-and-conditions" element={<TermsAndConditions/>}/>
+                        <Route path="/page-not-found" element={<Page404/>}/>
+                        <Route path="/internal-server-error" element={<Page500/>}/>
+                        <Route path="*" element={<Navigate to="/page-not-found"/>}/>
                     </Routes>
                     <Footer/>
                 </BrowserRouter>

@@ -4,7 +4,7 @@ import {Link} from "react-router-dom";
 import footerImage from "../../../Resources/logoImage.png"
 import {FaBolt, FaHeart, FaInfoCircle, FaListAlt, FaTruck} from "react-icons/fa";
 import {BiSupport} from "react-icons/bi";
-import TrackOrderModal from "../../Modals/User/TrackOrder/TrackOrder";
+import TrackOrderModal from "../../Modals/User/TrackOrderModal/TrackOrderModal";
 import ContactUsModal from "../../Modals/User/ContactUsModal/ContactUsModal";
 
 

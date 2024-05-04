@@ -1,6 +1,7 @@
 import axios from "axios";
 import {BACKEND_BASE_URL} from "../Constant/globalConst";
 
+
 export const getAllSellableProducts = () => {
     return axios.get(BACKEND_BASE_URL).then((response) => {
         if (response.status === 200) {

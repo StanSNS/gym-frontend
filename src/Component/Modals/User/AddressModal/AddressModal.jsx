@@ -28,6 +28,7 @@ import {Button} from "react-bootstrap";
 import {sendOrder} from "../../../../Service/OrderService";
 import {LuCandy} from "react-icons/lu";
 import Loader from "../../../STATIC/Loader/Loader";
+import {useNavigate} from "react-router-dom";
 
 function AddressModal({show, handleClose, cartItems, totalWeight, productCount, totalAmount, totalSaving, addresses}) {
     const [firstName, setFirstName] = useState('Станимир'); //FIXME
@@ -50,6 +51,7 @@ function AddressModal({show, handleClose, cartItems, totalWeight, productCount, 
     const [showErrorOrderModal, setShowErrorOrderModal] = useState(false);
     const [selectedTownData, setSelectedTownData] = useState({postCode: '', addresses: []});
     const [isLoading, setIsLoading] = useState(false);
+    const navigator = useNavigate();
 
     const deliveryPrice = 7.34;
 
@@ -89,12 +91,17 @@ function AddressModal({show, handleClose, cartItems, totalWeight, productCount, 
         deliveryData.totalAmount = (totalAmount - totalSaving + deliveryPrice)
 
         for (const item of cartItems) {
-            const data = await checkIfProductExists(item.brandEntity.brandID, item.modelId, item.selectedTaste?.silaTasteID);
-            if (data.status === 204) {
-                setUnavailableProductName(item.name);
-                setUnavailableProductTaste(item.selectedTaste.name);
-                setShowUnavailableModal(true);
-                return;
+            try {
+                const data = await checkIfProductExists(item.brandEntity.brandID, item.modelId, item.selectedTaste?.silaTasteID);
+                if (data.status === 204) {
+                    setUnavailableProductName(item.name);
+                    setUnavailableProductTaste(item.selectedTaste.name);
+                    setShowUnavailableModal(true);
+                    return;
+                }
+            } catch (error) {
+                navigator("/internal-server-error");
+                console.error("Failed to check product," + error)
             }
         }
 
@@ -354,7 +361,8 @@ function AddressModal({show, handleClose, cartItems, totalWeight, productCount, 
                                 >
                                     <option value="" className="fw-medium">Изберете офис</option>
                                     {selectedTownData.addresses.map((office, index) => (
-                                        <option className="fw-medium" key={index} value={office.fullAddress}>{office.fullAddress}</option>
+                                        <option className="fw-medium" key={index}
+                                                value={office.fullAddress}>{office.fullAddress}</option>
                                     ))}
                                 </select>
                             </div>

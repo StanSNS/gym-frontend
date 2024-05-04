@@ -17,6 +17,7 @@ import 'swiper/css/effect-coverflow';
 import 'swiper/css/pagination';
 import button from "bootstrap/js/src/button";
 import {IoColorFilter} from "react-icons/io5";
+import {useNavigate} from "react-router-dom";
 
 function Product() {
     const [product, setProduct] = useState(() => {
@@ -31,6 +32,7 @@ function Product() {
     const [isDataLoading, setIsDataLoading] = useState(false);
     const [isProductCheckIsLoading, setIsProductCheckIsLoading] = useState(false);
     const [unavailableTastes] = useState(new Set());
+    const navigator = useNavigate();
 
     useEffect(() => {
         fetchSingleProduct();
@@ -48,6 +50,7 @@ function Product() {
                 unavailableTastes.clear()
             }
         } catch (error) {
+            navigator("/internal-server-error");
             console.error('Error fetching current product:', error);
         } finally {
             setIsDataLoading(false)
@@ -89,16 +92,21 @@ function Product() {
     }
 
     const checkProductAvailability = async (product) => {
-        setIsProductCheckIsLoading(true)
-        const data = await checkIfProductExists(product?.brandEntity.brandID, product.modelId, selectedTaste?.silaTasteID);
-        if (data.status === 204) {
-            setShowErrorModal(true);
-            unavailableTastes.add(selectedTaste.name)
-        } else if (data.status === 200) {
-            setShowSuccessModal(true);
-            addToCart(product, selectedTaste);
+        try {
+            setIsProductCheckIsLoading(true)
+            const data = await checkIfProductExists(product?.brandEntity.brandID, product.modelId, selectedTaste?.silaTasteID);
+            if (data.status === 204) {
+                setShowErrorModal(true);
+                unavailableTastes.add(selectedTaste.name)
+            } else if (data.status === 200) {
+                setShowSuccessModal(true);
+                addToCart(product, selectedTaste);
+            }
+            setIsProductCheckIsLoading(false)
+        } catch (error) {
+            navigator("/internal-server-error");
+            console.error("Failed to check product," + error)
         }
-        setIsProductCheckIsLoading(false)
     }
 
     return (

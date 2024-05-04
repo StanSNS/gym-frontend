@@ -2,7 +2,7 @@ import React, {useState} from "react";
 import './FAQ.css'
 import {Accordion} from "react-bootstrap";
 import {faqData} from "../../Resources/FAQ/faqData";
-import {FaMoneyBillWave, FaShieldAlt, FaShoppingBag, FaTruck, FaUndo} from 'react-icons/fa';
+import {FaMoneyBillWave, FaQuestionCircle, FaShieldAlt, FaShoppingBag, FaTruck, FaUndo} from 'react-icons/fa';
 import {BiSupport} from "react-icons/bi";
 
 function FAQ() {
@@ -62,7 +62,12 @@ function FAQ() {
 
     return (
         <div className="faqSection">
-            <h1 className="mt-4">Често задавани въпроси (ЧЗВ)</h1>
+            <h1 className="mt-4 fw-bolder d-flex ">
+                Често задавани въпроси (ЧЗВ)
+                <div className="customIcon ms-2 d-flex mt-1">
+                    <FaQuestionCircle className=""/>
+                </div>
+            </h1>
 
             <div className="faqSortingButtons">
                 {['delivery', 'product', 'refund', 'privacy', 'payment', 'support'].map(type => (

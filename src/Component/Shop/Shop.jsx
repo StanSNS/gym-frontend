@@ -7,6 +7,7 @@ import SearchInput from "./SearchInput/SearchInput";
 import DropdownButtons from "./DropDownButtons/DropDownButtons";
 import Loader from "../STATIC/Loader/Loader";
 import Hero from "../Hero/Hero";
+import {useNavigate} from "react-router-dom";
 
 const Shop = () => {
     const [products, setProducts] = useState([]);
@@ -27,6 +28,7 @@ const Shop = () => {
     const [isOpenBrand, setIsOpenBrand] = useState(false);
     const [isOpenWeight, setIsOpenWeight] = useState(false);
     const [isDataLoading, setIsDataLoading] = useState(false);
+    const navigator = useNavigate();
 
 
     const weightData = [
@@ -48,12 +50,12 @@ const Shop = () => {
                 setBrands(data.brands);
                 setCategories(data.categories);
             } catch (error) {
-                console.error('Error fetching sellable products:', error);
+                navigator("/internal-server-error");
+                console.error('Error fetching sellable products:');
             } finally {
                 setIsDataLoading(false);
             }
         };
-
         fetchData();
     }, []);
 

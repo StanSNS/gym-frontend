@@ -1,11 +1,12 @@
 import React, {useState} from 'react';
 import {Button, Modal} from 'react-bootstrap';
 import {FaInfoCircle, FaTimes, FaTimesCircle} from 'react-icons/fa';
-import './TrackOrder.css';
+import './TrackOrderModal.css';
 import {FaEnvelopeCircleCheck, FaTruckArrowRight} from "react-icons/fa6";
 import {HiRefresh} from "react-icons/hi";
 import {findOrderByNumber, sendAllOrdersToEmail} from "../../../../Service/OrderService";
 import Loader from "../../../STATIC/Loader/Loader";
+import {useNavigate} from "react-router-dom";
 
 function TrackOrderModal({show, handleClose}) {
     const [recoverModalShow, setRecoverModalShow] = useState(false);
@@ -15,6 +16,7 @@ function TrackOrderModal({show, handleClose}) {
     const [emailInput, setEmailInput] = useState('');
     const [codeInput, setCodeInput] = useState('');
     const [isLoading, setIsLoading] = useState(false);
+    const navigator = useNavigate();
 
     const handleRecoverModalClose = () => {
         setRecoverModalShow(false);
@@ -25,29 +27,39 @@ function TrackOrderModal({show, handleClose}) {
     };
 
     const handleSendAllOrdersToEmail = async () => {
-        setIsLoading(true);
-        const data = await sendAllOrdersToEmail(emailInput);
-        setIsLoading(false);
+        try {
+            setIsLoading(true);
+            const data = await sendAllOrdersToEmail(emailInput);
+            setIsLoading(false);
 
-        if (data.status === 200) {
-            setRecoveryStatus(true)
-            setRecoverModalShow(true);
-        } else {
-            setRecoveryStatus(false)
-            setRecoverModalShow(true);
+            if (data.status === 200) {
+                setRecoveryStatus(true)
+                setRecoverModalShow(true);
+            } else {
+                setRecoveryStatus(false)
+                setRecoverModalShow(true);
+            }
+        } catch (error) {
+            navigator("/internal-server-error");
+            console.error("Failed to send all orders to email: " + error)
         }
     };
 
     const handleSendOrderEmail = async () => {
-        setIsLoading(true);
-        const data = await findOrderByNumber(codeInput);
-        setIsLoading(false);
-        if (data.status === 200) {
-            setOrderStatus(true)
-            setOrderModalShow(true);
-        } else if (data.status === 204) {
-            setOrderStatus(false)
-            setOrderModalShow(true);
+        try {
+            setIsLoading(true);
+            const data = await findOrderByNumber(codeInput);
+            setIsLoading(false);
+            if (data.status === 200) {
+                setOrderStatus(true)
+                setOrderModalShow(true);
+            } else if (data.status === 204) {
+                setOrderStatus(false)
+                setOrderModalShow(true);
+            }
+        } catch (error) {
+            navigator("/internal-server-error");
+            console.error("Failed to send order email: " + error)
         }
     };
 

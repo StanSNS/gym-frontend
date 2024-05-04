@@ -20,9 +20,9 @@ import {IoLogIn} from "react-icons/io5";
 import {GiCellarBarrels, GiWeightLiftingUp} from "react-icons/gi";
 import {ImExit} from "react-icons/im";
 import LoginModal from "../../Modals/User/Login/LoginModal";
-import TrackOrderModal from "../../Modals/User/TrackOrder/TrackOrder";
+import TrackOrderModal from "../../Modals/User/TrackOrderModal/TrackOrderModal";
 import {getCartFromStorage} from "../../../Service/ProductService";
-import CartModal from "../../Modals/User/CartModa/CartModal";
+import CartModal from "../../Modals/User/CartModal/CartModal";
 import headerImage from "../../../Resources/logoImage.png"
 
 

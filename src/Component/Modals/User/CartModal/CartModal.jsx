@@ -18,6 +18,7 @@ import {addToCart, getCartFromStorage, reduceQuantityInCart} from "../../../../S
 import AddressModal from "../AddressModal/AddressModal";
 import {getAllAddresses} from "../../../../Service/OrderService";
 import Loader from "../../../STATIC/Loader/Loader";
+import {useNavigate} from "react-router-dom";
 
 function CartModal({show, handleClose}) {
     const [myCartItems, setMyCartItems] = useState([]);
@@ -28,6 +29,7 @@ function CartModal({show, handleClose}) {
     const [totalWeight, setTotalWeight] = useState(0);
     const [showAddressModal, setShowAddressModal] = useState(false)
     const [isLoading, setIsLoading] = useState(false);
+    const navigator = useNavigate();
 
 
     useEffect(() => {
@@ -60,11 +62,16 @@ function CartModal({show, handleClose}) {
     };
 
     const handleOpenAddressModalAndLoadAddresses = async () => {
-        setIsLoading(true)
-        const data = await getAllAddresses()
-        setShowAddressModal(true);
-        setAddresses(data);
-        setIsLoading(false)
+        try {
+            setIsLoading(true)
+            const data = await getAllAddresses()
+            setShowAddressModal(true);
+            setAddresses(data);
+            setIsLoading(false)
+        } catch (error) {
+            navigator("/internal-server-error");
+            console.error("Failed to load offices: " + error)
+        }
     };
 
     const handleIncreaseQuantity = (product, selectedTaste) => {

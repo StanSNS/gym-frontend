@@ -7,8 +7,8 @@
 }
 
 .faqSortingButtons {
-    margin-top: 2rem;
-    margin-bottom: 2.5rem;
+    margin-top: 2.5rem;
+    margin-bottom: 1rem;
 }
 
 .faqIconWrapper {
@@ -22,6 +22,15 @@
 .faqIconWrapper svg {
     font-size: 20px;
     margin: 0 !important;
+}
+
+.customIcon {
+    background-color: var(--myGreenBlue);
+    border-radius: 50%;
+}
+
+.customIcon svg {
+    scale: 1.1;
 }
 
 .faqContent {
@@ -62,9 +71,8 @@
     margin-right: 1rem;
     border-radius: 20px;
     box-shadow: 0px 4px 30px 0px var(--myWhite);
-    transition: all 0.4s ease-in-out;
+    transition: all 0.2s ease-in-out;
 }
-
 
 .selectedFaqButton {
     background-color: var(--myBlack);
@@ -75,10 +83,9 @@
     margin-left: 1rem;
     margin-right: 1rem;
     border-radius: 20px;
-    transition: all 0.4s ease-in-out;
+    transition: all 0.2s ease-in-out;
     box-shadow: 0px 2px 20px orangered;
 }
-
 
 .faqSection .accordion-button {
     background-color: transparent;

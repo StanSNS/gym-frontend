@@ -7,6 +7,7 @@ import {BiSupport} from "react-icons/bi";
 import {BsEnvelopeAtFill} from "react-icons/bs";
 import {sendRequestEmail} from "../../../../Service/EmailService";
 import {FaEnvelopeCircleCheck} from "react-icons/fa6";
+import {useNavigate} from "react-router-dom";
 
 function ContactUsModal({show, handleClose}) {
     const [isLoading, setIsLoading] = useState(false);
@@ -15,7 +16,7 @@ function ContactUsModal({show, handleClose}) {
     const [email, setEmail] = useState('');
     const [title, setTitle] = useState('');
     const [description, setDescription] = useState('');
-
+    const navigator = useNavigate();
 
     const handleContactStatusModal = () => {
         setContactModalShow(false)
@@ -23,20 +24,25 @@ function ContactUsModal({show, handleClose}) {
     };
 
     const handleSendEmail = async () => {
-        setIsLoading(true)
-        const data = await sendRequestEmail(email, title, description);
-        setIsLoading(false)
+        try {
+            setIsLoading(true)
+            const data = await sendRequestEmail(email, title, description);
+            setIsLoading(false)
 
-        if (data.status === 200) {
-            setContactStatus(true)
-            setContactModalShow(true);
-        } else {
-            setContactStatus(false)
-            setContactModalShow(true);
+            if (data.status === 200) {
+                setContactStatus(true)
+                setContactModalShow(true);
+            } else {
+                setContactStatus(false)
+                setContactModalShow(true);
+            }
+            setEmail('');
+            setTitle('')
+            setDescription('')
+        } catch (error) {
+            navigator("/internal-server-error");
+            console.error("Failed to send email: " + error)
         }
-        setEmail('');
-        setTitle('')
-        setDescription('')
     }
 
     return (
