@@ -15,7 +15,6 @@ import {EffectCoverflow, Pagination} from "swiper/modules";
 import 'swiper/css';
 import 'swiper/css/effect-coverflow';
 import 'swiper/css/pagination';
-import button from "bootstrap/js/src/button";
 import {IoColorFilter} from "react-icons/io5";
 import {useNavigate} from "react-router-dom";
 
