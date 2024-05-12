@@ -248,3 +248,7 @@
     background-color: var(--myGreenBlue) !important;
     opacity: 1 !important;
 }
+
+.disabled-dropdown-item {
+    color: gray !important;
+}

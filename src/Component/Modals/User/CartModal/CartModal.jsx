@@ -97,36 +97,35 @@ function CartModal({show, handleClose}) {
                 <Modal.Header className="sticky-header d-flex flex-column">
 
                     <div className="buttonContainer mb-4">
-                      <span className="fw-bolder fs-3">
-                         <span className="keyColorInfo me-2">
-                             <FaShoppingCart className="mb-2 me-2"/>Количка:
-                         </span>
-                         ({productCount})
-                     </span>
+                        <div className="fw-bolder fs-3">
+                            <span className=" me-2 fs-3">
+                                <FaShoppingCart className="mb-2 me-3 fs-2 myGreenBlueColor"/>Количка
+                            </span>
+                            ({productCount})
+                        </div>
 
                         <button className="closingModalButton" onClick={() => handleClose()}><FaTimes/></button>
                     </div>
 
-                    <div className="cartProductTotal">
-                    <span className="fw-bolder fs-4">
-                        <span className="keyColorInfo me-2">
-                            <FaWallet className="mb-2 me-2"/>Общо:
-                        </span>
-                        {(totalAmount - totalSaving).toFixed(2)} лв
-                    </span>
-
-                        <span className="fw-bolder fs-4">
-                        <span className="keyColorInfo me-2">
-                            <FaPiggyBank className="mb-2 me-2"/>Спестявате:
-                        </span>
-                            {totalSaving.toFixed(2)} лв
-                    </span>
+                    <div className="cartProductTotal mb-3">
+                        <div className="fw-bolder fs-4">
+                            <span className=" me-2 fs-3">
+                                <FaWallet className="mb-2 me-3 fs-2 myGreenBlueColor"/>Общо:
+                            </span>
+                            {(totalAmount - totalSaving).toFixed(2)} лв.
+                        </div>
+                        <div className="fw-bolder fs-4">
+                             <span className="me-2 fs-3">
+                                 <FaPiggyBank className="mb-2 me-3 fs-2 myGreenBlueColor"/>Спестявате:
+                             </span>
+                            {totalSaving.toFixed(2)} лв.
+                        </div>
                     </div>
 
                     {myCartItems.length !== 0 && (
                         <button className="orderButtonCart mt-3 mb-3"
                                 onClick={() => handleOpenAddressModalAndLoadAddresses()}>
-                            <span><FaPlusCircle className="mb-1 me-2"/>Адрес</span>
+                            <span><FaPlusCircle className="mb-1 me-2"/>Добави адрес</span>
                         </button>
                     )}
                 </Modal.Header>
@@ -157,64 +156,57 @@ function CartModal({show, handleClose}) {
                                     </div>
                                 </div>
 
-                                <Card.Body>
+                                <Card.Body className="cartCardBody">
                                     <div>
-                                        <Card.Title>{product.name} - {product.brandEntity.name}</Card.Title>
+                                        <Card.Title className="fw-bold">
+                                            {product.name} - {product.brandEntity.name}
+                                        </Card.Title>
                                         <div className="cardBody">
-                                            <span className="fw-bolder ">
+                                            <div className="fw-bolder fs-5">
                                                 <span className="keyColorInfo me-2">
                                                     <FaWeightHanging className="mb-1 me-1"/>
-                                                    Тегло:
+                                                    Тегло
                                                 </span>
                                                 {product.weightKg} кг.
-                                            </span>
+                                            </div>
 
                                             {product.selectedTaste && (
-                                                <span className="fw-bolder">
-                                                <span className="keyColorInfo me-2">
-                                                    <GiWrappedSweet className="mb-1 me-1"/>
-                                                    Вкус:
-                                                </span>
+                                                <div className="fw-bolder mt-1 fs-5">
+                                                    <span className="keyColorInfo me-2">
+                                                        <GiWrappedSweet className="mb-1 me-1"/>
+                                                        Вкус
+                                                    </span>
                                                     {product?.selectedTaste.name}
-                                            </span>
+                                                </div>
                                             )}
 
-                                            <span className="fw-bolder">
-                                            <span className="keyColorInfo me-2">
-                                                <IoIosPricetag className="mb-1 me-1"/>
-                                                Намалена цена:
-                                            </span>
-                                            <span>
-                                                {product.discountedPrice.toFixed(2)}лв
-                                            </span>
-                                        </span>
+                                            <div className="fw-bolder mt-1 fs-5">
+                                                <span className="keyColorInfo me-2">
+                                                    <IoIosPricetag className="mb-1 me-1"/>
+                                                    Намалена цена
+                                                </span>
+                                                {product.discountedPrice.toFixed(2)} лв.
+                                            </div>
                                         </div>
                                     </div>
 
-                                    <div className="cardFooterCart">
-
-                                    <span className="fw-bolder mt-2 fs-5">
+                                    <div className="fw-bolder mt-1 fs-5">
                                         <span className="keyColorInfo me-2">
                                             <FaWallet className="mb-1 me-1"/>
-                                            Сума:
+                                            Сума
                                         </span>
-                                        <span>
-                                            {(product.discountedPrice * product.quantity).toFixed(2)}лв
-                                        </span>
-                                    </span>
+                                        {(product.discountedPrice * product.quantity).toFixed(2)} лв.
+                                    </div>
 
-                                        <span className="fw-bolder mt-2 fs-5">
+                                    <div className="fw-bolder mt-1 fs-5">
                                         <span className="keyColorInfo me-2">
                                             <GiBank className="mb-1 me-1"/>
-                                            Намаление:
+                                            Намаление
                                         </span>
-                                        <span>
-                                            {(product.regularPrice *
-                                                product.quantity -
-                                                product.discountedPrice *
-                                                product.quantity).toFixed(2)}лв
-                                        </span>
-                                    </span>
+                                        {(product.regularPrice *
+                                            product.quantity -
+                                            product.discountedPrice *
+                                            product.quantity).toFixed(2)} лв.
                                     </div>
                                 </Card.Body>
                             </Card>

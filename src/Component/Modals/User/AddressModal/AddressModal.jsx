@@ -1,6 +1,7 @@
 import React, {useEffect, useState} from 'react';
 import Modal from 'react-bootstrap/Modal';
 import {
+    FaBoxOpen,
     FaCheckCircle,
     FaClipboardList,
     FaGlobeAmericas,
@@ -18,9 +19,10 @@ import {MdEmail, MdLocationPin} from "react-icons/md";
 import speedy from '../../../../Resources/AddressModal/speedy.jpg'
 import econt from '../../../../Resources/AddressModal/econt.png'
 import sameday from '../../../../Resources/AddressModal/sameday.png'
+import logo from "../../../../Resources/logoImage.png"
 
-import {FaPhoneVolume} from "react-icons/fa6";
-import {IoBag, IoPricetag, IoPricetags} from "react-icons/io5";
+import {FaPhoneVolume, FaTruckArrowRight} from "react-icons/fa6";
+import {IoBag, IoPricetag, IoPricetags, IoShieldCheckmark} from "react-icons/io5";
 import {GiPiggyBank} from "react-icons/gi";
 import {RiHandCoinFill, RiRoadMapFill} from "react-icons/ri";
 import {CART_KEY, checkIfProductExists} from "../../../../Service/ProductService";
@@ -266,25 +268,25 @@ function AddressModal({show, handleClose, cartItems, totalWeight, productCount, 
                             <input className="radio-input" type="radio" name="engine"
                                    onClick={() => setCourier('SPEEDY')} defaultChecked/>
                             <span className="radio-tile">
-                          <img src={speedy} alt="Speedy" className="courierLogoImage"/>
-                        </span>
+                             <img src={speedy} alt="Speedy" className="courierLogoImage"/>
+                            </span>
                         </label>
 
-                        <label>
-                            <input className="radio-input" type="radio" name="engine"
-                                   onClick={() => setCourier('ECONT')}/>
-                            <span className="radio-tile">
-                          <img src={econt} alt="Econt" className="courierLogoImage p-2"/>
-                        </span>
-                        </label>
+                        {/*<label>*/}
+                        {/*    <input className="radio-input" type="radio" name="engine"*/}
+                        {/*           onClick={() => setCourier('ECONT')} disabled={true}/>*/}
+                        {/*    <span className="radio-tile">*/}
+                        {/*  <img src={econt} alt="Econt" className="courierLogoImage p-2"/>*/}
+                        {/*</span>*/}
+                        {/*</label>*/}
 
-                        <label>
-                            <input className="radio-input" type="radio" name="engine"
-                                   onClick={() => setCourier('SAMEDAY')}/>
-                            <span className="radio-tile">
-                          <img src={sameday} alt="Sameday" className="courierLogoImage p-1"/>
-                        </span>
-                        </label>
+                        {/*<label>*/}
+                        {/*    <input className="radio-input" type="radio" name="engine"*/}
+                        {/*           onClick={() => setCourier('SAMEDAY')}/>*/}
+                        {/*    <span className="radio-tile">*/}
+                        {/*  <img src={sameday} alt="Sameday" className="courierLogoImage p-1"/>*/}
+                        {/*</span>*/}
+                        {/*</label>*/}
                     </div>
 
                     <div className="deliveryType">
@@ -371,64 +373,74 @@ function AddressModal({show, handleClose, cartItems, totalWeight, productCount, 
 
                     <div className="orderDetails">
                         <div className="orderDetailsText">
-                        <span className="fw-bolder ">
-                            <span className="keyColorInfo me-2">
-                                <FaShoppingCart className="mb-1 me-1"/>
-                                    Брой продукти в количката:
-                                </span>
-                            {productCount} бр.
-                        </span>
 
-                            <span className="fw-bolder ">
-                            <span className="keyColorInfo me-2">
-                                <IoPricetags className="mb-1 me-1"/>
-                                    Сума без намаление:
+                            <div className="fw-bolder fs-5 mt-1">
+                                <span className="keyColorInfo me-2">
+                                    <FaShoppingCart className="mb-1 me-1"/>
+                                    Брой продукти в количката
+                                </span>
+                                {productCount} бр.
+                            </div>
+
+                            <div className="fw-bolder fs-5 mt-1">
+                                <span className="keyColorInfo me-2">
+                                    <IoPricetags className="mb-1 me-1"/>
+                                    Сума без намаление
                                 </span>
                                 {totalAmount.toFixed(2)} лв.
-                        </span>
+                            </div>
 
-                            <span className="fw-bolder ">
-                            <span className="keyColorInfo me-2">
-                                <IoPricetag className="mb-1 me-1"/>
-                                    Сума с намаление:
+                            <div className="fw-bolder fs-5 mt-1">
+                                <span className="keyColorInfo me-2">
+                                    <IoPricetag className="mb-1 me-1"/>
+                                    Сума с намаление
                                 </span>
                                 {(totalAmount - totalSaving).toFixed(2)} лв.
-                        </span>
+                            </div>
 
-                            <span className="fw-bolder ">
-                            <span className="keyColorInfo me-2">
-                                <GiPiggyBank className="mb-1 me-1"/>
-                                    Спестявате:
+                            <div className="fw-bolder fs-5 mt-1">
+                                <span className="keyColorInfo me-2">
+                                    <GiPiggyBank className="mb-1 me-1"/>
+                                    Спестявате
                                 </span>
                                 {totalSaving.toFixed(2)} лв.
-                        </span>
+                            </div>
 
-                            <span className="fw-bolder ">
-                            <span className="keyColorInfo me-2">
-                                <FaTruckLoading className="mb-1 me-1"/>
-                                    Доставка:
+                            <div className="fw-bolder fs-5 mt-1">
+                                <span className="keyColorInfo me-2">
+                                    <FaTruckLoading className="mb-1 me-1"/>
+                                    Доставка
                                 </span>
                                 {deliveryPrice.toFixed(2)} лв.
-                        </span>
+                            </div>
 
-                            <span className="fw-bolder ">
-                            <span className="keyColorInfo me-2">
-                                <FaWeightHanging className="mb-1 me-1"/>
-                                    Тегло:
+                            <div className="fw-bolder fs-5 mt-1">
+                                 <span className="keyColorInfo me-2">
+                                    <FaWeightHanging className="mb-1 me-1"/>
+                                    Тегло
                                 </span>
                                 {totalWeight.toFixed(3)} кг.
-                        </span>
+                            </div>
 
-                            <span className="fw-bolder">
-                            <span className="keyColorInfo me-2">
-                                <RiHandCoinFill className="mb-1 me-1"/>
-                                    Дължима сума при доставка:
+                            <div className="fw-bolder fs-5 mt-1">
+                                <span className="keyColorInfo me-2">
+                                    <RiHandCoinFill className="mb-1 me-1"/>
+                                    Дължима сума при доставка
                                 </span>
                                 {(totalAmount - totalSaving + deliveryPrice).toFixed(2)} лв.
-                        </span>
+                            </div>
                         </div>
 
                         <div className="buttonBox">
+                            <div>
+                                <div className="orderContent">
+                                    <IoShieldCheckmark/>
+                                    <FaTruckArrowRight/>
+                                    <FaBoxOpen/>
+                                </div>
+                                <h5 className="mt-2 text-center fw-bold">Пазарувай сигурно и надеждно с нас. </h5>
+                            </div>
+
                             <button className="learn-more" onClick={() => handleSendOrder()}>
                                 <span className="circle" aria-hidden="true">
                                     <span className="icon arrow"></span>

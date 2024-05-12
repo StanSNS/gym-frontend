@@ -4,7 +4,7 @@
     align-items: center;
     justify-content: center;
     gap: 20px;
-    background-color: #ffffff;
+    background-color: var(--myWhite);
     font-family: "Inter", sans-serif;
 }
 
@@ -20,7 +20,7 @@
     align-items: center;
     justify-content: center;
     gap: 20px;
-    background-color: #ffffff;
+    background-color: var(--myWhite);
     font-family: "Inter", sans-serif;
     margin-top: 1rem;
 }
@@ -31,7 +31,7 @@
     align-items: center;
     justify-content: center;
     gap: 20px;
-    background-color: #ffffff;
+    background-color: var(--myWhite);
     font-family: "Inter", sans-serif;
     margin-top: 1rem;
 }
@@ -75,7 +75,7 @@
 
 .input_label {
     font-size: 14px;
-    color: #333333;
+    color: var(--myBlack);
     font-weight: bold;
     padding-left: 0.4rem;
     padding-bottom: 0.2rem;
@@ -87,13 +87,13 @@
     padding: 0 0 0 40px;
     border-radius: 12px;
     outline: none;
-    border: 2px solid #333333;
+    border: 2px solid var(--myBlack);
     transition: all 0.3s cubic-bezier(0.15, 0.83, 0.66, 1);
 }
 
 .input_field:focus {
-    border: 1px solid transparent;
-    box-shadow: 0px 0px 0px 2px #242424;
+    border-color: transparent;
+    box-shadow: 0px 0px 10px var(--myGreenBlue);
 }
 
 .radio-inputs {
@@ -360,11 +360,8 @@ button.learn-more .circle .icon.arrow {
 }
 
 .orderDetails {
-    margin-top: 1.5rem;
-    margin-left: 1%;
-    margin-right: 1%;
     display: flex;
-    margin-bottom: 1.5rem;
+    margin: 1rem 1% 1.5rem;
 }
 
 .orderDetailsText {
@@ -375,9 +372,22 @@ button.learn-more .circle .icon.arrow {
 
 .buttonBox {
     display: flex;
-    justify-content: flex-end;
+    flex-direction: column;
     align-items: center;
+    justify-content: space-evenly;
     width: 30%;
+}
+
+.buttonBox .orderContent {
+    font-size: 50px;
+    display: flex !important;
+    width: 100%;
+    justify-content: space-evenly;
+    color: var(--myGreenBlue);
+    background-color: var(--myBlack);
+    border-radius: 20px;
+    padding: 0.5rem 0;
+    box-shadow: 0 0 10px var(--myBlack);
 }
 
 .customModalPosition {
@@ -404,12 +414,12 @@ button.learn-more .circle .icon.arrow {
 }
 
 .input_field::-webkit-scrollbar-track {
-    background-color: #333333;
+    background-color: var(--myBlack);
     border-radius: 30px;
 }
 
 .input_field::-webkit-scrollbar-thumb {
-    background-color: orangered;
+    background-color: var(--myGreenBlue);
     border-radius: 30px;
     height: 100px;
 }
@@ -420,8 +430,8 @@ button.learn-more .circle .icon.arrow {
     display: flex;
     flex-direction: column;
     align-items: center;
-    background-color: #333333;
-    color: white;
+    background-color: var(--myBlack);
+    color: var(--myWhite);
     padding: 1rem;
     border-radius: 20px;
 }
