@@ -48,6 +48,7 @@ function Product() {
                 localStorage.setItem('selectedProduct', JSON.stringify(data));
                 localStorage.removeItem("modelId");
                 unavailableTastes.clear()
+                setSelectedTaste(null)
             }
         } catch (error) {
             navigator("/internal-server-error");
@@ -342,7 +343,7 @@ function Product() {
                                                   <span className="keyColorInfo me-2">
                                                       <BiSolidCategory className="mb-1"/> Категория:
                                                    </span>
-                                                {product.category}
+                                               <span className="fs-5">{product.category}</span>
                                             </span>
 
                                             {product.weightKg !== "0.000" && (
@@ -350,26 +351,23 @@ function Product() {
                                         <span className="keyColorInfo me-2">
                                             <FaWeightHanging className="mb-1"/> Тегло:
                                         </span>
-                                                    {product.weightKg} кг.
+                                        <span className="fs-5">{product.weightKg} кг.</span>
                                     </span>
                                             )}
-
-                                            <span className="fw-bolder mt-2">
+                                            <div className="fw-bolder mt-2">
                                     <span className="keyColorInfo me-2">
                                         <MdOutlineMoneyOffCsred className="mb-1"/> Редовна цена:
                                     </span>
-                                    <span className="strikeText">
-                                        {product.regularPrice.toFixed(2)}лв
-                                    </span>
-                                </span>
+                                                <span className="strikeText fs-5">
+                                                 {product.regularPrice.toFixed(2)} лв.
+                                                  </span>
+                                            </div>
 
                                             <span className="fw-bolder mt-2">
                                     <span className="keyColorInfo me-2">
                                         <IoIosPricetag className="mb-1"/> Намалена цена:
                                     </span>
-                                    <span>
-                                        {product.discountedPrice.toFixed(2)}лв
-                                    </span>
+                                     <span className="fs-5">{product.discountedPrice.toFixed(2)} лв.</span>
                                 </span>
                                         </div>
                                     </div>
