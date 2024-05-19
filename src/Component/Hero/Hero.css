@@ -39,7 +39,7 @@
     text-align: center;
     font-style: italic;
     color: var(--myWhite);
-    text-shadow: 0 0 20px rgb(15,255,164, 0.7);
+    text-shadow: 0 0 20px rgb(15,255,164, 0.6);
 }
 
 .sliderImageContainer2 {
@@ -65,7 +65,7 @@
     text-align: center;
     font-style: italic;
     color: var(--myWhite);
-    text-shadow: 0 0 20px rgb(15,255,164, 0.7);
+    text-shadow: 0 0 20px rgb(15,255,164, 0.6);
 }
 
 .sliderImage {

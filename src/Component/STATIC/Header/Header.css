@@ -1,28 +1,36 @@
 .navbarContainer {
-    background-color: #333;
-    color: #333333;
+    background-color: var(--myBlack);
+    color: var(--myBlack);
 }
 
 .navbar > .container-fluid {
     max-width: 2050px;
 }
 
+.navbar-brand {
+    width: 100px;
+}
+
 .headerLogo {
     transition: color 0.3s ease-in-out;
-    color: white;
+    color: var(--myWhite);
+    display: flex;
+    font-weight: bolder;
+    align-items: center;
 }
 
 .headerLogo:hover {
-    color: orangered;
+    color: var(--myGreenBlue);
+    cursor: pointer;
 }
 
-.headerImage{
-    width: 5%;
+.headerImage {
+    width: 24px;
     margin-right: 6px;
     transition: all 0.4s ease-in-out;
 }
 
-.headerLogo:hover .headerImage{
+.headerLogo:hover .headerImage {
     margin-right: 10px;
 }
 
@@ -33,38 +41,36 @@
     transition: color 0.2s ease-in-out;
     font-size: 17px;
     margin-left: 1rem;
-    color: white;
+    color: var(--myWhite);
 }
 
 .navLinkContent:hover {
-    color: orangered;
+    color: var(--myGreenBlue);
 }
 
 .cartItemCount {
-    background-color: orangered;
-    color: white;
+    background-color: var(--myGreenBlue);
+    color: var(--myBlack);
     border-radius: 50%;
-
     padding: 5px 10px;
     font-size: 0.8rem;
     margin-left: 0.5rem;
 }
-
 
 .navDropDownTitle {
     font-weight: bolder;
     transition: color 0.2s ease-in-out;
     font-size: 17px;
     margin-left: 1rem;
-    color: white;
+    color: var(--myWhite);
 }
 
 #offcanvasNavbarDropdown-expand-lg {
-    color: white;
+    color: var(--myWhite);
 }
 
 #offcanvasNavbarDropdown-expand-lg:hover {
-    color: orangered;
+    color: var(--myGreenBlue);
 }
 
 .custom-toggler .navbar-toggler-icon {
@@ -72,21 +78,27 @@
 }
 
 .navbar-toggler .collapsed {
-    color: white;
-    border-color: white;
+    color: var(--myWhite);
+    border-color: var(--myWhite);
+    transition: all 0.2s ease-in-out;
 }
 
 [type=button]:not(:disabled) {
-    border: 2px solid white;
+    border: 2px solid var(--myWhite);
+}
+
+.navbar-toggler:focus {
+    box-shadow: none;
+    border-color: var(--myGreenBlue);
 }
 
 button:focus:not(:focus-visible) {
-    color: white;
+    color: var(--myWhite);
 }
 
 .offcanvas-header {
-    background-color: #333333;
-    color: white;
+    background-color: var(--myBlack);
+    color: var(--myWhite);
 }
 
 .btn-close {
@@ -94,9 +106,8 @@ button:focus:not(:focus-visible) {
 }
 
 
-
 .offcanvas-body {
-    background-color: #333333;
+    background-color: var(--myBlack);;
 }
 
 .navDropDownItem {

@@ -3,23 +3,9 @@ import {useEffect, useState} from 'react';
 import Container from 'react-bootstrap/Container';
 import Nav from 'react-bootstrap/Nav';
 import Navbar from 'react-bootstrap/Navbar';
-import NavDropdown from 'react-bootstrap/NavDropdown';
 import Offcanvas from 'react-bootstrap/Offcanvas';
-import {
-    FaDumbbell,
-    FaFire,
-    FaListAlt,
-    FaShoppingBag,
-    FaShoppingCart,
-    FaTags,
-    FaTruck,
-    FaUserPlus
-} from "react-icons/fa";
+import {FaQuestionCircle, FaShoppingCart, FaTimes, FaTruck} from "react-icons/fa";
 import "./Header.css"
-import {IoLogIn} from "react-icons/io5";
-import {GiCellarBarrels, GiWeightLiftingUp} from "react-icons/gi";
-import {ImExit} from "react-icons/im";
-import LoginModal from "../../Modals/User/Login/LoginModal";
 import TrackOrderModal from "../../Modals/User/TrackOrderModal/TrackOrderModal";
 import {getCartFromStorage} from "../../../Service/ProductService";
 import CartModal from "../../Modals/User/CartModal/CartModal";
@@ -27,10 +13,10 @@ import headerImage from "../../../Resources/logoImage.png"
 
 
 function Header() {
-    const [showLoginModal, setShowLoginModal] = useState(false);
     const [showTrackOrderModal, setShowTrackOrderModal] = useState(false);
     const [cartItems, setCartItems] = useState([]);
     const [showCartModal, setShowCartModal] = useState(false);
+    const [showOffcanvas, setShowOffcanvas] = useState(false);
 
     useEffect(() => {
         refreshCartItems();
@@ -54,73 +40,62 @@ function Header() {
 
     const productCount = cartItems.reduce((acc, item) => acc + item.quantity, 0);
 
-    const handleLoginModalClose = () => {
-        setShowLoginModal(false);
-    };
-
     const handleTrackOrderModalClose = () => {
         setShowTrackOrderModal(false);
     };
 
+    const handleRelocateToHomePage = () => {
+        window.location.href = "/";
+    };
+
+
+    const handleOffcanvasClose = () => {
+        setShowOffcanvas(false);
+    };
+
+    const handleOffcanvasShow = () => {
+        setShowOffcanvas(true);
+    };
+
     return (
         <>
-            <Navbar key={'lg'} expand={'lg'} className="navbarContainer">
+            <Navbar expand={'md'} className="navbarContainer">
                 <Container fluid>
-                    <Navbar.Brand href="/">
-                        <span className="d-flex align-items-center fw-bolder headerLogo">
+                    <Navbar.Brand>
+                        <div className="headerLogo" onClick={handleRelocateToHomePage}>
                             <img src={headerImage} alt="headerImage" className="headerImage"/>
                             GymFit
-                        </span>
+                        </div>
                     </Navbar.Brand>
-                    <Navbar.Toggle aria-controls={`offcanvasNavbar-expand-lg`} className="custom-toggler"/>
-                    <Navbar.Offcanvas id={`offcanvasNavbar-expand-lg`}
-                                      aria-labelledby={`offcanvasNavbarLabel-expand-lg`} placement="start">
-                        <Offcanvas.Header closeButton>
-                            <Offcanvas.Title id={`offcanvasNavbarLabel-expand-lg`}>
-                                <span className="d-flex align-items-center">  <FaDumbbell
-                                    className="me-2"/>GymFit</span>
+                    <Navbar.Toggle aria-controls={`offcanvasNavbar-expand-md`}
+                                   className="custom-toggler"
+                                   onClick={handleOffcanvasShow}
+                    />
+                    <Navbar.Offcanvas id={`offcanvasNavbar-expand-md`}
+                                      aria-labelledby={`offcanvasNavbarLabel-expand-md`} placement="end"
+                                      show={showOffcanvas} onHide={handleOffcanvasClose}>
+                        <Offcanvas.Header>
+                            <Offcanvas.Title id={`offcanvasNavbarLabel-expand-md`}>
+                                <div className="headerLogo" onClick={handleRelocateToHomePage}>
+                                    <img src={headerImage} alt="headerImage" className="headerImage"/>
+                                    GymFit
+                                </div>
                             </Offcanvas.Title>
+                            <button className="closingModalButton" onClick={handleOffcanvasClose}>
+                                <FaTimes/>
+                            </button>
                         </Offcanvas.Header>
                         <Offcanvas.Body>
-                            <Nav className="justify-content-end flex-grow-1 pe-4">
-                                <Nav.Link href="#action2" onClick={() => setShowLoginModal(true)}>
-                                    <span className="navLinkContent"><IoLogIn/>
-                                        <span className="ms-1">Login</span>
-                                    </span>
-                                </Nav.Link>
-                                <Nav.Link href="#action2">
+                            <Nav className="justify-content-end flex-grow-1 align-items-center">
+                                <Nav.Link href="/about">
                                     <span className="navLinkContent">
-                                        <FaUserPlus/>
-                                        <span className="ms-1">Register</span>
-                                    </span>
-                                </Nav.Link>
-                                <Nav.Link href="#action2">
-                                     <span className="navLinkContent">
-                                         <FaShoppingBag/>
-                                         <span className="ms-1">Products</span>
-                                     </span><
-                                    /Nav.Link>
-                                <NavDropdown title={
-                                    <span><FaListAlt className="align-content-center mb-1 fw-bolder iconCategories"/>
-                                        <span className="ms-1">Categories</span>
-                                    </span>} id={`offcanvasNavbarDropdown-expand-lg`} className="navDropDownTitle">
-                                    <NavDropdown.Item className="navDropDownItem" href="#action3">
-                                        <FaFire className="me-2"/> Fat Burners
-                                    </NavDropdown.Item>
-                                    <NavDropdown.Item className="navDropDownItem" href="#action3">
-                                        <GiCellarBarrels className="me-2"/> Proteins
-                                    </NavDropdown.Item>
-                                    <NavDropdown.Item className="navDropDownItem" href="#action3">
-                                        <GiWeightLiftingUp className="me-2"/> Gym equipment
-                                    </NavDropdown.Item>
-                                </NavDropdown>
-                                <Nav.Link href="#action2">
-                                    <span className="navLinkContent"><FaTags/>
-                                        <span className="ms-1">Deals</span>
+                                        <FaQuestionCircle/>
+                                        <span className="ms-1">За нас</span>
                                     </span>
                                 </Nav.Link>
                                 <Nav.Link onClick={() => setShowTrackOrderModal(true)}>
-                                    <span className="navLinkContent"><FaTruck/>
+                                    <span className="navLinkContent">
+                                        <FaTruck/>
                                         <span className="ms-1">Проследяване</span>
                                     </span>
                                 </Nav.Link>
@@ -128,15 +103,11 @@ function Header() {
                                     setShowCartModal(true);
                                 }}>
                                     <span className="navLinkContent">
-                                        <FaShoppingCart/> <span className="ms-1">Количка</span>
+                                        <FaShoppingCart/>
+                                        <span className="ms-1">Количка</span>
                                         {productCount > 0 &&
-                                            <span className="cartItemCount">{productCount}</span>
+                                            <div className="cartItemCount">{productCount}</div>
                                         }
-                                    </span>
-                                </Nav.Link>
-                                <Nav.Link href="#action2">
-                                    <span className="navLinkContent"><ImExit/>
-                                        <span className="ms-1">Logout</span>
                                     </span>
                                 </Nav.Link>
                             </Nav>
@@ -144,7 +115,6 @@ function Header() {
                     </Navbar.Offcanvas>
                 </Container>
 
-                <LoginModal show={showLoginModal} handleClose={handleLoginModalClose}/>
                 <TrackOrderModal show={showTrackOrderModal} handleClose={handleTrackOrderModalClose}/>
                 <CartModal show={showCartModal} handleClose={() => setShowCartModal(false)} cartItems={cartItems}/>
             </Navbar>
