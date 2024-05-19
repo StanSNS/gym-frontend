@@ -1,7 +1,8 @@
 :root {
     --myGreenBlue: #0fffa4;
     --myBlack: #333333;
-    --myWhite: #ffffff
+    --myWhite: #ffffff;
+    --myRed: orangered;
 }
 
 .myGreenBlueColor {
@@ -14,4 +15,8 @@
 
 .myWhiteColor {
     color: var(--myWhite);
+}
+
+.myRedColor {
+    color: var(--myRed);
 }

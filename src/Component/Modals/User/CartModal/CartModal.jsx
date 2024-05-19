@@ -5,20 +5,22 @@ import './CartModal.css';
 import {PiMinusCircleFill, PiPlusCircleFill} from "react-icons/pi";
 import {
     FaPiggyBank,
-    FaPlusCircle,
     FaShoppingCart,
     FaTimes,
     FaTimesCircle,
+    FaTrashAlt,
     FaWallet,
     FaWeightHanging
 } from "react-icons/fa";
 import {GiBank, GiWrappedSweet} from "react-icons/gi";
 import {IoIosPricetag} from "react-icons/io";
-import {addToCart, getCartFromStorage, reduceQuantityInCart} from "../../../../Service/ProductService";
+import {addToCart, CART_KEY, getCartFromStorage, reduceQuantityInCart} from "../../../../Service/ProductService";
 import AddressModal from "../AddressModal/AddressModal";
 import {getAllAddresses} from "../../../../Service/OrderService";
 import Loader from "../../../STATIC/Loader/Loader";
 import {useNavigate} from "react-router-dom";
+import {BsClipboard2PlusFill} from "react-icons/bs";
+import {Button} from "react-bootstrap";
 
 function CartModal({show, handleClose}) {
     const [myCartItems, setMyCartItems] = useState([]);
@@ -88,6 +90,10 @@ function CartModal({show, handleClose}) {
         setShowAddressModal(false);
     };
 
+    const handleClearBasket = () => {
+        localStorage.removeItem(CART_KEY)
+    }
+
     return (
         <>
 
@@ -125,93 +131,107 @@ function CartModal({show, handleClose}) {
                     {myCartItems.length !== 0 && (
                         <button className="orderButtonCart mt-3 mb-3"
                                 onClick={() => handleOpenAddressModalAndLoadAddresses()}>
-                            <span><FaPlusCircle className="mb-1 me-2"/>Добави адрес</span>
+                            <span><BsClipboard2PlusFill className="mb-1 me-2"/>Добави адрес за доствка</span>
                         </button>
                     )}
                 </Modal.Header>
                 <Modal.Body>
-                    {myCartItems.length === 0 ? (
+                    {myCartItems.length === 0 && (
                         <h3 className="emptyCartMessage redColorText">
                             <FaTimesCircle className="me-2"/>
                             Няма продукти в количката
                         </h3>
-                    ) : (
-                        myCartItems.map((product, index) => (
-                            <Card key={index} className="cardProductCart">
-                                <div className="imageAndQuantityControlContainer">
-                                    <Card.Img src={product.image} alt={product.name}/>
-                                    <div className="quantityControls">
-                                        <button
-                                            onClick={() => handleDecreaseQuantity(product, product?.selectedTaste, product.quantity)}
-                                            className="quantityControl">
-                                            <PiMinusCircleFill/>
-                                        </button>
+                    )}
 
-                                        <span className="quantityText mt-1">{product.quantity}</span>
+                    {myCartItems.length > 0 && (
+                        <div>
+                            <div className="d-flex justify-content-end">
+                                <Button variant="light" className="emptyCartButton" onClick={() => handleClearBasket()}>
+                                    <FaTrashAlt className="mb-1 me-2"/>
+                                    Изпразни количката
+                                </Button>
+                            </div>
 
-                                        <button onClick={() => handleIncreaseQuantity(product, product?.selectedTaste)}
+                            {myCartItems.map((product, index) => (
+                                <Card key={index} className="cardProductCart">
+                                    <div className="imageAndQuantityControlContainer">
+                                        <Card.Img src={product.image} alt={product.name}/>
+                                        <div className="quantityControls">
+                                            <button
+                                                onClick={() => handleDecreaseQuantity(product, product?.selectedTaste, product.quantity)}
                                                 className="quantityControl">
-                                            <PiPlusCircleFill/>
-                                        </button>
-                                    </div>
-                                </div>
+                                                <PiMinusCircleFill/>
+                                            </button>
 
-                                <Card.Body className="cartCardBody">
-                                    <div>
-                                        <Card.Title className="fw-bold">
-                                            {product.name} - {product.brandEntity.name}
-                                        </Card.Title>
-                                        <div className="cardBody">
-                                            <div className="fw-bolder fs-5">
+                                            <div className="quantityText">{product.quantity}</div>
+
+                                            <button
+                                                onClick={() => handleIncreaseQuantity(product, product?.selectedTaste)}
+                                                className="quantityControl">
+                                                <PiPlusCircleFill/>
+                                            </button>
+                                        </div>
+                                    </div>
+
+                                    <Card.Body className="cartCardBody">
+                                        <div>
+                                            <Card.Title className="fw-bold">
+                                                {product.name} - {product.brandEntity.name}
+                                            </Card.Title>
+                                            <div className="cardBody">
+                                                <div className="fw-bolder fs-5">
                                                 <span className="keyColorInfo me-2">
                                                     <FaWeightHanging className="mb-1 me-1"/>
                                                     Тегло
                                                 </span>
-                                                {product.weightKg} кг.
-                                            </div>
+                                                    {product.weightKg} кг.
+                                                </div>
 
-                                            {product.selectedTaste && (
-                                                <div className="fw-bolder mt-1 fs-5">
+                                                {product.selectedTaste && (
+                                                    <div className="fw-bolder mt-1 fs-5">
                                                     <span className="keyColorInfo me-2">
                                                         <GiWrappedSweet className="mb-1 me-1"/>
                                                         Вкус
                                                     </span>
-                                                    {product?.selectedTaste.name}
-                                                </div>
-                                            )}
+                                                        {product?.selectedTaste.name}
+                                                    </div>
+                                                )}
 
-                                            <div className="fw-bolder mt-1 fs-5">
+                                                <div className="fw-bolder mt-1 fs-5">
                                                 <span className="keyColorInfo me-2">
                                                     <IoIosPricetag className="mb-1 me-1"/>
                                                     Намалена цена
                                                 </span>
-                                                {product.discountedPrice.toFixed(2)} лв.
+                                                    {product.discountedPrice.toFixed(2)} лв.
+                                                </div>
                                             </div>
                                         </div>
-                                    </div>
 
-                                    <div className="fw-bolder mt-1 fs-5">
+                                        <div className="fw-bolder mt-1 fs-5">
                                         <span className="keyColorInfo me-2">
                                             <FaWallet className="mb-1 me-1"/>
                                             Сума
                                         </span>
-                                        {(product.discountedPrice * product.quantity).toFixed(2)} лв.
-                                    </div>
+                                            {(product.discountedPrice * product.quantity).toFixed(2)} лв.
+                                        </div>
 
-                                    <div className="fw-bolder mt-1 fs-5">
+                                        <div className="fw-bolder mt-1 fs-5">
                                         <span className="keyColorInfo me-2">
                                             <GiBank className="mb-1 me-1"/>
                                             Намаление
                                         </span>
-                                        {(product.regularPrice *
-                                            product.quantity -
-                                            product.discountedPrice *
-                                            product.quantity).toFixed(2)} лв.
-                                    </div>
-                                </Card.Body>
-                            </Card>
-                        ))
+                                            {(product.regularPrice *
+                                                product.quantity -
+                                                product.discountedPrice *
+                                                product.quantity).toFixed(2)} лв.
+                                        </div>
+                                    </Card.Body>
+                                </Card>
+                            ))}
+                        </div>
                     )}
+
+
                 </Modal.Body>
             </Modal>
 

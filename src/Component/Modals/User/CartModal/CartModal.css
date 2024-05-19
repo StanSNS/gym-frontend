@@ -8,7 +8,7 @@
     transition: all 0.2s ease-in-out;
 }
 
-.cardProductCart:hover{
+.cardProductCart:hover {
     scale: 1.01;
     box-shadow: 0 4px 30px 0 var(--myGreenBlue);
 }
@@ -35,7 +35,7 @@
     background: transparent;
 }
 
-.quantityControl svg{
+.quantityControl svg {
     border-radius: 50%;
     transition: all 0.2s ease-in-out;
 }
@@ -46,7 +46,7 @@
     border-radius: 50%;
 }
 
-.quantityControl svg{
+.quantityControl svg {
     color: var(--myBlack);
 }
 
@@ -72,7 +72,7 @@
     display: flex;
     flex-direction: column;
     justify-content: space-around;
-width: 120px !important;
+    width: 120px !important;
 }
 
 .cardProductCart .cardBody {
@@ -165,8 +165,24 @@ width: 120px !important;
     color: var(--myBlack);
 }
 
-.emptyCartMessage{
+.emptyCartMessage {
     display: flex;
     justify-content: center;
     align-items: center;
+}
+
+.emptyCartButton {
+    color: var(--myWhite) !important;
+    background-color: var(--myRed) !important;
+    font-size: 18px !important;
+    font-weight: bold !important;
+    padding: 12px !important;
+    border-radius: 14px !important;
+    scale: 1;
+    transition: all 0.3s ease-in-out !important;
+    border: none !important;
+}
+
+.emptyCartButton:hover {
+    scale: 1.02;
 }
