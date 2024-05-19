@@ -113,7 +113,7 @@ const DropdownButtons = ({
                         <IoPricetag className="mb-1 me-2"/>
                         Цена
                         <TbSort09 className="ms-1 fs-3 mb-1"/>
-                        <FaLongArrowAltUp className="mb-1" />
+                        <FaLongArrowAltUp className="mb-1"/>
                     </Link>
 
                     <Link to={"#"} className="dropdown-item fw-bolder" onClick={() => {
@@ -123,7 +123,7 @@ const DropdownButtons = ({
                         <IoPricetag className="mb-1 me-2"/>
                         Цена
                         <TbSort90 className="ms-1 fs-3 mb-1"/>
-                        <FaLongArrowAltDown className="mb-1" />
+                        <FaLongArrowAltDown className="mb-1"/>
                     </Link>
 
                     <Link to={"#"} className="dropdown-item fw-bolder" onClick={() => {
@@ -133,7 +133,7 @@ const DropdownButtons = ({
                         <FaPercentage className="mb-1 me-2"/>
                         Процент
                         <TbSort09 className="ms-1 fs-3 mb-1"/>
-                        <FaLongArrowAltUp className="mb-1" />
+                        <FaLongArrowAltUp className="mb-1"/>
                     </Link>
 
                     <Link to={"#"} className="dropdown-item fw-bolder" onClick={() => {
@@ -143,7 +143,7 @@ const DropdownButtons = ({
                         <FaPercentage className="mb-1 me-2"/>
                         Процент
                         <TbSort90 className="ms-1 fs-3 mb-1"/>
-                        <FaLongArrowAltDown className="mb-1" />
+                        <FaLongArrowAltDown className="mb-1"/>
                     </Link>
 
                     <Link to={"#"} className="dropdown-item fw-bolder" onClick={() => {
@@ -153,7 +153,7 @@ const DropdownButtons = ({
                         <FaWeightHanging className="mb-1 me-2"/>
                         Тегло
                         <TbSort09 className="ms-1 fs-3 mb-1"/>
-                        <FaLongArrowAltUp className="mb-1" />
+                        <FaLongArrowAltUp className="mb-1"/>
                     </Link>
 
                     <Link to={"#"} className="dropdown-item fw-bolder" onClick={() => {
@@ -163,7 +163,7 @@ const DropdownButtons = ({
                         <FaWeightHanging className="mb-1 me-2"/>
                         Тегло
                         <TbSort90 className="ms-1 fs-3 mb-1"/>
-                        <FaLongArrowAltDown className="mb-1" />
+                        <FaLongArrowAltDown className="mb-1"/>
                     </Link>
 
                     <Link to={"#"} className="dropdown-item fw-bolder" onClick={() => {
@@ -173,7 +173,7 @@ const DropdownButtons = ({
                         <FaStar className="mb-1 me-2"/>
                         Рейтинг
                         <TbSort09 className="ms-1 fs-3 mb-1"/>
-                        <FaLongArrowAltUp className="mb-1" />
+                        <FaLongArrowAltUp className="mb-1"/>
                     </Link>
 
                     <Link to={"#"} className="dropdown-item fw-bolder" onClick={() => {
@@ -183,7 +183,7 @@ const DropdownButtons = ({
                         <FaStar className="mb-1 me-2"/>
                         Рейтинг
                         <TbSort90 className="ms-1 fs-3 mb-1"/>
-                        <FaLongArrowAltDown className="mb-1" />
+                        <FaLongArrowAltDown className="mb-1"/>
                     </Link>
 
                     <Link to={"#"} className="dropdown-item fw-bolder" onClick={() => {
@@ -193,7 +193,7 @@ const DropdownButtons = ({
                         <FaCommentDots className="mb-1 me-2"/>
                         Ревюта
                         <TbSort09 className="ms-1 fs-3 mb-1"/>
-                        <FaLongArrowAltUp className="mb-1" />
+                        <FaLongArrowAltUp className="mb-1"/>
                     </Link>
                     <Link to={"#"} className="dropdown-item fw-bolder" onClick={() => {
                         toggleDropdown('orderBy');
@@ -202,7 +202,7 @@ const DropdownButtons = ({
                         <FaCommentDots className="mb-1 me-2"/>
                         Ревюта
                         <TbSort90 className="ms-1 fs-3 mb-1"/>
-                        <FaLongArrowAltDown className="mb-1" />
+                        <FaLongArrowAltDown className="mb-1"/>
                     </Link>
                 </div>
             </div>
@@ -217,7 +217,7 @@ const DropdownButtons = ({
                 )}
                 <button className="orderButton align-bottom ml-2 dropdown-toggle" type="button"
                         onClick={() => toggleDropdown('weight')}>
-                    <GiWeight  className="me-1 fs-4 myGreenBlueColor"/>Количество
+                    <GiWeight className="me-1 fs-4 myGreenBlueColor"/>Количество
                 </button>
                 <div className={`dropdown-menu${isOpenWeight ? ' show' : ''} mt-1 myScrollable`} style={{
                     maxHeight: '500px',
