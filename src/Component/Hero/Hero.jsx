@@ -35,7 +35,7 @@ function Hero() {
         <div className="carouselContainer">
             <Carousel data-bs-theme="dark" className="carousel" indicators={false} controls={false} fade={true}>
                 {carouselData.map((data, index) => (
-                    <Carousel.Item key={index} interval={3000}>
+                    <Carousel.Item key={index} interval={4000}>
                         <div className="sliderImageContainer1">
                             <img
                                 className="sliderImage"
@@ -50,7 +50,7 @@ function Hero() {
 
             <Carousel data-bs-theme="dark" className="carousel" indicators={false} controls={false} fade={true}>
                 {carousel2Images.map((data, index) => (
-                    <Carousel.Item key={index} interval={3000}>
+                    <Carousel.Item key={index} interval={4000}>
                         <div className="sliderImageContainer2">
                             <img
                                 className="sliderImage"

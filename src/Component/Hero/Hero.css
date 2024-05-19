@@ -18,6 +18,7 @@
     width: 100%;
     display: flex;
     justify-content: flex-end;
+    border-right: 2px solid var(--myGreenBlue);
 }
 
 .sliderImageContainer1 .carouselTitle {
@@ -37,14 +38,15 @@
     padding-right: 2rem;
     text-align: center;
     font-style: italic;
-    color: #ffffff;
-    text-shadow: 0px 14px 20px rgb(164, 164, 164);
+    color: var(--myWhite);
+    text-shadow: 0 0 20px rgb(15,255,164, 0.7);
 }
 
 .sliderImageContainer2 {
-        width: 100%;
-        display: flex;
-        justify-content: flex-start;
+    width: 100%;
+    display: flex;
+    justify-content: flex-start;
+    border-left: 2px solid var(--myGreenBlue);
 }
 
 .sliderImageContainer2 .carouselTitle {
@@ -62,8 +64,8 @@
     word-break: break-word;
     text-align: center;
     font-style: italic;
-    color: #ffffff;
-    text-shadow: 0px 14px 20px rgb(164, 164, 164);
+    color: var(--myWhite);
+    text-shadow: 0 0 20px rgb(15,255,164, 0.7);
 }
 
 .sliderImage {
