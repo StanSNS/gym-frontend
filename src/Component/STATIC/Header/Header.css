@@ -1,6 +1,7 @@
 .navbarContainer {
     background-color: var(--myBlack);
     color: var(--myBlack);
+    height: 60px;
 }
 
 .navbar > .container-fluid {

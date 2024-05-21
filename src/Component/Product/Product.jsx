@@ -3,7 +3,7 @@ import {addToCart, checkIfProductExists, getProductByModelId} from "../../Servic
 import './Product.css'
 import {Button, Dropdown, Modal} from "react-bootstrap";
 import BarChart from "./BarChart/BarChart";
-import {FaCartPlus, FaCheckCircle, FaStar, FaTimesCircle, FaWeightHanging} from "react-icons/fa";
+import {FaArrowUp, FaCartPlus, FaCheckCircle, FaStar, FaTimesCircle, FaWeightHanging} from "react-icons/fa";
 import DoughnutChart from "./DoughnutChart/DoughnutChart";
 import {BiSolidCategory, BiSolidDetail} from "react-icons/bi";
 import {MdOutlineMoneyOffCsred} from "react-icons/md";
@@ -206,7 +206,7 @@ function Product() {
                                                                     }}
                                                                     className={unavailableTastes.has(taste.name) ? "disabled-dropdown-item" : ""}
                                                                 >
-                                                                    <GiWrappedSweet className="redColorText mb-1 me-2" />
+                                                                    <GiWrappedSweet className="redColorText mb-1 me-2"/>
                                                                     <span className="fw-bold">{taste.name}</span>
                                                                 </Dropdown.Item>
                                                             ))}
@@ -259,8 +259,9 @@ function Product() {
                                             </div>
 
                                             <div className="addButtonContainer">
-                                                <button onClick={() => handleAddProductToCart(product)}><FaCartPlus
-                                                    className="mb-1 me-2"/>Добави
+                                                <button onClick={() => handleAddProductToCart(product)}>
+                                                    <FaCartPlus className="mb-1 me-2"/>
+                                                    Добави
                                                 </button>
                                             </div>
                                         </div>
@@ -282,70 +283,16 @@ function Product() {
                                 <h1 className="redColorText">Моля изберете продукт...</h1>
                             </div>
                         )}
-
-                        <Modal show={selectTasteErrorModal} onHide={() => setSelectTasteErrorModal(false)}>
-                            <Modal.Header closeButton>
-                                <Modal.Title><FaTimesCircle className="mb-1 me-2 redColorText"/>Грешка</Modal.Title>
-                            </Modal.Header>
-                            <Modal.Body>
-                                <div className="d-flex text-center">
-                                    <h4>
-                                        Моля преди да добавите продукта в кошницата си,
-                                        <span className="redColorText"> изберете вкус </span>
-                                        за него.
-                                    </h4>
-                                </div>
-                            </Modal.Body>
-                        </Modal>
-
-                        <Modal show={showErrorModal} onHide={() => setShowErrorModal(false)}>
-                            <Modal.Header closeButton>
-                                <Modal.Title><FaTimesCircle className="mb-1 me-2 redColorText"/>Грешка</Modal.Title>
-                            </Modal.Header>
-                            <Modal.Body>
-                                <div className="d-flex text-center">
-                                    <h4>
-                                        Избраният от вас вкус не е наличен в момента, молим ви да
-                                        <span className="redColorText"> изберете друг.</span>
-                                    </h4>
-                                </div>
-                            </Modal.Body>
-                        </Modal>
-
-                        <Modal show={showUnavailableProductErrorModal}
-                               onHide={() => setShowUnavailableProductErrorModal(false)}>
-                            <Modal.Header closeButton>
-                                <Modal.Title><FaTimesCircle className="mb-1 me-2 redColorText"/>Грешка</Modal.Title>
-                            </Modal.Header>
-                            <Modal.Body>
-                                <div className="d-flex text-center">
-                                    <h4>
-                                        Избраният от вас продукт не е наличен в момента, молим ви да
-                                        <span className="redColorText"> изберете друг.</span>
-                                    </h4>
-                                </div>
-                            </Modal.Body>
-                        </Modal>
-
-                        <Modal show={showSuccessModal} onHide={() => setShowSuccessModal(false)}>
-                            <Modal.Header closeButton>
-                                <Modal.Title><FaCheckCircle className="mb-1 me-2 successColor"/>Продукта беше
-                                    добавен</Modal.Title>
-                            </Modal.Header>
-                            <Modal.Body>
-                                <div className="d-flex text-center">
-                                    <h4>
-                                        Избраният от вас продукт беше добавен успшно в кошницата.
-                                    </h4>
-                                </div>
-                            </Modal.Body>
-                        </Modal>
                     </div>
 
                     <div className="singleProductSwiper">
 
-                        <h1 className="text-center">Още <span className="myGreenBlueColor">ТОП</span> продукти от
-                            марка <span className="myGreenBlueColor">{product?.brandEntity.name}</span></h1>
+                        <h1 className="text-center">
+                            Още
+                            <span className="myGreenBlueColor"> ТОП </span>
+                            продукти от
+                            <span className="myGreenBlueColor"> {product?.brandEntity.name}</span>
+                        </h1>
 
                         <Swiper
                             effect={'coverflow'}
@@ -415,6 +362,64 @@ function Product() {
                             ))}
                         </Swiper>
                     </div>
+
+                    <Modal show={selectTasteErrorModal} onHide={() => setSelectTasteErrorModal(false)}>
+                        <Modal.Header closeButton>
+                            <Modal.Title><FaTimesCircle className="mb-1 me-2 redColorText"/>Грешка</Modal.Title>
+                        </Modal.Header>
+                        <Modal.Body>
+                            <div className="d-flex text-center">
+                                <h4>
+                                    Моля преди да добавите продукта в кошницата си,
+                                    <span className="redColorText"> изберете вкус </span>
+                                    за него.
+                                </h4>
+                            </div>
+                        </Modal.Body>
+                    </Modal>
+
+                    <Modal show={showErrorModal} onHide={() => setShowErrorModal(false)}>
+                        <Modal.Header closeButton>
+                            <Modal.Title><FaTimesCircle className="mb-1 me-2 redColorText"/>Грешка</Modal.Title>
+                        </Modal.Header>
+                        <Modal.Body>
+                            <div className="d-flex text-center">
+                                <h4>
+                                    Избраният от вас вкус не е наличен в момента, молим ви да
+                                    <span className="redColorText"> изберете друг.</span>
+                                </h4>
+                            </div>
+                        </Modal.Body>
+                    </Modal>
+
+                    <Modal show={showUnavailableProductErrorModal}
+                           onHide={() => setShowUnavailableProductErrorModal(false)}>
+                        <Modal.Header closeButton>
+                            <Modal.Title><FaTimesCircle className="mb-1 me-2 redColorText"/>Грешка</Modal.Title>
+                        </Modal.Header>
+                        <Modal.Body>
+                            <div className="d-flex text-center">
+                                <h4>
+                                    Избраният от вас продукт не е наличен в момента, молим ви да
+                                    <span className="redColorText"> изберете друг.</span>
+                                </h4>
+                            </div>
+                        </Modal.Body>
+                    </Modal>
+
+                    <Modal show={showSuccessModal} onHide={() => setShowSuccessModal(false)}>
+                        <Modal.Header closeButton>
+                            <Modal.Title><FaCheckCircle className="mb-1 me-2 successColor"/>Продукта беше
+                                добавен</Modal.Title>
+                        </Modal.Header>
+                        <Modal.Body>
+                            <div className="d-flex text-center">
+                                <h4>
+                                    Избраният от вас продукт беше добавен успшно в кошницата.
+                                </h4>
+                            </div>
+                        </Modal.Body>
+                    </Modal>
                 </>
             }
         </>

@@ -32,7 +32,7 @@ const CardShop = ({product}) => {
 
                             <span className="fw-medium cardCategory mt-1 mb-2">
                                 <span className="keyColorInfo me-2"> <BiSolidCategory className="mb-1"/>Категория</span>
-                                <span className="fw-bolder">{product.category.substring(0, 15)}</span>
+                                <span className="fw-bolder">{product.category.substring(0, 14)}</span>
                             </span>
 
                             <div

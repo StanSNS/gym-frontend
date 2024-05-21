@@ -1,7 +1,7 @@
 import Modal from "react-bootstrap/Modal";
 import Loader from "../../../STATIC/Loader/Loader";
 import React, {useState} from "react";
-import {FaEnvelopeOpenText, FaInfoCircle, FaTimes, FaTimesCircle} from "react-icons/fa";
+import {FaEnvelopeOpenText, FaInfoCircle, FaLocationArrow, FaTimes, FaTimesCircle} from "react-icons/fa";
 import './ContactUsModal.css'
 import {BiSupport} from "react-icons/bi";
 import {BsEnvelopeAtFill} from "react-icons/bs";
@@ -51,12 +51,13 @@ function ContactUsModal({show, handleClose}) {
                 {isLoading && <Loader/>}
 
                 <Modal.Header>
-                    <Modal.Title><BiSupport className="mb-1 me-2"/>Свържи се с нас</Modal.Title>
-                    <FaTimes className="loginModalClose" onClick={handleClose}/>
+                    <Modal.Title><BiSupport className="mb-1 me-2 myGreenBlueColor"/>Свържи се с нас</Modal.Title>
+                    <button className="closingModalButton" onClick={() => handleContactStatusModal()}><FaTimes/></button>
                 </Modal.Header>
 
                 <Modal.Body className="contactModalBody">
-                    <h6 className="ms-2"><BsEnvelopeAtFill className="mb-1 me-2"/>Имейл за контакт:</h6>
+                    <h6 className="ms-2"><BsEnvelopeAtFill className="mb-1 me-2 myGreenBlueColor"/>Имейл за контакт:
+                    </h6>
                     <input
                         type="text"
                         className="trackOrderInput mt-0 mb-4"
@@ -65,7 +66,7 @@ function ContactUsModal({show, handleClose}) {
                         onChange={(e) => setEmail(e.target.value)}
                     />
 
-                    <h6 className="ms-2"><FaEnvelopeOpenText className="mb-1 me-2"/>Заглавие на имейл:</h6>
+                    <h6 className="ms-2"><FaEnvelopeOpenText className="mb-1 me-2 myGreenBlueColor"/>Заглавие:</h6>
                     <input
                         type="text"
                         className="trackOrderInput mt-0 mb-4"
@@ -74,7 +75,7 @@ function ContactUsModal({show, handleClose}) {
                         onChange={(e) => setTitle(e.target.value)}
                     />
 
-                    <h6 className="ms-2"><FaEnvelopeOpenText className="mb-1 me-2"/>Съдържание на имейл:</h6>
+                    <h6 className="ms-2"><FaEnvelopeOpenText className="mb-1 me-2 myGreenBlueColor"/>Съдържание:</h6>
                     <textarea
                         className="trackOrderInput textArea mt-0 mb-4"
                         placeholder="Моля въведете съдържанието на имейла..."
@@ -83,25 +84,14 @@ function ContactUsModal({show, handleClose}) {
                     ></textarea>
                 </Modal.Body>
 
-                <Modal.Footer>
+                <Modal.Footer className="removeBorder">
                     <button className="sendEmail mb-4" onClick={handleSendEmail}>
                         <div className="svg-wrapper-1">
                             <div className="svg-wrapper">
-                                <svg
-                                    height="24"
-                                    width="24"
-                                    viewBox="0 0 24 24"
-                                    xmlns="http://www.w3.org/2000/svg"
-                                >
-                                    <path d="M0 0h24v24H0z" fill="none"></path>
-                                    <path
-                                        d="M1.946 9.315c-.522-.174-.527-.455.01-.634l19.087-6.362c.529-.176.832.12.684.638l-5.454 19.086c-.15.529-.455.547-.679.045L12 14l6-8-8 6-8.054-2.685z"
-                                        fill="currentColor"
-                                    ></path>
-                                </svg>
+                                <FaLocationArrow/>
                             </div>
                         </div>
-                        <span>Изпрати имейл</span>
+                        <span>Изпрати запитване</span>
                     </button>
                 </Modal.Footer>
             </Modal>
@@ -115,7 +105,7 @@ function ContactUsModal({show, handleClose}) {
                                 <FaEnvelopeCircleCheck className="mb-1 me-2 successColor"/>
                                 Успешно изпратен имейл
                             </Modal.Title>
-                            <FaTimes className="loginModalClose" onClick={handleContactStatusModal}/>
+                            <button className="closingModalButton" onClick={handleContactStatusModal}><FaTimes/></button>
                         </Modal.Header>
 
                         <Modal.Body className="text-center">
@@ -138,7 +128,7 @@ function ContactUsModal({show, handleClose}) {
                                 <FaTimesCircle className="mb-1 me-2 errorColor"/>
                                 Неуспешно изпратен имейл
                             </Modal.Title>
-                            <FaTimes className="loginModalClose" onClick={handleContactStatusModal}/>
+                            <button className="closingModalButton" onClick={handleContactStatusModal}><FaTimes/></button>
                         </Modal.Header>
 
                         <Modal.Body className="text-center">

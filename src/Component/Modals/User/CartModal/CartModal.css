@@ -9,8 +9,8 @@
 }
 
 .cardProductCart:hover {
-    scale: 1.01;
-    box-shadow: 0 4px 30px 0 var(--myGreenBlue);
+    scale: 1.005;
+    box-shadow: 0 4px 30px 0 var(--myBlack);
 }
 
 .imageAndQuantityControlContainer {
@@ -38,6 +38,7 @@
 .quantityControl svg {
     border-radius: 50%;
     transition: all 0.2s ease-in-out;
+    color: var(--myBlack);
 }
 
 .quantityControl:hover svg {
@@ -46,13 +47,14 @@
     border-radius: 50%;
 }
 
-.quantityControl svg {
-    color: var(--myBlack);
-}
-
 .quantityText {
     font-weight: bold;
     font-size: 25px;
+}
+
+.cardProductCart {
+    margin-left: 1rem;
+    margin-right: 1rem;
 }
 
 .cardProductCart .card-img {
@@ -124,7 +126,7 @@
     padding: 15px 25px;
     border: unset;
     border-radius: 15px;
-    color: var(--myWhite);
+    color: var(--myWhite) !important;
     z-index: 1;
     background: var(--myBlack);
     position: relative;
@@ -136,6 +138,8 @@
     overflow: hidden;
     outline: none;
     border: none;
+    margin-top: 1rem;
+    margin-bottom: 1rem;
 }
 
 .orderButtonCart::before {
@@ -171,6 +175,11 @@
     align-items: center;
 }
 
+.emptyCartButtonContainer {
+    display: flex;
+    justify-content: flex-end;
+}
+
 .emptyCartButton {
     color: var(--myWhite) !important;
     background-color: var(--myRed) !important;
@@ -181,8 +190,10 @@
     scale: 1;
     transition: all 0.3s ease-in-out !important;
     border: none !important;
+    box-shadow: 0 2px 14px var(--myBlack);
 }
 
 .emptyCartButton:hover {
     scale: 1.02;
+    box-shadow: 0 2px 18px var(--myBlack);
 }

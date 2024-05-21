@@ -96,7 +96,6 @@ function CartModal({show, handleClose}) {
 
     return (
         <>
-
             <Modal show={show} onHide={handleClose} className="modal-lg customModal">
                 {isLoading && <Loader/>}
 
@@ -129,7 +128,7 @@ function CartModal({show, handleClose}) {
                     </div>
 
                     {myCartItems.length !== 0 && (
-                        <button className="orderButtonCart mt-3 mb-3"
+                        <button className="orderButtonCart"
                                 onClick={() => handleOpenAddressModalAndLoadAddresses()}>
                             <span><BsClipboard2PlusFill className="mb-1 me-2"/>Добави адрес за доствка</span>
                         </button>
@@ -144,8 +143,8 @@ function CartModal({show, handleClose}) {
                     )}
 
                     {myCartItems.length > 0 && (
-                        <div>
-                            <div className="d-flex justify-content-end">
+                        <>
+                            <div className="emptyCartButtonContainer">
                                 <Button variant="light" className="emptyCartButton" onClick={() => handleClearBasket()}>
                                     <FaTrashAlt className="mb-1 me-2"/>
                                     Изпразни количката
@@ -175,7 +174,7 @@ function CartModal({show, handleClose}) {
 
                                     <Card.Body className="cartCardBody">
                                         <div>
-                                            <Card.Title className="fw-bold">
+                                            <Card.Title className="fw-bold text-center">
                                                 {product.name} - {product.brandEntity.name}
                                             </Card.Title>
                                             <div className="cardBody">
@@ -228,7 +227,7 @@ function CartModal({show, handleClose}) {
                                     </Card.Body>
                                 </Card>
                             ))}
-                        </div>
+                        </>
                     )}
 
 
@@ -245,8 +244,6 @@ function CartModal({show, handleClose}) {
                 addresses={addresses}
                 totalSaving={totalSaving}
             />
-
-
         </>
 
     );

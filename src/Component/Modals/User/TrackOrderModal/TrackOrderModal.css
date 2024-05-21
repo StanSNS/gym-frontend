@@ -1,5 +1,5 @@
 .trackOrderModal .modal-content {
-    color: white;
+    color: var(--myWhite);
 }
 
 .trackOrderModal .modal-content {
@@ -14,7 +14,7 @@
 
 .trackOrderInput {
     width: 100%;
-    border-radius: 15px;
+    border-radius: 16px;
     padding: 0.5rem 0.5rem 0.5rem 1.5rem;
     border: none;
     margin-top: 0.5rem;
@@ -22,36 +22,35 @@
 }
 
 .trackOrderButtonSubmit {
-    border: 2px solid white !important;
+    border: 2px solid var(--myWhite) !important;
     border-radius: 10px !important;
-    background-color: #333333 !important;
-    color: white !important;
-    box-shadow: 0px 1px 18px 0px #ffffff;
+    background-color: var(--myBlack) !important;
+    color: var(--myWhite) !important;
+    box-shadow: 0 1px 18px 0 var(--myWhite);
 }
 
 .trackOrderButtonSubmit:hover {
-    border: 2px solid #3333 !important;
-    background-color: white !important;
-    color: #333333 !important;
+    border: 2px solid var(--myWhite) !important;
+    background-color: var(--myWhite) !important;
+    color: var(--myBlack) !important;
 }
 
 .recoverEmailButton {
-    border: 2px solid #42e0b5 !important;
+    border: 2px solid var(--myGreenBlue) !important;
     border-radius: 10px !important;
-    background-color: #333333 !important;
-    color: #42e0b5 !important;
-    box-shadow: 0px 1px 18px 0px #42e0b5;
+    background-color: var(--myBlack) !important;
+    color: var(--myGreenBlue) !important;
+    box-shadow: 0 1px 18px 0 var(--myGreenBlue);
 }
 
 .recoverEmailButton:hover {
-    border: 2px solid #3333 !important;
-    background-color: #42e0b5 !important;
-    color: #333333 !important;
+    border: 2px solid var(--myGreenBlue) !important;
+    background-color: var(--myGreenBlue) !important;
+    color: var(--myBlack) !important;
 }
 
-
 .recoverModal {
-    color: white;
+    color: var(--myWhite);
 }
 
 .darkerBackground {
@@ -61,5 +60,3 @@
 .infoColor{
     color: #00CED1;
 }
-
-

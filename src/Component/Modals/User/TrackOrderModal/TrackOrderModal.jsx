@@ -1,6 +1,6 @@
 import React, {useState} from 'react';
 import {Button, Modal} from 'react-bootstrap';
-import {FaInfoCircle, FaTimes, FaTimesCircle} from 'react-icons/fa';
+import {FaInfoCircle, FaTimes, FaTimesCircle, FaTruckLoading} from 'react-icons/fa';
 import './TrackOrderModal.css';
 import {FaEnvelopeCircleCheck, FaTruckArrowRight} from "react-icons/fa6";
 import {HiRefresh} from "react-icons/hi";
@@ -69,12 +69,15 @@ function TrackOrderModal({show, handleClose}) {
                 {isLoading && <Loader/>}
 
                 <Modal.Header>
-                    <Modal.Title>Проследи своята поръчка</Modal.Title>
-                    <FaTimes className="loginModalClose" onClick={handleClose}/>
+                    <Modal.Title><FaTruckLoading className="mb-1 me-1 myGreenBlueColor" /> Проследи своята поръчка</Modal.Title>
+                    <button className="closingModalButton" onClick={handleClose}><FaTimes/></button>
                 </Modal.Header>
 
                 <Modal.Body>
-                    <h3 className="text-center">Въведи 10 цифреният код от твоята порчъка</h3>
+                    <h3 className="text-center">Въведи
+                        <span className="myGreenBlueColor"> 10 </span>
+                        цифреният код от твоята порчъка
+                    </h3>
                     <input
                         type="text"
                         className="trackOrderInput"
@@ -90,10 +93,10 @@ function TrackOrderModal({show, handleClose}) {
                 </Modal.Body>
 
                 <Modal.Footer className="d-flex justify-content-center p-4">
-                    <h5 className="text-center">Изгубили сте вашия код ?
+                    <h5 className="text-center pb-0 mb-0">Изгубили сте вашия код ?
                         Проверете имейла си или възстановете вашият код.</h5>
 
-                    <div className="p-3 pt-0 pb-0">
+                    <div className="p-3 pt-0 pb-0 mt-0">
                         <h6 className="text-center mt-4">Въведете имейл на който ще изпратим всички поръчки свързани с
                             него.</h6>
                         <input
@@ -121,7 +124,7 @@ function TrackOrderModal({show, handleClose}) {
                                 <FaEnvelopeCircleCheck className="mb-1 me-2 successColor"/>
                                 Имейл с всички поръчки беше изпратен.
                             </Modal.Title>
-                            <FaTimes className="loginModalClose" onClick={handleRecoverModalClose}/>
+                            <button className="closingModalButton" onClick={handleRecoverModalClose}><FaTimes/></button>
                         </Modal.Header>
 
                         <Modal.Body className="text-center">
@@ -144,7 +147,7 @@ function TrackOrderModal({show, handleClose}) {
                                 <FaTimesCircle className="mb-1 me-2 errorColor"/>
                                 Няма намерени поръчки.
                             </Modal.Title>
-                            <FaTimes className="loginModalClose" onClick={handleRecoverModalClose}/>
+                            <button className="closingModalButton" onClick={handleRecoverModalClose}><FaTimes/></button>
                         </Modal.Header>
 
                         <Modal.Body className="text-center">
@@ -168,7 +171,7 @@ function TrackOrderModal({show, handleClose}) {
                             <Modal.Title>
                                 <FaEnvelopeCircleCheck className="mb-1 me-2 successColor"/>
                                 Поръчка намерена успешно.</Modal.Title>
-                            <FaTimes className="loginModalClose" onClick={handleOrderModalClose}/>
+                            <button className="closingModalButton" onClick={handleOrderModalClose}><FaTimes/></button>
                         </Modal.Header>
 
                         <Modal.Body className="text-center">
@@ -189,7 +192,7 @@ function TrackOrderModal({show, handleClose}) {
                                 <FaTimesCircle className="mb-1 me-2 errorColor"/>
                                 Поръчка не е намерена.
                             </Modal.Title>
-                            <FaTimes className="loginModalClose" onClick={handleOrderModalClose}/>
+                            <button className="closingModalButton" onClick={handleOrderModalClose}><FaTimes/></button>
                         </Modal.Header>
 
                         <Modal.Body className="text-center">

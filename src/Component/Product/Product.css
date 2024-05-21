@@ -177,12 +177,12 @@
 }
 
 .addButtonContainer button:hover {
-    background: #343a40;
-    color: var(--myWhite);
+    background: var(--myBlack);
+    color: var(--myWhite) !important;
     font-size: 24px;
 }
 
-.addButtonContainer button:focus {
+button:focus:not(:focus-visible) {
     color: var(--myBlack);
 }
 
@@ -251,4 +251,8 @@
 
 .disabled-dropdown-item {
     color: gray !important;
+}
+
+.modal-header {
+    border: none !important;
 }
