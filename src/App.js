@@ -3,8 +3,6 @@ import React from 'react'
 import Shop from "./Component/Shop/Shop";
 import Header from "./Component/STATIC/Header/Header";
 import Footer from "./Component/STATIC/Footer/Footer";
-import {SkeletonTheme} from "react-loading-skeleton";
-import Admin from "./Component/Admin/Admin";
 import Product from "./Component/Product/Product";
 import About from "./Component/About/About";
 import FAQ from "./Component/FAQ/FAQ";
@@ -15,23 +13,20 @@ import Page500 from "./Component/Errors/Page500/Page500";
 function App() {
     return (
         <>
-            <SkeletonTheme baseColor="#ffff" highlightColor="#333">
-                <BrowserRouter>
-                    <Header/>
-                    <Routes>
-                        <Route path="/" element={<><Shop/></>}/>
-                        <Route path="/product" element={<Product/>}/>
-                        <Route path="/faq" element={<FAQ/>}/>
-                        <Route path="/about" element={<About/>}/>
-                        <Route path="/admin" element={<Admin/>}/>
-                        <Route path="/terms-and-conditions" element={<TermsAndConditions/>}/>
-                        <Route path="/page-not-found" element={<Page404/>}/>
-                        <Route path="/internal-server-error" element={<Page500/>}/>
-                        <Route path="*" element={<Navigate to="/page-not-found"/>}/>
-                    </Routes>
-                    <Footer/>
-                </BrowserRouter>
-            </SkeletonTheme>
+            <BrowserRouter>
+                <Header/>
+                <Routes>
+                    <Route path="/" element={<><Shop/></>}/>
+                    <Route path="/product" element={<Product/>}/>
+                    <Route path="/faq" element={<FAQ/>}/>
+                    <Route path="/about" element={<About/>}/>
+                    <Route path="/terms-and-conditions" element={<TermsAndConditions/>}/>
+                    <Route path="/page-not-found" element={<Page404/>}/>
+                    <Route path="/internal-server-error" element={<Page500/>}/>
+                    <Route path="*" element={<Navigate to="/page-not-found"/>}/>
+                </Routes>
+                <Footer/>
+            </BrowserRouter>
         </>
     );
 }
