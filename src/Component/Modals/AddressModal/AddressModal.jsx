@@ -37,7 +37,6 @@ function AddressModal({show, handleClose, cartItems, totalWeight, productCount, 
     const [town, setTown] = useState('');
     const [postCode, setPostCode] = useState('');
     const [officeAddress, setOfficeAddress] = useState('');
-    const [officeAddressId, setOfficeAddressId] = useState('');
     const [selectedAddresses, setSelectedAddresses] = useState([]);
 
     const country = 'България';
@@ -64,41 +63,32 @@ function AddressModal({show, handleClose, cartItems, totalWeight, productCount, 
         }
     }, [town, addresses]);
 
-    function getOfficeID(fullAddress) {
-        const office = selectedAddresses.find(office => office.fullAddress === fullAddress);
-        return office ? office.officeID : null;
-    }
-
-    useEffect(() => {
-        if (town && officeAddress) {
-            setOfficeAddressId(getOfficeID(officeAddress))
-
-            if (officeAddressId) {
-                handleGetDeliveryPrice()
+    const handleGetDeliveryPrice = async (officeAddressFromEvent) => {
+        if (town && officeAddressFromEvent) {
+            function getOfficeID(fullAddress) {
+                const office = selectedAddresses.find(office => office.fullAddress === fullAddress);
+                return office ? office.officeID : null;
             }
-        }
-    }, [town, officeAddress, selectedAddresses]);
 
-    const handleGetDeliveryPrice = async () => {
-        try {
-            const amountWithoutDelivery = (totalAmount - totalSaving).toFixed(2);
+            const officeID = getOfficeID(officeAddressFromEvent);
 
-            const deliveryPriceDTOReq = {
-                officeAddressId,
-                amountWithoutDelivery,
-                totalWeight
-            };
-            console.log(deliveryPriceDTOReq)
-            console.log(deliveryPriceDTOReq)
-            console.log(deliveryPriceDTOReq)
-            console.log(deliveryPriceDTOReq)
-            console.log(deliveryPriceDTOReq)
+            if (officeID) {
+                try {
+                    const amountWithoutDelivery = (totalAmount - totalSaving).toFixed(2);
 
-            // const data =  await getDeliveryPrice(deliveryPriceDTOReq);
+                    const deliveryPriceDTOReq = {
+                        officeID,
+                        amountWithoutDelivery,
+                        totalWeight
+                    };
 
-            // console.log(data)
-        } catch (error) {
+                    const data =  await getDeliveryPrice(deliveryPriceDTOReq);
 
+                    console.log(data)
+                } catch (error) {
+
+                }
+            }
         }
     }
 
@@ -151,10 +141,6 @@ function AddressModal({show, handleClose, cartItems, totalWeight, productCount, 
         }
     };
 
-    const handleCloseAddressModal = () => {
-        handleClose();
-    };
-
     const handleCloseSuccessModal = () => {
         localStorage.removeItem(CART_KEY);
         window.location.href = '/';
@@ -172,11 +158,11 @@ function AddressModal({show, handleClose, cartItems, totalWeight, productCount, 
 
     return (
         <>
-            <Modal show={show} onHide={handleCloseAddressModal} className="modal-xl customModalPosition">
+            <Modal show={show} onHide={handleClose} className="modal-xl customModalPosition">
                 {isLoading && <Loader/>}
                 <Modal.Header className="sticky-header d-flex flex-row">
                     <h3>Моля добавете вашият адрес тук</h3>
-                    <button className="closingModalButton" onClick={handleCloseAddressModal}>
+                    <button className="closingModalButton" onClick={handleClose}>
                         <FaTimes/>
                     </button>
                 </Modal.Header>
@@ -272,7 +258,7 @@ function AddressModal({show, handleClose, cartItems, totalWeight, productCount, 
                                         setTown(e.target.value)
                                     }}
                                     className="input_field">
-                                    <option disabled={true}>Изберете град/село</option>
+                                    <option value="" disabled={true}>Изберете град/село</option>
                                     {addresses.map((address, index) => (
                                         <option key={index} value={address.cityName}>{address.cityName}</option>
                                     ))}
@@ -331,7 +317,10 @@ function AddressModal({show, handleClose, cartItems, totalWeight, productCount, 
                                 <MdLocationPin className="icon"/>
                                 <select
                                     value={officeAddress}
-                                    onChange={(e) => setOfficeAddress(e.target.value)}
+                                    onChange={(e) => {
+                                        setOfficeAddress(e.target.value)
+                                        handleGetDeliveryPrice(e.target.value)
+                                    }}
                                     className="input_field fw-medium"
                                     disabled={!town}
                                 >
