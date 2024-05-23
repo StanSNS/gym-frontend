@@ -35,12 +35,10 @@ function AddressModal({show, handleClose, cartItems, totalWeight, productCount, 
     const [email, setEmail] = useState('stanimirsergevsns@gmail.com'); //FIXME
     const [phone, setPhone] = useState('0895225759'); //FIXME
     const [country, setCountry] = useState('България'); //FIXME
-    const [town, setTown] = useState('Русе'); //FIXME
-    const [address, setAddress] = useState('');
+    const [town, setTown] = useState('');
     const [postCode, setPostCode] = useState('');
     const [officeAddress, setOfficeAddress] = useState('');
-    const [additionalAddress, setAdditionalAddress] = useState('');
-    const [delivery, setDelivery] = useState('ADDRESS');
+    const [delivery, setDelivery] = useState('OFFICE');
     const [courier, setCourier] = useState('SPEEDY');
     const [randomOrderNumber, setRandomOrderNumber] = useState('');
     const [unavailableProductName, setUnavailableProductName] = useState('');
@@ -50,9 +48,8 @@ function AddressModal({show, handleClose, cartItems, totalWeight, productCount, 
     const [showErrorOrderModal, setShowErrorOrderModal] = useState(false);
     const [selectedTownData, setSelectedTownData] = useState({postCode: '', addresses: []});
     const [isLoading, setIsLoading] = useState(false);
+    const [deliveryPrice, setDeliveryPrice] = useState(0);
     const navigator = useNavigate();
-
-    const deliveryPrice = 7.34;
 
     useEffect(() => {
         if (town) {
@@ -75,8 +72,6 @@ function AddressModal({show, handleClose, cartItems, totalWeight, productCount, 
             town,
             postCode,
             officeAddress,
-            address,
-            additionalAddress,
             delivery,
             courier,
             cartItems,
@@ -235,7 +230,7 @@ function AddressModal({show, handleClose, cartItems, totalWeight, productCount, 
                                     value={town}
                                     onChange={(e) => setTown(e.target.value)}
                                     className="input_field">
-                                    <option value="">Изберете град/село</option>
+                                    <option value="" disabled={true}>Изберете град/село</option>
                                     {addresses.map((address, index) => (
                                         <option key={index} value={address.cityName}>{address.cityName}</option>
                                     ))}
@@ -252,7 +247,6 @@ function AddressModal({show, handleClose, cartItems, totalWeight, productCount, 
                                     disabled
                                     value={postCode}
                                     onChange={(e) => setPostCode(e.target.value)}
-                                    placeholder="Моля изберете град/село"
                                     type="text"
                                     className="input_field"
                                 />
@@ -268,43 +262,16 @@ function AddressModal({show, handleClose, cartItems, totalWeight, productCount, 
                              <img src={speedy} alt="Speedy" className="courierLogoImage"/>
                             </span>
                         </label>
-
-                        {/*<label>*/}
-                        {/*    <input className="radio-input" type="radio" name="engine"*/}
-                        {/*           onClick={() => setCourier('ECONT')} disabled={true}/>*/}
-                        {/*    <span className="radio-tile">*/}
-                        {/*  <img src={econt} alt="Econt" className="courierLogoImage p-2"/>*/}
-                        {/*</span>*/}
-                        {/*</label>*/}
-
-                        {/*<label>*/}
-                        {/*    <input className="radio-input" type="radio" name="engine"*/}
-                        {/*           onClick={() => setCourier('SAMEDAY')}/>*/}
-                        {/*    <span className="radio-tile">*/}
-                        {/*  <img src={sameday} alt="Sameday" className="courierLogoImage p-1"/>*/}
-                        {/*</span>*/}
-                        {/*</label>*/}
                     </div>
 
                     <div className="deliveryType">
-                        <label className="radio-button">
-                            <input
-                                onClick={() => setDelivery("ADDRESS")}
-                                type="radio"
-                                name="example-radio"
-                                value="option1"
-                                defaultChecked
-                            />
-                            <span className="radio"></span>
-                            <span className="fw-bolder">Доставка до адрес</span>
-                        </label>
-
                         <label className="radio-button">
                             <input
                                 onClick={() => setDelivery("OFFICE")}
                                 type="radio"
                                 name="example-radio"
                                 value="option2"
+                                defaultChecked
                             />
                             <span className="radio"></span>
                             <span className="fw-bolder">Доставка до офис</span>
@@ -312,40 +279,6 @@ function AddressModal({show, handleClose, cartItems, totalWeight, productCount, 
                     </div>
 
                     <div className="detailedAddress">
-                        {delivery === 'ADDRESS' && (
-                            <>
-                                <div className="addressContainer">
-                                    <label className="input_label">
-                                        <span className="redColorText fs-6 me-1">*</span>
-                                        Адрес
-                                    </label>
-                                    <MdLocationPin className="icon"/>
-                                    <input
-                                        value={address}
-                                        onChange={(e) => setAddress(e.target.value)}
-                                        placeholder="Въведете адреса за доставка"
-                                        type="text"
-                                        className="input_field"
-                                    />
-                                </div>
-
-                                <div className="addressContainer">
-                                    <label className="input_label">
-                                        <span className="redColorText fs-6 me-1">*</span>
-                                        Допълнителна инфоррмация за адреса
-                                    </label>
-                                    <MdLocationPin className="icon"/>
-                                    <input
-                                        value={additionalAddress}
-                                        onChange={(e) => setAdditionalAddress(e.target.value)}
-                                        placeholder="Въведете допълнителна инфоррмация за адреса"
-                                        type="text"
-                                        className="input_field"
-                                    />
-                                </div>
-                            </>
-                        )}
-
                         {delivery === 'OFFICE' && (
                             <div className="addressContainer">
                                 <label className="input_label">
@@ -357,11 +290,18 @@ function AddressModal({show, handleClose, cartItems, totalWeight, productCount, 
                                     value={officeAddress}
                                     onChange={(e) => setOfficeAddress(e.target.value)}
                                     className="input_field fw-medium"
+                                    disabled={!town}
+
                                 >
-                                    <option value="" className="fw-medium">Изберете офис</option>
+                                    <option value="" className="fw-medium" disabled={true}>Изберете офис</option>
                                     {selectedTownData.addresses.map((office, index) => (
-                                        <option className="fw-medium" key={index}
-                                                value={office.fullAddress}>{office.fullAddress}</option>
+                                        <option className="fw-medium"
+                                                key={index}
+                                                value={office.fullAddress}
+                                                onChange={() => console.log("hERE")}
+                                        >
+                                            {office.fullAddress}
+                                        </option>
                                     ))}
                                 </select>
                             </div>

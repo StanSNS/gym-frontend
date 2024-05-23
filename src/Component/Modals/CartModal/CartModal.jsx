@@ -65,14 +65,17 @@ function CartModal({show, handleClose}) {
 
     const handleOpenAddressModalAndLoadAddresses = async () => {
         try {
-            setIsLoading(true)
-            const data = await getAllAddresses()
+            if (addresses.length === 0) {
+                setIsLoading(true)
+                const data = await getAllAddresses()
+                setAddresses(data);
+                setIsLoading(false)
+            }
             setShowAddressModal(true);
-            setAddresses(data);
-            setIsLoading(false)
         } catch (error) {
             navigator("/internal-server-error");
             console.error("Failed to load offices: " + error)
+            setIsLoading(false)
         }
     };
 
