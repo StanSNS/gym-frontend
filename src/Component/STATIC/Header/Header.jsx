@@ -4,7 +4,7 @@ import Container from 'react-bootstrap/Container';
 import Nav from 'react-bootstrap/Nav';
 import Navbar from 'react-bootstrap/Navbar';
 import Offcanvas from 'react-bootstrap/Offcanvas';
-import {FaBalanceScale, FaShoppingCart, FaTimes, FaTruck} from "react-icons/fa";
+import {FaShoppingCart, FaTimes, FaTruck} from "react-icons/fa";
 import "./Header.css"
 import TrackOrderModal from "../../Modals/TrackOrderModal/TrackOrderModal";
 import {getCartFromStorage} from "../../../Service/ProductService";
@@ -12,8 +12,6 @@ import CartModal from "../../Modals/CartModal/CartModal";
 import headerImage from "../../../Resources/logoImage.png"
 import {FaBuildingShield, FaPeopleGroup} from "react-icons/fa6";
 import {AiFillQuestionCircle} from "react-icons/ai";
-import {MdEditDocument} from "react-icons/md";
-import {RiFileShield2Fill} from "react-icons/ri";
 
 
 function Header() {
