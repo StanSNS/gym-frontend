@@ -21,6 +21,18 @@ export const getAllAddresses = () => {
     });
 };
 
+export const getDeliveryPrice = (deliveryPriceDTOReq) => {
+    return axios.post(BACKEND_BASE_URL + "/order/deliveryPrice",deliveryPriceDTOReq).then((response) => {
+        if (response.status === 200) {
+            return response.data;
+        } else {
+            throw new Error('Failed to get delivery price.');
+        }
+    }).catch((error) => {
+        throw error;
+    });
+};
+
 export const sendAllOrdersToEmail = (email) => {
     return axios.get(BACKEND_BASE_URL + `/order/recover?email=${email}`).then((response) => {
         return response;

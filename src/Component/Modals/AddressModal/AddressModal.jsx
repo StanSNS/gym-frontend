@@ -24,7 +24,7 @@ import {GiPiggyBank} from "react-icons/gi";
 import {RiHandCoinFill, RiRoadMapFill} from "react-icons/ri";
 import {CART_KEY, checkIfProductExists} from "../../../Service/ProductService";
 import {Button} from "react-bootstrap";
-import {sendOrder} from "../../../Service/OrderService";
+import {getDeliveryPrice, sendOrder} from "../../../Service/OrderService";
 import {LuCandy} from "react-icons/lu";
 import Loader from "../../STATIC/Loader/Loader";
 import {useNavigate} from "react-router-dom";
@@ -34,10 +34,13 @@ function AddressModal({show, handleClose, cartItems, totalWeight, productCount, 
     const [lastName, setLastName] = useState('Сергев'); //FIXME
     const [email, setEmail] = useState('stanimirsergevsns@gmail.com'); //FIXME
     const [phone, setPhone] = useState('0895225759'); //FIXME
-    const [country, setCountry] = useState('България'); //FIXME
     const [town, setTown] = useState('');
     const [postCode, setPostCode] = useState('');
     const [officeAddress, setOfficeAddress] = useState('');
+    const [officeAddressId, setOfficeAddressId] = useState('');
+    const [selectedAddresses, setSelectedAddresses] = useState([]);
+
+    const country = 'България';
     const [delivery, setDelivery] = useState('OFFICE');
     const [courier, setCourier] = useState('SPEEDY');
     const [randomOrderNumber, setRandomOrderNumber] = useState('');
@@ -46,21 +49,58 @@ function AddressModal({show, handleClose, cartItems, totalWeight, productCount, 
     const [showUnavailableModal, setShowUnavailableModal] = useState(false);
     const [showSuccessOrderModal, setShowSuccessOrderModal] = useState(false);
     const [showErrorOrderModal, setShowErrorOrderModal] = useState(false);
-    const [selectedTownData, setSelectedTownData] = useState({postCode: '', addresses: []});
     const [isLoading, setIsLoading] = useState(false);
     const [deliveryPrice, setDeliveryPrice] = useState(0);
     const navigator = useNavigate();
+
 
     useEffect(() => {
         if (town) {
             const selectedTown = addresses.find(address => address.cityName === town);
             if (selectedTown) {
                 setPostCode(selectedTown.postCode);
-                setOfficeAddress('');
-                setSelectedTownData(selectedTown);
+                setSelectedAddresses(selectedTown.addresses)
             }
         }
     }, [town, addresses]);
+
+    function getOfficeID(fullAddress) {
+        const office = selectedAddresses.find(office => office.fullAddress === fullAddress);
+        return office ? office.officeID : null;
+    }
+
+    useEffect(() => {
+        if (town && officeAddress) {
+            setOfficeAddressId(getOfficeID(officeAddress))
+
+            if (officeAddressId) {
+                handleGetDeliveryPrice()
+            }
+        }
+    }, [town, officeAddress, selectedAddresses]);
+
+    const handleGetDeliveryPrice = async () => {
+        try {
+            const amountWithoutDelivery = (totalAmount - totalSaving).toFixed(2);
+
+            const deliveryPriceDTOReq = {
+                officeAddressId,
+                amountWithoutDelivery,
+                totalWeight
+            };
+            console.log(deliveryPriceDTOReq)
+            console.log(deliveryPriceDTOReq)
+            console.log(deliveryPriceDTOReq)
+            console.log(deliveryPriceDTOReq)
+            console.log(deliveryPriceDTOReq)
+
+            // const data =  await getDeliveryPrice(deliveryPriceDTOReq);
+
+            // console.log(data)
+        } catch (error) {
+
+        }
+    }
 
     const handleSendOrder = async () => {
         const deliveryData = {
@@ -215,7 +255,6 @@ function AddressModal({show, handleClose, cartItems, totalWeight, productCount, 
                                 <input
                                     disabled
                                     value={country}
-                                    onChange={(e) => setCountry(e.target.value)}
                                     className="input_field"
                                 />
                             </div>
@@ -228,9 +267,12 @@ function AddressModal({show, handleClose, cartItems, totalWeight, productCount, 
                                 <FaMap className="icon"/>
                                 <select
                                     value={town}
-                                    onChange={(e) => setTown(e.target.value)}
+                                    onChange={(e) => {
+                                        setOfficeAddress('')
+                                        setTown(e.target.value)
+                                    }}
                                     className="input_field">
-                                    <option value="" disabled={true}>Изберете град/село</option>
+                                    <option disabled={true}>Изберете град/село</option>
                                     {addresses.map((address, index) => (
                                         <option key={index} value={address.cityName}>{address.cityName}</option>
                                     ))}
@@ -247,6 +289,7 @@ function AddressModal({show, handleClose, cartItems, totalWeight, productCount, 
                                     disabled
                                     value={postCode}
                                     onChange={(e) => setPostCode(e.target.value)}
+                                    placeholder="Моля изберете град"
                                     type="text"
                                     className="input_field"
                                 />
@@ -283,7 +326,7 @@ function AddressModal({show, handleClose, cartItems, totalWeight, productCount, 
                             <div className="addressContainer">
                                 <label className="input_label">
                                     <span className="redColorText fs-6 me-1">*</span>
-                                    <span className="fw-bold">Избери офис</span>
+                                    <span className="fw-bold">Офис за доставка</span>
                                 </label>
                                 <MdLocationPin className="icon"/>
                                 <select
@@ -291,14 +334,12 @@ function AddressModal({show, handleClose, cartItems, totalWeight, productCount, 
                                     onChange={(e) => setOfficeAddress(e.target.value)}
                                     className="input_field fw-medium"
                                     disabled={!town}
-
                                 >
                                     <option value="" className="fw-medium" disabled={true}>Изберете офис</option>
-                                    {selectedTownData.addresses.map((office, index) => (
+                                    {selectedAddresses.map((office, index) => (
                                         <option className="fw-medium"
                                                 key={index}
                                                 value={office.fullAddress}
-                                                onChange={() => console.log("hERE")}
                                         >
                                             {office.fullAddress}
                                         </option>
@@ -310,11 +351,10 @@ function AddressModal({show, handleClose, cartItems, totalWeight, productCount, 
 
                     <div className="orderDetails">
                         <div className="orderDetailsText">
-
                             <div className="fw-bolder fs-5 mt-1">
                                 <span className="keyColorInfo me-2">
                                     <FaShoppingCart className="mb-1 me-1"/>
-                                    Брой продукти в количката
+                                    Продукти в количката
                                 </span>
                                 {productCount} бр.
                             </div>
