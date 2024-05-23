@@ -10,7 +10,7 @@ import 'swiper/css/pagination';
 export default function VerticalSwiper({selectedIndex}) {
     const swiperRef = useRef(null);
     const [autoSlideIndex, setAutoSlideIndex] = useState(0);
-    const autoSlideInterval = 4000;
+    const autoSlideInterval = 5000;
 
     useEffect(() => {
         if (swiperRef.current && swiperRef.current.swiper) {

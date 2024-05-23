@@ -98,7 +98,7 @@ const Shop = () => {
         setCurrentPage(pageNumber);
         const heroSectionHeight = document.querySelector('.carouselContainer').offsetHeight;
         window.scrollTo({
-            top: heroSectionHeight - 50,
+            top: heroSectionHeight + 80,
             behavior: "smooth"
         });
     };

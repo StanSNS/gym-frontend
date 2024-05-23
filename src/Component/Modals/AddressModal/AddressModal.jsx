@@ -16,17 +16,17 @@ import {
 import "./AddressModal.css"
 import {MdEmail, MdLocationPin} from "react-icons/md";
 
-import speedy from '../../../../Resources/AddressModal/speedy.jpg'
+import speedy from '../../../Resources/AddressModal/speedy.jpg'
 
 import {FaPhoneVolume, FaTruckArrowRight} from "react-icons/fa6";
 import {IoBag, IoPricetag, IoPricetags, IoShieldCheckmark} from "react-icons/io5";
 import {GiPiggyBank} from "react-icons/gi";
 import {RiHandCoinFill, RiRoadMapFill} from "react-icons/ri";
-import {CART_KEY, checkIfProductExists} from "../../../../Service/ProductService";
+import {CART_KEY, checkIfProductExists} from "../../../Service/ProductService";
 import {Button} from "react-bootstrap";
-import {sendOrder} from "../../../../Service/OrderService";
+import {sendOrder} from "../../../Service/OrderService";
 import {LuCandy} from "react-icons/lu";
-import Loader from "../../../STATIC/Loader/Loader";
+import Loader from "../../STATIC/Loader/Loader";
 import {useNavigate} from "react-router-dom";
 
 function AddressModal({show, handleClose, cartItems, totalWeight, productCount, totalAmount, totalSaving, addresses}) {

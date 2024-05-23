@@ -4,8 +4,8 @@ import {FaInfoCircle, FaTimes, FaTimesCircle, FaTruckLoading} from 'react-icons/
 import './TrackOrderModal.css';
 import {FaEnvelopeCircleCheck, FaTruckArrowRight} from "react-icons/fa6";
 import {HiRefresh} from "react-icons/hi";
-import {findOrderByNumber, sendAllOrdersToEmail} from "../../../../Service/OrderService";
-import Loader from "../../../STATIC/Loader/Loader";
+import {findOrderByNumber, sendAllOrdersToEmail} from "../../../Service/OrderService";
+import Loader from "../../STATIC/Loader/Loader";
 import {useNavigate} from "react-router-dom";
 
 function TrackOrderModal({show, handleClose}) {

@@ -4,14 +4,16 @@ import Container from 'react-bootstrap/Container';
 import Nav from 'react-bootstrap/Nav';
 import Navbar from 'react-bootstrap/Navbar';
 import Offcanvas from 'react-bootstrap/Offcanvas';
-import {FaQuestion, FaShoppingCart, FaTimes, FaTruck} from "react-icons/fa";
+import {FaBalanceScale, FaShoppingCart, FaTimes, FaTruck} from "react-icons/fa";
 import "./Header.css"
-import TrackOrderModal from "../../Modals/User/TrackOrderModal/TrackOrderModal";
+import TrackOrderModal from "../../Modals/TrackOrderModal/TrackOrderModal";
 import {getCartFromStorage} from "../../../Service/ProductService";
-import CartModal from "../../Modals/User/CartModal/CartModal";
+import CartModal from "../../Modals/CartModal/CartModal";
 import headerImage from "../../../Resources/logoImage.png"
-import {FaPeopleGroup} from "react-icons/fa6";
+import {FaBuildingShield, FaPeopleGroup} from "react-icons/fa6";
 import {AiFillQuestionCircle} from "react-icons/ai";
+import {MdEditDocument} from "react-icons/md";
+import {RiFileShield2Fill} from "react-icons/ri";
 
 
 function Header() {
@@ -47,7 +49,16 @@ function Header() {
     };
 
     const handleRelocateToHomePage = () => {
-        window.location.href = "/";
+        const urlPath = window.location.pathname;
+
+        if (urlPath === "/") {
+            window.scrollTo({
+                top: 0,
+                behavior: "smooth"
+            });
+        } else {
+            window.location.href = "/";
+        }
     };
 
 
@@ -64,7 +75,7 @@ function Header() {
             <Navbar expand={'md'} className="navbarContainer">
                 <Container fluid>
                     <Navbar.Brand>
-                        <div className="headerLogo" onClick={handleRelocateToHomePage}>
+                        <div className="headerLogo" onClick={() => handleRelocateToHomePage()}>
                             <img src={headerImage} alt="headerImage" className="headerImage"/>
                             GymFit
                         </div>
@@ -89,6 +100,12 @@ function Header() {
                         </Offcanvas.Header>
                         <Offcanvas.Body className="d-flex  justify-content-end">
                             <Nav>
+                                <Nav.Link href="/terms-and-conditions">
+                                    <span className="navLinkContent">
+                                        <FaBuildingShield/>
+                                        <span className="ms-1">Правила и условия</span>
+                                    </span>
+                                </Nav.Link>
                                 <Nav.Link href="/faq">
                                     <span className="navLinkContent">
                                         <AiFillQuestionCircle/>

@@ -190,8 +190,7 @@ function Product() {
                                                     <Dropdown>
                                                         <Dropdown.Toggle variant={"dark"} id="dropdown-basic"
                                                                          className="dropDownButton fw-bolder">
-                                                            <IoColorFilter
-                                                                className="mb-1 me-2 myGreenBlueColor"/>
+                                                            <IoColorFilter className="mb-1 me-2 myGreenBlueColor"/>
                                                             Избери вкус
                                                         </Dropdown.Toggle>
                                                         <Dropdown.Menu className="fw-bolder">

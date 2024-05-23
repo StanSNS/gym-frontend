@@ -14,10 +14,10 @@ import {
 } from "react-icons/fa";
 import {GiBank, GiWrappedSweet} from "react-icons/gi";
 import {IoIosPricetag} from "react-icons/io";
-import {addToCart, CART_KEY, getCartFromStorage, reduceQuantityInCart} from "../../../../Service/ProductService";
+import {addToCart, CART_KEY, getCartFromStorage, reduceQuantityInCart} from "../../../Service/ProductService";
 import AddressModal from "../AddressModal/AddressModal";
-import {getAllAddresses} from "../../../../Service/OrderService";
-import Loader from "../../../STATIC/Loader/Loader";
+import {getAllAddresses} from "../../../Service/OrderService";
+import Loader from "../../STATIC/Loader/Loader";
 import {useNavigate} from "react-router-dom";
 import {BsClipboard2PlusFill} from "react-icons/bs";
 import {Button} from "react-bootstrap";

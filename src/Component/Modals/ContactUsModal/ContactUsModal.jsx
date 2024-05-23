@@ -1,11 +1,11 @@
 import Modal from "react-bootstrap/Modal";
-import Loader from "../../../STATIC/Loader/Loader";
+import Loader from "../../STATIC/Loader/Loader";
 import React, {useState} from "react";
 import {FaEnvelopeOpenText, FaInfoCircle, FaLocationArrow, FaTimes, FaTimesCircle} from "react-icons/fa";
 import './ContactUsModal.css'
 import {BiSupport} from "react-icons/bi";
 import {BsEnvelopeAtFill} from "react-icons/bs";
-import {sendRequestEmail} from "../../../../Service/EmailService";
+import {sendRequestEmail} from "../../../Service/EmailService";
 import {FaEnvelopeCircleCheck} from "react-icons/fa6";
 import {useNavigate} from "react-router-dom";
 

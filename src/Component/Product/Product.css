@@ -131,6 +131,7 @@
 
 .dropDownButton {
     background-color: var(--myBlack) !important;
+    color: var(--myWhite) !important;
 }
 
 .barChart {
