@@ -40,7 +40,7 @@
     align-items: center;
     font-weight: bolder;
     transition: color 0.2s ease-in-out;
-    font-size: 17px;
+    font-size: 18px;
     margin-left: 1rem;
     color: var(--myWhite);
 }

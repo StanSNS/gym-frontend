@@ -57,7 +57,7 @@ const Shop = () => {
             }
         };
         fetchData();
-    }, []);
+    }, [navigator]);
 
     const handleSearchChange = (e) => {
         setSearchQuery(e.target.value);

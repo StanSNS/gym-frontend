@@ -26,6 +26,11 @@
 
 .whyContent {
     width: 220px;
+    transition: all 0.3s ease;
+}
+
+.whyContent:hover {
+    scale: 1.02;
 }
 
 .whyContentContainer h4 {

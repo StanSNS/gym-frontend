@@ -3,7 +3,7 @@ import {addToCart, checkIfProductExists, getProductByModelId} from "../../Servic
 import './Product.css'
 import {Button, Dropdown, Modal} from "react-bootstrap";
 import BarChart from "./BarChart/BarChart";
-import {FaArrowUp, FaCartPlus, FaCheckCircle, FaStar, FaTimesCircle, FaWeightHanging} from "react-icons/fa";
+import {FaCartPlus, FaCheckCircle, FaStar, FaTimesCircle, FaWeightHanging} from "react-icons/fa";
 import DoughnutChart from "./DoughnutChart/DoughnutChart";
 import {BiSolidCategory, BiSolidDetail} from "react-icons/bi";
 import {MdOutlineMoneyOffCsred} from "react-icons/md";
@@ -36,6 +36,7 @@ function Product() {
 
     useEffect(() => {
         fetchSingleProduct();
+        // eslint-disable-next-line
     }, [product]);
 
     const fetchSingleProduct = async () => {

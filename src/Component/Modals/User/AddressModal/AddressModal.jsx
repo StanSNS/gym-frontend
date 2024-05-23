@@ -17,9 +17,6 @@ import "./AddressModal.css"
 import {MdEmail, MdLocationPin} from "react-icons/md";
 
 import speedy from '../../../../Resources/AddressModal/speedy.jpg'
-import econt from '../../../../Resources/AddressModal/econt.png'
-import sameday from '../../../../Resources/AddressModal/sameday.png'
-import logo from "../../../../Resources/logoImage.png"
 
 import {FaPhoneVolume, FaTruckArrowRight} from "react-icons/fa6";
 import {IoBag, IoPricetag, IoPricetags, IoShieldCheckmark} from "react-icons/io5";

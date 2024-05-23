@@ -4,12 +4,14 @@ import Container from 'react-bootstrap/Container';
 import Nav from 'react-bootstrap/Nav';
 import Navbar from 'react-bootstrap/Navbar';
 import Offcanvas from 'react-bootstrap/Offcanvas';
-import {FaQuestionCircle, FaShoppingCart, FaTimes, FaTruck} from "react-icons/fa";
+import {FaQuestion, FaShoppingCart, FaTimes, FaTruck} from "react-icons/fa";
 import "./Header.css"
 import TrackOrderModal from "../../Modals/User/TrackOrderModal/TrackOrderModal";
 import {getCartFromStorage} from "../../../Service/ProductService";
 import CartModal from "../../Modals/User/CartModal/CartModal";
 import headerImage from "../../../Resources/logoImage.png"
+import {FaPeopleGroup} from "react-icons/fa6";
+import {AiFillQuestionCircle} from "react-icons/ai";
 
 
 function Header() {
@@ -85,11 +87,17 @@ function Header() {
                                 <FaTimes/>
                             </button>
                         </Offcanvas.Header>
-                        <Offcanvas.Body>
-                            <Nav className="justify-content-end flex-grow-1 align-items-center">
+                        <Offcanvas.Body className="d-flex  justify-content-end">
+                            <Nav>
+                                <Nav.Link href="/faq">
+                                    <span className="navLinkContent">
+                                        <AiFillQuestionCircle/>
+                                        <span className="ms-1">ЧЗВ</span>
+                                    </span>
+                                </Nav.Link>
                                 <Nav.Link href="/about">
                                     <span className="navLinkContent">
-                                        <FaQuestionCircle/>
+                                        <FaPeopleGroup/>
                                         <span className="ms-1">За нас</span>
                                     </span>
                                 </Nav.Link>

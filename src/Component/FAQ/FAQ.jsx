@@ -62,11 +62,11 @@ function FAQ() {
 
     return (
         <div className="faqSection">
-            <h1 className="mt-4 fw-bolder d-flex ">
-                Често задавани въпроси (ЧЗВ)
-                <div className="customIcon ms-2 d-flex mt-2">
+            <h1 className="mt-4 fw-bolder d-flex align-items-center">
+                <div className="customIcon d-flex me-2">
                     <FaQuestionCircle className=""/>
                 </div>
+                Често задавани въпроси (ЧЗВ)
             </h1>
 
             <div className="faqSortingButtons">

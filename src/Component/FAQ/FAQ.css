@@ -63,20 +63,20 @@
 
 .faqButton {
     background-color: var(--myBlack);
-    color: var(--myWhite);
+    color: var(--myWhite) !important;
     font-size: 16px;
     padding: 6px 24px;
     font-weight: bold;
     margin-left: 1rem;
     margin-right: 1rem;
     border-radius: 4px;
-    box-shadow: 0px 4px 30px 0px var(--myWhite);
+    box-shadow: 0 4px 30px 0 var(--myWhite);
     transition: all 0.2s ease-in-out;
 }
 
 .selectedFaqButton {
     background-color: var(--myBlack);
-    color: var(--myWhite);
+    color: var(--myWhite) !important;
     font-size: 16px;
     padding: 6px 24px;
     font-weight: bold;
@@ -84,7 +84,7 @@
     margin-right: 1rem;
     border-radius: 16px;
     transition: all 0.2s ease-in-out;
-    box-shadow: 0px 2px 20px var(--myGreenBlue);
+    box-shadow: 0 2px 20px var(--myGreenBlue);
 }
 
 .faqSection .accordion-button {
@@ -125,15 +125,3 @@
     width: 100%;
     margin-bottom: 1rem;
 }
-
-
-
-
-
-
-
-
-
-
-
-
