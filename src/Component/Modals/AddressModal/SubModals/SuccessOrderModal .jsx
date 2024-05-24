@@ -1,8 +1,8 @@
 import React from 'react';
-import { Modal, Button } from 'react-bootstrap';
-import { FaCheckCircle, FaClipboardList } from 'react-icons/fa';
+import {Modal} from 'react-bootstrap';
+import {FaCheckCircle} from 'react-icons/fa';
 
-const SuccessOrderModal = ({ show, onHide, randomOrderNumber, handleCopyToClipboard }) => (
+const SuccessOrderModal = ({show, onHide, randomOrderNumber}) => (
     <Modal show={show} onHide={onHide} className="modal-dialog-centered customModalPosition">
         <Modal.Header closeButton>
             <Modal.Title>
@@ -20,9 +20,6 @@ const SuccessOrderModal = ({ show, onHide, randomOrderNumber, handleCopyToClipbo
                     <h5 className="mt-1">Проследяване на доставка</h5>
                     <h5 className="mt-1 mb-0">
                         № - {randomOrderNumber}
-                        <Button className="clipboardButton" onClick={handleCopyToClipboard}>
-                            <FaClipboardList className="fs-5 mb-2"/>
-                        </Button>
                     </h5>
                 </div>
                 <p className="disclaimer">

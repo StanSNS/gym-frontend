@@ -21,7 +21,7 @@ import OrderDetailsFooter from "./OrderDetailsFooter/OrderDetailsFooter";
 function AddressModal({show, handleClose, cartItems, totalWeight, productCount, totalAmount, totalSaving, addresses}) {
     const [firstName, setFirstName] = useState('Станимир'); //FIXME
     const [lastName, setLastName] = useState('Сергев'); //FIXME
-    const [email, setEmail] = useState('stanimirsergevsns@gmail.com'); //FIXME
+    const [email, setEmail] = useState('stanimirsergev159@gmail.com'); //FIXME
     const [phone, setPhone] = useState('0895225759'); //FIXME
     const [town, setTown] = useState('');
     const [postCode, setPostCode] = useState('');
@@ -158,16 +158,6 @@ function AddressModal({show, handleClose, cartItems, totalWeight, productCount, 
     const handleCloseSuccessModal = () => {
         localStorage.removeItem(CART_KEY);
         window.location.href = '/';
-    };
-
-    const handleCopyToClipboard = () => {
-        navigator.clipboard.writeText(randomOrderNumber)
-            .then(() => {
-                console.log('Text copied to clipboard:', randomOrderNumber);
-            })
-            .catch(err => {
-                console.error('Error copying text to clipboard:', err);
-            });
     };
 
     const handleCloseAddressModal = () => {
@@ -365,7 +355,6 @@ function AddressModal({show, handleClose, cartItems, totalWeight, productCount, 
                 show={showSuccessOrderModal}
                 onHide={handleCloseSuccessModal}
                 randomOrderNumber={randomOrderNumber}
-                handleCopyToClipboard={handleCopyToClipboard}
             />
 
             <ErrorOrderModal
