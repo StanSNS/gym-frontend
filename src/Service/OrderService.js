@@ -23,11 +23,7 @@ export const getAllAddresses = () => {
 
 export const getDeliveryPrice = (deliveryPriceDTOReq) => {
     return axios.post(BACKEND_BASE_URL + "/order/deliveryPrice",deliveryPriceDTOReq).then((response) => {
-        if (response.status === 200) {
-            return response.data;
-        } else {
-            throw new Error('Failed to get delivery price.');
-        }
+        return response;
     }).catch((error) => {
         throw error;
     });

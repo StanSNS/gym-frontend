@@ -1,33 +1,22 @@
 import React, {useEffect, useState} from 'react';
 import Modal from 'react-bootstrap/Modal';
-import {
-    FaBoxOpen,
-    FaCheckCircle,
-    FaClipboardList,
-    FaGlobeAmericas,
-    FaMap,
-    FaShoppingCart,
-    FaTimes,
-    FaTimesCircle,
-    FaTruckLoading,
-    FaUser,
-    FaWeightHanging
-} from "react-icons/fa";
+import {FaGlobeAmericas, FaMap, FaTimes, FaUser} from "react-icons/fa";
 import "./AddressModal.css"
 import {MdEmail, MdLocationPin} from "react-icons/md";
 
 import speedy from '../../../Resources/AddressModal/speedy.jpg'
 
-import {FaPhoneVolume, FaTruckArrowRight} from "react-icons/fa6";
-import {IoBag, IoPricetag, IoPricetags, IoShieldCheckmark} from "react-icons/io5";
-import {GiPiggyBank} from "react-icons/gi";
-import {RiHandCoinFill, RiRoadMapFill} from "react-icons/ri";
+import {FaPhoneVolume} from "react-icons/fa6";
+import {RiRoadMapFill} from "react-icons/ri";
 import {CART_KEY, checkIfProductExists} from "../../../Service/ProductService";
-import {Button} from "react-bootstrap";
 import {getDeliveryPrice, sendOrder} from "../../../Service/OrderService";
-import {LuCandy} from "react-icons/lu";
 import Loader from "../../STATIC/Loader/Loader";
 import {useNavigate} from "react-router-dom";
+import UnavailableProductModal from "./SubModals/UnavailableProductModal";
+import ErrorOrderModal from "./SubModals/ErrorOrderModal ";
+import SuccessOrderModal from "./SubModals/SuccessOrderModal ";
+import DeliveryPriceErrorModal from "./SubModals/DeliveryPriceErrorModal";
+import OrderDetailsFooter from "./OrderDetailsFooter/OrderDetailsFooter";
 
 function AddressModal({show, handleClose, cartItems, totalWeight, productCount, totalAmount, totalSaving, addresses}) {
     const [firstName, setFirstName] = useState('Станимир'); //FIXME
@@ -38,9 +27,7 @@ function AddressModal({show, handleClose, cartItems, totalWeight, productCount, 
     const [postCode, setPostCode] = useState('');
     const [officeAddress, setOfficeAddress] = useState('');
     const [selectedAddresses, setSelectedAddresses] = useState([]);
-
     const country = 'България';
-    const [delivery, setDelivery] = useState('OFFICE');
     const [courier, setCourier] = useState('SPEEDY');
     const [randomOrderNumber, setRandomOrderNumber] = useState('');
     const [unavailableProductName, setUnavailableProductName] = useState('');
@@ -48,10 +35,11 @@ function AddressModal({show, handleClose, cartItems, totalWeight, productCount, 
     const [showUnavailableModal, setShowUnavailableModal] = useState(false);
     const [showSuccessOrderModal, setShowSuccessOrderModal] = useState(false);
     const [showErrorOrderModal, setShowErrorOrderModal] = useState(false);
+    const [showDeliveryPriceErrorModal, setShowDeliveryPriceErrorModal] = useState(false);
+    const [officeMaxWeightAllowed, setOfficeMaxWeightAllowed] = useState(0);
     const [isLoading, setIsLoading] = useState(false);
     const [deliveryPrice, setDeliveryPrice] = useState(0);
     const navigator = useNavigate();
-
 
     useEffect(() => {
         if (town) {
@@ -82,11 +70,38 @@ function AddressModal({show, handleClose, cartItems, totalWeight, productCount, 
                         totalWeight
                     };
 
-                    const data =  await getDeliveryPrice(deliveryPriceDTOReq);
+                    setIsLoading(true)
+                    const response = await getDeliveryPrice(deliveryPriceDTOReq);
+                    if (response.status === 200) {
+                        setDeliveryPrice(response.data.calculations[0].price.total)
+                    } else if (response.status === 203) {
+                        console.log(response)
 
-                    console.log(data)
+                        setDeliveryPrice(0)
+                        for (const calculation of response.data?.calculations) {
+                            if (calculation.error) {
+                                const isKgOverMaxAllowed = calculation.error.context === "weight.pick-up-weight-over-maximum"
+                                    || calculation.error.context === "content.parcels.parcel-weight-over-maximum"
+
+                                if (isKgOverMaxAllowed) {
+                                    const weightRegex = /(\d+)kg/;
+                                    const match = calculation.error.message.match(weightRegex);
+                                    if (match) {
+                                        const weight = match[1];
+                                        setOfficeMaxWeightAllowed(weight);
+                                        setShowDeliveryPriceErrorModal(true)
+                                    } else {
+                                        console.log('Weight not found in the text.');
+                                    }
+                                    break;
+                                }
+                            }
+                        }
+                    }
                 } catch (error) {
-
+                    console.error(error)
+                } finally {
+                    setIsLoading(false)
                 }
             }
         }
@@ -102,7 +117,6 @@ function AddressModal({show, handleClose, cartItems, totalWeight, productCount, 
             town,
             postCode,
             officeAddress,
-            delivery,
             courier,
             cartItems,
             totalWeight,
@@ -156,9 +170,14 @@ function AddressModal({show, handleClose, cartItems, totalWeight, productCount, 
             });
     };
 
+    const handleCloseAddressModal = () => {
+        handleClose()
+        setDeliveryPrice(0);
+    }
+
     return (
         <>
-            <Modal show={show} onHide={handleClose} className="modal-xl customModalPosition">
+            <Modal show={show} onHide={handleCloseAddressModal} className="modal-xl customModalPosition">
                 {isLoading && <Loader/>}
                 <Modal.Header className="sticky-header d-flex flex-row">
                     <h3>Моля добавете вашият адрес тук</h3>
@@ -293,190 +312,72 @@ function AddressModal({show, handleClose, cartItems, totalWeight, productCount, 
                         </label>
                     </div>
 
-                    <div className="deliveryType">
-                        <label className="radio-button">
-                            <input
-                                onClick={() => setDelivery("OFFICE")}
-                                type="radio"
-                                name="example-radio"
-                                value="option2"
-                                defaultChecked
-                            />
-                            <span className="radio"></span>
-                            <span className="fw-bolder">Доставка до офис</span>
-                        </label>
-                    </div>
-
                     <div className="detailedAddress">
-                        {delivery === 'OFFICE' && (
-                            <div className="addressContainer">
-                                <label className="input_label">
-                                    <span className="redColorText fs-6 me-1">*</span>
-                                    <span className="fw-bold">Офис за доставка</span>
-                                </label>
-                                <MdLocationPin className="icon"/>
-                                <select
-                                    value={officeAddress}
-                                    onChange={(e) => {
-                                        setOfficeAddress(e.target.value)
-                                        handleGetDeliveryPrice(e.target.value)
-                                    }}
-                                    className="input_field fw-medium"
-                                    disabled={!town}
-                                >
-                                    <option value="" className="fw-medium" disabled={true}>Изберете офис</option>
-                                    {selectedAddresses.map((office, index) => (
-                                        <option className="fw-medium"
-                                                key={index}
-                                                value={office.fullAddress}
-                                        >
-                                            {office.fullAddress}
-                                        </option>
-                                    ))}
-                                </select>
-                            </div>
-                        )}
-                    </div>
-
-                    <div className="orderDetails">
-                        <div className="orderDetailsText">
-                            <div className="fw-bolder fs-5 mt-1">
-                                <span className="keyColorInfo me-2">
-                                    <FaShoppingCart className="mb-1 me-1"/>
-                                    Продукти в количката
-                                </span>
-                                {productCount} бр.
-                            </div>
-
-                            <div className="fw-bolder fs-5 mt-1">
-                                <span className="keyColorInfo me-2">
-                                    <IoPricetags className="mb-1 me-1"/>
-                                    Сума без намаление
-                                </span>
-                                {totalAmount.toFixed(2)} лв.
-                            </div>
-
-                            <div className="fw-bolder fs-5 mt-1">
-                                <span className="keyColorInfo me-2">
-                                    <IoPricetag className="mb-1 me-1"/>
-                                    Сума с намаление
-                                </span>
-                                {(totalAmount - totalSaving).toFixed(2)} лв.
-                            </div>
-
-                            <div className="fw-bolder fs-5 mt-1">
-                                <span className="keyColorInfo me-2">
-                                    <GiPiggyBank className="mb-1 me-1"/>
-                                    Спестявате
-                                </span>
-                                {totalSaving.toFixed(2)} лв.
-                            </div>
-
-                            <div className="fw-bolder fs-5 mt-1">
-                                <span className="keyColorInfo me-2">
-                                    <FaTruckLoading className="mb-1 me-1"/>
-                                    Доставка
-                                </span>
-                                {deliveryPrice.toFixed(2)} лв.
-                            </div>
-
-                            <div className="fw-bolder fs-5 mt-1">
-                                 <span className="keyColorInfo me-2">
-                                    <FaWeightHanging className="mb-1 me-1"/>
-                                    Тегло
-                                </span>
-                                {totalWeight.toFixed(3)} кг.
-                            </div>
-
-                            <div className="fw-bolder fs-5 mt-1">
-                                <span className="keyColorInfo me-2">
-                                    <RiHandCoinFill className="mb-1 me-1"/>
-                                    Дължима сума при доставка
-                                </span>
-                                {(totalAmount - totalSaving + deliveryPrice).toFixed(2)} лв.
-                            </div>
+                        <div className="addressContainer">
+                            <label className="input_label">
+                                <span className="redColorText fs-5 me-1">*</span>
+                                <span className="fw-bold fs-6">Офис за доставка</span>
+                            </label>
+                            <MdLocationPin className="icon"/>
+                            <select
+                                value={officeAddress}
+                                onChange={(e) => {
+                                    setOfficeAddress(e.target.value)
+                                    handleGetDeliveryPrice(e.target.value)
+                                }}
+                                className="input_field fw-bolder"
+                                disabled={!town}
+                            >
+                                <option value="" disabled={true}>Изберете офис</option>
+                                {selectedAddresses.map((office, index) => (
+                                    <option key={index}
+                                            value={office.fullAddress}
+                                    >
+                                        {office.fullAddress}
+                                    </option>
+                                ))}
+                            </select>
                         </div>
 
-                        <div className="buttonBox">
-                            <div>
-                                <div className="orderContent">
-                                    <IoShieldCheckmark/>
-                                    <FaTruckArrowRight/>
-                                    <FaBoxOpen/>
-                                </div>
-                                <h5 className="mt-2 text-center fw-bold">Пазарувай сигурно и надеждно с нас. </h5>
-                            </div>
-
-                            <button className="learn-more" onClick={() => handleSendOrder()}>
-                                <span className="circle" aria-hidden="true">
-                                    <span className="icon arrow"></span>
-                                </span>
-                                <span className="button-text">Поръчай сега</span>
-                            </button>
-                        </div>
                     </div>
+
+                    {deliveryPrice > 0 &&
+                        <OrderDetailsFooter
+                            productCount={productCount}
+                            totalAmount={totalAmount}
+                            totalSaving={totalSaving}
+                            deliveryPrice={deliveryPrice}
+                            totalWeight={totalWeight}
+                            handleSendOrder={handleSendOrder}
+                        />
+                    }
                 </Modal.Body>
             </Modal>
 
-            <Modal show={showUnavailableModal} onHide={() => setShowUnavailableModal(false)}>
-                <Modal.Header closeButton>
-                    <Modal.Title><FaTimesCircle className="errorColor mb-1 me-2"/>Продукта не е наличен.</Modal.Title>
-                </Modal.Header>
-                <Modal.Body>
-                    <div className="d-flex flex-column text-center">
-                        <h2>Моля премахнете следните продукти от количката си.</h2>
-                        <h5>
-                            <IoBag className="mb-2 me-1 errorColor"/>{unavailableProductName} -
-                            <LuCandy className="mb-1 ms-1 me-1 errorColor"/>{unavailableProductTaste}
-                        </h5>
-                    </div>
-                </Modal.Body>
-            </Modal>
+            <UnavailableProductModal
+                show={showUnavailableModal}
+                onHide={() => setShowUnavailableModal(false)}
+                unavailableProductName={unavailableProductName}
+                unavailableProductTaste={unavailableProductTaste}
+            />
 
-            <Modal show={showSuccessOrderModal} onHide={() => handleCloseSuccessModal()}
-                   className="modal-dialog-centered customModalPosition">
-                <Modal.Header closeButton>
-                    <Modal.Title><FaCheckCircle className="successColor mb-1 me-2"/>Успешна поръчка</Modal.Title>
-                </Modal.Header>
-                <Modal.Body>
-                    <div className="d-flex flex-column text-center">
-                        <div className="successColor"><FaCheckCircle className="modalIcon"/></div>
-                        <h2>Поръчката е завършена</h2>
-                        <h6>Наш служител ще се свърже с вас за потвърждение на поръчката.</h6>
-                        <div className="orderNumberBox">
-                            <h5 className="mt-1">
-                                Проследяване на доставка
-                            </h5>
-                            <h5 className="mt-1 mb-0">
-                                № - {randomOrderNumber}
-                                <Button className="clipboardButton" onClick={handleCopyToClipboard}>
-                                    <FaClipboardList className="fs-5 mb-2"/>
-                                </Button>
-                            </h5>
-                        </div>
-                        <p className="disclaimer">Ако имате въпроси или нужда от допълнителна помощ, не се колебайте да
-                            се свържете с нас.</p>
-                        <h4>Благодарим за вашата поръчка.</h4>
-                        <h4>С поздрав, <span className="errorColor">GymFit</span></h4>
-                    </div>
-                </Modal.Body>
+            <SuccessOrderModal
+                show={showSuccessOrderModal}
+                onHide={handleCloseSuccessModal}
+                randomOrderNumber={randomOrderNumber}
+                handleCopyToClipboard={handleCopyToClipboard}
+            />
 
-            </Modal>
+            <ErrorOrderModal
+                show={showErrorOrderModal}
+                onHide={() => setShowErrorOrderModal(false)}
+            />
 
-            <Modal show={showErrorOrderModal} onHide={() => setShowErrorOrderModal(false)}
-                   className="customModalPosition">
-                <Modal.Header closeButton>
-                    <Modal.Title><FaTimesCircle className="errorColor mb-1 me-2"/>Поръчката не беше
-                        успешна</Modal.Title>
-                </Modal.Header>
-                <Modal.Body>
-                    <div className="d-flex flex-column text-center">
-                        <div className="errorColor"><FaTimesCircle className="modalIcon"/></div>
-                        <h2>Поръчката не е завършена</h2>
-                        <h5>Моля свържете се с нас за допълнително информация</h5>
-                    </div>
-                </Modal.Body>
-            </Modal>
+            <DeliveryPriceErrorModal
+                show={showDeliveryPriceErrorModal}
+                onHide={() => setShowDeliveryPriceErrorModal(false)}
+                officeMaxWeightAllowed={officeMaxWeightAllowed}
+            />
         </>
 
     );
