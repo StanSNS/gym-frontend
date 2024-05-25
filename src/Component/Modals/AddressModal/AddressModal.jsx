@@ -27,8 +27,6 @@ function AddressModal({show, handleClose, cartItems, totalWeight, productCount, 
     const [postCode, setPostCode] = useState('');
     const [officeAddress, setOfficeAddress] = useState('');
     const [selectedAddresses, setSelectedAddresses] = useState([]);
-    const country = 'България';
-    const [courier, setCourier] = useState('SPEEDY');
     const [randomOrderNumber, setRandomOrderNumber] = useState('');
     const [unavailableProductName, setUnavailableProductName] = useState('');
     const [unavailableProductTaste, setUnavailableProductTaste] = useState('');
@@ -39,6 +37,7 @@ function AddressModal({show, handleClose, cartItems, totalWeight, productCount, 
     const [officeMaxWeightAllowed, setOfficeMaxWeightAllowed] = useState(0);
     const [isLoading, setIsLoading] = useState(false);
     const [deliveryPrice, setDeliveryPrice] = useState(0);
+    const [officeID, setOfficeID] = useState(0);
     const navigator = useNavigate();
 
     useEffect(() => {
@@ -62,6 +61,8 @@ function AddressModal({show, handleClose, cartItems, totalWeight, productCount, 
 
             if (officeID) {
                 try {
+                    setOfficeID(officeID)
+
                     const amountWithoutDelivery = (totalAmount - totalSaving).toFixed(2);
 
                     const deliveryPriceDTOReq = {
@@ -75,8 +76,6 @@ function AddressModal({show, handleClose, cartItems, totalWeight, productCount, 
                     if (response.status === 200) {
                         setDeliveryPrice(response.data.calculations[0].price.total)
                     } else if (response.status === 203) {
-                        console.log(response)
-
                         setDeliveryPrice(0)
                         for (const calculation of response.data?.calculations) {
                             if (calculation.error) {
@@ -113,17 +112,16 @@ function AddressModal({show, handleClose, cartItems, totalWeight, productCount, 
             lastName,
             email,
             phone,
-            country,
             town,
             postCode,
             officeAddress,
-            courier,
             cartItems,
             totalWeight,
             totalAmount,
             productCount,
             deliveryPrice,
-            totalSaving
+            totalSaving,
+            officeID
         };
 
         deliveryData.totalAmount = (totalAmount - totalSaving + deliveryPrice)
@@ -249,7 +247,7 @@ function AddressModal({show, handleClose, cartItems, totalWeight, productCount, 
                                 <FaGlobeAmericas className="icon"/>
                                 <input
                                     disabled
-                                    value={country}
+                                    value={"България"}
                                     className="input_field"
                                 />
                             </div>
@@ -294,8 +292,7 @@ function AddressModal({show, handleClose, cartItems, totalWeight, productCount, 
 
                     <div className="radio-inputs">
                         <label>
-                            <input className="radio-input" type="radio" name="engine"
-                                   onClick={() => setCourier('SPEEDY')} defaultChecked/>
+                            <input className="radio-input" type="radio" name="engine" defaultChecked/>
                             <span className="radio-tile">
                              <img src={speedy} alt="Speedy" className="courierLogoImage"/>
                             </span>
