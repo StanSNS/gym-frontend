@@ -3,6 +3,12 @@ import './Achievements.css'
 import VerticalSwiper from "./VerticalSwiper/VerticalSwiper";
 import {FaChartLine, FaPiggyBank, FaShoppingBag, FaUsers} from "react-icons/fa";
 import {FaTruckRampBox} from "react-icons/fa6";
+import {
+    ABOUT_DELIVERED_PACKAGES,
+    ABOUT_SATISFIED_CLIENTS,
+    ABOUT_SAVED_AMOUNT,
+    ABOUT_SOLD_PRODUCTS
+} from "../../../Constant/globalConst";
 
 function Achievements() {
     const [selectedIndex, setSelectedIndex] = useState(1);
@@ -26,7 +32,7 @@ function Achievements() {
                         </div>
 
                         <div className="contentText">
-                            <span className="number">Над 25895.58</span>
+                            <span className="number">Над {ABOUT_SAVED_AMOUNT}</span>
                             <span className="text">Спестени лева</span>
                         </div>
                     </button>
@@ -37,7 +43,7 @@ function Achievements() {
                         </div>
 
                         <div className="contentText">
-                            <span className="number">Над 1280+</span>
+                            <span className="number">Над {ABOUT_SOLD_PRODUCTS}+</span>
                             <span className="text">Продадени продукти</span>
                         </div>
                     </button>
@@ -48,7 +54,7 @@ function Achievements() {
                         </div>
 
                         <div className="contentText">
-                            <span className="number">Над 180+</span>
+                            <span className="number">Над {ABOUT_SATISFIED_CLIENTS}+</span>
                             <span className="text">Задоволени клиента</span>
                         </div>
                     </button>
@@ -59,7 +65,7 @@ function Achievements() {
                         </div>
 
                         <div className="contentText">
-                            <span className="number">Над 300+</span>
+                            <span className="number">Над {ABOUT_DELIVERED_PACKAGES}+</span>
                             <span className="text">Доставени пратки</span>
                         </div>
                     </button>
