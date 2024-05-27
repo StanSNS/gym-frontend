@@ -1,5 +1,6 @@
 import axios from "axios";
 import {BACKEND_BASE_URL} from "../Constant/globalConst";
+import {decryptData, encryptData} from "./SecurityService";
 
 
 export const getAllSellableProducts = () => {
@@ -37,16 +38,21 @@ export const checkIfProductExists = (brandId, modelId, tasteId) => {
 export const CART_KEY = 'cart';
 
 export const getCartFromStorage = () => {
-    return JSON.parse(localStorage.getItem(CART_KEY)) || [];
+    const cartItem = localStorage.getItem(CART_KEY)
+
+    if (cartItem) {
+        return decryptData(cartItem)
+    }
+    return [];
 };
 
 export const addToCart = (product, selectedTaste, quantity = 1) => {
     const cart = getCartFromStorage();
-    const { brandEntity, discountedPrice, image, modelId, name, regularPrice, weightKg } = product;
+    const {brandEntity, discountedPrice, image, modelId, name, regularPrice, weightKg} = product;
 
     let existingProductIndex;
 
-    if(selectedTaste) {
+    if (selectedTaste) {
         existingProductIndex = cart.findIndex(item => item.modelId === modelId && item.selectedTaste?.silaTasteID === selectedTaste?.silaTasteID);
     } else {
         existingProductIndex = cart.findIndex(item => item.modelId === modelId && !item.selectedTaste);
@@ -68,7 +74,7 @@ export const addToCart = (product, selectedTaste, quantity = 1) => {
         });
     }
 
-    localStorage.setItem(CART_KEY, JSON.stringify(cart));
+    localStorage.setItem(CART_KEY, encryptData(cart));
     return cart;
 };
 
@@ -76,7 +82,7 @@ export const reduceQuantityInCart = (product, selectedTaste, quantity = 1) => {
     const cart = getCartFromStorage();
     let indexToReduce;
 
-    if(selectedTaste) {
+    if (selectedTaste) {
         indexToReduce = cart.findIndex(item => item.modelId === product.modelId && item.selectedTaste?.silaTasteID === selectedTaste?.silaTasteID);
     } else {
         indexToReduce = cart.findIndex(item => item.modelId === product.modelId && !item.selectedTaste);
@@ -89,7 +95,7 @@ export const reduceQuantityInCart = (product, selectedTaste, quantity = 1) => {
             cart.splice(indexToReduce, 1);
         }
 
-        localStorage.setItem(CART_KEY, JSON.stringify(cart));
+        localStorage.setItem(CART_KEY, encryptData(cart));
     }
 
     return cart;

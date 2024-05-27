@@ -17,11 +17,12 @@ import 'swiper/css/effect-coverflow';
 import 'swiper/css/pagination';
 import {IoColorFilter} from "react-icons/io5";
 import {useNavigate} from "react-router-dom";
+import {decryptData, encryptData} from "../../Service/SecurityService";
 
 function Product() {
     const [product, setProduct] = useState(() => {
-        const savedProduct = localStorage.getItem('selectedProduct');
-        return savedProduct ? JSON.parse(savedProduct) : null;
+        const savedProduct = decryptData(localStorage.getItem('selectedProduct'));
+        return savedProduct ? savedProduct : null;
     });
     const [tasteData, setTasteData] = useState(null);
     const [selectedTaste, setSelectedTaste] = useState(null);
@@ -46,7 +47,7 @@ function Product() {
                 setIsDataLoading(true)
                 const data = await getProductByModelId(modelId);
                 setProduct(data);
-                localStorage.setItem('selectedProduct', JSON.stringify(data));
+                localStorage.setItem('selectedProduct', encryptData(data));
                 localStorage.removeItem("modelId");
                 unavailableTastes.clear()
                 setSelectedTaste(null)

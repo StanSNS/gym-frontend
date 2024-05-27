@@ -17,6 +17,7 @@ import ErrorOrderModal from "./SubModals/ErrorOrderModal ";
 import SuccessOrderModal from "./SubModals/SuccessOrderModal ";
 import DeliveryPriceErrorModal from "./SubModals/DeliveryPriceErrorModal";
 import OrderDetailsFooter from "./OrderDetailsFooter/OrderDetailsFooter";
+import {BsFillBuildingsFill} from "react-icons/bs";
 
 function AddressModal({show, handleClose, cartItems, totalWeight, productCount, totalAmount, totalSaving, addresses}) {
     const [firstName, setFirstName] = useState('Станимир'); //FIXME
@@ -168,7 +169,9 @@ function AddressModal({show, handleClose, cartItems, totalWeight, productCount, 
             <Modal show={show} onHide={handleCloseAddressModal} className="modal-xl customModalPosition">
                 {isLoading && <Loader/>}
                 <Modal.Header className="sticky-header d-flex flex-row">
-                    <h3>Моля добавете вашият адрес тук</h3>
+                    <h3><BsFillBuildingsFill className="mb-2 me-2 myGreenBlueColor"/>
+                        Моля добавете вашият адрес тук
+                    </h3>
                     <button className="closingModalButton" onClick={handleClose}>
                         <FaTimes/>
                     </button>
