@@ -1,14 +1,14 @@
-import React, {useState} from 'react';
-import {Button, Modal} from 'react-bootstrap';
-import {FaInfoCircle, FaTimes, FaTimesCircle, FaTruckLoading} from 'react-icons/fa';
+import React, { useState } from 'react';
+import { Button, Modal } from 'react-bootstrap';
+import { FaInfoCircle, FaTimes, FaTimesCircle, FaTruckLoading } from 'react-icons/fa';
 import './TrackOrderModal.css';
-import {FaEnvelopeCircleCheck, FaTruckArrowRight} from "react-icons/fa6";
-import {HiRefresh} from "react-icons/hi";
-import {findOrderByNumber, sendAllOrdersToEmail} from "../../../Service/OrderService";
+import { FaEnvelopeCircleCheck, FaTruckArrowRight } from "react-icons/fa6";
+import { HiRefresh } from "react-icons/hi";
+import { findOrderByNumber, sendAllOrdersToEmail } from "../../../Service/OrderService";
 import Loader from "../../STATIC/Loader/Loader";
-import {useNavigate} from "react-router-dom";
+import { useNavigate } from "react-router-dom";
 
-function TrackOrderModal({show, handleClose}) {
+function TrackOrderModal({ show, handleClose }) {
     const [recoverModalShow, setRecoverModalShow] = useState(false);
     const [orderModalShow, setOrderModalShow] = useState(false);
     const [recoveryStatus, setRecoveryStatus] = useState(false);
@@ -16,7 +16,29 @@ function TrackOrderModal({show, handleClose}) {
     const [emailInput, setEmailInput] = useState('');
     const [codeInput, setCodeInput] = useState('');
     const [isLoading, setIsLoading] = useState(false);
+    const [emailError, setEmailError] = useState(false);
+    const [codeError, setCodeError] = useState(false);
     const navigator = useNavigate();
+
+    const emailRegex = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
+
+    const validateEmail = () => {
+        if (!emailInput || !emailRegex.test(emailInput)) {
+            setEmailError(true);
+            return false;
+        }
+        setEmailError(false);
+        return true;
+    };
+
+    const validateCode = () => {
+        if (!codeInput || codeInput.length !== 10) {
+            setCodeError(true);
+            return false;
+        }
+        setCodeError(false);
+        return true;
+    };
 
     const handleRecoverModalClose = () => {
         setRecoverModalShow(false);
@@ -27,50 +49,57 @@ function TrackOrderModal({show, handleClose}) {
     };
 
     const handleSendAllOrdersToEmail = async () => {
+        if (!validateEmail()) {
+            return;
+        }
         try {
             setIsLoading(true);
             const data = await sendAllOrdersToEmail(emailInput);
             setIsLoading(false);
 
             if (data.status === 200) {
-                setRecoveryStatus(true)
+                setRecoveryStatus(true);
                 setRecoverModalShow(true);
             } else {
-                setRecoveryStatus(false)
+                setRecoveryStatus(false);
                 setRecoverModalShow(true);
             }
         } catch (error) {
             navigator("/internal-server-error");
-            console.error("Failed to send all orders to email: " + error)
+            console.error("Failed to send all orders to email: " + error);
         }
     };
 
     const handleSendOrderEmail = async () => {
+        if (!validateCode()) {
+            return;
+        }
         try {
             setIsLoading(true);
             const data = await findOrderByNumber(codeInput);
-            setIsLoading(false);
             if (data.status === 200) {
-                setOrderStatus(true)
+                setOrderStatus(true);
                 setOrderModalShow(true);
-            } else if (data.status === 204) {
-                setOrderStatus(false)
+            } else {
+                setOrderStatus(false);
                 setOrderModalShow(true);
             }
         } catch (error) {
-            navigator("/internal-server-error");
-            console.error("Failed to send order email: " + error)
+            setOrderStatus(false);
+            setOrderModalShow(true);
+        } finally {
+            setIsLoading(false);
         }
     };
 
     return (
         <>
             <Modal show={show} onHide={handleClose} className="trackOrderModal" centered="true" data-bs-theme="dark">
-                {isLoading && <Loader/>}
+                {isLoading && <Loader />}
 
                 <Modal.Header>
                     <Modal.Title><FaTruckLoading className="mb-1 me-1 myGreenBlueColor" /> Проследи своята поръчка</Modal.Title>
-                    <button className="closingModalButton" onClick={handleClose}><FaTimes/></button>
+                    <button className="closingModalButton" onClick={handleClose}><FaTimes /></button>
                 </Modal.Header>
 
                 <Modal.Body>
@@ -80,36 +109,41 @@ function TrackOrderModal({show, handleClose}) {
                     </h3>
                     <input
                         type="text"
-                        className="trackOrderInput"
-                        placeholder="Моля въвдете 10 цифрен код"
+                        className={`mb-2 trackOrderInput ${codeError ? 'input-error' : ''}`}
+                        placeholder="Моля въведете 10 цифрен код"
                         value={codeInput}
                         onChange={(e) => setCodeInput(e.target.value)}
                     />
+                    {codeError && <h6 className="error-message mb-3 fw-bold">Моля въведете валиден 10 цифрен код.</h6>}
 
                     <Button className="trackOrderButtonSubmit fw-bold" onClick={handleSendOrderEmail}>
-                        <FaTruckArrowRight className="mb-1 me-2"/>
+                        <FaTruckArrowRight className="mb-1 me-2" />
                         Проследи
                     </Button>
                 </Modal.Body>
 
                 <Modal.Footer className="d-flex justify-content-center p-4">
-                    <h5 className="text-center pb-0 mb-0">Изгубили сте вашия код ?
+                    <h5 className="text-center pb-0 mb-0 ps-3 pe-3">Изгубили сте вашия код?
                         Проверете имейла си или възстановете вашият код.</h5>
 
-                    <div className="p-3 pt-0 pb-0 mt-0">
-                        <h6 className="text-center mt-4">Въведете имейл на който ще изпратим всички поръчки свързани с
-                            него.</h6>
+                    <div className=" pt-0 pb-0 mt-0">
+                        <h6 className="text-center mt-4">Въведете имейл на който ще изпратим всички поръчки свързани с него.</h6>
                         <input
                             type="text"
-                            className="trackOrderInput mb-2"
-                            placeholder="Моля въвдете имейл..."
+                            className={`mb-2 trackOrderInput ${emailError ? 'input-error' : ''}`}
+                            placeholder="Моля въведете имейл..."
                             value={emailInput}
                             onChange={(e) => setEmailInput(e.target.value)}
                         />
+                        {emailError &&
+                            <h6 className="error-message mb-2 text-center fw-bold">
+                                Моля въведете валиден имейл адрес.
+                            </h6>
+                        }
                     </div>
 
                     <Button className="recoverEmailButton fw-bold" onClick={handleSendAllOrdersToEmail}>
-                        <HiRefresh className="mb-1 me-2"/>
+                        <HiRefresh className="mb-1 me-2" />
                         Възстанови
                     </Button>
                 </Modal.Footer>
@@ -121,15 +155,15 @@ function TrackOrderModal({show, handleClose}) {
                     <>
                         <Modal.Header>
                             <Modal.Title>
-                                <FaEnvelopeCircleCheck className="mb-1 me-2 successColor"/>
+                                <FaEnvelopeCircleCheck className="mb-1 me-2 successColor" />
                                 Имейл с всички поръчки беше изпратен.
                             </Modal.Title>
-                            <button className="closingModalButton" onClick={handleRecoverModalClose}><FaTimes/></button>
+                            <button className="closingModalButton" onClick={handleRecoverModalClose}><FaTimes /></button>
                         </Modal.Header>
 
                         <Modal.Body className="text-center">
                             <h4>
-                                <FaInfoCircle className="mb-2 me-2 infoColor"/>
+                                <FaInfoCircle className="mb-2 me-2 infoColor" />
                                 Моля проверете имейла си за потвърждение.</h4>
                             <p className="fw-medium">Имейлът съдържа важна информация относно вашите поръчки. Ако не
                                 откриете имейла във вашата основна пощенска кутия, моля, проверете папката със спам или
@@ -137,22 +171,21 @@ function TrackOrderModal({show, handleClose}) {
                                 имейл, моля, свържете се с нас за помощ.</p>
                         </Modal.Body>
                     </>
-
                 )}
 
                 {!recoveryStatus && (
                     <>
                         <Modal.Header>
                             <Modal.Title>
-                                <FaTimesCircle className="mb-1 me-2 errorColor"/>
+                                <FaTimesCircle className="mb-1 me-2 errorColor" />
                                 Няма намерени поръчки.
                             </Modal.Title>
-                            <button className="closingModalButton" onClick={handleRecoverModalClose}><FaTimes/></button>
+                            <button className="closingModalButton" onClick={handleRecoverModalClose}><FaTimes /></button>
                         </Modal.Header>
 
                         <Modal.Body className="text-center">
                             <h4>
-                                <FaInfoCircle className="mb-2 me-2 infoColor"/>
+                                <FaInfoCircle className="mb-2 me-2 infoColor" />
                                 Няма намерени поръчки свързани с въведения от вас имейл.</h4>
                             <p className="fw-medium">Моля, уверете се, че сте въвели правилния имейл адрес. Ако сте
                                 сигурни, че сте го въвели правилно и все пак не откривате поръчките си, моля, не се
@@ -169,35 +202,34 @@ function TrackOrderModal({show, handleClose}) {
                     <>
                         <Modal.Header>
                             <Modal.Title>
-                                <FaEnvelopeCircleCheck className="mb-1 me-2 successColor"/>
+                                <FaEnvelopeCircleCheck className="mb-1 me-2 successColor" />
                                 Поръчка намерена успешно.</Modal.Title>
-                            <button className="closingModalButton" onClick={handleOrderModalClose}><FaTimes/></button>
+                            <button className="closingModalButton" onClick={handleOrderModalClose}><FaTimes /></button>
                         </Modal.Header>
 
                         <Modal.Body className="text-center">
                             <h4>
-                                <FaInfoCircle className="mb-2 me-2 infoColor"/>
+                                <FaInfoCircle className="mb-2 me-2 infoColor" />
                                 Поръчка с номер {codeInput} беше намерена успешно.</h4>
                             <p className="fw-medium">Благодарим ви, че избрахте нашата услуга. Моля, проверете вашата
                                 електронна поща за подробности относно поръчката.</p>
                         </Modal.Body>
                     </>
-
                 )}
 
                 {!orderStatus && (
                     <>
                         <Modal.Header>
                             <Modal.Title>
-                                <FaTimesCircle className="mb-1 me-2 errorColor"/>
+                                <FaTimesCircle className="mb-1 me-2 errorColor" />
                                 Поръчка не е намерена.
                             </Modal.Title>
-                            <button className="closingModalButton" onClick={handleOrderModalClose}><FaTimes/></button>
+                            <button className="closingModalButton" onClick={handleOrderModalClose}><FaTimes /></button>
                         </Modal.Header>
 
                         <Modal.Body className="text-center">
                             <h4>
-                                <FaInfoCircle className="mb-2 me-2 infoColor"/>
+                                <FaInfoCircle className="mb-2 me-2 infoColor" />
                                 Извинявайте, поръчка с номер {codeInput} не беше намерена.</h4>
                             <p className="fw-medium">Моля, уверете се, че сте въвели правилния номер на поръчката. Ако
                                 се съмнявате или имате въпроси, не се колебайте да се свържете с нас за помощ.</p>

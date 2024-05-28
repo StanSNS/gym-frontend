@@ -60,3 +60,13 @@
 .infoColor{
     color: #00CED1;
 }
+
+.input-error {
+    border: 1px solid var(--myRed);
+}
+
+.error-message {
+    color: var(--myRed);
+    font-size: 0.875em;
+    margin-top: 0.25em;
+}
