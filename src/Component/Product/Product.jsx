@@ -102,6 +102,7 @@ function Product() {
                 if (product.taste.length > 0) {
                     setShowErrorModal(true);
                     unavailableTastes.add(selectedTaste?.name)
+                    setSelectedTaste(null)
                 } else {
                     setShowUnavailableProductErrorModal(true);
                 }

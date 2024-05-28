@@ -1,10 +1,11 @@
-import React from 'react';
+import React, {useState} from 'react';
 import {FaShoppingCart, FaTruckLoading, FaWeightHanging, FaBoxOpen} from 'react-icons/fa';
 import {IoPricetags, IoPricetag, IoShieldCheckmark} from 'react-icons/io5';
 import {GiPiggyBank} from 'react-icons/gi';
 import {RiHandCoinFill} from 'react-icons/ri';
 import {FaTruckArrowRight} from "react-icons/fa6";
 import './OrderDetailsFooter.css'
+import {Link} from "react-router-dom";
 
 const OrderDetailsFooter = ({
                                 productCount,
@@ -12,8 +13,10 @@ const OrderDetailsFooter = ({
                                 totalSaving,
                                 deliveryPrice,
                                 totalWeight,
-                                handleSendOrder
+                                handleSendOrder,
                             }) => {
+    const [acceptedTerms, setAcceptedTerms] = useState(false);
+
     return (
         <div className="orderDetails">
             <div className="orderDetailsText">
@@ -84,9 +87,30 @@ const OrderDetailsFooter = ({
                     <h5 className="mt-2 text-center fw-bold">Пазарувай сигурно и надеждно с нас.</h5>
                 </div>
 
-                <button className="learn-more" onClick={() => handleSendOrder()}>
+                <div className="termAndCondsBox">
+                    <h5 className="d-flex flex-column">
+                        Съгалсявам се с общите
+                        <Link to={"#"} onClick={() => window.location.href="/terms-and-conditions"}>
+                            правила и условия
+                        </Link>
+                    </h5>
+                    <label className="switch">
+                        <input
+                            type="checkbox"
+                            checked={acceptedTerms}
+                            onChange={() => setAcceptedTerms(!acceptedTerms)}
+                        />
+                        <span className="slider"></span>
+                    </label>
+                </div>
+
+                <button
+                    className={`learn-more ${!acceptedTerms ? 'disabled' : ''}`}
+                    onClick={handleSendOrder}
+                    disabled={!acceptedTerms}
+                >
                     <span className="circle" aria-hidden="true">
-                        <span className="icon arrow"></span>
+                      <span className="icon arrow"></span>
                     </span>
                     <span className="button-text">Поръчай сега</span>
                 </button>

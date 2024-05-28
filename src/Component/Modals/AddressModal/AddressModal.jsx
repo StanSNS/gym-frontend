@@ -162,6 +162,9 @@ function AddressModal({show, handleClose, cartItems, totalWeight, productCount, 
     const handleCloseAddressModal = () => {
         handleClose()
         setDeliveryPrice(0);
+        setTown('')
+        setOfficeAddress('')
+        setPostCode('')
     }
 
     return (
@@ -170,7 +173,7 @@ function AddressModal({show, handleClose, cartItems, totalWeight, productCount, 
                 {isLoading && <Loader/>}
                 <Modal.Header className="sticky-header d-flex flex-row">
                     <h3><BsFillBuildingsFill className="mb-2 me-2 myGreenBlueColor"/>
-                        Моля добавете вашият адрес тук
+                        Адрес за доставка
                     </h3>
                     <button className="closingModalButton" onClick={handleClose}>
                         <FaTimes/>
