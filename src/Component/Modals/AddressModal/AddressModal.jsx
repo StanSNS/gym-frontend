@@ -20,10 +20,10 @@ import OrderDetailsFooter from "./OrderDetailsFooter/OrderDetailsFooter";
 import {BsFillBuildingsFill} from "react-icons/bs";
 
 function AddressModal({show, handleClose, cartItems, totalWeight, productCount, totalAmount, totalSaving, addresses}) {
-    const [firstName, setFirstName] = useState('Станимир'); //FIXME
-    const [lastName, setLastName] = useState('Сергев'); //FIXME
-    const [email, setEmail] = useState('stanimirsergev159@gmail.com'); //FIXME
-    const [phone, setPhone] = useState('0895225759'); //FIXME
+    const [firstName, setFirstName] = useState('');
+    const [lastName, setLastName] = useState('');
+    const [email, setEmail] = useState('');
+    const [phone, setPhone] = useState('');
     const [town, setTown] = useState('');
     const [postCode, setPostCode] = useState('');
     const [officeAddress, setOfficeAddress] = useState('');
@@ -40,6 +40,10 @@ function AddressModal({show, handleClose, cartItems, totalWeight, productCount, 
     const [deliveryPrice, setDeliveryPrice] = useState(0);
     const [officeID, setOfficeID] = useState(0);
     const navigator = useNavigate();
+    const [firstNameError, setFirstNameError] = useState(false);
+    const [lastNameError, setLastNameError] = useState(false);
+    const [emailError, setEmailError] = useState(false);
+    const [phoneError, setPhoneError] = useState(false);
 
     useEffect(() => {
         if (town) {
@@ -50,6 +54,8 @@ function AddressModal({show, handleClose, cartItems, totalWeight, productCount, 
             }
         }
     }, [town, addresses]);
+
+    const emailRegex = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
 
     const handleGetDeliveryPrice = async (officeAddressFromEvent) => {
         if (town && officeAddressFromEvent) {
@@ -108,6 +114,30 @@ function AddressModal({show, handleClose, cartItems, totalWeight, productCount, 
     }
 
     const handleSendOrder = async () => {
+        if (!firstName) {
+            setFirstNameError(true)
+            return;
+        }
+        setFirstNameError(false)
+
+        if (!lastName) {
+            setLastNameError(true)
+            return;
+        }
+        setLastNameError(false)
+
+        if (!email || !emailRegex.test(email)) {
+            setEmailError(true)
+            return;
+        }
+        setEmailError(false)
+
+        if (!phone || !/^\d+$/.test(phone)) {
+            setPhoneError(true);
+            return;
+        }
+        setPhoneError(false)
+
         const deliveryData = {
             firstName,
             lastName,
@@ -142,15 +172,20 @@ function AddressModal({show, handleClose, cartItems, totalWeight, productCount, 
             }
         }
 
-        setIsLoading(true)
-        const sendOrderData = await sendOrder(deliveryData);
-        setIsLoading(false)
+        try {
+            setIsLoading(true)
+            const sendOrderData = await sendOrder(deliveryData);
+            if (sendOrderData.status === 200) {
+                setRandomOrderNumber(sendOrderData.data)
+                setShowSuccessOrderModal(true)
+            } else {
+                setShowErrorOrderModal(true)
+            }
+        } catch (err) {
+            console.error(err)
+        } finally {
+            setIsLoading(false)
 
-        if (sendOrderData.status === 200) {
-            setRandomOrderNumber(sendOrderData.data)
-            setShowSuccessOrderModal(true)
-        } else {
-            setShowErrorOrderModal(true)
         }
     };
 
@@ -183,8 +218,16 @@ function AddressModal({show, handleClose, cartItems, totalWeight, productCount, 
                     <div className="personalData">
                         <div className="namesContainer">
                             <div className="input_container">
-                                <label className="input_label"><span className="redColorText fs-6 me-1">*</span>
-                                    Име
+                                <label className="input_label d-flex justify-content-between align-items-center">
+                                    <span>
+                                        <span className="redColorText fs-6 me-1">*</span>
+                                            Име
+                                        </span>
+                                    {firstNameError && (
+                                        <h6 className="error-message fw-bold mb-0 mt-0 me-2">
+                                            Моля въведете първо име.
+                                        </h6>
+                                    )}
                                 </label>
                                 <FaUser className="icon"/>
                                 <input
@@ -196,9 +239,16 @@ function AddressModal({show, handleClose, cartItems, totalWeight, productCount, 
                                 />
                             </div>
                             <div className="input_container">
-                                <label className="input_label">
-                                    <span className="redColorText fs-6 me-1">*</span>
-                                    Фамилия
+                                <label className="input_label d-flex justify-content-between align-items-center">
+                                    <span>
+                                        <span className="redColorText fs-6 me-1">*</span>
+                                            Фамилия
+                                        </span>
+                                    {lastNameError && (
+                                        <h6 className="error-message fw-bold mb-0 mt-0 me-2">
+                                            Моля въведете фамилия.
+                                        </h6>
+                                    )}
                                 </label>
                                 <FaUser className="icon"/>
                                 <input
@@ -213,23 +263,37 @@ function AddressModal({show, handleClose, cartItems, totalWeight, productCount, 
 
                         <div className="emailAndPhoneContainer">
                             <div className="input_container">
-                                <label className="input_label">
-                                    <span className="redColorText fs-6 me-1">*</span>
-                                    Имейл
+                                <label className="input_label d-flex justify-content-between align-items-center">
+                                    <span>
+                                        <span className="redColorText fs-6 me-1">*</span>
+                                            Имейл
+                                        </span>
+                                    {emailError && (
+                                        <h6 className="error-message fw-bold mb-0 mt-0 me-2">
+                                            Моля въведете валиден имейл.
+                                        </h6>
+                                    )}
                                 </label>
                                 <MdEmail className="icon"/>
                                 <input
                                     value={email}
                                     onChange={(e) => setEmail(e.target.value)}
                                     placeholder="Въведете имейл"
-                                    type="text"
+                                    type="email"
                                     className="input_field"
                                 />
                             </div>
                             <div className="input_container">
-                                <label className="input_label">
-                                    <span className="redColorText fs-6 me-1">*</span>
-                                    Телефон
+                                <label className="input_label d-flex justify-content-between align-items-center">
+                                    <span>
+                                        <span className="redColorText fs-6 me-1">*</span>
+                                            Телефон
+                                        </span>
+                                    {phoneError && (
+                                        <h6 className="error-message fw-bold mb-0 mt-0 me-2">
+                                            Моля въведете валиден телефон.
+                                        </h6>
+                                    )}
                                 </label>
                                 <FaPhoneVolume className="icon"/>
                                 <input
