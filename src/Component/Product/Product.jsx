@@ -126,7 +126,7 @@ function Product() {
                     </div>
                 ) :
 
-                <>
+                <div className="productSection center">
                     <div className="productContainer">
                         {product ? (
                             <>
@@ -301,7 +301,6 @@ function Product() {
                             effect={'coverflow'}
                             grabCursor={true}
                             centeredSlides={true}
-                            slidesPerView={3}
                             coverflowEffect={{
                                 rotate: 60,
                                 stretch: 0,
@@ -313,15 +312,33 @@ function Product() {
                             modules={[EffectCoverflow, Pagination]}
                             className="mySwiper"
                             initialSlide={1}
+                            breakpoints={{
+                                1700: {
+                                    rotate: 50,
+                                    slidesPerView: 3
+                                },
+                                1400: {
+                                    rotate: 40,
+                                    slidesPerView: 2
+                                },
+                                1150: {
+                                    depth: 0,
+                                    rotate: 30,
+                                    slidesPerView: 2
+                                },
+                                0: {
+                                    slidesPerView: 1
+                                },
+                            }}
                         >
                             {product?.singleProducts.map((product, index) => (
                                 <SwiperSlide key={index}>
                                     <div className="swiperCard">
                                         <img src={product.image} alt={product.name}/>
                                         <div className="singleProductText">
-                                            <h4 className="fw-bold text-center">{product.name}</h4>
+                                            <h4 className="productSwiperTitle">{product.name}</h4>
 
-                                            <div className="fw-bolder mt-2 cardCategory">
+                                            <div className="fw-bolder mt-2  singleLine">
                                                   <span className="keyColorInfo me-2">
                                                       <BiSolidCategory className="mb-1"/>Категория
                                                    </span>
@@ -329,14 +346,14 @@ function Product() {
                                             </div>
 
                                             {product.weightKg !== "0.000" && (
-                                                <div className="fw-bolder mt-2">
+                                                <div className="fw-bolder mt-2 singleLine">
                                                     <span className="keyColorInfo me-2">
                                                         <FaWeightHanging className="mb-1"/>Тегло
                                                     </span>
                                                     <span className="fs-5">{product.weightKg} кг.</span>
                                                 </div>
                                             )}
-                                            <div className="fw-bolder mt-2">
+                                            <div className="fw-bolder mt-2 singleLine">
                                                 <span className="keyColorInfo me-2">
                                                     <MdOutlineMoneyOffCsred className="mb-1"/>Редовна цена
                                                 </span>
@@ -345,7 +362,7 @@ function Product() {
                                                 </span>
                                             </div>
 
-                                            <div className="fw-bolder mt-2">
+                                            <div className="fw-bolder mt-2 singleLine">
                                                 <span className="keyColorInfo me-2">
                                                     <IoIosPricetag className="mb-1"/>Намалена цена
                                                 </span>
@@ -423,7 +440,7 @@ function Product() {
                             </div>
                         </Modal.Body>
                     </Modal>
-                </>
+                </div>
             }
         </>
 
