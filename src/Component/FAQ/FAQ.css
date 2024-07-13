@@ -6,9 +6,24 @@
     margin-bottom: 5rem;
 }
 
+.faqTitle {
+    margin-top: 4rem;
+    font-weight: bolder;
+    display: flex;
+    align-items: center;
+    text-align: center;
+}
+
+.faqTitle span {
+    padding-left: 1rem;
+    padding-right: 1rem;
+}
+
 .faqSortingButtons {
-    margin-top: 2.5rem;
-    margin-bottom: 1rem;
+    display: flex;
+    justify-content: center;
+    width: 82%;
+    flex-wrap: wrap;
 }
 
 .faqIconWrapper {
@@ -67,11 +82,11 @@
     font-size: 16px;
     padding: 6px 24px;
     font-weight: bold;
-    margin-left: 1rem;
-    margin-right: 1rem;
+    margin: 1rem;
     border-radius: 4px;
     box-shadow: 0 4px 30px 0 var(--myWhite);
     transition: all 0.2s ease-in-out;
+    width: 160px;
 }
 
 .selectedFaqButton {
@@ -80,11 +95,11 @@
     font-size: 16px;
     padding: 6px 24px;
     font-weight: bold;
-    margin-left: 1rem;
-    margin-right: 1rem;
+    margin: 1rem;
     border-radius: 16px;
     transition: all 0.2s ease-in-out;
     box-shadow: 0 2px 20px var(--myGreenBlue);
+    width: 160px;
 }
 
 .faqSection .accordion-button {
@@ -124,4 +139,14 @@
     opacity: 0.2;
     width: 100%;
     margin-bottom: 1rem;
+}
+
+@media (max-width: 580px) {
+    .faqTitle {
+        flex-direction: column;
+    }
+
+    .faqTitle span {
+        margin-top: 0.5rem;
+    }
 }
