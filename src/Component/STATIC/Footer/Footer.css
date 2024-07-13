@@ -14,6 +14,7 @@
     width: 100%;
     max-width: 1920px;
     align-items: center;
+    flex-wrap: wrap;
 }
 
 .subFooter {
@@ -36,6 +37,7 @@
     color: var(--myWhite);
     text-decoration: none;
     transition: all 0.3s ease-in-out;
+    margin: 1rem;
 }
 
 .logoLink:hover {
@@ -47,6 +49,7 @@
     width: 220px;
     display: flex;
     flex-direction: column;
+    margin: 1rem;
 }
 
 .columnTitle {
@@ -68,7 +71,7 @@
     color: var(--myGreenBlue);
 }
 
-.footerButton{
+.footerButton {
     cursor: pointer;
     padding: 10px 20px;
     border-radius: 16px;
@@ -78,9 +81,10 @@
     font-size: 18px;
     border: 2px solid var(--myWhite);
     transition: scale 0.5s ease;
+    margin: 1rem;
 }
 
-.footerButton:hover{
+.footerButton:hover {
     background-color: var(--myGreenBlue);
     box-shadow: 0px 0px 15px var(--myGreenBlue);
     border-color: var(--myGreenBlue);
@@ -88,6 +92,28 @@
     color: var(--myBlack) !important;
 }
 
-.footerButton:hover span{
+.footerButton:hover span {
     color: var(--myBlack) !important;
+}
+
+@media (max-width: 585px) {
+    .footer {
+        flex-direction: column;
+        align-items: center;
+    }
+}
+
+@media (max-width: 400px) {
+    .footerButton {
+        display: flex;
+        flex-direction: column;
+        align-items: center;
+    }
+}
+
+@media (max-width: 330px) {
+    .footerButton {
+        margin-left: 0;
+        margin-right: 0;
+    }
 }

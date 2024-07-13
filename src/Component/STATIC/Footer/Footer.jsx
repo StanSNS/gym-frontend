@@ -86,16 +86,18 @@ const Footer = () => {
                 </div>
 
                 <button className="footerButton" onClick={() => setShowContactUsModal(true)}>
-                    <BiSupport className="mb-1 me-1"/> Свържи се с нас
+                    <BiSupport className="mb-1 me-1"/>
+                    <span>Свържи се с нас</span>
                 </button>
 
                 <button className="footerButton" onClick={() => setShowTrackOrderModal(true)}>
-                    <FaTruck className="mb-1 me-1"/> Проследяване
+                    <FaTruck className="mb-1 me-1"/>
+                    <span>Проследяване</span>
                 </button>
 
                 <button className="footerButton" onClick={() => setShowCartModal(true)}>
                     <FaShoppingCart className="mb-1 me-2"/>
-                    Продукти в количка
+                    <span>Продукти в количка</span>
                     {productCount > 0 &&
                         <span className="ms-1 myGreenBlueColor">({productCount})</span>
                     }
@@ -103,7 +105,7 @@ const Footer = () => {
             </footer>
 
             <div className="subFooter">
-                <span className="subFooterText">© 2024 My future website. All rights reserved.</span>
+                <span className="text-center">© 2024 My future website. All rights reserved.</span>
             </div>
 
             <TrackOrderModal show={showTrackOrderModal} handleClose={handleTrackOrderModalClose}/>
