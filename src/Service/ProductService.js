@@ -1,6 +1,5 @@
 import axios from "axios";
 import {BACKEND_BASE_URL} from "../Constant/globalConst";
-import {decryptData, encryptData} from "./SecurityService";
 
 
 export const getAllSellableProducts = () => {
@@ -34,73 +33,3 @@ export const checkIfProductExists = (brandId, modelId, tasteId) => {
         throw error;
     });
 };
-
-export const CART_KEY = 'cart';
-
-export const getCartFromStorage = () => {
-    const cartItem = localStorage.getItem(CART_KEY)
-
-    if (cartItem) {
-        return decryptData(cartItem)
-    }
-    return [];
-};
-
-export const addToCart = (product, selectedTaste, quantity = 1) => {
-    const cart = getCartFromStorage();
-    const {brandEntity, discountedPrice, image, modelId, name, regularPrice, weightKg} = product;
-
-    let existingProductIndex;
-
-    if (selectedTaste) {
-        existingProductIndex = cart.findIndex(item => item.modelId === modelId && item.selectedTaste?.silaTasteID === selectedTaste?.silaTasteID);
-    } else {
-        existingProductIndex = cart.findIndex(item => item.modelId === modelId && !item.selectedTaste);
-    }
-
-    if (existingProductIndex !== -1) {
-        cart[existingProductIndex].quantity += quantity;
-    } else {
-        cart.push({
-            brandEntity,
-            discountedPrice,
-            image,
-            modelId,
-            name,
-            regularPrice,
-            selectedTaste,
-            weightKg,
-            quantity
-        });
-    }
-
-    localStorage.setItem(CART_KEY, encryptData(cart));
-    return cart;
-};
-
-export const reduceQuantityInCart = (product, selectedTaste, quantity = 1) => {
-    const cart = getCartFromStorage();
-    let indexToReduce;
-
-    if (selectedTaste) {
-        indexToReduce = cart.findIndex(item => item.modelId === product.modelId && item.selectedTaste?.silaTasteID === selectedTaste?.silaTasteID);
-    } else {
-        indexToReduce = cart.findIndex(item => item.modelId === product.modelId && !item.selectedTaste);
-    }
-
-    if (indexToReduce !== -1) {
-        if (cart[indexToReduce].quantity > quantity) {
-            cart[indexToReduce].quantity -= quantity;
-        } else {
-            cart.splice(indexToReduce, 1);
-        }
-
-        localStorage.setItem(CART_KEY, encryptData(cart));
-    }
-
-    return cart;
-};
-
-
-
-

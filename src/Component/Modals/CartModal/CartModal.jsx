@@ -14,7 +14,7 @@ import {
 } from "react-icons/fa";
 import {GiBank, GiWrappedSweet} from "react-icons/gi";
 import {IoIosPricetag} from "react-icons/io";
-import {addToCart, CART_KEY, getCartFromStorage, reduceQuantityInCart} from "../../../Service/ProductService";
+import {addToCart, getCartFromStorage, reduceQuantityInCart, removeCartItems} from "../../../Service/localStorageUtils";
 import AddressModal from "../AddressModal/AddressModal";
 import {getAllAddresses} from "../../../Service/OrderService";
 import Loader from "../../STATIC/Loader/Loader";
@@ -94,7 +94,7 @@ function CartModal({show, handleClose}) {
     };
 
     const handleClearBasket = () => {
-        localStorage.removeItem(CART_KEY)
+        removeCartItems()
     }
 
     return (

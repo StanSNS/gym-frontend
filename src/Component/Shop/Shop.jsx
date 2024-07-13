@@ -8,6 +8,7 @@ import DropdownButtons from "./DropDownButtons/DropDownButtons";
 import Loader from "../STATIC/Loader/Loader";
 import Hero from "../Hero/Hero";
 import {useNavigate} from "react-router-dom";
+import {getShopFilters, setShopFilters} from "../../Service/localStorageUtils";
 
 const Shop = () => {
     const [products, setProducts] = useState([]);
@@ -29,7 +30,6 @@ const Shop = () => {
     const [isOpenWeight, setIsOpenWeight] = useState(false);
     const [isDataLoading, setIsDataLoading] = useState(false);
     const navigator = useNavigate();
-
 
     const weightData = [
         {id: 1, range: "0 - 0.300"},
@@ -56,17 +56,36 @@ const Shop = () => {
                 setIsDataLoading(false);
             }
         };
+
+        const savedFilters = getShopFilters() || {};
+        setSearchQuery(savedFilters.searchQuery || '');
+        setSelectedCategory(savedFilters.selectedCategory || '');
+        setSelectedBrand(savedFilters.selectedBrand || '');
+        setSelectedOrderBy(savedFilters.selectedOrderBy || '');
+        setSelectedDeal(savedFilters.selectedDeal || 0);
+        setSelectedWeight(savedFilters.selectedWeight || '0.0-999999.0');
+        setCurrentPage(savedFilters.currentPage || 1);
+
         fetchData();
     }, [navigator]);
 
     const handleSearchChange = (e) => {
-        setSearchQuery(e.target.value);
+        const newSearchQuery = e.target.value;
+        setSearchQuery(newSearchQuery);
         setCurrentPage(1);
+        saveFilters({ searchQuery: newSearchQuery });
     };
 
     const clearSearch = () => {
         setSearchQuery('');
         setCurrentPage(1);
+        saveFilters({ searchQuery: '' });
+    };
+
+    const saveFilters = (newFilters) => {
+        const savedFilters = getShopFilters() || {};
+        const updatedFilters = { ...savedFilters, ...newFilters };
+        setShopFilters(updatedFilters)
     };
 
     const indexOfLastProduct = currentPage * productsPerPage;
@@ -101,6 +120,7 @@ const Shop = () => {
             top: heroSectionHeight + 80,
             behavior: "smooth"
         });
+        saveFilters({ currentPage: pageNumber });
     };
 
     const [isOverlayVisible, setIsOverlayVisible] = useState(false);
@@ -117,17 +137,20 @@ const Shop = () => {
     const selectCategory = (category) => {
         setSelectedCategory(category);
         setCurrentPage(1);
+        saveFilters({ selectedCategory: category });
     };
 
     const selectBrand = (brand) => {
         setSelectedBrand(brand);
         setCurrentPage(1);
+        saveFilters({ selectedBrand: brand });
     };
 
     const selectSort = (sort) => {
         setSelectedOrderBy(sort);
         setCurrentPage(1);
         sortProducts(sort);
+        saveFilters({ selectedOrderBy: sort });
     };
 
     const sortProducts = (sortType) => {
@@ -172,11 +195,13 @@ const Shop = () => {
     const selectFlashDeal = (deal) => {
         setSelectedDeal(deal);
         setCurrentPage(1);
+        saveFilters({ selectedDeal: deal });
     };
 
     const selectWeight = (weight) => {
         setSelectedWeight(weight);
-        setCurrentPage(1)
+        setCurrentPage(1);
+        saveFilters({ selectedWeight: weight });
     };
 
     const clearSortBy = () => {
@@ -184,11 +209,11 @@ const Shop = () => {
         let sortedProducts = [...products];
         sortedProducts.sort((a, b) => (a.discountedPrice - a.enemyPrice) - (b.discountedPrice - b.enemyPrice));
         setProducts(sortedProducts);
+        saveFilters({ selectedOrderBy: '' });
     }
 
     return (
         <>
-
             {isDataLoading && <Loader/>}
 
             <Hero/>
@@ -261,9 +286,7 @@ const Shop = () => {
                     </Col>
                 </Row>
             </Container>
-
         </>
-
     );
 };
 

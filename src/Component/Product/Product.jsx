@@ -1,5 +1,5 @@
 import React, {useEffect, useState} from "react";
-import {addToCart, checkIfProductExists, getProductByModelId} from "../../Service/ProductService";
+import {checkIfProductExists, getProductByModelId,} from "../../Service/ProductService";
 import './Product.css'
 import {Button, Dropdown, Modal} from "react-bootstrap";
 import BarChart from "./BarChart/BarChart";
@@ -17,11 +17,11 @@ import 'swiper/css/effect-coverflow';
 import 'swiper/css/pagination';
 import {IoColorFilter} from "react-icons/io5";
 import {useNavigate} from "react-router-dom";
-import {decryptData, encryptData} from "../../Service/SecurityService";
+import {addToCart, getSelectedProductFromStorage, setSelectedProductFromStorage} from "../../Service/localStorageUtils";
 
 function Product() {
     const [product, setProduct] = useState(() => {
-        const savedProduct = decryptData(localStorage.getItem('selectedProduct'));
+        const savedProduct = getSelectedProductFromStorage();
         return savedProduct ? savedProduct : null;
     });
     const [tasteData, setTasteData] = useState(null);
@@ -47,8 +47,9 @@ function Product() {
                 setIsDataLoading(true)
                 const data = await getProductByModelId(modelId);
                 setProduct(data);
-                localStorage.setItem('selectedProduct', encryptData(data));
+                setSelectedProductFromStorage(data)
                 localStorage.removeItem("modelId");
+                localStorage.removeItem("sku");
                 unavailableTastes.clear()
                 setSelectedTaste(null)
             }

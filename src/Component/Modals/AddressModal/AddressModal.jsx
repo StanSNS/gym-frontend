@@ -8,7 +8,7 @@ import speedy from '../../../Resources/AddressModal/speedy.jpg'
 
 import {FaPhoneVolume} from "react-icons/fa6";
 import {RiRoadMapFill} from "react-icons/ri";
-import {CART_KEY, checkIfProductExists} from "../../../Service/ProductService";
+import {checkIfProductExists} from "../../../Service/ProductService";
 import {getDeliveryPrice, sendOrder} from "../../../Service/OrderService";
 import Loader from "../../STATIC/Loader/Loader";
 import {useNavigate} from "react-router-dom";
@@ -18,6 +18,7 @@ import SuccessOrderModal from "./SubModals/SuccessOrderModal ";
 import DeliveryPriceErrorModal from "./SubModals/DeliveryPriceErrorModal";
 import OrderDetailsFooter from "./OrderDetailsFooter/OrderDetailsFooter";
 import {BsFillBuildingsFill} from "react-icons/bs";
+import {removeCartItems} from "../../../Service/localStorageUtils";
 
 function AddressModal({show, handleClose, cartItems, totalWeight, productCount, totalAmount, totalSaving, addresses}) {
     const [firstName, setFirstName] = useState('');
@@ -190,7 +191,7 @@ function AddressModal({show, handleClose, cartItems, totalWeight, productCount, 
     };
 
     const handleCloseSuccessModal = () => {
-        localStorage.removeItem(CART_KEY);
+        removeCartItems()
         window.location.href = '/';
     };
 
