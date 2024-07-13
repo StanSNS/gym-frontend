@@ -7,11 +7,12 @@ import Offcanvas from 'react-bootstrap/Offcanvas';
 import {FaShoppingCart, FaTimes, FaTruck} from "react-icons/fa";
 import "./Header.css"
 import TrackOrderModal from "../../Modals/TrackOrderModal/TrackOrderModal";
-import {getCartFromStorage} from "../../../Service/localStorageUtils";
+import {getCartFromStorage} from "../../../Service/LocalStorageUtils";
 import CartModal from "../../Modals/CartModal/CartModal";
 import headerImage from "../../../Resources/logoImage.png"
-import {FaBuildingShield, FaPeopleGroup} from "react-icons/fa6";
+import {FaBuildingShield, FaPeopleGroup, FaTriangleExclamation} from "react-icons/fa6";
 import {AiFillQuestionCircle} from "react-icons/ai";
+import {getWebTrafficCookie, setWebTrafficCookie} from "../../../Service/CookieService";
 
 
 function Header() {
@@ -19,8 +20,17 @@ function Header() {
     const [cartItems, setCartItems] = useState([]);
     const [showCartModal, setShowCartModal] = useState(false);
     const [showOffcanvas, setShowOffcanvas] = useState(false);
+    const [showDialog, setShowDialog] = useState(true);
 
     useEffect(() => {
+        if(!getWebTrafficCookie()){
+            setShowDialog(true)
+        }
+
+        if (getWebTrafficCookie() === 'true') {
+            setShowDialog(false);
+        }
+
         refreshCartItems();
 
         const handleClickOutsideCart = (event) => {
@@ -28,12 +38,12 @@ function Header() {
                 refreshCartItems();
             }
         };
-
         document.addEventListener('click', handleClickOutsideCart);
         return () => {
             document.removeEventListener('click', handleClickOutsideCart);
         };
     }, []);
+
 
     const refreshCartItems = () => {
         const updatedCartItems = getCartFromStorage();
@@ -66,6 +76,11 @@ function Header() {
 
     const handleOffcanvasShow = () => {
         setShowOffcanvas(true);
+    };
+
+    const handleDialogHide = () => {
+        setShowDialog(false);
+        setWebTrafficCookie()
     };
 
     return (
@@ -141,6 +156,25 @@ function Header() {
                 <TrackOrderModal show={showTrackOrderModal} handleClose={handleTrackOrderModalClose}/>
                 <CartModal show={showCartModal} handleClose={() => setShowCartModal(false)} cartItems={cartItems}/>
             </Navbar>
+
+            {showDialog && (
+                <div className="webTrafficDisclaimer">
+                    <div className="discvlaimerContent">
+                        <FaTriangleExclamation className="fs-1 myRedColor"/>
+
+                        <h6 className="disclaimerText">
+                            Искаме да ви информираме, че уебсайтът ни се сблъсква с висок трафик, което може да забави
+                            обработката и доставката на поръчките. Нашите екипи работят усилено, за да справят с
+                            повишеното търсене. Извиняваме се за всяко неудобство и стоим на разположение за въпроси и
+                            допълнителна информация. Благодарим за разбирането и търпението.
+                        </h6>
+
+                        <FaTriangleExclamation className="fs-1 myRedColor"/>
+                    </div>
+
+                    <button className="acceptedDisclaimerButton" onClick={handleDialogHide}>РАЗБРАХ</button>
+                </div>
+            )}
         </>
     );
 }

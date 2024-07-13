@@ -18,7 +18,7 @@ import SuccessOrderModal from "./SubModals/SuccessOrderModal ";
 import DeliveryPriceErrorModal from "./SubModals/DeliveryPriceErrorModal";
 import OrderDetailsFooter from "./OrderDetailsFooter/OrderDetailsFooter";
 import {BsFillBuildingsFill} from "react-icons/bs";
-import {removeCartItems} from "../../../Service/localStorageUtils";
+import {removeCartItems} from "../../../Service/LocalStorageUtils";
 
 function AddressModal({show, handleClose, cartItems, totalWeight, productCount, totalAmount, totalSaving, addresses}) {
     const [firstName, setFirstName] = useState('');

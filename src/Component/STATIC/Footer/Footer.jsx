@@ -8,7 +8,7 @@ import TrackOrderModal from "../../Modals/TrackOrderModal/TrackOrderModal";
 import ContactUsModal from "../../Modals/ContactUsModal/ContactUsModal";
 import {AiFillQuestionCircle} from "react-icons/ai";
 import CartModal from "../../Modals/CartModal/CartModal";
-import {getCartFromStorage} from "../../../Service/localStorageUtils";
+import {getCartFromStorage} from "../../../Service/LocalStorageUtils";
 import {FaBuildingShield, FaPeopleGroup, FaSquareFacebook} from "react-icons/fa6";
 import {RiInstagramFill} from "react-icons/ri";
 

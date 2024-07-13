@@ -8,7 +8,7 @@ import DropdownButtons from "./DropDownButtons/DropDownButtons";
 import Loader from "../STATIC/Loader/Loader";
 import Hero from "../Hero/Hero";
 import {useNavigate} from "react-router-dom";
-import {getShopFilters, setShopFilters} from "../../Service/localStorageUtils";
+import {getShopFilters, setShopFilters} from "../../Service/LocalStorageUtils";
 
 const Shop = () => {
     const [products, setProducts] = useState([]);
