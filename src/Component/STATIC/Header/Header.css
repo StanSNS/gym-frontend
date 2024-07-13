@@ -35,6 +35,16 @@
     margin-right: 10px;
 }
 
+.offcanvasBody{
+    display: flex;
+    justify-content: flex-end;
+}
+
+.offcanvasBody svg{
+    color: var(--myGreenBlue);
+    margin-right: 0.3rem;
+}
+
 .navLinkContent {
     display: flex;
     align-items: center;
@@ -189,4 +199,10 @@ button:focus:not(:focus-visible) {
     background-color: var(--myBlack);
     transform: scale(0.96);
     transition: background-color 0.3s ease-in-out;
+}
+
+@media (max-width: 991px) {
+    .offcanvasBody{
+        justify-content: flex-start;
+    }
 }

@@ -23,7 +23,7 @@ function Header() {
     const [showDialog, setShowDialog] = useState(true);
 
     useEffect(() => {
-        if(!getWebTrafficCookie()){
+        if (!getWebTrafficCookie()) {
             setShowDialog(true)
         }
 
@@ -85,7 +85,7 @@ function Header() {
 
     return (
         <>
-            <Navbar expand={'md'} className="navbarContainer">
+            <Navbar expand={'lg'} className="navbarContainer">
                 <Container fluid>
                     <Navbar.Brand>
                         <div className="headerLogo" onClick={() => handleRelocateToHomePage()}>
@@ -111,7 +111,7 @@ function Header() {
                                 <FaTimes/>
                             </button>
                         </Offcanvas.Header>
-                        <Offcanvas.Body className="d-flex  justify-content-end">
+                        <Offcanvas.Body className="offcanvasBody">
                             <Nav>
                                 <Nav.Link href="/terms-and-conditions">
                                     <span className="navLinkContent">
