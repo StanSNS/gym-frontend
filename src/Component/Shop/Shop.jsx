@@ -12,6 +12,7 @@ import {getShopFilters, setShopFilters} from "../../Service/LocalStorageUtils";
 
 const Shop = () => {
     const [products, setProducts] = useState([]);
+    const [originalProducts, setOriginalProducts] = useState([]);
     const [brands, setBrands] = useState([]);
     const [categories, setCategories] = useState([]);
     const [currentPage, setCurrentPage] = useState(1);
@@ -47,9 +48,10 @@ const Shop = () => {
             try {
                 const data = await getAllSellableProducts();
                 setProducts(data.products);
+                setOriginalProducts(data.products)
                 setBrands(data.brands);
                 setCategories(data.categories);
-                sortProducts(savedFilters.selectedOrderBy, data.products); // sort products after fetching
+                sortProducts(savedFilters.selectedOrderBy, data.products);
             } catch (error) {
                 navigator("/internal-server-error");
                 console.error('Error fetching sellable products:');
@@ -207,9 +209,9 @@ const Shop = () => {
 
     const clearSortBy = () => {
         setSelectedOrderBy('');
-        let sortedProducts = [...products];
-        sortedProducts.sort((a, b) => (b.reducedTotalAmountPercentage || 0) - (a.reducedTotalAmountPercentage || 0));
-        setProducts(sortedProducts);
+        // let sortedProducts = [...products];
+        // sortedProducts.sort((a, b) => (b.reducedTotalAmountPercentage || 0) - (a.reducedTotalAmountPercentage || 0));
+        setProducts(originalProducts);
         saveFilters({ selectedOrderBy: '' });
     }
 
