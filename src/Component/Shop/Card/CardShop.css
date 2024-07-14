@@ -145,38 +145,38 @@
         border-radius: 25px !important;
     }
 
-    .cardTitle {
+    .shopCard .cardTitle {
         text-align: center;
     }
-    
-    .cardText{
+
+    .shopCard .cardText{
         font-size: 15px;
     }
 
-    .keyColorInfo{
+    .shopCard .keyColorInfo{
         font-size: 15px;
     }
 
-    .keyColorInfo svg{
+    .shopCard .keyColorInfo svg{
         font-size: 21px;
     }
 }
 
 @media (max-width: 550px) {
-    .cardText{
+    .shopCard .cardText{
         font-size: 13px;
     }
 
-    .keyColorInfo{
+    .shopCard .keyColorInfo{
         font-size: 15px;
     }
 
-    .keyColorInfo svg{
+    .shopCard .keyColorInfo svg{
         font-size: 17px;
         margin-top: 0.1rem;
     }
 
-    .detailsButton{
+    .shopCard .detailsButton{
         font-size: 18px !important;
     }
 }
