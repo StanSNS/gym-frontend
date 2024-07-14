@@ -49,6 +49,7 @@ const Shop = () => {
                 setProducts(data.products);
                 setBrands(data.brands);
                 setCategories(data.categories);
+                sortProducts(savedFilters.selectedOrderBy, data.products); // sort products after fetching
             } catch (error) {
                 navigator("/internal-server-error");
                 console.error('Error fetching sellable products:');
@@ -153,8 +154,8 @@ const Shop = () => {
         saveFilters({ selectedOrderBy: sort });
     };
 
-    const sortProducts = (sortType) => {
-        let sortedProducts = [...products];
+    const sortProducts = (sortType, productsToSort = products) => {
+        let sortedProducts = [...productsToSort];
         switch (sortType) {
             case "Цена най-евтино":
                 sortedProducts.sort((a, b) => a.discountedPrice - b.discountedPrice);
@@ -207,7 +208,7 @@ const Shop = () => {
     const clearSortBy = () => {
         setSelectedOrderBy('');
         let sortedProducts = [...products];
-        sortedProducts.sort((a, b) => (a.discountedPrice - a.enemyPrice) - (b.discountedPrice - b.enemyPrice));
+        sortedProducts.sort((a, b) => (b.reducedTotalAmountPercentage || 0) - (a.reducedTotalAmountPercentage || 0));
         setProducts(sortedProducts);
         saveFilters({ selectedOrderBy: '' });
     }
@@ -215,7 +216,7 @@ const Shop = () => {
     return (
         <>
             {isDataLoading && <Loader/>}
-
+ 
             <Hero/>
 
             <Container>
