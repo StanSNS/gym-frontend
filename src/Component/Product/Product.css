@@ -1,5 +1,7 @@
 .productSection {
     max-width: 1920px;
+    margin-left: auto;
+    margin-right: auto;
 }
 
 .productContainer {
@@ -12,16 +14,14 @@
 
 .leftSection {
     width: 65%;
-    padding: 2rem;
-    padding-right: 1rem;
+    padding: 2rem 1rem 2rem 2rem;
 }
 
 .productCard {
     display: flex;
     width: 100%;
-    box-shadow: 0px 10px 20px var(--myBlack);
-    border-radius: 30px;
-    border-top-left-radius: 40px;
+    box-shadow: 0 10px 20px var(--myBlack);
+    border-radius: 40px 30px 30px 30px;
     height: auto;
     min-height: 640px;
     max-height: 640px;
@@ -58,6 +58,7 @@
 
 .imageContainer {
     position: relative;
+    margin-right: 1.5rem;
 }
 
 .imageContainer img {
@@ -75,8 +76,7 @@
 
 .rightSection {
     width: 35%;
-    padding: 2rem;
-    padding-left: 1rem;
+    padding: 2rem 2rem 2rem 1rem;
 }
 
 .productDescription {
@@ -85,10 +85,8 @@
     max-height: 640px;
     padding: 1.5rem;
     overflow-y: auto;
-    box-shadow: 0px 10px 20px var(--myBlack);
-    border-radius: 30px;
-    border-top-right-radius: 10px;
-    border-bottom-right-radius: 10px;
+    box-shadow: 0 10px 20px var(--myBlack);
+    border-radius: 30px 10px 10px 30px;
     font-size: 18px;
 }
 
@@ -124,6 +122,16 @@
     display: flex;
     flex-direction: column;
     font-size: 20px;
+}
+
+.productText h3{
+    height: 60px;
+    display: flex;
+    align-items: flex-end;
+}
+
+.singleLineText {
+    font-weight: bolder;
 }
 
 .tastes {
@@ -213,7 +221,7 @@ button:focus:not(:focus-visible) {
     background-size: cover;
     width: 600px;
     height: 30%;
-    box-shadow: 0px 10px 20px var(--myBlack);
+    box-shadow: 0 10px 20px var(--myBlack);
     border-radius: 30px;
 }
 
@@ -272,14 +280,76 @@ button:focus:not(:focus-visible) {
     border: none !important;
 }
 
+@media (min-width: 1920px) {
+    .productSection {
+        margin-left: auto;
+        margin-right: auto;
+    }
+}
+
+@media (max-width: 1650px) {
+    .productContainer {
+        flex-direction: column;
+    }
+
+    .leftSection {
+        width: 90%;
+        padding: 1rem;
+    }
+
+    .rightSection {
+        width: 90%;
+        padding: 1rem;
+    }
+}
+
+@media (max-width: 1200px) {
+    .productCard {
+        flex-direction: column;
+        display: flex;
+        width: 100%;
+        height: 100%;
+        min-height: 1040px;
+        align-items: center;
+        justify-content: center;
+        padding: 0 0 1rem;
+        position: relative;
+
+    }
+
+    .imageContainer {
+        margin: 0;
+    }
+
+    .imageContainer img {
+        max-width: 300px;
+        max-height: 300px;
+    }
+
+    .productText {
+        width: 70%;
+    }
+
+    .doughnutChartContainer {
+        position: absolute;
+        top: -50px;
+    }
+}
+
 @media (max-width: 1150px) {
     .singleProductSwiper .swiper-slide {
         box-shadow: none;
     }
 }
 
+@media (max-width: 950px) {
+    .barChart canvas {
+        width: 200px !important;
+    }
+}
+
 @media (max-width: 900px) {
-    .singleProductSwiper .swiper{
+    .singleProductSwiper .swiper {
         padding-bottom: 1.5rem;
     }
 }
@@ -289,10 +359,58 @@ button:focus:not(:focus-visible) {
         flex-direction: column;
     }
 
-    .productSwiperTitle{
+    .productSwiperTitle {
         justify-content: center;
     }
 
+}
+
+@media (max-width: 660px) {
+    .productCard {
+        min-height: 1250px;
+    }
+
+    .singleLineText {
+        display: flex;
+        flex-direction: column;
+        align-items: flex-start;
+    }
+
+    .barChart canvas {
+        width: 150px !important;
+    }
+
+    .tastes {
+        flex-direction: column;
+    }
+
+    .tastes .dropdown {
+        margin-top: 0.7rem;
+        margin-bottom: 0.7rem;
+    }
+
+    .doughnutChartContainer {
+        top: -45px;
+        left: -40px;
+    }
+}
+
+@media (max-width: 550px) {
+    .barChart {
+        display: none;
+    }
+
+    .productCard {
+        min-height: 1050px;
+    }
+
+    .productContainer {
+        padding: 1rem 0 0;
+    }
+
+    .doughnutChartContainer {
+        top: -44px;
+    }
 }
 
 @media (max-width: 450px) {
@@ -302,4 +420,31 @@ button:focus:not(:focus-visible) {
         align-items: center;
         text-align: center;
     }
+
+    .doughnutChartContainer {
+        top: -45px;
+        left: 10px;
+        max-width: 40px;
+        height: 50px;
+    }
+
+    .doughnutText{
+        min-width: 200px;
+        min-height: 50px;
+    }
 }
+
+@media (max-width: 350px) {
+    .leftSection {
+        padding: 0;
+    }
+
+    .singleLineText {
+        align-items: center;
+    }
+
+    .tastes {
+        align-items: center;
+    }
+}
+

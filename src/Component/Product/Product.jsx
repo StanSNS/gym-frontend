@@ -126,7 +126,7 @@ function Product() {
                     </div>
                 ) :
 
-                <div className="productSection center">
+                <div className="productSection">
                     <div className="productContainer">
                         {product ? (
                             <>
@@ -135,7 +135,7 @@ function Product() {
                                 )}
                                 <div className="leftSection">
                                     <div className="productCard">
-                                        <div className="imageContainer me-4">
+                                        <div className="imageContainer">
                                             {selectedTaste && (
                                                 <div className="doughnutChartContainer">
                                                     <DoughnutChart data={doughnutData}/>
@@ -148,23 +148,23 @@ function Product() {
                                         <div className="productText">
                                             <h3 className="text-center mb-4">{product?.name} - {product?.brandEntity.name}</h3>
 
-                                            <div className="fw-bolder">
+                                            <div className="singleLineText mt-3">
                                                 <span className="keyColorInfo me-2">
                                                     <BiSolidCategory className="mb-1"/>Категория
                                                 </span>
-                                                {product.category}
+                                                <span>{product.category}</span>
                                             </div>
 
                                             {product.weightKg !== "0.000" && (
-                                                <div className="fw-bolder mt-2">
+                                                <div className="singleLineText mt-2">
                                                      <span className="keyColorInfo me-2">
                                                          <FaWeightHanging className="mb-1"/>Тегло
                                                      </span>
-                                                    {product.weightKg} кг.
+                                                    <span>{product.weightKg} кг.</span>
                                                 </div>
                                             )}
 
-                                            <div className="fw-bolder mt-2">
+                                            <div className="singleLineText mt-2">
                                                 <span className="keyColorInfo me-2">
                                                     <MdOutlineMoneyOffCsred className="mb-1"/>Редовна цена
                                                 </span>
@@ -173,7 +173,7 @@ function Product() {
                                                </span>
                                             </div>
 
-                                            <div className="fw-bolder mt-2">
+                                            <div className="singleLineText mt-2">
                                                 <span className="keyColorInfo me-2">
                                                     <IoIosPricetag className="mb-1"/>Намалена цена
                                                 </span>
@@ -184,7 +184,7 @@ function Product() {
 
                                             {product.taste.length > 0 && (
                                                 <div className="tastes mt-2">
-                                                    <div className="fw-bolder">
+                                                    <div className="singleLineText">
                                                           <span className="keyColorInfo me-2">
                                                               <GiWrappedSweet className="mb-1"/>Вкусове
                                                           </span>
@@ -219,7 +219,7 @@ function Product() {
                                                 </div>
                                             )}
 
-                                            <div className="fw-bolder mt-1">
+                                            <div className="singleLineText mt-1">
                                                  <span className="keyColorInfo me-2">
                                                      <FaStar className="mb-1 me-1"/>Рейтинг</span>
                                                 {product?.ratingValue.toFixed(1)}/5 ({product?.ratingCount})
@@ -269,7 +269,6 @@ function Product() {
                                             </div>
                                         </div>
                                     </div>
-
                                 </div>
 
                                 <div className="rightSection">
