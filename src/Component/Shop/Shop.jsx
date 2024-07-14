@@ -209,8 +209,6 @@ const Shop = () => {
 
     const clearSortBy = () => {
         setSelectedOrderBy('');
-        // let sortedProducts = [...products];
-        // sortedProducts.sort((a, b) => (b.reducedTotalAmountPercentage || 0) - (a.reducedTotalAmountPercentage || 0));
         setProducts(originalProducts);
         saveFilters({ selectedOrderBy: '' });
     }
@@ -218,7 +216,7 @@ const Shop = () => {
     return (
         <>
             {isDataLoading && <Loader/>}
- 
+
             <Hero/>
 
             <Container>
@@ -262,7 +260,7 @@ const Shop = () => {
                         }}>
                     </div>
                 </div>
-                <Row>
+                <Row className="shopSection">
                     {currentProducts.map((product, index) => (
                         <CardShop key={index} product={product}/>
                     ))}

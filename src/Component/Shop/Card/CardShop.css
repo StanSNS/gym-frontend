@@ -81,7 +81,6 @@
     border-radius: 16px;
     font-size: 19px;
     padding: 1px 10px 3px 1px;
-
 }
 
 .keyColorInfo svg {
@@ -131,4 +130,53 @@
     color: var(--myBlack) !important;
     background-color: var(--myWhite) !important;
     border-color: var(--myBlack) !important;
+}
+
+@media (max-width: 1030px) {
+    .shopCard {
+        box-shadow: 0px 14px 18px rgb(51, 51, 51);
+        border-radius: 25px !important;
+    }
+
+    .shopCard:hover {
+        scale: 1;
+        cursor: default;
+        box-shadow: 0px 14px 18px rgb(51, 51, 51);
+        border-radius: 25px !important;
+    }
+
+    .cardTitle {
+        text-align: center;
+    }
+    
+    .cardText{
+        font-size: 15px;
+    }
+
+    .keyColorInfo{
+        font-size: 15px;
+    }
+
+    .keyColorInfo svg{
+        font-size: 21px;
+    }
+}
+
+@media (max-width: 550px) {
+    .cardText{
+        font-size: 13px;
+    }
+
+    .keyColorInfo{
+        font-size: 15px;
+    }
+
+    .keyColorInfo svg{
+        font-size: 17px;
+        margin-top: 0.1rem;
+    }
+
+    .detailsButton{
+        font-size: 18px !important;
+    }
 }

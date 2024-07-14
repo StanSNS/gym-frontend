@@ -47,3 +47,33 @@
 .row {
     justify-content: center;
 }
+
+@media (max-width: 1399px) {
+    .container{
+        max-width: 1320px !important;
+    }
+}
+
+@media (max-width: 1399px) {
+    .container{
+        max-width: 1320px !important;
+    }
+
+    .col-xl-3{
+        flex: 0 0 auto !important;
+        width: 33.33333% !important;
+    }
+}
+
+@media (max-width: 1030px) {
+     .col-md-5{
+        width: 50% !important;
+    }
+}
+
+@media (max-width: 660px) {
+    .col-sm-12{
+        width: 100% !important;
+    }
+}
+

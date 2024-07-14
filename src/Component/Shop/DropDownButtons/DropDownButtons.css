@@ -80,6 +80,8 @@
 
 .dropdown-menu {
     background-color: var(--myBlack) !important;
+    --bs-dropdown-link-active-bg: var(--myGreenBlue) !important;;
+    min-width: 300px !important;
 }
 
 .dropdown-item {
@@ -90,7 +92,6 @@
     background-color: var(--myGreenBlue) !important;
     color: var(--myBlack) !important;
 }
-
 
 .dropdown-item:hover {
     background-color: var(--myGreenBlue) !important;
@@ -103,10 +104,6 @@
 
 .dropdown-item:hover svg {
     color: var(--myBlack) !important;
-}
-
-.dropdown-menu {
-    --bs-dropdown-link-active-bg: var(--myGreenBlue) !important;;
 }
 
 .myScrollable::-webkit-scrollbar {
@@ -145,21 +142,21 @@
     box-shadow: none !important;
 }
 
-.dropDownButtonSearch::placeholder{
+.dropDownButtonSearch::placeholder {
     color: var(--myGreenBlue);
 }
 
-.dropDownButtonSearchClearButton{
+.dropDownButtonSearchClearButton {
     color: var(--myGreenBlue);
     font-size: 30px !important;
     transition: color 0.2s ease-in-out;
 }
 
-.dropDownButtonSearchClearButton:hover{
+.dropDownButtonSearchClearButton:hover {
     color: orangered;
 }
 
-.productAmount{
+.productAmount {
     color: var(--myGreenBlue);
 }
 
@@ -169,4 +166,44 @@
 
 .dropdown-item.active .productAmount {
     color: var(--myBlack) !important;
+}
+
+@media (max-width: 1399px) {
+    .dropDownButtons {
+        flex-wrap: wrap;
+        margin-top: 2rem;
+    }
+
+    .dropDownButtons div {
+        margin: 1.5rem;
+    }
+
+    .categoryDropDownButton{
+        left: -145px;
+    }
+
+    .brandDropDownButton{
+        left: -70px;
+    }
+
+    .dropDownButtonSearch {
+        margin-left: 0;
+    }
+}
+
+@media (max-width: 991px) {
+    .categoryDropDownButton{
+        left: -160px;
+    }
+
+    .brandDropDownButton{
+        left: -74px;
+    }
+
+}
+
+@media (max-width: 500px) {
+    .dropDownButtonSearch {
+        margin-left: 0;
+    }
 }

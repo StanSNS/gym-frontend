@@ -51,7 +51,6 @@ const DropdownButtons = ({
 
     return (
         <div className="dropDownButtons">
-            {/* Flash Deals */}
             <div className="dropdown" ref={flashDealsRef}>
                 {selectedDeal !== 0 && (
                     <button className="halfButton" onClick={() => selectFlashDeal(0)}>
@@ -251,7 +250,7 @@ const DropdownButtons = ({
                         onClick={() => toggleDropdown('category')}>
                     <BiSolidCategory className="me-1 fs-5 myGreenBlueColor"/>Категория
                 </button>
-                <div className={`dropdown-menu${isOpenCategory ? ' show' : ''} mt-1 myScrollable`} style={{
+                <div className={`dropdown-menu${isOpenCategory ? ' show' : ''} mt-1 myScrollable categoryDropDownButton`} style={{
                     maxHeight: '500px',
                     overflowY: 'auto',
                 }}>
@@ -302,7 +301,7 @@ const DropdownButtons = ({
                         onClick={() => toggleDropdown('brand')}>
                     <FaLayerGroup className="me-2 fs-5 myGreenBlueColor"/>Марка
                 </button>
-                <div className={`dropdown-menu${isOpenBrand ? ' show' : ''} mt-1 myScrollable`} style={{
+                <div className={`dropdown-menu${isOpenBrand ? ' show' : ''} mt-1 myScrollable brandDropDownButton`} style={{
                     maxHeight: '500px',
                     overflowY: 'auto',
                 }}>
