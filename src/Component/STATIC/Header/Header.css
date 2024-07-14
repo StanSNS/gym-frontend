@@ -151,7 +151,7 @@ button:focus:not(:focus-visible) {
 }
 
 .acceptedDisclaimerButton {
-    background-color: var(--myWhite);
+    background-color: var(--myGreenBlue);
     border: solid transparent;
     border-radius: 16px;
     border-width: 0 0 4px;
@@ -175,28 +175,9 @@ button:focus:not(:focus-visible) {
     transition: transform 0.3s ease-in-out;
 }
 
-.acceptedDisclaimerButton:after {
-    background-clip: padding-box;
-    background-color: var(--myGreenBlue);
-    border: solid transparent;
-    border-radius: 16px;
-    border-width: 0 0 4px;
-    bottom: -4px;
-    content: "";
-    left: 0;
-    position: absolute;
-    right: 0;
-    top: 0;
-    z-index: -1;
-    transition: transform 0.3s ease-in-out;
-}
-
-.acceptedDisclaimerButton:active:after {
-    transform: scale(0.98);
-}
-
 .acceptedDisclaimerButton:active {
-    background-color: var(--myBlack);
+    background-color: var(--myWhite);
+    color: var(--myBlack);
     transform: scale(0.96);
     transition: background-color 0.3s ease-in-out;
 }
