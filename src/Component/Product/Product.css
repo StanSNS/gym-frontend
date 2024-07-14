@@ -30,11 +30,8 @@
 }
 
 .doughnutChartContainer {
-    position: absolute;
-    z-index: 1;
+    margin-left: 1rem;
     height: 60px;
-    left: -50px;
-    top: -144px;
     max-width: 60px;
     display: flex;
     background-color: var(--myBlack);
@@ -124,7 +121,7 @@
     font-size: 20px;
 }
 
-.productText h3{
+.productText h3 {
     height: 60px;
     display: flex;
     align-items: flex-end;
@@ -136,9 +133,10 @@
 
 .tastes {
     display: flex;
-    height: 100%;
+    height: 60px;
     width: 100%;
-    align-items: baseline;
+    justify-content: flex-start;
+    align-items: center;
 }
 
 .dropDownButton {
@@ -314,7 +312,6 @@ button:focus:not(:focus-visible) {
         justify-content: center;
         padding: 0 0 1rem;
         position: relative;
-
     }
 
     .imageContainer {
@@ -330,10 +327,27 @@ button:focus:not(:focus-visible) {
         width: 70%;
     }
 
-    .doughnutChartContainer {
-        position: absolute;
-        top: -50px;
+    /*.singleLineText .keyColorInfo {*/
+    /*    padding: 0;*/
+    /*    border-radius: 0;*/
+    /*    background-color: transparent;*/
+    /*    border-radius: 4px;*/
+    /**/
+    /*}*/
+    .singleLineText .keyColorInfo svg {
+        /*color: var(--myGreenBlue);*/
+        /*padding: 2px;*/
+        /*border-radius: 0;*/
+        /*outline: none;*/
+        /*border: none;*/
+        /*background: none;*/
     }
+
+    .removeText {
+        /*display: none;*/
+        /*margin: 0 !important;*/
+    }
+
 }
 
 @media (max-width: 1150px) {
@@ -351,6 +365,23 @@ button:focus:not(:focus-visible) {
 @media (max-width: 900px) {
     .singleProductSwiper .swiper {
         padding-bottom: 1.5rem;
+    }
+
+    .tastes {
+        flex-direction: column-reverse;
+        justify-content: center;
+    }
+
+    .tastes .dropdown {
+        margin-top: 0.5rem;
+    }
+
+    .doughnutChartContainer {
+        margin-top: 3.5rem;
+    }
+
+    .addButtonContainer {
+        margin-top: 4rem;
     }
 }
 
@@ -428,7 +459,7 @@ button:focus:not(:focus-visible) {
         height: 50px;
     }
 
-    .doughnutText{
+    .doughnutText {
         min-width: 200px;
         min-height: 50px;
     }
@@ -447,4 +478,3 @@ button:focus:not(:focus-visible) {
         align-items: center;
     }
 }
-

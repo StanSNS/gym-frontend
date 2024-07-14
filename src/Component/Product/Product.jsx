@@ -136,12 +136,6 @@ function Product() {
                                 <div className="leftSection">
                                     <div className="productCard">
                                         <div className="imageContainer">
-                                            {selectedTaste && (
-                                                <div className="doughnutChartContainer">
-                                                    <DoughnutChart data={doughnutData}/>
-                                                    <p className="doughnutText">{selectedTaste.name}</p>
-                                                </div>
-                                            )}
                                             <img src={product.image} alt={product.name}/>
                                         </div>
 
@@ -150,7 +144,8 @@ function Product() {
 
                                             <div className="singleLineText mt-3">
                                                 <span className="keyColorInfo me-2">
-                                                    <BiSolidCategory className="mb-1"/>Категория
+                                                    <BiSolidCategory className="mb-1"/>
+                                                    <span className="removeText">Категория</span>
                                                 </span>
                                                 <span>{product.category}</span>
                                             </div>
@@ -158,7 +153,8 @@ function Product() {
                                             {product.weightKg !== "0.000" && (
                                                 <div className="singleLineText mt-2">
                                                      <span className="keyColorInfo me-2">
-                                                         <FaWeightHanging className="mb-1"/>Тегло
+                                                         <FaWeightHanging className="mb-1"/>
+                                                          <span className="removeText">Тегло</span>
                                                      </span>
                                                     <span>{product.weightKg} кг.</span>
                                                 </div>
@@ -166,7 +162,8 @@ function Product() {
 
                                             <div className="singleLineText mt-2">
                                                 <span className="keyColorInfo me-2">
-                                                    <MdOutlineMoneyOffCsred className="mb-1"/>Редовна цена
+                                                    <MdOutlineMoneyOffCsred className="mb-1"/>
+                                                    <span className="removeText">Редовна цена</span>
                                                 </span>
                                                 <span className="strikeText">
                                                    {product.regularPrice.toFixed(2)} лв.
@@ -175,53 +172,19 @@ function Product() {
 
                                             <div className="singleLineText mt-2">
                                                 <span className="keyColorInfo me-2">
-                                                    <IoIosPricetag className="mb-1"/>Намалена цена
+                                                    <IoIosPricetag className="mb-1"/>
+                                                    <span className="removeText">Намалена цена</span>
                                                 </span>
                                                 <span>
                                                      {product.discountedPrice.toFixed(2)} лв.
                                                </span>
                                             </div>
 
-                                            {product.taste.length > 0 && (
-                                                <div className="tastes mt-2">
-                                                    <div className="singleLineText">
-                                                          <span className="keyColorInfo me-2">
-                                                              <GiWrappedSweet className="mb-1"/>Вкусове
-                                                          </span>
-                                                    </div>
-
-                                                    <Dropdown>
-                                                        <Dropdown.Toggle variant={"dark"} id="dropdown-basic"
-                                                                         className="dropDownButton fw-bolder">
-                                                            <IoColorFilter className="mb-1 me-2 myGreenBlueColor"/>
-                                                            Избери вкус
-                                                        </Dropdown.Toggle>
-                                                        <Dropdown.Menu className="fw-bolder">
-                                                            {product?.taste.map((taste, index) => (
-                                                                <Dropdown.Item
-                                                                    disabled={unavailableTastes.has(taste.name)}
-                                                                    key={index}
-                                                                    onClick={() => {
-                                                                        if (!unavailableTastes.has(taste.name)) {
-                                                                            setTasteData(taste);
-                                                                            setSelectedTaste(taste);
-                                                                        }
-                                                                    }}
-                                                                    className={unavailableTastes.has(taste.name) ? "disabled-dropdown-item" : ""}
-                                                                >
-                                                                    <GiWrappedSweet className="redColorText mb-1 me-2"/>
-                                                                    <span className="fw-bold">{taste.name}</span>
-                                                                </Dropdown.Item>
-                                                            ))}
-                                                        </Dropdown.Menu>
-
-                                                    </Dropdown>
-                                                </div>
-                                            )}
-
                                             <div className="singleLineText mt-1">
                                                  <span className="keyColorInfo me-2">
-                                                     <FaStar className="mb-1 me-1"/>Рейтинг</span>
+                                                     <FaStar className="mb-1 me-1"/>
+                                                     <span className="removeText">Рейтинг</span>
+                                                 </span>
                                                 {product?.ratingValue.toFixed(1)}/5 ({product?.ratingCount})
                                             </div>
 
@@ -260,6 +223,43 @@ function Product() {
 
                                                 <BarChart data={starData}/>
                                             </div>
+
+                                            {product.taste.length > 0 && (
+                                                <div className="tastes mt-2">
+                                                    <Dropdown>
+                                                        <Dropdown.Toggle variant={"dark"} id="dropdown-basic"
+                                                                         className="dropDownButton fw-bolder">
+                                                            <IoColorFilter className="mb-1 me-2 myGreenBlueColor"/>
+                                                            Избери вкус
+                                                        </Dropdown.Toggle>
+                                                        <Dropdown.Menu className="fw-bolder">
+                                                            {product?.taste.map((taste, index) => (
+                                                                <Dropdown.Item
+                                                                    disabled={unavailableTastes.has(taste.name)}
+                                                                    key={index}
+                                                                    onClick={() => {
+                                                                        if (!unavailableTastes.has(taste.name)) {
+                                                                            setTasteData(taste);
+                                                                            setSelectedTaste(taste);
+                                                                        }
+                                                                    }}
+                                                                    className={unavailableTastes.has(taste.name) ? "disabled-dropdown-item" : ""}
+                                                                >
+                                                                    <GiWrappedSweet className="redColorText mb-1 me-2"/>
+                                                                    <span className="fw-bold">{taste.name}</span>
+                                                                </Dropdown.Item>
+                                                            ))}
+                                                        </Dropdown.Menu>
+                                                    </Dropdown>
+
+                                                    {selectedTaste && (
+                                                        <div className="doughnutChartContainer">
+                                                            <DoughnutChart data={doughnutData}/>
+                                                            <p className="doughnutText">{selectedTaste.name}</p>
+                                                        </div>
+                                                    )}
+                                                </div>
+                                            )}
 
                                             <div className="addButtonContainer">
                                                 <button onClick={() => handleAddProductToCart(product)}>
