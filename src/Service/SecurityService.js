@@ -10,19 +10,9 @@ export const encryptData = (data) => {
 }
 
 export const decryptData = (data) => {
-    try {
+    if (data) {
         const bytes = CryptoJS.AES.decrypt(data, SUPER_SECRET_ENCRYPT_KEY);
         const decryptedData = bytes.toString(CryptoJS.enc.Utf8);
-        if (decryptedData) {
-            try {
-                return JSON.parse(decryptedData);
-            } catch (jsonError) {
-                console.error('JSON Parsing Error:', jsonError);
-            }
-        } else {
-            console.error('Decryption produced an empty string.');
-        }
-    } catch (error) {
-        console.error('Decryption Error:', error);
+        return JSON.parse(decryptedData);
     }
 }

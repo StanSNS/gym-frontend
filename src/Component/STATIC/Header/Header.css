@@ -140,14 +140,16 @@ button:focus:not(:focus-visible) {
     align-items: center;
     justify-content: space-between;
     color: white;
-    width: 80%;
+    width: 90%;
 }
 
 .disclaimerText {
-    width: 90%;
+    width: 100%;
     text-align: center;
     max-width: 1960px;
     font-weight: bolder;
+    padding-left: 2rem ;
+    padding-right: 2rem;
 }
 
 .acceptedDisclaimerButton {
@@ -173,6 +175,7 @@ button:focus:not(:focus-visible) {
     vertical-align: middle;
     white-space: nowrap;
     transition: transform 0.3s ease-in-out;
+    margin-bottom: 1rem;
 }
 
 .acceptedDisclaimerButton:active {
@@ -185,5 +188,18 @@ button:focus:not(:focus-visible) {
 @media (max-width: 991px) {
     .offcanvasBody{
         justify-content: flex-start;
+    }
+}
+
+@media (max-width: 800px) {
+    .discvlaimerContent{
+       align-items: flex-start;
+    }
+}
+
+@media (max-width: 300px) {
+    .disclaimerText {
+        padding-left: 0.5rem;
+        padding-right: 0.5rem;
     }
 }
