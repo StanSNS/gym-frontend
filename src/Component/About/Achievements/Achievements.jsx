@@ -3,14 +3,6 @@ import './Achievements.css'
 import VerticalSwiper from "./VerticalSwiper/VerticalSwiper";
 import {FaChartLine, FaPiggyBank, FaShoppingBag, FaUsers} from "react-icons/fa";
 import {FaTruckRampBox} from "react-icons/fa6";
-import {
-    ABOUT_DELIVERED_PACKAGES,
-    ABOUT_SATISFIED_CLIENTS,
-    ABOUT_SAVED_AMOUNT,
-    ABOUT_SOLD_PRODUCTS
-} from "../../../Constant/globalConst";
-import {getAllSellableProducts} from "../../../Service/ProductService";
-import {getShopFilters} from "../../../Service/LocalStorageUtils";
 import Loader from "../../STATIC/Loader/Loader";
 import {getAboutData} from "../../../Service/AboutData";
 
