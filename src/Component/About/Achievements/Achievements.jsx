@@ -1,4 +1,4 @@
-import React, {useState} from "react";
+import React, {useEffect, useState} from "react";
 import './Achievements.css'
 import VerticalSwiper from "./VerticalSwiper/VerticalSwiper";
 import {FaChartLine, FaPiggyBank, FaShoppingBag, FaUsers} from "react-icons/fa";
@@ -9,16 +9,40 @@ import {
     ABOUT_SAVED_AMOUNT,
     ABOUT_SOLD_PRODUCTS
 } from "../../../Constant/globalConst";
+import {getAllSellableProducts} from "../../../Service/ProductService";
+import {getShopFilters} from "../../../Service/LocalStorageUtils";
+import Loader from "../../STATIC/Loader/Loader";
+import {getAboutData} from "../../../Service/AboutData";
 
 function Achievements() {
     const [selectedIndex, setSelectedIndex] = useState(1);
+    const [aboutData, setAboutData] = useState({});
+    const [isDataLoading, setIsDataLoading] = useState(false);
 
     const handleSelectIndex = (index) => {
         setSelectedIndex(index);
     };
 
+    useEffect(() => {
+        const fetchData = async () => {
+            setIsDataLoading(true);
+            try {
+                const data = await getAboutData();
+                setAboutData(data)
+            } catch (error) {
+                navigator("/internal-server-error");
+                console.error('Error fetching about data:');
+            } finally {
+                setIsDataLoading(false);
+            }
+        };
+        fetchData();
+    }, [navigator]);
+
     return (
         <>
+            {isDataLoading && <Loader/>}
+
             <div className="achContainer">
                 <div className="leftSide">
                     <span className="fs-1 fw-bolder  mb-2">
@@ -32,7 +56,7 @@ function Achievements() {
                         </div>
 
                         <div className="contentText">
-                            <span className="number">Над {ABOUT_SAVED_AMOUNT}</span>
+                            <span className="number">Над {aboutData?.savedMoney || 0}+</span>
                             <span className="text">Спестени лева</span>
                         </div>
                     </button>
@@ -43,7 +67,7 @@ function Achievements() {
                         </div>
 
                         <div className="contentText">
-                            <span className="number">Над {ABOUT_SOLD_PRODUCTS}+</span>
+                            <span className="number">Над {aboutData?.soldProducts || 0}+</span>
                             <span className="text">Продадени продукти</span>
                         </div>
                     </button>
@@ -54,7 +78,7 @@ function Achievements() {
                         </div>
 
                         <div className="contentText">
-                            <span className="number">Над {ABOUT_SATISFIED_CLIENTS}+</span>
+                            <span className="number">Над {aboutData?.satisfiedClients || 0}+</span>
                             <span className="text">Задоволени клиента</span>
                         </div>
                     </button>
@@ -65,7 +89,7 @@ function Achievements() {
                         </div>
 
                         <div className="contentText">
-                            <span className="number">Над {ABOUT_DELIVERED_PACKAGES}+</span>
+                            <span className="number">Над {aboutData?.deliveredProducts || 0}+</span>
                             <span className="text">Доставени пратки</span>
                         </div>
                     </button>
