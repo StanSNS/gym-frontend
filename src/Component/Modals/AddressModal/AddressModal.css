@@ -344,6 +344,10 @@ option:checked {
     color: var(--myBlack);
 }
 
+.input-error {
+    border: 2px solid var(--myRed);
+}
+
 @media (max-width: 1199px) {
     .modal-dialog {
         max-width: 1140px !important;

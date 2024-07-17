@@ -50,9 +50,12 @@ function ContactUsModal({show, handleClose}) {
         return true;
     };
 
-    const handleContactStatusModal = () => {
+    const handleCloseContactStatusModal = () => {
         setContactModalShow(false);
         handleClose();
+        setEmailError(false);
+        setTitleError(false);
+        setDescriptionError(false);
     };
 
     const handleSendEmail = async () => {
@@ -83,16 +86,18 @@ function ContactUsModal({show, handleClose}) {
 
     return (
         <>
-            <Modal show={show} onHide={handleClose} className="trackOrderModal modal-lg" data-bs-theme="dark">
+            <Modal show={show} onHide={handleCloseContactStatusModal} className="trackOrderModal modal-lg" data-bs-theme="dark">
                 {isLoading && <Loader/>}
 
                 <Modal.Header>
                     <Modal.Title><BiSupport className="mb-1 me-2 myGreenBlueColor"/>Свържи се с нас</Modal.Title>
-                    <button className="closingModalButton" onClick={handleContactStatusModal}><FaTimes/></button>
+                    <button className="closingModalButton" onClick={handleCloseContactStatusModal}><FaTimes/></button>
                 </Modal.Header>
 
                 <Modal.Body className="contactModalBody">
-                    <h6 className="ms-2"><BsEnvelopeAtFill className="mb-1 me-2 myGreenBlueColor"/>Имейл за контакт:
+                    <h6 className="ms-2">
+                        <BsEnvelopeAtFill className="mb-1 me-2 myGreenBlueColor"/>
+                        Имейл за контакт:
                     </h6>
                     <input
                         type="email"
@@ -153,7 +158,7 @@ function ContactUsModal({show, handleClose}) {
             </Modal>
 
             <Modal className="trackOrderModal darkerBackground" centered="true" show={contactModalShow}
-                   onHide={handleContactStatusModal} data-bs-theme="dark">
+                   onHide={handleCloseContactStatusModal} data-bs-theme="dark">
                 {contactStatus && (
                     <>
                         <Modal.Header>
@@ -161,7 +166,7 @@ function ContactUsModal({show, handleClose}) {
                                 <FaEnvelopeCircleCheck className="mb-1 me-2 successColor"/>
                                 Успешно изпратен имейл
                             </Modal.Title>
-                            <button className="closingModalButton" onClick={handleContactStatusModal}><FaTimes/>
+                            <button className="closingModalButton" onClick={handleCloseContactStatusModal}><FaTimes/>
                             </button>
                         </Modal.Header>
 
@@ -183,7 +188,7 @@ function ContactUsModal({show, handleClose}) {
                                 <FaTimesCircle className="mb-1 me-2 errorColor"/>
                                 Неуспешно изпратен имейл
                             </Modal.Title>
-                            <button className="closingModalButton" onClick={handleContactStatusModal}><FaTimes/>
+                            <button className="closingModalButton" onClick={handleCloseContactStatusModal}><FaTimes/>
                             </button>
                         </Modal.Header>
 

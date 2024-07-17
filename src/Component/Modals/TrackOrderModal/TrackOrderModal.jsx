@@ -48,6 +48,12 @@ function TrackOrderModal({ show, handleClose }) {
         setOrderModalShow(false);
     };
 
+    const handleMainOrderModalClose = () => {
+        handleClose();
+        setEmailError(false);
+        setCodeError(false);
+    };
+
     const handleSendAllOrdersToEmail = async () => {
         if (!validateEmail()) {
             return;
@@ -94,12 +100,12 @@ function TrackOrderModal({ show, handleClose }) {
 
     return (
         <>
-            <Modal show={show} onHide={handleClose} className="trackOrderModal" centered="true" data-bs-theme="dark">
+            <Modal show={show} onHide={handleMainOrderModalClose} className="trackOrderModal" centered="true" data-bs-theme="dark">
                 {isLoading && <Loader />}
 
                 <Modal.Header>
                     <Modal.Title><FaTruckLoading className="mb-1 me-1 myGreenBlueColor" /> Проследи своята поръчка</Modal.Title>
-                    <button className="closingModalButton" onClick={handleClose}><FaTimes /></button>
+                    <button className="closingModalButton" onClick={handleMainOrderModalClose}><FaTimes /></button>
                 </Modal.Header>
 
                 <Modal.Body>

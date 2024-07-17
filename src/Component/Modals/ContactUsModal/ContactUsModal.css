@@ -3,6 +3,17 @@
     align-items: flex-start !important;
 }
 
+.contactModalBody .trackOrderInput{
+    color: var(--myBlack) !important;
+    background-color: var(--myWhite);
+    font-weight: bolder;
+}
+
+.contactModalBody .trackOrderInput::placeholder {
+    color: var(--myBlack) !important;
+    opacity: 1 !important;
+}
+
 .textArea {
     height: 250px;
     max-height: 250px;

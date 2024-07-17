@@ -236,7 +236,7 @@ function AddressModal({show, handleClose, cartItems, totalWeight, productCount, 
                                     onChange={(e) => setFirstName(e.target.value)}
                                     placeholder="Въведете първо име"
                                     type="text"
-                                    className="input_field"
+                                    className={`input_field ${firstNameError ? 'input-error' : ''}`}
                                 />
                             </div>
                             <div className="input_container">
@@ -257,7 +257,7 @@ function AddressModal({show, handleClose, cartItems, totalWeight, productCount, 
                                     onChange={(e) => setLastName(e.target.value)}
                                     placeholder="Въведете фамилия"
                                     type="text"
-                                    className="input_field"
+                                    className={`input_field ${lastNameError ? 'input-error' : ''}`}
                                 />
                             </div>
                         </div>
@@ -281,7 +281,7 @@ function AddressModal({show, handleClose, cartItems, totalWeight, productCount, 
                                     onChange={(e) => setEmail(e.target.value)}
                                     placeholder="Въведете имейл"
                                     type="email"
-                                    className="input_field"
+                                    className={`input_field ${emailError ? 'input-error' : ''}`}
                                 />
                             </div>
                             <div className="input_container">
@@ -302,7 +302,7 @@ function AddressModal({show, handleClose, cartItems, totalWeight, productCount, 
                                     onChange={(e) => setPhone(e.target.value)}
                                     placeholder="Въведете телефонен номер"
                                     type="text"
-                                    className="input_field"
+                                    className={`input_field ${phoneError ? 'input-error' : ''}`}
                                 />
                             </div>
                         </div>
