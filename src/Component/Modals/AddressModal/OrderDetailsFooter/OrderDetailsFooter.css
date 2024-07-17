@@ -17,6 +17,12 @@
     width: 40%;
 }
 
+.addressModalSingleLine {
+    font-weight: bolder;
+    font-size: 1.25rem;
+    margin-top: 0.25rem;
+}
+
 .buttonBox .orderContent {
     font-size: 50px;
     display: flex !important;
@@ -185,4 +191,97 @@ button.learn-more .circle .icon.arrow {
 .buttonBox .switch200 .slider:before {
     width: 200%;
     transform: translateX(-82px);
+}
+
+@media (max-width: 1300px) {
+    .orderDetailsText {
+        width: 65%;
+    }
+}
+
+@media (max-width: 1000px) {
+    .orderDetailsText {
+        width: 55%;
+    }
+
+    .buttonBox {
+        width: 45%;
+    }
+}
+
+@media (max-width: 830px) {
+    .orderDetails {
+        flex-direction: column;
+        align-items: center;
+    }
+
+    .orderDetailsText {
+        width: 100%;
+    }
+
+    .buttonBox {
+        margin-top: 1rem;
+        width: 100%;
+    }
+
+    .buttonBox .learn-more {
+        margin-top: 1rem;
+    }
+
+    .termAndCondsBox {
+        justify-content: center;
+    }
+
+    .termAndCondsBox h5 {
+        margin-right: 2rem;
+    }
+
+    .termAndCondsBox label {
+        margin-left: 2rem;
+    }
+}
+
+@media (max-width: 500px) {
+    .addressModalSingleLine {
+        display: flex;
+        flex-direction: column;
+        margin-bottom: 0.5rem;
+    }
+
+    .addressModalSingleLine .keyColorInfo {
+        border-bottom-left-radius: 0;
+        border-bottom-right-radius: 0;
+        margin-right: 0 !important;
+    }
+
+    .customMarginSpacing {
+        width: 100%;
+        text-align: center;
+        background-color: var(--myGreenBlue);
+        padding-top: 0.5rem;
+        padding-bottom: 0.5rem;
+        border-bottom-left-radius: 16px;
+        border-bottom-right-radius: 16px;
+    }
+}
+
+@media (max-width: 420px) {
+    .addressModalSingleLine .keyColorInfo {
+        text-align: center;
+    }
+
+    .termAndCondsBox {
+        flex-direction: column;
+    }
+
+    .termAndCondsBox h5 {
+        text-align: center;
+        margin: 0;
+    }
+
+    .termAndCondsBox label {
+        margin-top: 0.8rem;
+        margin-left: 0;
+    }
+
 }

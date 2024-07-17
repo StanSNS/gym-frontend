@@ -20,66 +20,66 @@ const OrderDetailsFooter = ({
     return (
         <div className="orderDetails">
             <div className="orderDetailsText">
-                <div className="fw-bolder fs-5 mt-1">
+                <div className="addressModalSingleLine">
                     <span className="keyColorInfo me-2">
                         <FaShoppingCart className="mb-1 me-1"/>
                         Продукти в количката
                     </span>
-                    {productCount} бр.
+                    <span className="customMarginSpacing">{productCount} бр.</span>
                 </div>
 
-                <div className="fw-bolder fs-5 mt-1">
+                <div className="addressModalSingleLine">
                     <span className="keyColorInfo me-2">
                         <IoPricetags className="mb-1 me-1"/>
                         Сума без намаление
                     </span>
-                    {totalAmount.toFixed(2)} лв.
+                    <span className="customMarginSpacing">{totalAmount.toFixed(2)} лв.</span>
                 </div>
 
-                <div className="fw-bolder fs-5 mt-1">
+                <div className="addressModalSingleLine">
                     <span className="keyColorInfo me-2">
                         <IoPricetag className="mb-1 me-1"/>
                         Сума с намаление
                     </span>
-                    {(totalAmount - totalSaving).toFixed(2)} лв.
+                    <span className="customMarginSpacing">{(totalAmount - totalSaving).toFixed(2)} лв.</span>
                 </div>
 
-                <div className="fw-bolder fs-5 mt-1">
+                <div className="addressModalSingleLine">
                     <span className="keyColorInfo me-2">
                         <GiPiggyBank className="mb-1 me-1"/>
                         Спестявате
                     </span>
-                    {totalSaving.toFixed(2)} лв.
+                    <span className="customMarginSpacing">{totalSaving.toFixed(2)} лв.</span>
                 </div>
 
-                <div className="fw-bolder fs-5 mt-1">
+                <div className="addressModalSingleLine">
                     <span className="keyColorInfo me-2">
                         <FaTruckLoading className="mb-1 me-1"/>
                         Доставка
                     </span>
-                    {deliveryPrice.toFixed(2)} лв.
+                    <span className="customMarginSpacing">{deliveryPrice.toFixed(2)} лв.</span>
                 </div>
 
-                <div className="fw-bolder fs-5 mt-1">
+                <div className="addressModalSingleLine">
                      <span className="keyColorInfo me-2">
                         <FaWeightHanging className="mb-1 me-1"/>
                         Тегло
                     </span>
-                    {totalWeight.toFixed(3)} кг.
+                    <span className="customMarginSpacing">{totalWeight.toFixed(3)} кг.</span>
                 </div>
 
-                <div className="fw-bolder fs-5 mt-1">
+                <div className="addressModalSingleLine">
                     <span className="keyColorInfo me-2">
                         <RiHandCoinFill className="mb-1 me-1"/>
                         Дължима сума при доставка
                     </span>
-                    {(totalAmount - totalSaving + deliveryPrice).toFixed(2)} лв.
+                    <span className="customMarginSpacing">{(totalAmount - totalSaving + deliveryPrice).toFixed(2)} лв.</span>
                 </div>
             </div>
 
             <div className="buttonBox">
                 <div>
-                    <div className="orderContent">
+                <div className="orderContent">
                         <IoShieldCheckmark/>
                         <FaTruckArrowRight/>
                         <FaBoxOpen/>
