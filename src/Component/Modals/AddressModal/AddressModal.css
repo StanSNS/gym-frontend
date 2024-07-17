@@ -343,3 +343,58 @@ option:checked {
     background-color: var(--myGreenBlue) !important;
     color: var(--myBlack);
 }
+
+@media (max-width: 1199px) {
+    .modal-dialog {
+        max-width: 1140px !important;
+    }
+}
+
+@media (max-width: 870px) {
+    .countryAndTown {
+        flex-direction: column;
+    }
+
+    .countryInputContainer {
+        margin-bottom: 1rem;
+    }
+
+    .countryInputContainer {
+        margin-bottom: 1rem;
+        width: 100%;
+    }
+}
+
+@media (max-width: 600px) {
+    .emailAndPhoneContainer, .namesContainer {
+        flex-direction: column;
+    }
+
+    .namesContainer .input_container {
+        width: 100%;
+        padding-left: 1.5%;
+        padding-right: 1%;
+        margin-bottom: 1rem;
+    }
+
+    .emailAndPhoneContainer .input_container {
+        width: 100%;
+        padding-left: 1.5%;
+        padding-right: 1%;
+        margin-bottom: 1rem;
+    }
+
+    .personalData {
+        gap: 0;
+    }
+
+    .addressData {
+        margin-top: 0;
+    }
+
+    .input_container .icon{
+        left: 20px;
+        bottom: 12px;
+    }
+
+}
