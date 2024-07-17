@@ -293,9 +293,9 @@ function Product() {
 
                         <h1 className="text-center">
                             Още
-                            <span className="myGreenBlueColor"> ТОП </span>
+                            <span className="myGreenBlueColor letterShadow"> ТОП </span>
                             продукти от
-                            <span className="myGreenBlueColor"> {product?.brandEntity.name}</span>
+                            <span className="myGreenBlueColor letterShadow"> {product?.brandEntity.name}</span>
                         </h1>
 
                         <Swiper
@@ -339,22 +339,23 @@ function Product() {
                                         <div className="singleProductText">
                                             <h4 className="productSwiperTitle">{product.name}</h4>
 
-                                            <div className="fw-bolder mt-2  singleLine">
+                                            <div className="singleLineSwiper">
                                                   <span className="keyColorInfo me-2">
-                                                      <BiSolidCategory className="mb-1"/>Категория
+                                                      <BiSolidCategory className="mb-1"/>
+                                                      <span className="removeText">Категория</span>
                                                    </span>
                                                 <span className="fs-5">{product.category}</span>
                                             </div>
 
                                             {product.weightKg !== "0.000" && (
-                                                <div className="fw-bolder mt-2 singleLine">
+                                                <div className="singleLineSwiper">
                                                     <span className="keyColorInfo me-2">
                                                         <FaWeightHanging className="mb-1"/>Тегло
                                                     </span>
                                                     <span className="fs-5">{product.weightKg} кг.</span>
                                                 </div>
                                             )}
-                                            <div className="fw-bolder mt-2 singleLine">
+                                                      <div className="singleLineSwiper">
                                                 <span className="keyColorInfo me-2">
                                                     <MdOutlineMoneyOffCsred className="mb-1"/>Редовна цена
                                                 </span>
@@ -363,7 +364,7 @@ function Product() {
                                                 </span>
                                             </div>
 
-                                            <div className="fw-bolder mt-2 singleLine">
+                                            <div className="singleLineSwiper">
                                                 <span className="keyColorInfo me-2">
                                                     <IoIosPricetag className="mb-1"/>Намалена цена
                                                 </span>
@@ -371,16 +372,16 @@ function Product() {
                                                     {product.discountedPrice.toFixed(2)} лв.
                                                 </span>
                                             </div>
+                                            </div>
                                         </div>
-                                    </div>
 
-                                    <div className="loadSingleProductButtonContainer">
-                                        <Button className="detailsButton" onClick={() => loadNewProduct(product)}>
-                                            <BiSolidDetail className="me-2 myGreenBlueColor"/>Виж детайли
-                                        </Button>
-                                    </div>
+                                        <div className="loadSingleProductButtonContainer">
+                                            <Button className="detailsButton" onClick={() => loadNewProduct(product)}>
+                                                <BiSolidDetail className="me-2 myGreenBlueColor"/>Виж детайли
+                                            </Button>
+                                        </div>
                                 </SwiperSlide>
-                            ))}
+                                ))}
                         </Swiper>
                     </div>
 
@@ -445,7 +446,7 @@ function Product() {
             }
         </>
 
-    );
+);
 }
 
 export default Product;

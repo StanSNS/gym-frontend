@@ -255,6 +255,10 @@ button:focus:not(:focus-visible) {
 
 }
 
+.singleProductSwiper h1 .letterShadow{
+    text-shadow: 2px 2px 4px rgba(0, 0, 0, 1);
+}
+
 .loadSingleProductButtonContainer {
     display: flex;
     justify-content: center;
@@ -278,6 +282,11 @@ button:focus:not(:focus-visible) {
 
 .modal-header {
     border: none !important;
+}
+
+.singleProductText .singleLineSwiper {
+    font-weight: bolder;
+    margin-top: 0.5rem;
 }
 
 @media (min-width: 1920px) {
@@ -471,6 +480,19 @@ button:focus:not(:focus-visible) {
 
     .addButtonContainer {
         margin-top: 3rem;
+    }
+}
+
+@media (max-width: 450px) {
+    .singleProductText .singleLineSwiper {
+        display: flex;
+        flex-direction: column;
+    }
+
+    .singleProductText .singleLineSwiper span {
+        text-align: center;
+        justify-content: center;
+        display: flex;
     }
 }
 
