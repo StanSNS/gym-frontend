@@ -14,11 +14,11 @@ import Loader from "../../STATIC/Loader/Loader";
 import {useNavigate} from "react-router-dom";
 import UnavailableProductModal from "./SubModals/UnavailableProductModal";
 import ErrorOrderModal from "./SubModals/ErrorOrderModal ";
-import SuccessOrderModal from "./SubModals/SuccessOrderModal ";
 import DeliveryPriceErrorModal from "./SubModals/DeliveryPriceErrorModal";
 import OrderDetailsFooter from "./OrderDetailsFooter/OrderDetailsFooter";
 import {BsFillBuildingsFill} from "react-icons/bs";
 import {removeCartItems} from "../../../Service/LocalStorageUtils";
+import SuccessOrderModal from "./SubModals/SucessOrderModal/SuccessOrderModal ";
 
 function AddressModal({show, handleClose, cartItems, totalWeight, productCount, totalAmount, totalSaving, addresses}) {
     const [firstName, setFirstName] = useState('');
