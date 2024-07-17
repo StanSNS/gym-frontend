@@ -21,6 +21,7 @@ import Loader from "../../STATIC/Loader/Loader";
 import {useNavigate} from "react-router-dom";
 import {BsClipboard2PlusFill} from "react-icons/bs";
 import {Button} from "react-bootstrap";
+import {MdOutlineMoneyOffCsred} from "react-icons/md";
 
 function CartModal({show, handleClose}) {
     const [myCartItems, setMyCartItems] = useState([]);
@@ -118,7 +119,7 @@ function CartModal({show, handleClose}) {
                     <div className="cartProductTotal mb-3">
                         <div className="fw-bolder fs-4">
                             <span className=" me-2 fs-3">
-                                <FaWallet className="mb-2 me-3 fs-2 myGreenBlueColor"/>Общо:
+                                <FaWallet className="mb-2 me-3 fs-2 myGreenBlueColor"/>Тотал:
                             </span>
                             {(totalAmount - totalSaving).toFixed(2)} лв.
                         </div>
@@ -181,59 +182,66 @@ function CartModal({show, handleClose}) {
                                                 {product.name} - {product.brandEntity.name}
                                             </Card.Title>
                                             <div className="cardBody">
-                                                <div className="fw-bolder fs-5">
-                                                <span className="keyColorInfo me-2">
-                                                    <FaWeightHanging className="mb-1 me-1"/>
-                                                    Тегло
-                                                </span>
+                                                <div className="cartSingleLine">
+                                                    <span className="keyColorInfo me-2">
+                                                        <FaWeightHanging className="mb-1 me-1"/>
+                                                       <span className="removeText">Тегло</span>
+                                                    </span>
                                                     {product.weightKg} кг.
                                                 </div>
 
                                                 {product.selectedTaste && (
-                                                    <div className="fw-bolder mt-1 fs-5">
-                                                    <span className="keyColorInfo me-2">
-                                                        <GiWrappedSweet className="mb-1 me-1"/>
-                                                        Вкус
-                                                    </span>
+                                                    <div className="cartSingleLine">
+                                                        <span className="keyColorInfo me-2">
+                                                            <GiWrappedSweet className="mb-1 me-1"/>
+                                                            <span className="removeText">Вкус</span>
+                                                        </span>
                                                         {product?.selectedTaste.name}
                                                     </div>
                                                 )}
+                                                <div className="cartSingleLine">
+                                                    <span className="keyColorInfo me-2">
+                                                        <MdOutlineMoneyOffCsred className="mb-1 me-1"/>
+                                                        <span className="removeText">Редовна цена</span>
+                                                    </span>
+                                                    <span className="strikeText">
+                                                        {product.regularPrice.toFixed(2)} лв.
+                                                    </span>
+                                                </div>
 
-                                                <div className="fw-bolder mt-1 fs-5">
-                                                <span className="keyColorInfo me-2">
-                                                    <IoIosPricetag className="mb-1 me-1"/>
-                                                    Намалена цена
-                                                </span>
+                                                <div className="cartSingleLine">
+                                                    <span className="keyColorInfo me-2">
+                                                        <IoIosPricetag className="mb-1 me-1"/>
+                                                        <span className="removeText">Намалена цена</span>
+                                                    </span>
                                                     {product.discountedPrice.toFixed(2)} лв.
                                                 </div>
+                                                <div className="cartSingleLine">
+                                                    <span className="keyColorInfo me-2">
+                                                        <FaWallet className="mb-1 me-1"/>
+                                                        <span className="removeText">Общо</span>
+                                                     </span>
+                                                    {(product.discountedPrice * product.quantity).toFixed(2)} лв.
+                                                </div>
+
+                                                <div className="cartSingleLine">
+                                                    <span className="keyColorInfo me-2">
+                                                        <GiBank className="mb-1 me-1"/>
+                                                        <span className="removeText">Намаление</span>
+                                                    </span>
+                                                    -{(product.regularPrice *
+                                                    product.quantity -
+                                                    product.discountedPrice *
+                                                    product.quantity).toFixed(2)
+                                                } лв.
+                                                </div>
                                             </div>
-                                        </div>
-
-                                        <div className="fw-bolder mt-1 fs-5">
-                                        <span className="keyColorInfo me-2">
-                                            <FaWallet className="mb-1 me-1"/>
-                                            Сума
-                                        </span>
-                                            {(product.discountedPrice * product.quantity).toFixed(2)} лв.
-                                        </div>
-
-                                        <div className="fw-bolder mt-1 fs-5">
-                                        <span className="keyColorInfo me-2">
-                                            <GiBank className="mb-1 me-1"/>
-                                            Намаление
-                                        </span>
-                                            {(product.regularPrice *
-                                                product.quantity -
-                                                product.discountedPrice *
-                                                product.quantity).toFixed(2)} лв.
                                         </div>
                                     </Card.Body>
                                 </Card>
                             ))}
                         </>
                     )}
-
-
                 </Modal.Body>
             </Modal>
 
