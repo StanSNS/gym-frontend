@@ -23,13 +23,18 @@
     box-shadow: 0 10px 20px var(--myBlack);
     border-radius: 40px 30px 30px 30px;
     height: auto;
-    min-height: 640px;
-    max-height: 640px;
+    min-height: 700px;
+    max-height: 700px;
     align-items: center;
     padding: 3rem;
 }
 
 .doughnutChartContainer {
+    display: flex;
+    align-items: center;
+}
+
+.doughnutChartContainer div {
     margin-left: 1rem;
     height: 60px;
     max-width: 60px;
@@ -51,6 +56,11 @@
     justify-content: flex-start;
     padding-left: 1rem;
     padding-right: 1rem;
+    min-width: 280px;
+    background-color: var(--myBlack);
+    min-height: 60px;
+    border-top-right-radius: 40px;
+    border-bottom-right-radius: 40px;
 }
 
 .imageContainer {
@@ -62,15 +72,6 @@
     max-width: 300px;
 }
 
-.doughnutText {
-    min-width: 280px;
-    background-color: var(--myBlack);
-    min-height: 60px;
-    color: var(--myWhite);
-    border-top-right-radius: 40px;
-    border-bottom-right-radius: 40px;
-}
-
 .rightSection {
     width: 35%;
     padding: 2rem 2rem 2rem 1rem;
@@ -79,7 +80,7 @@
 .productDescription {
     width: 100%;
     height: auto;
-    max-height: 640px;
+    max-height: 700px;
     padding: 1.5rem;
     overflow-y: auto;
     box-shadow: 0 10px 20px var(--myBlack);
@@ -135,8 +136,9 @@
     display: flex;
     height: 60px;
     width: 100%;
-    justify-content: flex-start;
+    justify-content: center;
     align-items: center;
+    margin-top: 1rem;
 }
 
 .dropDownButton {
@@ -326,28 +328,6 @@ button:focus:not(:focus-visible) {
     .productText {
         width: 70%;
     }
-
-    /*.singleLineText .keyColorInfo {*/
-    /*    padding: 0;*/
-    /*    border-radius: 0;*/
-    /*    background-color: transparent;*/
-    /*    border-radius: 4px;*/
-    /**/
-    /*}*/
-    .singleLineText .keyColorInfo svg {
-        /*color: var(--myGreenBlue);*/
-        /*padding: 2px;*/
-        /*border-radius: 0;*/
-        /*outline: none;*/
-        /*border: none;*/
-        /*background: none;*/
-    }
-
-    .removeText {
-        /*display: none;*/
-        /*margin: 0 !important;*/
-    }
-
 }
 
 @media (max-width: 1150px) {
@@ -360,28 +340,32 @@ button:focus:not(:focus-visible) {
     .barChart canvas {
         width: 200px !important;
     }
+
+    .tastes {
+        flex-direction: column;
+        justify-content: center;
+    }
+
+    .tastes .dropdown {
+        margin-top: 2rem;
+    }
+
+    .doughnutChartContainer {
+        margin-top: 0.5rem;
+    }
+
+    .doughnutChartContainer div {
+        margin-left: 0;
+    }
+
+    .addButtonContainer {
+        margin-top: 4rem;
+    }
 }
 
 @media (max-width: 900px) {
     .singleProductSwiper .swiper {
         padding-bottom: 1.5rem;
-    }
-
-    .tastes {
-        flex-direction: column-reverse;
-        justify-content: center;
-    }
-
-    .tastes .dropdown {
-        margin-top: 0.5rem;
-    }
-
-    .doughnutChartContainer {
-        margin-top: 3.5rem;
-    }
-
-    .addButtonContainer {
-        margin-top: 4rem;
     }
 }
 
@@ -393,6 +377,25 @@ button:focus:not(:focus-visible) {
     .productSwiperTitle {
         justify-content: center;
     }
+
+}
+
+@media (max-width: 750px) {
+    .doughnutChartContainer div {
+        height: 40px;
+        max-width: 40px;
+    }
+
+    .doughnutChartContainer p {
+        font-size: 13px;
+        min-width: 190px;
+        min-height: 40px;
+    }
+
+    .addButtonContainer {
+        margin-top: 3rem;
+    }
+
 
 }
 
@@ -410,20 +413,6 @@ button:focus:not(:focus-visible) {
     .barChart canvas {
         width: 150px !important;
     }
-
-    .tastes {
-        flex-direction: column;
-    }
-
-    .tastes .dropdown {
-        margin-top: 0.7rem;
-        margin-bottom: 0.7rem;
-    }
-
-    .doughnutChartContainer {
-        top: -45px;
-        left: -40px;
-    }
 }
 
 @media (max-width: 550px) {
@@ -438,43 +427,63 @@ button:focus:not(:focus-visible) {
     .productContainer {
         padding: 1rem 0 0;
     }
-
-    .doughnutChartContainer {
-        top: -44px;
-    }
 }
 
-@media (max-width: 450px) {
-    .singleLine {
-        display: flex;
-        flex-direction: column;
-        align-items: center;
-        text-align: center;
-    }
-
-    .doughnutChartContainer {
-        top: -45px;
-        left: 10px;
-        max-width: 40px;
-        height: 50px;
-    }
-
-    .doughnutText {
-        min-width: 200px;
-        min-height: 50px;
-    }
-}
-
-@media (max-width: 350px) {
-    .leftSection {
-        padding: 0;
-    }
-
+@media (max-width: 500px) {
     .singleLineText {
-        align-items: center;
+        flex-direction: row;
     }
 
-    .tastes {
-        align-items: center;
+    .singleLineText .keyColorInfo {
+        padding: 0;
+        border-radius: 0;
+        background-color: transparent;
+    }
+
+    .removeText {
+        display: none;
+        margin: 0 !important;
+    }
+
+    .productCard {
+        min-height: 800px;
+    }
+
+    .productText h3 {
+        height: 100%;
+        justify-content: center;
+    }
+
+    .imageContainer img {
+        max-width: 200px;
+    }
+
+    .doughnutChartContainer div {
+        height: 30px;
+        max-width: 30px;
+    }
+
+    .doughnutChartContainer p {
+        font-size: 13px;
+        min-width: 160px;
+        min-height: 30px;
+    }
+
+    .addButtonContainer {
+        margin-top: 3rem;
+    }
+}
+
+@media (max-width: 380px) {
+    .productCard {
+        min-height: 750px;
+    }
+
+    .imageContainer img {
+        max-width: 150px;
+    }
+
+    .addButtonContainer {
+        margin-top: 3rem;
     }
 }

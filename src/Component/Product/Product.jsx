@@ -225,7 +225,7 @@ function Product() {
                                             </div>
 
                                             {product.taste.length > 0 && (
-                                                <div className="tastes mt-2">
+                                                <div className="tastes">
                                                     <Dropdown>
                                                         <Dropdown.Toggle variant={"dark"} id="dropdown-basic"
                                                                          className="dropDownButton fw-bolder">
@@ -254,8 +254,10 @@ function Product() {
 
                                                     {selectedTaste && (
                                                         <div className="doughnutChartContainer">
-                                                            <DoughnutChart data={doughnutData}/>
-                                                            <p className="doughnutText">{selectedTaste.name}</p>
+                                                            <div>
+                                                                <DoughnutChart data={doughnutData}/>
+                                                            </div>
+                                                            <p>{selectedTaste.name}</p>
                                                         </div>
                                                     )}
                                                 </div>
