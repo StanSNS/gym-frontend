@@ -1,18 +1,33 @@
 export const faqData = [
     {
         type: 'delivery',
-        title: 'lorem2 asddsadsa dsadsa dsa sda sdasadasd asd sad  asd asd asdasd sd a',
-        description: 'j412j 412h4j214hj12 124jk214142 hj4124hj2124j1jjrwejrj rewrew rwe erw er w ewr ewr ewr er we wr erw erw er ewr  ewr werrew erw wer ewr we r wer wer wer  wer erw wer j412j 412h4j214hj12 124jk214142 hj4124hj2124j1jjrwejrj rewrew rwe erw er w ewr ewr ewr er we wr erw erw er ewr  ewr werrew erw wer ewr we r wer wer wer  wer erw wer j412j 412h4j214hj12 124jk214142 hj4124hj2124j1jjrwejrj rewrew rwe erw er w ewr ewr ewr er we wr erw erw er ewr  ewr werrew erw wer ewr we r wer wer wer  wer erw wer'
+        title: 'Какъв е срокът за доставка?',
+        description: 'Стандартният срок за доставка е от 2 до 5 работни дни, в зависимост от местоположението ви. В случай на забавяне ще бъдете информирани своевременно.'
     },
     {
         type: 'delivery',
-        title: 'Question 1',
-        description: 'Answer 1'
+        title: 'Каква е цената за доставка?',
+        description: 'Разходите за доставка варират в зависимост от теглото на поръчката и дестинацията. При поръчки над 200 лв. доставката е безплатна в рамките на България.'
     },
     {
         type: 'delivery',
-        title: 'Question 1',
-        description: 'Answer 1'
+        title: 'Предлагате ли международна доставка?',
+        description: 'Да, предлагаме международна доставка. Моля, свържете се с нас за повече информация относно цените и времето за доставка до вашата страна.'
+    },
+    {
+        type: 'delivery',
+        title: 'Как мога да проследя поръчката си?',
+        description: 'След като поръчката ви бъде изпратена, ще получите имейл с проследяващ номер, който можете да използвате, за да следите статуса на доставката.'
+    },
+    {
+        type: 'delivery',
+        title: 'Предлагате ли експресна доставка?',
+        description: 'Да, предлагаме експресна доставка, която отнема 1-2 работни дни. Моля, свържете се с нас за повече информация и такси.'
+    },
+    {
+        type: 'delivery',
+        title: 'Доставяте ли до Пощенски кутии?',
+        description: 'За съжаление, не можем да доставяме до пощенски кутии. Моля, предоставете валиден физически адрес за доставка.'
     },
     {
         type: 'product',
