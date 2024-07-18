@@ -87,28 +87,15 @@ export const removeCartItems = () => {
 
 const SHOP_FILTERS = 'gym_fit_shop_filters';
 
-// export const getShopFilters = () => {
-//     const cartItem = localStorage.getItem(SHOP_FILTERS)
-//
-//     if (cartItem) {
-//         return JSON.parse(decryptData(cartItem));
-//     }
-//     return [];
-// }
-//
-// export const setShopFilters = (updatedFilters) => {
-//     localStorage.setItem(SHOP_FILTERS, encryptData(JSON.stringify(updatedFilters)));
-// }
-
 export const getShopFilters = () => {
     const cartItem = localStorage.getItem(SHOP_FILTERS)
 
     if (cartItem) {
-        return JSON.parse((cartItem));
+        return JSON.parse(decryptData(cartItem));
     }
     return [];
 }
 
 export const setShopFilters = (updatedFilters) => {
-    localStorage.setItem(SHOP_FILTERS, (JSON.stringify(updatedFilters)));
+    localStorage.setItem(SHOP_FILTERS, encryptData(JSON.stringify(updatedFilters)));
 }
