@@ -129,9 +129,7 @@
 
 .faqSection .accordion-body {
     font-weight: 700;
-    padding-left: 2rem;
-    padding-right: 2rem;
-    padding-bottom: 1.5rem;
+    padding: 0 2rem 1.5rem;
 }
 
 .accBodyBorder {

@@ -91,7 +91,7 @@ function FAQ() {
                             </Accordion.Header>
                             <Accordion.Body>
                                 <div className="accBodyBorder"></div>
-                                {faqData.description}
+                                <span className="fw-bold fs-5">{faqData.description}</span>
                             </Accordion.Body>
                         </Accordion.Item>
                     ))}
