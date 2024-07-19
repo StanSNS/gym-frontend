@@ -6,6 +6,10 @@ import {Swiper, SwiperSlide} from "swiper/react";
 import 'swiper/css';
 import 'swiper/css/effect-coverflow';
 import 'swiper/css/pagination';
+import saveMoney from "../../../../Resources/About/saveMoney.jpg"
+import soldProducts from "../../../../Resources/About/soldProducts.jpg"
+import satisfiedClients from "../../../../Resources/About/satisfiedClients.jpg"
+import deliveredProdcuts from "../../../../Resources/About/deliveredProdcuts.jpg"
 
 export default function VerticalSwiper({selectedIndex}) {
     const swiperRef = useRef(null);
@@ -43,10 +47,10 @@ export default function VerticalSwiper({selectedIndex}) {
                 pagination={{ clickable: true }}
                 allowTouchMove={false}
             >
-                <SwiperSlide>Slide 1</SwiperSlide>
-                <SwiperSlide>Slide 2</SwiperSlide>
-                <SwiperSlide>Slide 3</SwiperSlide>
-                <SwiperSlide>Slide 4</SwiperSlide>
+                <SwiperSlide><img src={saveMoney} alt="saveMoney" className="swiperSlideAboutImage"/></SwiperSlide>
+                <SwiperSlide><img src={soldProducts} alt="soldProducts" className="swiperSlideAboutImage"/></SwiperSlide>
+                <SwiperSlide><img src={satisfiedClients} alt="satisfiedClients" className="swiperSlideAboutImage"/></SwiperSlide>
+                <SwiperSlide><img src={deliveredProdcuts} alt="deliveredProdcuts" className="swiperSlideAboutImage"/></SwiperSlide>
             </Swiper>
         </div>
     );
