@@ -14,25 +14,28 @@ function MoreInfo() {
     };
 
     return (
-        <div className="myWhiteColor">
+        <div className="myWhiteColor moreInfoSection">
             <h1 className="fw-bolder text-center"><IoIosInformationCircle className="mb-2 me-2 myGreenBlueColor"/>Още
                 информация</h1>
             <div className="moreDetails">
 
                 <div className="contactInfo">
-                    <span className="fs-3 fw-bolder"><FaBusinessTime className="mb-1 me-2 myGreenBlueColor"/>Работно време:</span>
-                    <span className="fs-4 fw-medium">
+                    <span className="contactInfoTitle">
+                        <FaBusinessTime className="mb-1 me-2 myGreenBlueColor"/>Работно време:
+                    </span>
+                    <span className="dailyInforamtion">
                         <BsFillCalendarWeekFill className="mb-2 me-2 myGreenBlueColor"/>От понеделник
-                        <span className="ms-2 me-2">-</span>
-                        <BsFillCalendarWeekFill className="mb-2 me-2 myGreenBlueColor"/>До неделя</span>
+                        <span className="ms-2 me-2 removeText">-</span>
+                        <BsFillCalendarWeekFill className="mb-2 me-2 myGreenBlueColor"/>До неделя
+                    </span>
 
-                    <div className="d-flex fs-4 mb-2">
+                    <div className="hourlyInformation">
                         <div className="me-2">
                             <FaClock className="mb-1 me-2 myGreenBlueColor"/>
                             <span className="fw-medium">От 10:00 ч.</span>
                         </div>
 
-                        <span>-</span>
+                        <span className="removeText">-</span>
 
                         <div className="ms-2">
                             <FaClock className="mb-1 me-2 myGreenBlueColor"/>

@@ -57,7 +57,6 @@
     color: var(--myGreenBlue);
 }
 
-
 .whyIcon.rotateIcon {
     rotate: 45deg;
 }
@@ -66,4 +65,21 @@
     font-size: 18px;
     font-weight: 600;
     line-height: 0;
+}
+
+@media (max-width: 1300px) {
+    .whyContentContainer {
+        padding-bottom: 0;
+    }
+}
+
+@media (max-width: 1200px) {
+    .whyContentContainer {
+        flex-wrap: wrap;
+        justify-content: center;
+    }
+
+    .whyContent{
+        margin-bottom: 2rem;
+    }
 }

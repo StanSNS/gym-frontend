@@ -19,3 +19,101 @@
     font-weight: 700;
     width: 60%;
 }
+
+.dailyInforamtion {
+    font-size: calc(1.275rem + .3vw);
+    font-weight: 500;
+}
+
+.hourlyInformation {
+    display: flex;
+    font-size: calc(1.275rem + .3vw);
+    font-weight: 500;
+    margin-bottom: 0.5rem;
+}
+
+.contactInfoTitle {
+    font-weight: bolder;
+    font-size: calc(1.3rem + .6vw);
+}
+
+@media (max-width: 1300px) {
+    .moreInfoSection {
+        margin-top: 24rem;
+    }
+
+    .moreDetails {
+        flex-direction: column-reverse;
+        align-items: center;
+    }
+
+    .companyInfo {
+        width: 80%;
+    }
+
+    .contactInfo {
+        margin-top: 1.5rem;
+        width: 80%;
+    }
+}
+
+@media (max-width: 600px) {
+    .companyInfo {
+        width: 100%;
+        text-align: center;
+    }
+
+    .contactInfo {
+        width: 100%;
+    }
+}
+
+@media (max-width: 480px) {
+    .contactInfo {
+        width: 100%;
+    }
+
+    .dailyInforamtion {
+        display: flex;
+        flex-direction: column;
+        align-items: center;
+    }
+
+    .dailyInforamtion svg {
+        margin-top: 1rem;
+    }
+
+    .dailyInforamtion .removeText {
+        display: none;
+    }
+
+    .hourlyInformation {
+        flex-direction: column
+    }
+
+    .contactInfo .footerButton {
+        margin-top: 1rem !important;
+    }
+
+    .hourlyInformation div {
+        margin-left: 0 !important;
+        margin-right: 0 !important;
+        margin-top: 1rem;
+    }
+
+    .hourlyInformation .removeText {
+        display: none;
+    }
+
+    .moreDetails {
+        padding-bottom: 0;
+    }
+}
+
+@media (max-width: 340px) {
+    .contactInfoTitle {
+    text-align: center;
+    }
+}
+
+
