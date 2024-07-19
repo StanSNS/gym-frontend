@@ -18,6 +18,20 @@ const Footer = () => {
     const [showContactUsModal, setShowContactUsModal] = useState(false);
     const [showCartModal, setShowCartModal] = useState(false);
     const [cartItems, setCartItems] = useState([]);
+    const getCurrentDate = () => {
+        const currentDate = new Date();
+        const day = currentDate.getDate();
+        const month = currentDate.getMonth(); // No need to add 1 here
+        const year = currentDate.getFullYear();
+
+        const monthNames = [
+            "Януари", "Февруари", "Март", "Април", "Май", "Юни",
+            "Юли", "Август", "Септември", "Октомври", "Ноември", "Декември"
+        ];
+
+        return `${day} ${monthNames[month]} ${year}`;
+    };
+
 
     useEffect(() => {
         refreshCartItems();
@@ -105,7 +119,16 @@ const Footer = () => {
             </footer>
 
             <div className="subFooter">
-                <span className="text-center">© 2024 My future website. All rights reserved.</span>
+                <span>©
+                    <span className="myGreenBlueColor"> {getCurrentDate()} GymFit</span> - Всички права запазени
+                </span>
+                <span>Πpoдyĸтитe нa тaзи cтpaницa нe ca пpeднaзнaчeни дa лeĸyвaт,диaгнocтициpaт
+                    и/или пpeдпaзвaт oт бoлecти.Toзи caйт изпoлзвa „биcĸвитĸи“, зaщoтo тe ca вaжни зa нeгoвoтo
+                    фyнĸциoниpaнe. C пoceщeниeтo нa тoзи caйт, виe ce cъглacявaтe c изпoлзвaнeтo нa
+                    „биcĸвитĸитe“. Зa пoвeчe инфopмaция, мoля пoceтeтe
+                    <Link to={"/terms-and-conditions"} className="linkUnderlineFooter"> Oбщитe ycлoвия </Link>
+                    нa caйтa
+                </span>
             </div>
 
             <TrackOrderModal show={showTrackOrderModal} handleClose={handleTrackOrderModalClose}/>

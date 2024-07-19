@@ -19,8 +19,10 @@
 
 .subFooter {
     display: flex;
+    flex-direction: column;
     justify-content: center;
     font-weight: bolder;
+    text-align: center;
 }
 
 .footerLogoImage {
@@ -94,6 +96,11 @@
 
 .footerButton:hover span {
     color: var(--myBlack) !important;
+}
+
+.subFooter .linkUnderlineFooter{
+    color: var(--myGreenBlue) !important;
+    text-decoration: none;
 }
 
 @media (max-width: 585px) {
