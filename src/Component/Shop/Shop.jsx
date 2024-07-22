@@ -30,6 +30,7 @@ const Shop = () => {
     const [isOpenBrand, setIsOpenBrand] = useState(false);
     const [isOpenWeight, setIsOpenWeight] = useState(false);
     const [isDataLoading, setIsDataLoading] = useState(false);
+    const [dataLoaded, setDataLoaded] = useState(false);
     const navigator = useNavigate();
 
     const weightData = [
@@ -52,6 +53,7 @@ const Shop = () => {
                 setBrands(data.brands);
                 setCategories(data.categories);
                 sortProducts(savedFilters.selectedOrderBy, data.products);
+                setDataLoaded(true);
             } catch (error) {
                 navigator("/internal-server-error");
                 console.error('Error fetching sellable products:');
@@ -76,18 +78,18 @@ const Shop = () => {
         const newSearchQuery = e.target.value;
         setSearchQuery(newSearchQuery);
         setCurrentPage(1);
-        saveFilters({ searchQuery: newSearchQuery });
+        saveFilters({searchQuery: newSearchQuery});
     };
 
     const clearSearch = () => {
         setSearchQuery('');
         setCurrentPage(1);
-        saveFilters({ searchQuery: '' });
+        saveFilters({searchQuery: ''});
     };
 
     const saveFilters = (newFilters) => {
         const savedFilters = getShopFilters() || {};
-        const updatedFilters = { ...savedFilters, ...newFilters };
+        const updatedFilters = {...savedFilters, ...newFilters};
         setShopFilters(updatedFilters)
     };
 
@@ -123,7 +125,7 @@ const Shop = () => {
             top: heroSectionHeight + 80,
             behavior: "smooth"
         });
-        saveFilters({ currentPage: pageNumber });
+        saveFilters({currentPage: pageNumber});
     };
 
     const [isOverlayVisible, setIsOverlayVisible] = useState(false);
@@ -140,13 +142,13 @@ const Shop = () => {
     const selectCategory = (category) => {
         setSelectedCategory(category);
         setCurrentPage(1);
-        saveFilters({ selectedCategory: category });
+        saveFilters({selectedCategory: category});
     };
 
     const selectBrand = (brand) => {
         setSelectedBrand(brand);
         setCurrentPage(1);
-        saveFilters({ selectedBrand: brand });
+        saveFilters({selectedBrand: brand});
     };
 
     const selectSort = (sort) => {
@@ -198,19 +200,19 @@ const Shop = () => {
     const selectFlashDeal = (deal) => {
         setSelectedDeal(deal);
         setCurrentPage(1);
-        saveFilters({ selectedDeal: deal });
+        saveFilters({selectedDeal: deal});
     };
 
     const selectWeight = (weight) => {
         setSelectedWeight(weight);
         setCurrentPage(1);
-        saveFilters({ selectedWeight: weight });
+        saveFilters({selectedWeight: weight});
     };
 
     const clearSortBy = () => {
         setSelectedOrderBy('');
         setProducts(originalProducts);
-        saveFilters({ selectedOrderBy: '' });
+        saveFilters({selectedOrderBy: ''});
     }
 
     return (
@@ -255,24 +257,22 @@ const Shop = () => {
                     <div
                         className={`overlay${isOverlayVisible ? ' visible' : ''}`}
                         onClick={() => {
-                            toggleDropdown()
-                            setIsOverlayVisible(false)
+                            toggleDropdown();
+                            setIsOverlayVisible(false);
                         }}>
                     </div>
                 </div>
                 <Row className="shopSection">
-                    {currentProducts.map((product, index) => (
-                        <CardShop key={index} product={product}/>
-                    ))}
-                </Row>
-
-                {!isDataLoading && filteredProducts.length === 0 && (
-                    <Row>
+                    {dataLoaded && currentProducts.length > 0 ? (
+                        currentProducts.map((product, index) => (
+                            <CardShop key={index} product={product}/>
+                        ))
+                    ) : dataLoaded ? (
                         <div className="noResultsMessage">
                             <span>Съжаляваме, но не бяха намерени продукти по време на търсенето...</span>
                         </div>
-                    </Row>
-                )}
+                    ) : null}
+                </Row>
 
                 <Row>
                     <Col className="d-flex justify-content-center mt-2 mb-5">

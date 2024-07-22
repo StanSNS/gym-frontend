@@ -20,17 +20,18 @@ function Header() {
     const [cartItems, setCartItems] = useState([]);
     const [showCartModal, setShowCartModal] = useState(false);
     const [showOffcanvas, setShowOffcanvas] = useState(false);
-    const [showDialog, setShowDialog] = useState(true);
+    const [showDialog, setShowDialog] = useState(false);
 
     useEffect(() => {
-        if (!getWebTrafficCookie()) {
-            setShowDialog(true)
-        }
+        const checkCookie = () => {
+            if (!getWebTrafficCookie()) {
+                setShowDialog(true);
+            } else {
+                setShowDialog(false);
+            }
+        };
 
-        if (getWebTrafficCookie() === 'true') {
-            setShowDialog(false);
-        }
-
+        checkCookie();
         refreshCartItems();
 
         const handleClickOutsideCart = (event) => {
@@ -38,12 +39,12 @@ function Header() {
                 refreshCartItems();
             }
         };
+
         document.addEventListener('click', handleClickOutsideCart);
         return () => {
             document.removeEventListener('click', handleClickOutsideCart);
         };
     }, []);
-
 
     const refreshCartItems = () => {
         const updatedCartItems = getCartFromStorage();
@@ -69,7 +70,6 @@ function Header() {
         }
     };
 
-
     const handleOffcanvasClose = () => {
         setShowOffcanvas(false);
     };
@@ -80,7 +80,7 @@ function Header() {
 
     const handleDialogHide = () => {
         setShowDialog(false);
-        setWebTrafficCookie()
+        setWebTrafficCookie(); // Set the cookie to avoid showing the dialog again
     };
 
     return (
@@ -178,5 +178,6 @@ function Header() {
         </>
     );
 }
+
 
 export default Header;
