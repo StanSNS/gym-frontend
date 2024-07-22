@@ -1,0 +1,9 @@
+.termsAndCondsSection {
+    padding: 3rem;
+}
+
+.termsAndCondsTitle {
+    text-align: center;
+    color: var(--myGreenBlue);
+    text-shadow: 0 0 6px rgb(0, 0, 0);
+}
