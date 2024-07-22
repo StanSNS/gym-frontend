@@ -3,7 +3,7 @@ import {decryptData, encryptData} from "./SecurityService";
 const SELECTED_PRODUCT = 'gym_fit_selected_product';
 
 export const getSelectedProductFromStorage = () => {
-    const selectedProduct = localStorage.getItem(SELECTED_PRODUCT)
+    const selectedProduct = sessionStorage.getItem(SELECTED_PRODUCT)
 
     if (selectedProduct) {
         return decryptData(selectedProduct)
@@ -12,13 +12,13 @@ export const getSelectedProductFromStorage = () => {
 };
 
 export const setSelectedProductFromStorage = (selectedProduct) => {
-    localStorage.setItem(SELECTED_PRODUCT, encryptData(selectedProduct));
+    sessionStorage.setItem(SELECTED_PRODUCT, encryptData(selectedProduct));
 };
 
 const CART_KEY = 'gym_fit_cart';
 
 export const getCartFromStorage = () => {
-    const cartItem = localStorage.getItem(CART_KEY)
+    const cartItem = sessionStorage.getItem(CART_KEY)
 
     if (cartItem) {
         return decryptData(cartItem)
@@ -54,7 +54,7 @@ export const addToCart = (product, selectedTaste, quantity = 1) => {
         });
     }
 
-    localStorage.setItem(CART_KEY, encryptData(cart));
+    sessionStorage.setItem(CART_KEY, encryptData(cart));
     return cart;
 };
 
@@ -75,20 +75,20 @@ export const reduceQuantityInCart = (product, selectedTaste, quantity = 1) => {
             cart.splice(indexToReduce, 1);
         }
 
-        localStorage.setItem(CART_KEY, encryptData(cart));
+        sessionStorage.setItem(CART_KEY, encryptData(cart));
     }
 
     return cart;
 };
 
 export const removeCartItems = () => {
-    localStorage.removeItem(CART_KEY)
+    sessionStorage.removeItem(CART_KEY)
 }
 
 const SHOP_FILTERS = 'gym_fit_shop_filters';
 
 export const getShopFilters = () => {
-    const cartItem = localStorage.getItem(SHOP_FILTERS)
+    const cartItem = sessionStorage.getItem(SHOP_FILTERS)
 
     if (cartItem) {
         return JSON.parse(decryptData(cartItem));
@@ -97,5 +97,5 @@ export const getShopFilters = () => {
 }
 
 export const setShopFilters = (updatedFilters) => {
-    localStorage.setItem(SHOP_FILTERS, encryptData(JSON.stringify(updatedFilters)));
+    sessionStorage.setItem(SHOP_FILTERS, encryptData(JSON.stringify(updatedFilters)));
 }

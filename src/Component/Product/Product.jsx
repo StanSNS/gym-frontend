@@ -17,7 +17,7 @@ import 'swiper/css/effect-coverflow';
 import 'swiper/css/pagination';
 import {IoColorFilter} from "react-icons/io5";
 import {useNavigate} from "react-router-dom";
-import {addToCart, getSelectedProductFromStorage, setSelectedProductFromStorage} from "../../Service/LocalStorageUtils";
+import {addToCart, getSelectedProductFromStorage, setSelectedProductFromStorage} from "../../Service/SessionStorageUtils";
 
 function Product() {
     const [product, setProduct] = useState(() => {

@@ -7,7 +7,7 @@ import Offcanvas from 'react-bootstrap/Offcanvas';
 import {FaShoppingCart, FaTimes, FaTruck} from "react-icons/fa";
 import "./Header.css"
 import TrackOrderModal from "../../Modals/TrackOrderModal/TrackOrderModal";
-import {getCartFromStorage} from "../../../Service/LocalStorageUtils";
+import {getCartFromStorage} from "../../../Service/SessionStorageUtils";
 import CartModal from "../../Modals/CartModal/CartModal";
 import headerImage from "../../../Resources/logoImage.png"
 import {FaBuildingShield, FaPeopleGroup, FaTriangleExclamation} from "react-icons/fa6";

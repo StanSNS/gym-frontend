@@ -14,7 +14,7 @@ import {
 } from "react-icons/fa";
 import {GiBank, GiWrappedSweet} from "react-icons/gi";
 import {IoIosPricetag} from "react-icons/io";
-import {addToCart, getCartFromStorage, reduceQuantityInCart, removeCartItems} from "../../../Service/LocalStorageUtils";
+import {addToCart, getCartFromStorage, reduceQuantityInCart, removeCartItems} from "../../../Service/SessionStorageUtils";
 import AddressModal from "../AddressModal/AddressModal";
 import {getAllAddresses} from "../../../Service/OrderService";
 import Loader from "../../STATIC/Loader/Loader";
