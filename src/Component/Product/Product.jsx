@@ -16,14 +16,11 @@ import 'swiper/css';
 import 'swiper/css/effect-coverflow';
 import 'swiper/css/pagination';
 import {IoColorFilter} from "react-icons/io5";
-import {useNavigate} from "react-router-dom";
-import {addToCart, getSelectedProductFromStorage, setSelectedProductFromStorage} from "../../Service/SessionStorageUtils";
+import {useNavigate, useParams} from "react-router-dom";
+import {addToCart} from "../../Service/SessionStorageUtils";
 
 function Product() {
-    const [product, setProduct] = useState(() => {
-        const savedProduct = getSelectedProductFromStorage();
-        return savedProduct ? savedProduct : null;
-    });
+    const [product, setProduct] = useState(null)
     const [tasteData, setTasteData] = useState(null);
     const [selectedTaste, setSelectedTaste] = useState(null);
     const [selectTasteErrorModal, setSelectTasteErrorModal] = useState(false);
@@ -35,24 +32,29 @@ function Product() {
     const [unavailableTastes] = useState(new Set());
     const navigator = useNavigate();
 
+    const {modelId} = useParams();
+
     useEffect(() => {
         fetchSingleProduct();
-        // eslint-disable-next-line
-    }, [product]);
+    }, []);
 
-    const fetchSingleProduct = async () => {
+    const fetchSingleProduct = async (newModelID) => {
+        let currentModalIDToFetch = null;
+
         try {
-            const modelId = localStorage.getItem("modelId");
-            if (modelId) {
-                setIsDataLoading(true)
-                const data = await getProductByModelId(modelId);
-                setProduct(data);
-                setSelectedProductFromStorage(data)
-                localStorage.removeItem("modelId");
-                localStorage.removeItem("sku");
-                unavailableTastes.clear()
-                setSelectedTaste(null)
+            setIsDataLoading(true)
+
+            if (newModelID) {
+                currentModalIDToFetch = newModelID;
+            } else {
+                currentModalIDToFetch = modelId;
             }
+
+            const data = await getProductByModelId(currentModalIDToFetch);
+            setProduct(data);
+            unavailableTastes.clear()
+            setSelectedTaste(null)
+
         } catch (error) {
             navigator("/internal-server-error");
             console.error('Error fetching current product:', error);
@@ -65,10 +67,8 @@ function Product() {
         }
     };
 
-    const loadNewProduct = (newProduct) => {
-        localStorage.setItem('sku', newProduct.sku);
-        localStorage.setItem('modelId', newProduct.modelId);
-        fetchSingleProduct()
+    const loadNewProduct = (modelId) => {
+        fetchSingleProduct(modelId)
     };
 
     const starData = {
@@ -355,7 +355,7 @@ function Product() {
                                                     <span className="fs-5">{product.weightKg} кг.</span>
                                                 </div>
                                             )}
-                                                      <div className="singleLineSwiper">
+                                            <div className="singleLineSwiper">
                                                 <span className="keyColorInfo me-2">
                                                     <MdOutlineMoneyOffCsred className="mb-1"/>Редовна цена
                                                 </span>
@@ -372,16 +372,17 @@ function Product() {
                                                     {product.discountedPrice.toFixed(2)} лв.
                                                 </span>
                                             </div>
-                                            </div>
                                         </div>
+                                    </div>
 
-                                        <div className="loadSingleProductButtonContainer">
-                                            <Button className="detailsButton" onClick={() => loadNewProduct(product)}>
-                                                <BiSolidDetail className="me-2 myGreenBlueColor"/>Виж детайли
-                                            </Button>
-                                        </div>
+                                    <div className="loadSingleProductButtonContainer">
+                                        <Button className="detailsButton"
+                                                onClick={() => loadNewProduct(product.modelId)}>
+                                            <BiSolidDetail className="me-2 myGreenBlueColor"/>Виж детайли
+                                        </Button>
+                                    </div>
                                 </SwiperSlide>
-                                ))}
+                            ))}
                         </Swiper>
                     </div>
 
@@ -446,7 +447,7 @@ function Product() {
             }
         </>
 
-);
+    );
 }
 
 export default Product;

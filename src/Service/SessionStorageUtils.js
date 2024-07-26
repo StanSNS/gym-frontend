@@ -1,20 +1,5 @@
 import {decryptData, encryptData} from "./SecurityService";
 
-const SELECTED_PRODUCT = 'gym_fit_selected_product';
-
-export const getSelectedProductFromStorage = () => {
-    const selectedProduct = sessionStorage.getItem(SELECTED_PRODUCT)
-
-    if (selectedProduct) {
-        return decryptData(selectedProduct)
-    }
-    return null;
-};
-
-export const setSelectedProductFromStorage = (selectedProduct) => {
-    sessionStorage.setItem(SELECTED_PRODUCT, encryptData(selectedProduct));
-};
-
 const CART_KEY = 'gym_fit_cart';
 
 export const getCartFromStorage = () => {

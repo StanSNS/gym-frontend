@@ -17,7 +17,7 @@ function App() {
                 <Header/>
                 <Routes>
                     <Route path="/" element={<><Shop/></>}/>
-                    <Route path="/product" element={<Product/>}/>
+                    <Route path="/product/:modelId" element={<Product/>}/>
                     <Route path="/faq" element={<FAQ/>}/>
                     <Route path="/about" element={<About/>}/>
                     <Route path="/terms-and-conditions" element={<TermsAndConditions/>}/>

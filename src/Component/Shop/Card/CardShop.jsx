@@ -8,14 +8,10 @@ import {MdOutlineMoneyOffCsred} from "react-icons/md";
 import {Link} from "react-router-dom";
 
 const CardShop = ({product}) => {
-    const handleCardClick = () => {
-        localStorage.setItem('modelId', product.modelId);
-    };
-
     return (
         <Col xl={3} lg={4} md={5} sm={12} className="mb-5">
-            <Link to={"/product"} className="linkUnderline">
-                <Card className="h-100 shopCard" onClick={() => handleCardClick()}>
+            <Link to={`/product/${product.modelId}`} className="linkUnderline">
+                <Card className="h-100 shopCard">
                     <div className="cardImageContainer">
                         {product.reducedTotalAmountPercentage && <span className="discountText"><FaBolt
                             className="mb-1"/> {product.reducedTotalAmountPercentage.toFixed(2)}%</span>}
