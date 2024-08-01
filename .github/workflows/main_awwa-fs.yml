@@ -34,6 +34,6 @@ jobs:
       with:
         app-name: AWWA-FS
         slot-name: Production
-        publish-profile: ${{ secrets.AZUREAPPSERVICE_PUBLISHPROFILE_F629B9568DF04FB98D9C6EE8B5FFAA86 }}
+        publish-profile: ${{ secrets.AZUREAPPSERVICE_PUBLISHPROFILE_B94CC57D6CDF4A74B891926BB85628E9 }}
         package: .
 
