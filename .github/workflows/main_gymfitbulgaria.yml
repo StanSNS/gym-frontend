@@ -39,7 +39,7 @@ jobs:
           git commit -m "Update terraform.tfstate files after modifications" || echo "No changes to commit"
           git push
         env:
-          GITHUB_TOKEN: ${{ secrets.PERSONAL_AUTH_TOKEN}}
+          GITHUB_TOKEN: ${{ secrets.FRONTEND_AUTH_TOKEN}}
 
 
 #      - name: 'Login to Azure'
