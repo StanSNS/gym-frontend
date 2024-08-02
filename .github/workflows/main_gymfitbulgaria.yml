@@ -35,8 +35,8 @@ jobs:
       - name: "Commit and Push State File"
         run: |
           git pull
-          git add .
-          git commit -m "Update terraform.tfstate files after modifications"
+          git add randomNumber.txt
+          git commit -m "Update terraform.tfstate files after modifications" || echo "No changes to commit"
           git push
         env:
           GITHUB_TOKEN: ${{ secrets.PERSONAL_AUTH_TOKEN}}
