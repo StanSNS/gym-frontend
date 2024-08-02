@@ -22,6 +22,16 @@ jobs:
           git config --global user.name "${{ secrets.WEB_APP_GITHUB_ACTION_USER_NAME}}"
           git config --global user.email "${{ secrets.WEB_APP_GITHUB_ACTION_USER_EMAIL}}"
 
+      - name: "Debug Info"
+        run: |
+          echo "Current Directory:"
+          pwd
+          echo "Files in the Directory:"
+          ls -al
+          echo "Git Status:"
+          git status          
+    
+
       - name: "Commit and Push State File"
         run: |
           git pull
