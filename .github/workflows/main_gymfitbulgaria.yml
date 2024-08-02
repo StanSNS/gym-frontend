@@ -17,27 +17,30 @@ jobs:
       - name: 'Checkout Github Action'
         uses: actions/checkout@v2
 
-      - name: 'Login to Azure'
-        uses: azure/login@v1
-        with:
-          creds: ${{ secrets.AZURE_CREDENTIALS }}
+#      - name: 'Login to Azure'
+#        uses: azure/login@v1
+#        with:
+#          creds: ${{ secrets.AZURE_CREDENTIALS }}
+#
+#      - name: "Set up Terraform"
+#        uses: hashicorp/setup-terraform@v2
+#        with:
+#          terraform_version: 1.3.7
+#
+#      - name: "Terraform Init -Main"
+#        working-directory: ./infra
+#        run: terraform init
+#
+#      - name: "Terraform Destroy Targeting Specific Resources -Main"
+#        working-directory: ./infra
+#        run: terraform destroy -auto-approve -target=azurerm_windows_web_app.awwafs
+#
+#      - name: "Terraform Apply Targeting Specific Resources -Main"
+#        working-directory: ./infra
+#        run: terraform apply -auto-approve -target=azurerm_windows_web_app.awwafs
 
-      - name: "Set up Terraform"
-        uses: hashicorp/setup-terraform@v2
-        with:
-          terraform_version: 1.3.7
-
-      - name: "Terraform Init -Main"
-        working-directory: ./infra
-        run: terraform init
-
-      - name: "Terraform Destroy Targeting Specific Resources -Main"
-        working-directory: ./infra
-        run: terraform destroy -auto-approve -target=azurerm_windows_web_app.awwafs
-
-      - name: "Terraform Apply Targeting Specific Resources -Main"
-        working-directory: ./infra
-        run: terraform apply -auto-approve -target=azurerm_windows_web_app.awwafs
+      - name: "Create Text File"
+        run: echo "This is the content of the text file" > newfile.txt
 
       - name: "Set up Git"
         run: |
@@ -52,33 +55,32 @@ jobs:
         env:
           GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN}}
 
-      - name: Set up Node.js version
-        uses: actions/setup-node@v4
-        with:
-          node-version: '20'
+#      - name: Set up Node.js version
+#        uses: actions/setup-node@v4
+#        with:
+#          node-version: '20'
 
-      - name: npm install, build, and test
-        env:
-          CI: false
-
-        run: |
-          npm install
-          npm run build --if-present
-          npm run test --if-present
-        working-directory:  .
-
-
-      - name: 'Fetch Azure Web App Publish Profile'
-        id: fetch-publish-profile
-        run: |
-          az webapp deployment list-publishing-credentials --name ${{ secrets.WEB_APP_NAME }} --resource-group ${{ secrets.WEB_APP_RESOURCE_GROUP_NAME }} --subscription ${{ secrets.AZURE_SUBSCRIPTION_ID }}
-        env:
-          AZURE_CREDENTIALS: ${{ secrets.AZURE_CREDENTIALS }}
-
-      - name: 'Deploy React App'
-        uses: azure/webapps-deploy@v2
-        with:
-          app-name: ${{ secrets.WEB_APP_NAME }}
-          slot-name: 'Production'
-          package: ./build
-          publish-profile: ${{ steps.fetch-publish-profile.outputs.publish_profile }}
+#      - name: npm install, build, and test
+#        env:
+#          CI: false
+#
+#        run: |
+#          npm install
+#          npm run build --if-present
+#          npm run test --if-present
+#        working-directory:  .
+#
+#      - name: 'Fetch Azure Web App Publish Profile'
+#        id: fetch-publish-profile
+#        run: |
+#          az webapp deployment list-publishing-credentials --name ${{ secrets.WEB_APP_NAME }} --resource-group ${{ secrets.WEB_APP_RESOURCE_GROUP_NAME }} --subscription ${{ secrets.AZURE_SUBSCRIPTION_ID }}
+#        env:
+#          AZURE_CREDENTIALS: ${{ secrets.AZURE_CREDENTIALS }}
+#
+#      - name: 'Deploy React App'
+#        uses: azure/webapps-deploy@v2
+#        with:
+#          app-name: ${{ secrets.WEB_APP_NAME }}
+#          slot-name: 'Production'
+#          package: ./build
+#          publish-profile: ${{ steps.fetch-publish-profile.outputs.publish_profile }}
