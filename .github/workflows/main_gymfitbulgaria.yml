@@ -13,8 +13,7 @@ jobs:
     runs-on: ubuntu-latest
 
     steps:
-      # checkout the repo
-      - name: 'Checkout Github Action'
+      - name: 'Checkout Terraform Repo'
         uses: actions/checkout@v2
 
 #      - name: 'Login to Azure'
