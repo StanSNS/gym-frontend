@@ -38,8 +38,9 @@ jobs:
 #        working-directory: ./infra
 #        run: terraform apply -auto-approve -target=azurerm_windows_web_app.awwafs
 
-      - name: "Create Text File"
-        run: echo "This is the content of the 4text4 file" > newfile44.txt
+      - name: Generate random number and create text file
+        run: |
+          echo $RANDOM > randomNumber.txt
 
       - name: "Set up Git"
         run: |
