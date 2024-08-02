@@ -38,9 +38,4 @@ resource "azurerm_windows_web_app" "awwafs" {
     }
     always_on = false
   }
-
-  app_settings = {
-    REACT_APP_BACKEND_URL              = "https://gymfitbulgaria-api.azurewebsites.net/"
-    REACT_APP_SUPER_SECRET_ENCRYPT_KEY = "supersecret"
-  }
 }

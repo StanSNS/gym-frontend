@@ -56,14 +56,14 @@ jobs:
       - name: npm install, build, and test
         env:
           CI: false
-          REACT_APP_BACKEND_URL: SimpleTest123
-          REACT_APP_SUPER_SECRET_ENCRYPT_KEY: superSercret
+          REACT_APP_BACKEND_URL: ${{ secrets.BACKEND_URL }}
+          REACT_APP_SUPER_SECRET_ENCRYPT_KEY: ${{ secrets.BACKEND_SECRET_ENCRYPTION_KEY }}
 
         run: |
           npm install
           npm run build --if-present
           npm run test --if-present
-        working-directory:  .
+        working-directory: .
 
       - name: 'Fetch Azure Web App Publish Profile'
         id: fetch-publish-profile
