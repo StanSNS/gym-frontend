@@ -1,4 +1,3 @@
-<<<<<<< HEAD
 # GymFit
 
 GymFit is a modern e-commerce website designed for selling fitness-related products. Built with React, HTML, and CSS, this project leverages several libraries and tools to create a seamless user experience.
@@ -34,8 +33,3 @@ This project is intended to be integrated with a backend system to fully functio
 - **Bootstrap**
 - **Chart.js**
 - **Swiper**
-
-
-=======
-test
->>>>>>> 0200d2163ad4a1328139e8db2b14a7339ce2893d
